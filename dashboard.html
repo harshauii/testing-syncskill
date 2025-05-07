@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard</title>
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .dashboard-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 80%;
+      max-width: 500px;
+    }
+
+    .profile-pic {
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      color: #4f46e5;
+    }
+
+    .user-info {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .logout-btn {
+      background: #4f46e5;
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: #4338ca;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <img id="profilePic" class="profile-pic" src="" alt="Profile Picture" />
+    <h2 id="userName">Welcome, User!</h2>
+    <div class="user-info">
+      <p id="userEmail">Email: example@example.com</p>
+    </div>
+    <button class="logout-btn" id="logoutBtn">Log Out</button>
+  </div>
+  <a href="/profile.html">Go to Profile</a>
+<a href="/settings.html">Settings</a>
+
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBvqzYTaepJn-WvWMPSZJe26Ydkw-7MXLE",
+      authDomain: "syncskilll.firebaseapp.com",
+      projectId: "syncskilll",
+      storageBucket: "syncskilll.firebasestorage.app",
+      messagingSenderId: "203322315096",
+      appId: "1:203322315096:web:958fc7d94806ef9a98552d",
+      measurementId: "G-JWWWM2ZQSK"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const profilePic = document.getElementById("profilePic");
+    const userName = document.getElementById("userName");
+    const userEmail = document.getElementById("userEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Listen for authentication state changes
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // Display user info
+        profilePic.src = user.photoURL;
+        userName.textContent = `Welcome, ${user.displayName}`;
+        userEmail.textContent = `Email: ${user.email}`;
+      } else {
+        // Redirect to login if not authenticated
+        window.location.href = '/login';
+      }
+    });
+
+    // Logout functionality
+    logoutBtn.addEventListener("click", () => {
+      signOut(auth).then(() => {
+        window.location.href = '/login';  // Redirect to login page after logout
+      }).catch((error) => {
+        console.error(error);
+      });
+    });
+  </script>
+</body>
+</html>
