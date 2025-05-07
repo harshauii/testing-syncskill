@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Certificate</title>
+  <style>
+    /* Reuse navbar styles from dashboard */
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --background: #f4f4f9;
+      --card-bg: #fff;
+    }
+
+    /* Navbar styles (same as dashboard) */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 4rem;
+      background: var(--card-bg);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    /* ... Include all navbar styles from previous dashboard ... */
+
+    /* Main Content Styles */
+    .main-content {
+      margin-top: 6rem;
+      padding: 2rem 4rem;
+    }
+
+    .certificate-card {
+      background: var(--card-bg);
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .course-code-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+    }
+
+    .error-message {
+      color: #ef4444;
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    /* Success animation styles */
+    .success-animation {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .checkmark {
+      width: 100px;
+      height: 100px;
+      stroke-width: 4;
+      stroke: #22c55e;
+      margin: 2rem auto;
+      animation: scaleIn 0.3s ease forwards;
+    }
+
+    @keyframes scaleIn {
+      0% { transform: scale(0); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Same Navbar as Dashboard -->
+  <nav class="navbar">
+    <div class="logo">SyncSkill</div>
+    <div class="profile-section">
+      <div class="profile-container">
+        <img id="profilePicNav" class="profile-pic" src="" alt="Profile Picture">
+        <div class="profile-dropdown">
+          <div class="profile-info">
+            <h3 id="dropdownName">John Doe</h3>
+            <p id="dropdownEmail">john@example.com</p>
+          </div>
+          <button class="logout-btn" id="dropdownLogout">Log Out</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-content">
+    <div class="certificate-card">
+      <!-- Course Code Verification -->
+      <div class="code-verification" id="codeVerification">
+        <h2>Enter Course Code</h2>
+        <div class="input-group">
+          <input type="text" id="courseCode" placeholder="Enter 6-digit course code">
+          <div class="error-message" id="codeError">Invalid course code</div>
+        </div>
+        <button class="primary-btn" onclick="verifyCourseCode()">Verify</button>
+      </div>
+
+      <!-- Certificate Form (Initially Hidden) -->
+      <form id="certificateForm" class="certificate-form" style="display: none;">
+        <div class="input-group">
+          <label>Full Name</label>
+          <input type="text" id="fullName" required>
+        </div>
+
+        <div class="input-group">
+          <label>Email Address</label>
+          <input type="email" id="userEmail" required>
+        </div>
+
+        <button type="submit" class="primary-btn">Request Certificate</button>
+      </form>
+
+      <!-- Success Animation -->
+      <div class="success-animation" id="successAnimation">
+        <svg class="checkmark" viewBox="0 0 52 52">
+          <circle cx="26" cy="26" r="25" fill="none"/>
+          <path fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+        <h3>Certificate Request Submitted!</h3>
+        <p>We'll process your request within 24 hours</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // Firebase Auth (same as dashboard)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+    const firebaseConfig = { /* Your config */ };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Navbar Profile Handling
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById('profilePicNav').src = user.photoURL;
+        document.getElementById('dropdownName').textContent = user.displayName;
+        document.getElementById('dropdownEmail').textContent = user.email;
+      } else {
+        window.location.href = '/login';
+      }
+    });
+
+    // Certificate Request Logic
+    function verifyCourseCode() {
+      const codeInput = document.getElementById('courseCode');
+      const errorMessage = document.getElementById('codeError');
+      
+      if (codeInput.value === '270404') {
+        document.getElementById('codeVerification').style.display = 'none';
+        document.getElementById('certificateForm').style.display = 'block';
+      } else {
+        errorMessage.style.display = 'block';
+        codeInput.classList.add('error');
+      }
+    }
+
+    document.getElementById('certificateForm').onsubmit = async (e) => {
+      e.preventDefault();
+      
+      // Submit form data
+      const formData = {
+        name: document.getElementById('fullName').value,
+        email: document.getElementById('userEmail').value,
+        courseCode: '270404'
+      };
+
+      // Show success animation
+      document.getElementById('certificateForm').style.display = 'none';
+      document.getElementById('successAnimation').style.display = 'block';
+
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        document.getElementById('successAnimation').style.display = 'none';
+        document.getElementById('codeVerification').style.display = 'block';
+        document.getElementById('courseCode').value = '';
+      }, 3000);
+    };
+
+    // Error handling for input
+    document.getElementById('courseCode').addEventListener('input', (e) => {
+      e.target.classList.remove('error');
+      document.getElementById('codeError').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
