@@ -247,6 +247,22 @@
         min-width: 200px;
       }
     }
+    .certificate-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+#codeVerification {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.error {
+    border-color: var(--error) !important;
+    background: #fee2e2;
+}
 </style>
 </head>
 <body>
@@ -335,47 +351,56 @@
       }
     });
 
-    // Certificate Request Logic
     function verifyCourseCode() {
-      const codeInput = document.getElementById('courseCode');
-      const errorMessage = document.getElementById('codeError');
-      
-      if (codeInput.value === '270404') {
-        document.getElementById('codeVerification').style.display = 'none';
-        document.getElementById('certificateForm').style.display = 'block';
-      } else {
-        errorMessage.style.display = 'block';
-        codeInput.classList.add('error');
-      }
+        const codeInput = document.getElementById('courseCode');
+        const errorMessage = document.getElementById('codeError');
+        const codeValue = codeInput.value.trim();
+
+        console.log('Verifying code:', codeValue); // Debug log
+
+        if (codeValue === '270404') {
+            document.getElementById('codeVerification').style.display = 'none';
+            document.getElementById('certificateForm').style.display = 'flex';
+            errorMessage.style.display = 'none';
+            codeInput.classList.remove('error');
+        } else {
+            errorMessage.style.display = 'block';
+            codeInput.classList.add('error');
+            console.error('Invalid code entered'); // Debug log
+        }
     }
 
-    document.getElementById('certificateForm').onsubmit = async (e) => {
-      e.preventDefault();
-      
-      // Submit form data
-      const formData = {
-        name: document.getElementById('fullName').value,
-        email: document.getElementById('userEmail').value,
-        courseCode: '270404'
-      };
+    // Form submission handling
+    document.getElementById('certificateForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        console.log('Form submitted'); // Debug log
 
-      // Show success animation
-      document.getElementById('certificateForm').style.display = 'none';
-      document.getElementById('successAnimation').style.display = 'block';
+        // Submit form data
+        const formData = {
+            name: document.getElementById('fullName').value.trim(),
+            email: document.getElementById('userEmail').value.trim(),
+            courseCode: '270404'
+        };
 
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        document.getElementById('successAnimation').style.display = 'none';
-        document.getElementById('codeVerification').style.display = 'block';
-        document.getElementById('courseCode').value = '';
-      }, 3000);
-    };
+        console.log('Submitting:', formData); // Debug log
 
-    // Error handling for input
-    document.getElementById('courseCode').addEventListener('input', (e) => {
-      e.target.classList.remove('error');
-      document.getElementById('codeError').style.display = 'none';
+        // Show success animation
+        document.getElementById('certificateForm').style.display = 'none';
+        document.getElementById('successAnimation').style.display = 'block';
+
+        // Reset form after 3 seconds
+        setTimeout(() => {
+            document.getElementById('successAnimation').style.display = 'none';
+            document.getElementById('codeVerification').style.display = 'block';
+            document.getElementById('courseCode').value = '';
+        }, 3000);
     });
-  </script>
+
+    // Input validation
+    document.getElementById('courseCode').addEventListener('input', function(e) {
+        this.classList.remove('error');
+        document.getElementById('codeError').style.display = 'none';
+    });
+</script>
 </body>
 </html>
