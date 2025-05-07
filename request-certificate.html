@@ -5,15 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Request Certificate</title>
   <style>
-    /* Reuse navbar styles from dashboard */
     :root {
       --primary: #4f46e5;
       --primary-hover: #4338ca;
+      --success: #22c55e;
+      --error: #ef4444;
       --background: #f4f4f9;
       --card-bg: #fff;
+      --text: #0f172a;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
-    /* Navbar styles (same as dashboard) */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* Navbar Styles */
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -27,7 +43,81 @@
       z-index: 1000;
     }
 
-    /* ... Include all navbar styles from previous dashboard ... */
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .profile-section {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .profile-container {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .profile-pic {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-container:hover .profile-pic {
+      transform: scale(1.1);
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: 120%;
+      right: 0;
+      background: var(--card-bg);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      min-width: 250px;
+    }
+
+    .profile-container:hover .profile-dropdown {
+      opacity: 1;
+      visibility: visible;
+      top: 100%;
+    }
+
+    .profile-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .profile-info p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .logout-btn {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: var(--primary-hover);
+    }
 
     /* Main Content Styles */
     .main-content {
@@ -41,7 +131,7 @@
       margin: 2rem auto;
       padding: 2rem;
       border-radius: 1.5rem;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow);
     }
 
     .course-code-form {
@@ -66,26 +156,54 @@
       border: 2px solid #e2e8f0;
       border-radius: 0.75rem;
       font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    .input-group input.error {
+      border-color: var(--error);
     }
 
     .error-message {
-      color: #ef4444;
+      color: var(--error);
       margin-top: 0.5rem;
       display: none;
     }
 
-    /* Success animation styles */
+    .primary-btn {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .primary-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Success Animation */
     .success-animation {
       display: none;
       text-align: center;
       padding: 2rem;
+      animation: fadeIn 0.3s ease;
     }
 
     .checkmark {
       width: 100px;
       height: 100px;
       stroke-width: 4;
-      stroke: #22c55e;
+      stroke: var(--success);
       margin: 2rem auto;
       animation: scaleIn 0.3s ease forwards;
     }
@@ -94,7 +212,42 @@
       0% { transform: scale(0); }
       100% { transform: scale(1); }
     }
-  </style>
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem 2rem;
+      }
+
+      .main-content {
+        padding: 2rem;
+        margin-top: 5rem;
+      }
+
+      .certificate-card {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 1rem;
+      }
+
+      .main-content {
+        padding: 1rem;
+      }
+
+      .profile-dropdown {
+        min-width: 200px;
+      }
+    }
+</style>
 </head>
 <body>
   <!-- Same Navbar as Dashboard -->
