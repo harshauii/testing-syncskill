@@ -1234,7 +1234,7 @@ const modal = popup.firstElementChild;
 
 function showPopup() {
   popup.style.display = 'block';
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow = '';
   document.body.style.paddingRight = window.innerWidth - document.documentElement.clientWidth + 'px';
   requestAnimationFrame(() => {
     modal.style.transform = 'translateY(-50%) scale(1)';
