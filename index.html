@@ -1,13 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Premium Learning Features</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Carousel UI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-900: #37be72;
+            --secondary-900: #1A1A1A;
+            --surface-100: #F8F9FA;
+            --text-primary: #1A1A1A;
+            --text-inverse: #FFFFFF;
+            --transition: cubic-bezier(0.33, 1, 0.68, 1);
+            --shadow-lg: 0 24px 48px -12px rgba(0,0,0,0.18);
+            --radius-2xl: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+
+        .carousel-container {
+            max-width: 1920px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-2xl);
+            isolation: isolate;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 1s var(--transition);
+        }
+
+        .carousel-slide {
+            position: relative;
+            min-width: 100%;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+
+        .slide-media {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 12%;
+            left: 8%;
+            max-width: min(600px, 45%);
+            color: var(--text-primary);
+            z-index: 2;
+            background: rgba(255,255,255,0.9);
+            padding: 2rem;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s var(--transition) 0.2s;
+        }
+
+        .slide-title {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2rem, 4vw + 1rem, 4rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            text-wrap: balance;
+        }
+
+        .slide-description {
+            font-size: clamp(1rem, 1.2vw + 0.5rem, 1.25rem);
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            max-width: 32ch;
+        }
+
+        .slide-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 2.5rem;
+            background: var(--primary-900);
+            color: var(--text-inverse);
+            border-radius: 100px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s var(--transition);
+        }
+
+        .carousel-controls {
+            position: absolute;
+            bottom: 8%;
+            right: 8%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 24px;
+            z-index: 3;
+        }
+
+        .controls-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .control-button {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(12px);
+            cursor: pointer;
+            transition: all 0.3s var(--transition);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 1rem;
+            position: relative;
+            right: 28px; /* Perfect centering offset */
+        }
+
+        .pagination-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s var(--transition);
+        }
+
+        .pagination-dot.active {
+            background: var(--primary-900);
+            transform: scale(1.4);
+        }
+
+        @media (max-width: 1024px) {
+            .carousel-slide {
+                aspect-ratio: 3/4;
+            }
+            
+            .slide-content {
+                max-width: 80%;
+                left: 5%;
+                bottom: 10%;
+                padding: 1.5rem;
+            }
+            
+            .carousel-controls {
+                bottom: 15%;
+                right: 5%;
+            }
+            
+            .pagination {
+                right: 24px; /* Adjusted offset */
+            }
+        }
+
+        @media (max-width: 640px) {
+            .slide-content {
+                max-width: 90%;
+                left: 5%;
+                bottom: 5%;
+                padding: 1.25rem;
+            }
+            
+            .slide-title {
+                font-size: clamp(1.75rem, 6vw, 2.5rem);
+            }
+            
+            .carousel-controls {
+                bottom: 10%;
+                right: 5%;
+                gap: 20px;
+            }
+            
+            .control-button {
+                width: 48px;
+                height: 48px;
+            }
+            
+            .pagination {
+                right: 20px; /* Mobile offset */
+            }
+        }
+
+        .carousel-slide.active .slide-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
+<body>
+
+
+
+
+
 <!-- Navbar Container -->
 <nav style="position: relative; z-index: 1000; background: #ffffff; box-shadow: 0 2px 15px rgba(0,0,0,0.1); font-family: 'Segoe UI', system-ui; padding: 8px 24px; display: flex; justify-content: space-between; align-items: center; min-height: 52px;">
 
@@ -94,46 +303,22 @@
             </svg>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    <!-- Desktop Auth Buttons -->
     <div class="auth-buttons" style="flex: 1; display: flex; justify-content: flex-end; gap: 12px;">
-        <a href="login.html" style="text-decoration: none;">
-        <button class="auth-btn login-btn" 
-                style="border: 1.5px solid #37be72; 
-                       background: transparent; 
-                       color: #259456;
-                       padding: 10px 24px;
-                       border-radius: 24px;
-                       font-weight: 600;
-                       cursor: pointer;
-                       transition: all 0.25s ease;
-                       position: relative;
-                       overflow: hidden;">
-            Login
-            <span style="position: absolute;
-                        inset: 0;
-                        background: rgba(55,190,114,0.1);
-                        opacity: 0;
-                        transition: opacity 0.2s ease;"></span>
-        </button>
+                <button class="auth-btn login-btn" 
+        style="border: 1.5px solid #37be72;
+               background: transparent;
+               color: #259456;
+               padding: 10px 24px;
+               border-radius: 24px;
+               font-weight: 600;
+               cursor: pointer;
+               transition: all 0.25s ease;"
+        onclick="location.href='login.html';">
+    Login
+</button>
+
+
         <button class="auth-btn signup-btn" 
                 style="background: linear-gradient(135deg, #37be72 0%, #259456 100%); 
                        color: white;
@@ -151,7 +336,8 @@
                         inset: 0;
                         background: rgba(255,255,255,0.1);
                         opacity: 0;
-                        transition: opacity 0.2s ease;"></span>
+                        transition: opacity 0.2s ease;"
+onclick="location.href='login.html';"></span>
         </button>
     </div>
 
@@ -169,28 +355,6 @@
         </button>
     </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu" 
          style="display: none; position: fixed; top: 0; right: 0; width: 85%; height: 100%; background: rgba(255,255,255,0.98); z-index: 9999; padding: 20px; transform: translateX(100%); backdrop-filter: blur(8px); box-shadow: -4px 0 15px rgba(0,0,0,0.05);"
@@ -226,9 +390,31 @@
 
             <!-- Mobile Auth Buttons -->
             <div style="padding: 20px 0; border-top: 1px solid #f0f0f0;">
-                <button class="mobile-auth-btn" style="background: transparent; color: #259456; border: 1.5px solid #37be72;">Login</button>
-                <button class="mobile-auth-btn" style="background: #37be72; color: white; margin-top: 12px;">Sign Up Free</button>
-            </div>
+    <!-- Login Button with Redirection -->
+    <button class="mobile-auth-btn" 
+            style="background: transparent; 
+                   color: #259456; 
+                   border: 1.5px solid #37be72; 
+                   padding: 10px 20px; 
+                   border-radius: 24px; 
+                   font-weight: 600;" 
+            onclick="window.location.href = 'login.html';">
+        Login
+    </button>
+
+    <!-- Sign Up Free Button with Redirection -->
+    <button class="mobile-auth-btn" 
+            style="background: #37be72; 
+                   color: white; 
+                   margin-top: 12px; 
+                   padding: 10px 20px; 
+                   border-radius: 24px; 
+                   font-weight: 600;" 
+            onclick="window.location.href = 'signup.html';">
+        Sign Up Free
+    </button>
+</div>
+
         </div>
     </div>
 
@@ -320,12 +506,137 @@
             }
         }
     </style>
+<script>
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuButton = document.querySelector(".mobile-icon-btn[aria-label='Menu']");
+    
+    // Check if the menu is open or closed
+    if (mobileMenu.style.transform === "translateX(100%)") {
+        mobileMenu.style.transform = "translateX(0)";
+        mobileMenu.style.display = "block";
+        menuButton.setAttribute("aria-expanded", "true");
+    } else {
+        mobileMenu.style.transform = "translateX(100%)";
+        menuButton.setAttribute("aria-expanded", "false");
+        setTimeout(() => mobileMenu.style.display = "none", 300); // Add a delay before hiding it completely
+    }
+}
+
+</script>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="carousel-container">
+        <div class="carousel-track">
+            <!-- Slide 1 -->
+            <div class="carousel-slide active">
+                <picture>
+                    <source media="(max-width: 640px)" srcset="mobile.png">
+                    <source media="(min-width: 641px)" srcset="desktop.png">
+                    <img src="fallback-1.jpg" alt="Innovation" class="slide-media" loading="lazy" decoding="async">
+                </picture>
+                <div class="slide-content">
+                    <h1 class="slide-title">Next-Gen Solutions</h1>
+                    <p class="slide-description">Innovative approaches for modern challenges</p>
+                    <a href="#" class="slide-cta">
+                        Explore Now
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-slide">
+                <picture>
+                    <source media="(max-width: 640px)" srcset="mobile.png">
+                    <source media="(min-width: 641px)" srcset="desktop.png">
+                    <img src="fallback-2.jpg" alt="Sustainability" class="slide-media" loading="lazy" decoding="async">
+                </picture>
+                <div class="slide-content">
+                    <h1 class="slide-title">Eco Innovation</h1>
+                    <p class="slide-description">Sustainable solutions for tomorrow</p>
+                    <a href="#" class="slide-cta">
+                        Discover More
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-controls">
+            <div class="controls-group">
+                <button class="control-button prev" aria-label="Previous slide">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                <button class="control-button next" aria-label="Next slide">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="pagination">
+                <div class="pagination-dot active" aria-label="Slide 1"></div>
+                <div class="pagination-dot" aria-label="Slide 2"></div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Mega Menu Handling
+    document.addEventListener('DOMContentLoaded', () => {
         const exploreBtn = document.getElementById('explore-btn');
         const megaMenu = document.getElementById('mega-menu');
         const arrowIcon = document.getElementById('arrow-icon');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileElements = document.getElementById('mobile-elements');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');  // Make sure to add a button with this ID
         let menuTimeout;
 
         function showMegaMenu() {
@@ -343,11 +654,8 @@
             }, 250);
         }
 
-        // Mobile Menu Handling
         function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobile-menu');
             const isActive = mobileMenu.style.transform === 'translateX(0px)';
-            
             if (!isActive) {
                 mobileMenu.style.display = 'block';
                 setTimeout(() => {
@@ -363,22 +671,184 @@
             }
         }
 
-        // Event Listeners
-        exploreBtn.addEventListener('mouseenter', showMegaMenu);
-        exploreBtn.addEventListener('mouseleave', startMenuHide);
-        megaMenu.addEventListener('mouseenter', () => clearTimeout(menuTimeout));
-        megaMenu.addEventListener('mouseleave', startMenuHide);
-
-        // Responsive Handling
         function checkResponsive() {
-            const mobileElements = document.getElementById('mobile-elements');
-            mobileElements.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+            if (mobileElements) {
+                mobileElements.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+            }
+        }
+
+        // Event listeners for Mega Menu
+        if (exploreBtn && megaMenu && arrowIcon) {
+            exploreBtn.addEventListener('mouseenter', showMegaMenu);
+            exploreBtn.addEventListener('mouseleave', startMenuHide);
+            megaMenu.addEventListener('mouseenter', () => clearTimeout(menuTimeout));
+            megaMenu.addEventListener('mouseleave', startMenuHide);
+        }
+
+        // Event listener for Mobile Menu button
+        if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', toggleMobileMenu);  // Ensures the button works
         }
 
         window.addEventListener('resize', checkResponsive);
         checkResponsive();
-    </script>
-</nav>
+    });
+
+    // Carousel Script (Unchanged)
+    class PremiumCarousel {
+        constructor(container) {
+            this.DOM = {
+                container,
+                track: container.querySelector('.carousel-track'),
+                slides: Array.from(container.querySelectorAll('.carousel-slide')),
+                prevBtn: container.querySelector('.prev'),
+                nextBtn: container.querySelector('.next'),
+                dots: Array.from(container.querySelectorAll('.pagination-dot'))
+            };
+
+            this.state = {
+                currentIndex: 0,
+                isAnimating: false,
+                totalSlides: this.DOM.slides.length,
+                autoPlayInterval: null,
+                autoPlayDelay: 8000
+            };
+
+            this.init();
+        }
+
+        init() {
+            this.setupEventListeners();
+            this.startAutoPlay();
+        }
+
+        setupEventListeners() {
+            this.DOM.prevBtn.addEventListener('click', () => this.prevSlide());
+            this.DOM.nextBtn.addEventListener('click', () => this.nextSlide());
+
+            this.DOM.dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => this.goToSlide(index));
+            });
+
+            let touchStartX = 0;
+            this.DOM.container.addEventListener('touchstart', e => {
+                touchStartX = e.touches[0].clientX;
+            });
+
+            this.DOM.container.addEventListener('touchend', e => {
+                const touchEndX = e.changedTouches[0].clientX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    diff > 0 ? this.nextSlide() : this.prevSlide();
+                }
+            });
+
+            document.addEventListener('keydown', e => {
+                if (e.key === 'ArrowLeft') this.prevSlide();
+                if (e.key === 'ArrowRight') this.nextSlide();
+            });
+        }
+
+        updateUI() {
+            this.DOM.slides.forEach(slide => slide.classList.remove('active'));
+            this.DOM.dots.forEach(dot => dot.classList.remove('active'));
+
+            this.DOM.slides[this.state.currentIndex].classList.add('active');
+            this.DOM.dots[this.state.currentIndex].classList.add('active');
+        }
+
+        nextSlide() {
+            if (this.state.isAnimating) return;
+            this.state.isAnimating = true;
+            this.state.currentIndex = (this.state.currentIndex + 1) % this.state.totalSlides;
+            this.animateTransition();
+        }
+
+        prevSlide() {
+            if (this.state.isAnimating) return;
+            this.state.isAnimating = true;
+            this.state.currentIndex = (this.state.currentIndex - 1 + this.state.totalSlides) % this.state.totalSlides;
+            this.animateTransition();
+        }
+
+        goToSlide(index) {
+            if (this.state.isAnimating || index === this.state.currentIndex) return;
+            this.state.isAnimating = true;
+            this.state.currentIndex = index;
+            this.animateTransition();
+        }
+
+        animateTransition() {
+            this.DOM.track.style.transform = `translateX(-${this.state.currentIndex * 100}%)`;
+            this.updateUI();
+
+            setTimeout(() => {
+                this.state.isAnimating = false;
+            }, 1000);
+        }
+
+        startAutoPlay() {
+            this.state.autoPlayInterval = setInterval(() => {
+                if (!this.state.isAnimating) this.nextSlide();
+            }, this.state.autoPlayDelay);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const carouselContainer = document.querySelector('.carousel-container');
+        if (carouselContainer) {
+            new PremiumCarousel(carouselContainer);
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <body style="font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1f5c3a; line-height: 1.6; margin: 0; padding: 0;">
   
   <section style="display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; padding: 80px 40px; max-width: 1400px; margin: 0 auto; font-family: 'Inter', sans-serif;">
@@ -508,11 +978,23 @@
       }
     }
   </style>
+</main>
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+  
 
 
 
@@ -646,6 +1128,86 @@
         e.preventDefault();
         // Add your newsletter submission logic here
     });
+</script>
+<div id="popup" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background-color:rgba(0,0,0,0.4); z-index:1000; backdrop-filter:blur(3px); font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; line-height:1.6;">
+  <div role="dialog" aria-labelledby="popupHeading" aria-modal="true" style="position:relative; background:#f8f9fa; padding:2.5rem 1.5rem 1.5rem; width:min(90%, 560px); margin:10vh auto; border-radius:1rem; box-shadow:0 12px 24px rgba(0,0,0,0.15); transform:translateY(-20px); opacity:0; transition:all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);">
+    
+    <!-- Close Button -->
+    <button aria-label="Close dialog" onclick="document.getElementById('popup').style.display='none'" 
+         style="position:absolute; top:-12px; right:-12px; background:#dc3545; width:2.5rem; height:2.5rem; border-radius:50%; color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; border:none; font-size:1.5rem; line-height:1; transition:all 0.2s ease;">
+      &times;
+    </button>
+
+    <div style="max-width:28rem; margin:0 auto;">
+      <!-- Header Section -->
+      <div style="text-align:center; margin-bottom:1.75rem;">
+        <span style="display:inline-block; background:#e9ecef; padding:0.5rem 1rem; border-radius:2rem; font-size:0.875rem; color:#495057; margin-bottom:1.25rem;">
+          🚧 Alpha Preview
+        </span>
+        <h1 id="popupHeading" style="margin:0 0 0.75rem 0; color:#212529; font-size:clamp(1.5rem, 2.5vw, 2rem); font-weight:700; line-height:1.3;">
+          👋 Welcome to <span style="color:#0d6efd;">SyncSkill</span>
+        </h1>
+        <p style="color:#6c757d; font-size:clamp(0.875rem, 1.25vw, 1rem); margin:0 auto; max-width:32ch;">
+          Your gateway to collaborative development
+        </p>
+      </div>
+
+      <!-- Content Section -->
+      <div style="background:white; padding:1.5rem; border-radius:0.75rem; box-shadow:0 2px 8px rgba(0,0,0,0.05); text-align:left; margin-bottom:2rem;">
+        <div style="display:flex; gap:1rem; margin-bottom:1.25rem;">
+          <div style="flex:0 0 2rem; color:#0d6efd; font-size:1.25rem;">🔐</div>
+          <div>
+            <h2 style="margin:0 0 0.375rem 0; color:#212529; font-size:1.125rem; font-weight:600;">
+              Authentication Required
+            </h2>
+            <p style="margin:0; color:#6c757d; font-size:0.9375rem; line-height:1.5;">
+              To contribute to this alpha build, please verify your credentials through our secure login portal.
+            </p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:1rem;">
+          <div style="flex:0 0 2rem; color:#0d6efd; font-size:1.25rem;">⚠️</div>
+          <div>
+            <h2 style="margin:0 0 0.375rem 0; color:#212529; font-size:1.125rem; font-weight:600;">
+              Development Notice
+            </h2>
+            <p style="margin:0; color:#6c757d; font-size:0.9375rem; line-height:1.5;">
+              Features may be unstable. Maintain regular backups of your work.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Section -->
+      <div style="display:flex; flex-direction:column; gap:1rem;">
+        <button onclick="window.location.href='login.html'" 
+                style="padding:0.875rem 1.75rem; background:#0d6efd; color:white; border:none; border-radius:0.5rem; cursor:pointer; font-size:1rem; font-weight:500; transition:all 0.2s ease; width:100%;">
+          Continue to Secure Login
+        </button>
+        <button onclick="document.getElementById('popup').style.display='none'" 
+                style="padding:0.875rem 1.75rem; background:transparent; color:#6c757d; border:1px solid #dee2e6; border-radius:0.5rem; cursor:pointer; font-size:1rem; font-weight:500; transition:all 0.2s ease; width:100%;">
+          Explore Public Documentation
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Show popup with animation
+const popup = document.getElementById('popup');
+const modal = popup.firstElementChild;
+popup.style.display = 'block';
+setTimeout(() => {
+  modal.style.transform = 'translateY(0)';
+  modal.style.opacity = '1';
+}, 10);
+
+// Close on ESC press
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') popup.style.display = 'none';
+});
 </script>
 </body>
 </html>
