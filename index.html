@@ -522,62 +522,118 @@
         </div>
     </div>
 
-    <script>
-        // Desktop Mega Menu
-        let menuTimeout;
-        const megaMenu = document.getElementById('megaMenu');
+  document.addEventListener('DOMContentLoaded', () => {
+    // Desktop Mega Menu Handling
+    const megaMenu = document.getElementById('megaMenu');
+    let menuTimer;
+    
+    // Mobile Menu Elements
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    let isMobileMenuOpen = false;
 
-        function showMegaMenu() {
-            clearTimeout(menuTimeout);
+    // Desktop Menu Functions
+    const showMegaMenu = () => {
+        clearTimeout(menuTimer);
+        if(window.innerWidth > 768) {
+            megaMenu.style.transform = 'translateY(0)';
             megaMenu.style.opacity = '1';
-            megaMenu.style.visibility = 'visible';
+            megaMenu.style.pointerEvents = 'auto';
         }
+    };
 
-        function hideMegaMenu() {
-            menuTimeout = setTimeout(() => {
+    const hideMegaMenu = () => {
+        if(window.innerWidth > 768) {
+            menuTimer = setTimeout(() => {
+                megaMenu.style.transform = 'translateY(8px)';
                 megaMenu.style.opacity = '0';
-                megaMenu.style.visibility = 'hidden';
-            }, 200);
+                megaMenu.style.pointerEvents = 'none';
+            }, 250);
         }
+    };
 
-        // Mobile Menu
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const mobileMenuClose = document.getElementById('mobileMenuClose');
+    // Mobile Menu Functions
+    const toggleMobileMenu = () => {
+        isMobileMenuOpen = !isMobileMenuOpen;
+        mobileMenu.style.transform = isMobileMenuOpen ? 'translateX(0)' : 'translateX(100%)';
+        document.body.style.overflow = isMobileMenuOpen ? 'hidden' : 'auto';
+        mobileMenuButton.setAttribute('aria-expanded', isMobileMenuOpen);
+    };
 
-        function toggleMobileMenu() {
-            const isOpen = mobileMenu.style.transform === 'translateX(0px)' || 
-                          mobileMenu.style.transform === '';
-            mobileMenu.style.transform = isOpen ? 'translateX(100%)' : 'translateX(0)';
+    const closeMobileMenu = () => {
+        if(isMobileMenuOpen) {
+            toggleMobileMenu();
         }
+    };
 
-        // Event Listeners
-        mobileMenuButton.addEventListener('click', toggleMobileMenu);
-        mobileMenuClose.addEventListener('click', toggleMobileMenu);
+    // Event Listeners
+    // Desktop Menu
+    if(megaMenu) {
+        megaMenu.parentElement.addEventListener('mouseenter', showMegaMenu);
+        megaMenu.parentElement.addEventListener('mouseleave', hideMegaMenu);
+        megaMenu.addEventListener('mouseenter', showMegaMenu);
+        megaMenu.addEventListener('mouseleave', hideMegaMenu);
+    }
 
-        // Close menu on outside click
-        document.addEventListener('click', (e) => {
-            if (!mobileMenu.contains(e.target) && 
-                !mobileMenuButton.contains(e.target) &&
-                window.innerWidth <= 768) {
-                mobileMenu.style.transform = 'translateX(100%)';
-            }
-        });
+    // Mobile Menu
+    mobileMenuButton.addEventListener('click', toggleMobileMenu);
+    mobileMenuClose.addEventListener('click', toggleMobileMenu);
 
-        // Close on ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && window.innerWidth <= 768) {
-                mobileMenu.style.transform = 'translateX(100%)';
-            }
-        });
+    // Touch Gestures for Mobile Menu
+    let touchStartX = 0;
+    mobileMenu.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
+    });
 
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                mobileMenu.style.transform = 'translateX(100%)';
-            }
-        });
-    </script>
+    mobileMenu.addEventListener('touchend', e => {
+        const touchEndX = e.changedTouches[0].clientX;
+        if(touchStartX - touchEndX > 50) {
+            closeMobileMenu();
+        }
+    });
+
+    // Click Outside Handling
+    document.addEventListener('click', e => {
+        if(isMobileMenuOpen && 
+           !mobileMenu.contains(e.target) && 
+           !mobileMenuButton.contains(e.target)) {
+            closeMobileMenu();
+        }
+    });
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', e => {
+        if(e.key === 'Escape') closeMobileMenu();
+    });
+
+    // Responsive Resize Handling
+    const resizeObserver = new ResizeObserver(entries => {
+        const width = entries[0].contentRect.width;
+        
+        if(width > 768) { // Desktop
+            closeMobileMenu();
+            megaMenu.style.cssText = ''; // Reset styles
+        } else { // Mobile
+            megaMenu.style.transform = '';
+            megaMenu.style.opacity = '';
+            megaMenu.style.pointerEvents = '';
+        }
+    });
+
+    resizeObserver.observe(document.body);
+
+    // Cleanup
+    window.addEventListener('beforeunload', () => {
+        resizeObserver.disconnect();
+        if(megaMenu) {
+            megaMenu.parentElement.removeEventListener('mouseenter', showMegaMenu);
+            megaMenu.parentElement.removeEventListener('mouseleave', hideMegaMenu);
+            megaMenu.removeEventListener('mouseenter', showMegaMenu);
+            megaMenu.removeEventListener('mouseleave', hideMegaMenu);
+        }
+    });
+});
 
 
 
