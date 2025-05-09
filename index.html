@@ -156,6 +156,7 @@
         }
 
         @media (max-width: 1024px) {
+    /* Tablet Landscape & Small Desktop */
     .carousel-slide {
         aspect-ratio: 3/4;
     }
@@ -173,47 +174,121 @@
     }
 
     .pagination {
-        right: 24px; /* Adjusted offset */
+        right: 24px;
+    }
+
+    /* Navbar Adjustments */
+    nav {
+        padding: 0 24px !important;
+    }
+    
+    .mega-menu {
+        width: 85vw !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
     }
 }
 
 @media (max-width: 768px) {
+    /* Tablet Portrait & Mobile Landscape */
+    .carousel-slide {
+        aspect-ratio: 4/5;
+    }
+
+    /* Mobile Navbar Core */
+    .nav-core, .auth-system {
+        display: none !important;
+    }
+    
+    .mobile-menu-button {
+        display: block !important;
+    }
+    
+    nav img {
+        height: 24px !important;
+    }
+
+    /* Mega Menu Mobile Layout */
     .mega-menu {
-        position: static;
-        width: 100%;
-        transform: none;
-        box-shadow: none;
-        opacity: 1;
-        visibility: visible;
-        padding: 0;
+        position: fixed !important;
+        top: 80px !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: calc(100vh - 80px);
+        overflow-y: auto;
+        padding: 24px !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+    
+    .mega-menu .grid-system {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+
+    /* Carousel Adjustments */
+    .slide-content {
+        max-width: 90%;
+        padding: 1.25rem;
+        bottom: 8%;
+    }
+
+    .controls-group {
+        flex-direction: row-reverse;
+        gap: 12px;
     }
 }
 
 @media (max-width: 640px) {
+    /* Mobile Portrait */
+    .carousel-slide {
+        aspect-ratio: 2/3;
+    }
+
     .slide-content {
-        max-width: 90%;
-        left: 5%;
+        max-width: 95%;
+        left: 2.5%;
         bottom: 5%;
-        padding: 1.25rem;
+        padding: 1rem;
     }
 
     .slide-title {
         font-size: clamp(1.75rem, 6vw, 2.5rem);
+        margin-bottom: 1rem;
+    }
+
+    .slide-description {
+        margin-bottom: 1.5rem;
     }
 
     .carousel-controls {
-        bottom: 10%;
-        right: 5%;
-        gap: 20px;
+        bottom: 8%;
+        right: 2.5%;
+        gap: 16px;
     }
 
     .control-button {
-        width: 48px;
-        height: 48px;
+        width: 44px;
+        height: 44px;
     }
 
     .pagination {
-        right: 20px; /* Mobile offset */
+        right: 16px;
+        gap: 8px;
+    }
+
+    .pagination-dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    /* Mobile Menu Refinements */
+    #mobileMenu {
+        width: 85vw;
+    }
+    
+    .mega-menu {
+        padding: 16px !important;
     }
 }
 
@@ -222,7 +297,6 @@
     opacity: 1;
     transform: translateY(0);
 }
-
     </style>
 </head>
 <body>
