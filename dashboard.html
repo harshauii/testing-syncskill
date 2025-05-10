@@ -234,20 +234,20 @@
 
                
 <!-- Profile Section -->
-                <div class="profile-menu">
-                    <img src="https://via.placeholder.com/36" class="profile-pic" alt="Profile">
-                    <span style="font-weight: 500;">John Doe</span>
-                    <div class="profile-dropdown">
-                        <div style="text-align: center; margin-bottom: 12px;">
-                            <img src="https://via.placeholder.com/60" class="profile-pic" alt="Profile">
-                            <div style="font-weight: 600; margin-top: 8px;">John Doe</div>
-                            <div style="font-size: 14px; color: #666;">john@example.com</div>
-                        </div>
-                        <div class="logout-btn" onclick="logout()" style="padding: 8px; text-align: center; border-radius: 6px;"
-                             onmouseover="this.style.background='#f8f9fa'"
-                             onmouseout="this.style.background='transparent'">
-                            Logout
-                        </div>
+               <div class="profile-menu">
+            <img id="userAvatar" src="https://via.placeholder.com/36" class="profile-pic" alt="Profile">
+            <span id="userName" style="font-weight: 500;">Loading...</span>
+            <div class="profile-dropdown">
+                <div style="text-align: center; margin-bottom: 12px;">
+                    <img id="dropdownAvatar" src="https://via.placeholder.com/60" class="profile-pic" alt="Profile">
+                    <div id="dropdownName" style="font-weight: 600; margin-top: 8px;">Loading...</div>
+                    <div id="dropdownEmail" style="font-size: 14px; color: #666;">Loading...</div>
+                </div>
+                <div class="logout-btn" onclick="logout()" style="padding: 8px; text-align: center; border-radius: 6px;"
+                     onmouseover="this.style.background='#f8f9fa'"
+                     onmouseout="this.style.background='transparent'">
+                    Logout
+                </div>
                     </div>
                 </div>
             </div>
@@ -565,13 +565,12 @@
   
 
 <!-- Mobile Profile -->
-<div id="mobileMenu" class="mobile-only" style="...">
-        <!-- Add profile section to mobile menu -->
+ <div id="mobileMenu" class="mobile-only" style="...">
         <div class="mobile-profile">
-            <img src="https://via.placeholder.com/48" class="profile-pic" alt="Profile">
+            <img id="mobileUserAvatar" src="https://via.placeholder.com/48" class="profile-pic" alt="Profile">
             <div style="margin-top: 12px;">
-                <div style="font-weight: 600;">John Doe</div>
-                <div style="font-size: 14px; color: #666;">john@example.com</div>
+                <div id="mobileUserName" style="font-weight: 600;">Loading...</div>
+                <div id="mobileUserEmail" style="font-size: 14px; color: #666;">Loading...</div>
             </div>
             <div onclick="logout()" class="logout-btn" style="margin-top: 16px;">
                 Logout
@@ -584,7 +583,11 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+    import { 
+        getAuth, 
+        onAuthStateChanged, 
+        signOut 
+    } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyBvqzYTaepJn-WvWMPSZJe26Ydkw-7MXLE",
@@ -601,18 +604,45 @@
     const auth = getAuth(app);
 
     // DOM Elements
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileMenuButton = document.getElementById('mobileMenuButton');
-    const mobileMenuClose = document.getElementById('mobileMenuClose');
-    const userAvatar = document.getElementById('userAvatar');
-    const mobileUserAvatar = document.getElementById('mobileUserAvatar');
-    const userName = document.getElementById('userName');
+    const elements = {
+        mobileMenu: document.getElementById('mobileMenu'),
+        mobileMenuButton: document.getElementById('mobileMenuButton'),
+        mobileMenuClose: document.getElementById('mobileMenuClose'),
+        userAvatar: document.getElementById('userAvatar'),
+        mobileUserAvatar: document.getElementById('mobileUserAvatar'),
+        userName: document.getElementById('userName'),
+        dropdownAvatar: document.getElementById('dropdownAvatar'),
+        dropdownName: document.getElementById('dropdownName'),
+        dropdownEmail: document.getElementById('dropdownEmail'),
+        mobileUserName: document.getElementById('mobileUserName'),
+        mobileUserEmail: document.getElementById('mobileUserEmail')
+    };
 
-    // Combined Authentication Check
+    // User profile updater
+    const updateUserProfile = (user) => {
+        const fallbackAvatar = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+        
+        // Update desktop elements
+        elements.userAvatar.src = user.photoURL || fallbackAvatar;
+        elements.userName.textContent = user.displayName || 'User';
+        
+        // Update profile dropdown
+        elements.dropdownAvatar.src = user.photoURL || fallbackAvatar;
+        elements.dropdownName.textContent = user.displayName || 'User';
+        elements.dropdownEmail.textContent = user.email || 'No email provided';
+
+        // Update mobile elements
+        elements.mobileUserAvatar.src = user.photoURL || fallbackAvatar;
+        elements.mobileUserName.textContent = user.displayName || 'User';
+        elements.mobileUserEmail.textContent = user.email || 'No email provided';
+    };
+
+    // Authentication verification
     const verifyAuthentication = (user) => {
         const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        
-        if (!user || !isLoggedIn) {
+        const isAuthenticated = user && isLoggedIn;
+
+        if (!isAuthenticated) {
             localStorage.removeItem('isLoggedIn');
             window.location.href = 'login.html';
             return false;
@@ -620,50 +650,43 @@
         return true;
     };
 
-    // Auth State Handler
+    // Auth state handler
     onAuthStateChanged(auth, (user) => {
         if (!verifyAuthentication(user)) return;
-
-        // Update UI Elements
-        const photoURL = user.photoURL || 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
-        const displayName = user.displayName || 'User';
-
-        userAvatar.src = photoURL;
-        mobileUserAvatar.src = photoURL;
-        userName.textContent = displayName;
+        updateUserProfile(user);
     });
 
-    // Mobile Menu Functions
+    // Mobile menu controller
     const toggleMobileMenu = () => {
-        const isOpen = mobileMenu.style.transform === 'translateX(0px)';
-        mobileMenu.style.transform = isOpen ? 'translateX(100%)' : 'translateX(0)';
+        const isOpen = elements.mobileMenu.style.transform === 'translateX(0px)';
+        elements.mobileMenu.style.transform = isOpen ? 'translateX(100%)' : 'translateX(0)';
     };
 
-    // Event Listeners
-    mobileMenuButton.addEventListener('click', toggleMobileMenu);
-    mobileMenuClose.addEventListener('click', toggleMobileMenu);
+    // Event listeners
+    elements.mobileMenuButton.addEventListener('click', toggleMobileMenu);
+    elements.mobileMenuClose.addEventListener('click', toggleMobileMenu);
 
     document.addEventListener('click', (e) => {
-        if (!mobileMenu.contains(e.target) && 
-            !mobileMenuButton.contains(e.target) &&
+        if (!elements.mobileMenu.contains(e.target) && 
+            !elements.mobileMenuButton.contains(e.target) &&
             window.innerWidth <= 768) {
-            mobileMenu.style.transform = 'translateX(100%)';
+            elements.mobileMenu.style.transform = 'translateX(100%)';
         }
     });
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && window.innerWidth <= 768) {
-            mobileMenu.style.transform = 'translateX(100%)';
+            elements.mobileMenu.style.transform = 'translateX(100%)';
         }
     });
 
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
-            mobileMenu.style.transform = 'translateX(100%)';
+            elements.mobileMenu.style.transform = 'translateX(100%)';
         }
     });
 
-    // Enhanced Logout Function
+    // Logout handler
     window.logout = async () => {
         try {
             await signOut(auth);
@@ -675,25 +698,36 @@
         }
     };
 
-    // Initial Security Check
+    // Initial security check
     document.addEventListener('DOMContentLoaded', () => {
         if (!localStorage.getItem('isLoggedIn')) {
             window.location.href = 'login.html';
+        } else {
+            // Wait for auth state to resolve
+            const unsubscribe = onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    updateUserProfile(user);
+                    unsubscribe();
+                }
+            });
         }
     });
 
-    // Session Timeout (60 minutes)
-    let timeout;
-    const resetTimeout = () => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
+    // Session management
+    let inactivityTimer;
+    const resetSessionTimer = () => {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(() => {
             logout();
         }, 3600000); // 1 hour
     };
 
-    window.addEventListener('mousemove', resetTimeout);
-    window.addEventListener('keypress', resetTimeout);
-    resetTimeout();
+    // Activity listeners
+    ['mousemove', 'keydown', 'scroll', 'touchstart'].forEach(event => {
+        window.addEventListener(event, resetSessionTimer);
+    });
+
+    resetSessionTimer();
 </script>
     
    </body>
