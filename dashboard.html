@@ -164,26 +164,649 @@
         margin-top: 5rem;
       }
     }
+@media (max-width: 768px) {
+            .desktop-only { display: none !important; }
+            .mobile-menu-button { display: block !important; }
+        }
+        @media (min-width: 769px) {
+            .mobile-only { display: none !important; }
+        }
+
+@media (max-width: 768px) {
+    #mobileProfile {
+        display: none !important; /* Initial state */
+    }
+}
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="logo">SyncSkill</div>
-    <div class="profile-section">
-      <div class="profile-container">
-        <img id="profilePicNav" class="profile-pic" src="" alt="Profile Picture" />
-        <div class="profile-dropdown">
-          <div class="profile-info">
-            <h3 id="dropdownName">John Doe</h3>
-            <p id="dropdownEmail">john@example.com</p>
+
+
+
+
+
+
+
+
+
+ <header style="background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.12); height: 72px; position: fixed; top: 0; left: 0; width: 100%; z-index: 100;">
+        <nav style="max-width: 1440px; margin: 0 auto; padding: 0 32px; height: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <a href="#" style="display: flex; align-items: center;">
+                <img src="https://static.uacdn.net/production/_next/static/images/logo.svg" alt="Logo" style="height: 32px;">
+            </a>
+
+            <div class="desktop-only" style="display: flex; align-items: center; gap: 40px;">
+               <!-- Mega Menu System -->
+            <div style="position: relative;"
+     onmouseenter="
+       const btn = this.querySelector('button');
+       const m   = this.querySelector('.mega-menu');
+       const rect = btn.getBoundingClientRect();
+       /* place menu 5px below the trigger btn */
+       m.style.top           = rect.bottom + 5 + 'px';
+       m.style.opacity       = '1';
+       m.style.transform     = 'translate(-50%, 0)';
+       m.style.pointerEvents = 'auto';
+     "
+     onmouseleave="
+       const m = this.querySelector('.mega-menu');
+       m.style.opacity       = '0';
+       m.style.transform     = 'translate(-50%, 8px)';
+       m.style.pointerEvents = 'none';
+     ">
+            
+                <!-- Trigger -->
+                <button style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; background: transparent; border: none; cursor: pointer; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);"
+                        onmouseover="this.style.background='#f8f9fa'" 
+                        onmouseout="this.style.background='transparent'">
+                    <span style="
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333333;
+  letter-spacing: 0.2px;
+">
+  Learning Paths
+</span>
+
+                    <svg style="width: 18px; height: 18px; color: #4d4d4d; transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);" 
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M6 9l6 6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+               <div class="mega-menu"
+     style="
+       position: fixed;
+       top: 0;            /* will be overridden in JS */
+       left: 50%;
+       width: 800px;
+       background: #fff;
+       border-radius: 16px;
+       box-shadow: 0 24px 48px rgba(0,0,0,0.12);
+       padding: 32px;
+       opacity: 0;
+       transform: translate(-50%,8px);
+       transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+       pointer-events: none;
+     ">
+
+
+
+
+
+
+
+
+
+                    
+                    <!-- Grid System -->
+                    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;">
+                        
+                        <!-- Career Paths Column -->
+                        <div>
+                            <div style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e9ecef;">
+                                <h3 style="font-size: 14px; font-weight: 700; color: #2d3436; letter-spacing: 0.25px; margin: 0; text-transform: uppercase;">Career Accelerators</h3>
+                            </div>
+                            <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 12px;">
+                                <li>
+                                    <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);"
+                                       onmouseover="this.style.transform='translateX(4px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.05)'"
+                                       onmouseout="this.style.transform='none'; this.style.boxShadow='none'">
+                                        <div style="width: 32px; height: 32px; background: #6366f1; border-radius: 6px; margin-right: 12px; display: flex; align-items: center; justify-content: center;">
+                                            <svg style="width: 16px; height: 16px; color: white;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Data Science Pro</div>
+                                            <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">12 Courses · 98 Hours</div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- Repeat similar structure for other items -->
+                                <li>
+                                    <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);"
+                                       onmouseover="this.style.transform='translateX(4px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.05)'"
+                                       onmouseout="this.style.transform='none'; this.style.boxShadow='none'">
+                                        <div style="width: 32px; height: 32px; background: #6366f1; border-radius: 6px; margin-right: 12px; display: flex; align-items: center; justify-content: center;">
+                                            <svg style="width: 16px; height: 16px; color: white;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Data Science Pro</div>
+                                            <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">12 Courses · 98 Hours</div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- Repeat similar structure for other items -->
+                                <li>
+  <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);"
+     onmouseover="this.style.transform='translateX(4px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.05)'"
+     onmouseout="this.style.transform='none'; this.style.boxShadow='none'">
+    <div style="width: 32px; height: 32px; background: #6366f1; border-radius: 6px; margin-right: 12px; display: flex; align-items: center; justify-content: center;">
+      <img src="your-icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+    </div>
+    <div>
+      <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Data Science Pro</div>
+      <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">12 Courses · 98 Hours</div>
+    </div>
+  </a>
+</li>
+ <!-- Repeat similar structure for other items -->
+
+                            </ul>
+                        </div>
+
+                        <!-- Certifications Column -->
+                        <div>
+                            <div style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e9ecef;">
+                                <h3 style="font-size: 14px; font-weight: 700; color: #2d3436; letter-spacing: 0.25px; margin: 0; text-transform: uppercase;">Certifications</h3>
+                            </div>
+                            <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 12px;">
+                                <li>
+                                    <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: #ffffff; border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);"
+                                       onmouseover="this.style.background='#f8f9fa'; this.style.borderColor='#e9ecef'"
+                                       onmouseout="this.style.background='#ffffff'; this.style.borderColor='#f1f3f5'">
+                                        <div style="width: 32px; height: 32px; background: #10b981; border-radius: 6px; margin-right: 12px;"></div>
+                                        <div>
+                                            <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Cloud Architect</div>
+                                            <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">AWS · Azure · GCP</div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Featured Program -->
+                        <div>
+                            <div style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); border-radius: 12px; padding: 24px; color: white;">
+                                <div style="font-size: 12px; font-weight: 700; margin-bottom: 8px; opacity: 0.9;">FEATURED PROGRAM</div>
+                                <h3 style="font-size: 18px; font-weight: 700; margin: 0 0 12px 0;">GenAI Mastery</h3>
+                                <p style="font-size: 14px; opacity: 0.9; margin-bottom: 24px; line-height: 1.5;">Master LLMs, Diffusion Models, and Production Deployment</p>
+                                <button style="width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: white; font-weight: 600; cursor: pointer; transition: all 0.25s ease;"
+                                        onmouseover="this.style.background='rgba(255,255,255,0.25)'"
+                                        onmouseout="this.style.background='rgba(255,255,255,0.15)'">
+                                    Explore Program
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Auth Buttons -->
+                <div id="desktopAuth" class="desktop-only" style="display: flex; gap: 16px;">
+    <a href="#" style="padding: 10px 24px; border-radius: 8px; font-weight: 600; color: #4b5563; border: 1px solid #d1d5db; text-decoration: none;">Log in</a>
+    <a href="#" style="padding: 10px 24px; background: #7c3aed; color: white; border-radius: 8px; font-weight: 600; text-decoration: none;">Join free</a>
+</div>
+
+<div id="desktopProfile" style="display: none;" class="desktop-only">
+    <img id="desktopProfilePic" src="placeholder.jpg" style="width: 40px; height: 40px; border-radius: 50%; cursor: pointer;">
+</div>            </div>
+
+            <!-- Mobile Menu Button -->
+<button
+  class="mobile-menu-button"
+  id="mobileMenuButton"
+  style="
+    display: none;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    transition: transform 0.2s ease, background 0.2s ease;
+  "
+  onmouseover="this.style.background='rgba(0,0,0,0.05)'; this.style.transform='scale(1.1)'"
+  onmouseout="this.style.background='transparent'; this.style.transform='scale(1)'"
+>
+  <svg style="width: 24px; height: 24px; color: #4b5563;" viewBox="0 0 24 24">
+    <path stroke="currentColor" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+  </svg>
+</button>
+
+<!-- Mobile Menu -->
+<!-- Mobile Menu -->
+<!-- Mobile Menu -->
+<!-- Mobile Menu -->
+<div
+  id="mobileMenu"
+  class="mobile-only"
+  style="
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 75vw;
+    max-width: 320px;
+    background: #ffffff;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 24px 16px env(safe-area-inset-bottom,24px) 16px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    border-top-left-radius: 16px;
+  "
+>
+  <!-- Close Button -->
+  <div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
+    <button
+      id="mobileMenuClose"
+      style="
+        padding: 8px;
+        border-radius: 8px;
+        border: none;
+        background: transparent;
+        transition: background 0.2s ease, transform 0.2s ease;
+      "
+      onmouseover="this.style.background='rgba(0,0,0,0.05)'; this.style.transform='scale(1.1)'"
+      onmouseout="this.style.background='transparent'; this.style.transform='scale(1)'"
+    >
+      <svg style="width: 24px; height: 24px; color: #4b5563;" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Accordion Sections -->
+  <div style="display: flex; flex-direction: column; gap: 24px;">
+
+    <!-- Popular Courses -->
+    <div style="border-bottom: 1px solid #e5e7eb; padding-bottom: 8px;">
+      <h3
+        onclick="(function(c){c.style.display=c.style.display==='flex'?'none':'flex'})(this.nextElementSibling)"
+        style="
+          font-size: 16px;
+          font-weight: 700;
+          color: #2d3436;
+          margin: 0;
+          padding: 12px 0;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <span>Popular Courses</span>
+        <span style="font-size: 18px; line-height: 1;">+</span>
+      </h3>
+      <div
+        style="
+          display: none;
+          flex-direction: column;
+          gap: 12px;
+          padding: 8px 0;
+        "
+      >
+        <a
+          href="#"
+          style="
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #f1f3f5;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+          "
+          onmouseover="this.style.transform='translateX(4px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.05)'"
+          onmouseout="this.style.transform='none'; this.style.boxShadow='none'"
+        >
+          <div style="width: 24px; height: 24px; background: #6366f1; border-radius: 6px; margin-right: 12px;"></div>
+          <div>
+            <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Data Science Pro</div>
+            <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">12 Courses · 98 Hours</div>
           </div>
-          <button class="logout-btn" id="dropdownLogout">Log Out</button>
-        </div>
+        </a>
+        <a
+          href="#"
+          style="
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #f1f3f5;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+          "
+          onmouseover="this.style.transform='translateX(4px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.05)'"
+          onmouseout="this.style.transform='none'; this.style.boxShadow='none'"
+        >
+          <div style="width: 24px; height: 24px; background: #6366f1; border-radius: 6px; margin-right: 12px;"></div>
+          <div>
+            <div style="font-size: 14px; font-weight: 600; color: #2d3436;">AI &amp; ML Foundation</div>
+            <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">8 Courses · 64 Hours</div>
+          </div>
+        </a>
+        <a
+          href="#"
+          style="
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #f1f3f5;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+          "
+          onmouseover="this.style.transform='translateX(4px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.05)'"
+          onmouseout="this.style.transform='none'; this.style.boxShadow='none'"
+        >
+          <div style="width: 24px; height: 24px; background: #6366f1; border-radius: 6px; margin-right: 12px;"></div>
+          <div>
+            <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Full Stack Development</div>
+            <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">10 Courses · 80 Hours</div>
+          </div>
+        </a>
       </div>
     </div>
-  </nav>
 
+    <!-- Certifications -->
+    <div style="border-bottom: 1px solid #e5e7eb; padding-bottom: 8px;">
+      <h3
+        onclick="(function(c){c.style.display=c.style.display==='flex'?'none':'flex'})(this.nextElementSibling)"
+        style="
+          font-size: 16px;
+          font-weight: 700;
+          color: #2d3436;
+          margin: 0;
+          padding: 12px 0;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <span>Certifications</span>
+        <span style="font-size: 18px; line-height: 1;">+</span>
+      </h3>
+      <div
+        style="
+          display: none;
+          flex-direction: column;
+          gap: 12px;
+          padding: 8px 0;
+        "
+      >
+        <a
+          href="#"
+          style="
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #f1f3f5;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+          "
+          onmouseover="this.style.transform='translateX(4px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.05)'"
+          onmouseout="this.style.transform='none'; this.style.boxShadow='none'"
+        >
+          <div style="width: 24px; height: 24px; background: #10b981; border-radius: 6px; margin-right: 12px;"></div>
+          <div>
+            <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Cloud Architect</div>
+            <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">AWS · Azure · GCP</div>
+          </div>
+        </a>
+        <a
+          href="#"
+          style="
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #f1f3f5;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+          "
+          onmouseover="this.style.transform='translateX(4px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.05)'"
+          onmouseout="this.style.transform='none'; this.style.boxShadow='none'"
+        >
+          <div style="width: 24px; height: 24px; background: #10b981; border-radius: 6px; margin-right: 12px;"></div>
+          <div>
+            <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Cybersecurity Expert</div>
+            <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">3 Badges</div>
+          </div>
+        </a>
+        <a
+          href="#"
+          style="
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #f1f3f5;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+          "
+          onmouseover="this.style.transform='translateX(4px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.05)'"
+          onmouseout="this.style.transform='none'; this.style.boxShadow='none'"
+        >
+          <div style="width: 24px; height: 24px; background: #10b981; border-radius: 6px; margin-right: 12px;"></div>
+          <div>
+            <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Data Analytics</div>
+            <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">5 Badges</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Featured Program -->
+    <div style="padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
+      <div
+        style="
+          background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+          border-radius: 12px;
+          padding: 16px;
+          color: white;
+        "
+      >
+        <div style="font-size: 12px; font-weight: 700; opacity: 0.9; margin-bottom: 8px;">
+          FEATURED PROGRAM
+        </div>
+        <h3 style="
+          font-size: 18px;
+          font-weight: 700;
+          margin: 0 0 8px 0;
+        ">
+          GenAI Mastery
+        </h3>
+        <p style="
+          font-size: 14px;
+          opacity: 0.9;
+          margin: 0 0 16px 0;
+          line-height: 1.4;
+        ">
+          Master LLMs, Diffusion Models, and Production Deployment
+        </p>
+        <button
+          style="
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+          "
+          onmouseover="this.style.background='rgba(255,255,255,0.25)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.15)'"
+        >
+          Explore Program
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Auth Buttons -->
+  <div id="mobileAuth" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 20px;">
+    <a href="#" style="padding: 12px; text-align: center; background: #7c3aed; color: white; border-radius: 8px; text-decoration: none;">Join free</a>
+    <a href="#" style="padding: 12px; text-align: center; border: 1px solid #d1d5db; color: #4b5563; border-radius: 8px; text-decoration: none;">Log in</a>
+</div>
+
+<div id="mobileProfile" style="display: none; align-items: center; gap: 12px; padding: 16px;">
+    <img id="mobileProfilePic" src="placeholder.jpg" style="width: 40px; height: 40px; border-radius: 50%;">
+    <span id="mobileProfileName" style="font-weight: 500; color: #333;"></span>
+</div>
+</div>
+
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script>
+
+// onst firebaseConfig = {
+  apiKey: "AIzaSyBvqzYTaepJn-WvWMPSZJe26Ydkw-7MXLE",
+  authDomain: "syncskilll.firebaseapp.com",
+  projectId: "syncskilll",
+  storageBucket: "syncskilll.firebasestorage.app",
+  messagingSenderId: "203322315096",
+  appId: "1:203322315096:web:958fc7d94806ef9a98552d",
+  measurementId: "G-JWWWM2ZQSK"
+};
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Auth state listener
+    firebase.auth().onAuthStateChanged(user => {
+        const desktopAuth = document.getElementById('desktopAuth');
+        const mobileAuth = document.getElementById('mobileAuth');
+        const desktopProfile = document.getElementById('desktopProfile');
+        const mobileProfile = document.getElementById('mobileProfile');
+        const desktopProfilePic = document.getElementById('desktopProfilePic');
+        const mobileProfilePic = document.getElementById('mobileProfilePic');
+        const mobileProfileName = document.getElementById('mobileProfileName');
+
+        if (user) {
+            // User is logged in
+            desktopAuth.style.display = 'none';
+            mobileAuth.style.display = 'none';
+            desktopProfile.style.display = 'block';
+            mobileProfile.style.display = 'flex';
+
+            // Update profile details
+            const photoURL = user.photoURL || 'https://via.placeholder.com/40';
+            desktopProfilePic.src = photoURL;
+            mobileProfilePic.src = photoURL;
+            mobileProfileName.textContent = user.displayName || 'User';
+        } else {
+            // User is logged out
+            desktopAuth.style.display = 'flex';
+            mobileAuth.style.display = 'grid';
+            desktopProfile.style.display = 'none';
+            mobileProfile.style.display = 'none';
+        }
+    });
+        // Desktop Mega Menu
+        let menuTimeout;
+        const megaMenu = document.getElementById('megaMenu');
+
+        function showMegaMenu() {
+            clearTimeout(menuTimeout);
+            megaMenu.style.opacity = '1';
+            megaMenu.style.visibility = 'visible';
+        }
+
+        function hideMegaMenu() {
+            menuTimeout = setTimeout(() => {
+                megaMenu.style.opacity = '0';
+                megaMenu.style.visibility = 'hidden';
+            }, 200);
+        }
+
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+        function toggleMobileMenu() {
+            const isOpen = mobileMenu.style.transform === 'translateX(0px)' || 
+                          mobileMenu.style.transform === '';
+            mobileMenu.style.transform = isOpen ? 'translateX(100%)' : 'translateX(0)';
+        }
+
+        // Event Listeners
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuClose.addEventListener('click', toggleMobileMenu);
+
+        // Close menu on outside click
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && 
+                !mobileMenuButton.contains(e.target) &&
+                window.innerWidth <= 768) {
+                mobileMenu.style.transform = 'translateX(100%)';
+            }
+        });
+
+        // Close on ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && window.innerWidth <= 768) {
+                mobileMenu.style.transform = 'translateX(100%)';
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                mobileMenu.style.transform = 'translateX(100%)';
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   <!-- Main Content -->
   <div class="main-content">
     <div class="options-grid">
