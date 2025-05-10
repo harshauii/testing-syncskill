@@ -1597,7 +1597,9 @@ body {
   </div>
 </div>
 
-<div style="position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; justify-content: center; gap: 8px; background: rgba(255,255,255,0.96); padding: 8px; border-radius: 50px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); backdrop-filter: blur(4px);">
+<!-- Place this just BELOW #cardWrapper's parent (scrollContainer) -->
+<div style="position: relative; margin-top: 16px; display: flex; justify-content: center; gap: 8px; background: rgba(255,255,255,0.96); padding: 8px; border-radius: 50px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); backdrop-filter: blur(4px); width: fit-content; margin-left: auto; margin-right: auto;">
+
   <button id="prevBtn" 
           style="background: #FFFFFF; color: #0F62FE; padding: 12px 20px; border-radius: 25px; border: 1px solid #E0E0E0; cursor: pointer; font-weight: 600; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; min-width: 100px;"
           onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
