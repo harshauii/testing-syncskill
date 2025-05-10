@@ -4,47 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Navigation</title>
-    <style>
-  /* Add these new styles */
-        .profile-menu {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-        }
-        .profile-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            padding: 16px;
-            min-width: 200px;
-            display: none;
-            z-index: 1000;
-        }
-        .profile-menu:hover .profile-dropdown {
-            display: block;
-        }
-        .profile-pic {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        
+   <style>
+  /* Profile Menu Styles */
+  .profile-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+  }
 
-        @media (max-width: 768px) {
-            .desktop-only { display: none !important; }
-            .mobile-menu-button { display: block !important; }
-            .mobile-profile { display: block; }
-        }
-        @media (min-width: 769px) {
-            .mobile-only { display: none !important; }
-        }
-    </style>
+  .profile-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    padding: 16px;
+    min-width: 240px;
+    display: none;
+    z-index: 1000;
+  }
+
+  .profile-menu:hover .profile-dropdown {
+    display: block;
+  }
+
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f0f0f0;
+  }
+
+  /* Mobile Specific Styles */
+  @media (max-width: 768px) {
+    .desktop-only { 
+      display: none !important; 
+    }
+    
+    .mobile-menu-button { 
+      display: block !important; 
+    }
+    
+    .mobile-profile {
+      display: flex !important;
+      flex-direction: column;
+      padding: 20px;
+      margin-bottom: 24px;
+      background: #f8f9fa;
+      border-radius: 12px;
+    }
+
+    /* Fix mobile menu z-index */
+    .mobile-only {
+      display: block !important;
+      z-index: 9999;
+    }
+
+    /* Adjust profile picture size for mobile */
+    .profile-pic {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .mobile-only { 
+      display: none !important; 
+    }
+  }
+</style>
  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 </head>
