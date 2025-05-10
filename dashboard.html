@@ -5,26 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Navigation</title>
     <style>
- /* Add this CSS */
-        .hidden { display: none !important; }
-        .profile-pill {
+  /* Add these new styles */
+        .profile-menu {
+            position: relative;
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 8px 16px;
-            border-radius: 50px;
-            background: #f8f9fa;
             cursor: pointer;
         }
-        .profile-img {
-            width: 40px;
-            height: 40px;
+        .profile-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            padding: 16px;
+            min-width: 200px;
+            display: none;
+            z-index: 1000;
+        }
+        .profile-menu:hover .profile-dropdown {
+            display: block;
+        }
+        .profile-pic {
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             object-fit: cover;
         }
+        .mobile-profile {
+            display: none;
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+        }
+        .logout-btn {
+            color: #ef4444;
+            cursor: pointer;
+        }
+
         @media (max-width: 768px) {
             .desktop-only { display: none !important; }
             .mobile-menu-button { display: block !important; }
+            .mobile-profile { display: block; }
         }
         @media (min-width: 769px) {
             .mobile-only { display: none !important; }
@@ -34,6 +57,13 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 </head>
 <body style="margin: 0; margin-top: 72px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;">
+    <script>
+        // Authentication check
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (!isLoggedIn) {
+            window.location.href = '/login.html'; // Update with your login page URL
+        }
+    </script>
     <!-- Desktop Navigation -->
    <header style="background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.12); height: 72px; position: fixed; top: 0; left: 0; width: 100%; z-index: 100;">
         <nav style="max-width: 1440px; margin: 0 auto; padding: 0 32px; height: 100%; display: flex; justify-content: space-between; align-items: center;">
@@ -202,22 +232,26 @@
                 </div>
             </div>
 
-                <!-- Auth Buttons -->
-                <div id="authButtons" style="display: flex; gap: 16px;">
-    <a href="#" style="padding: 10px 24px; border-radius: 8px; font-weight: 600; color: #4b5563; border: 1px solid #d1d5db; text-decoration: none;">Log in</a>
-    <a href="#" style="padding: 10px 24px; background: #7c3aed; color: white; border-radius: 8px; font-weight: 600; text-decoration: none;">Join free</a>
-</div>
-
+               
 <!-- Profile Section -->
-<div id="profileSection" class="hidden">
-    <div class="profile-pill">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
-             alt="Profile" 
-             class="profile-img"
-             id="userAvatar">
-        <span class="desktop-only" id="userName" style="font-weight: 500; color: #333;">John Doe</span>
-    </div>
-</div>
+                <div class="profile-menu">
+                    <img src="https://via.placeholder.com/36" class="profile-pic" alt="Profile">
+                    <span style="font-weight: 500;">John Doe</span>
+                    <div class="profile-dropdown">
+                        <div style="text-align: center; margin-bottom: 12px;">
+                            <img src="https://via.placeholder.com/60" class="profile-pic" alt="Profile">
+                            <div style="font-weight: 600; margin-top: 8px;">John Doe</div>
+                            <div style="font-size: 14px; color: #666;">john@example.com</div>
+                        </div>
+                        <div class="logout-btn" onclick="logout()" style="padding: 8px; text-align: center; border-radius: 6px;"
+                             onmouseover="this.style.background='#f8f9fa'"
+                             onmouseout="this.style.background='transparent'">
+                            Logout
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             </div>
 
             <!-- Mobile Menu Button -->
@@ -528,27 +562,21 @@
 
   </div>
 
-  <!-- Auth Buttons -->
- <!-- Mobile Auth Buttons -->
-<div id="mobileAuthButtons" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 20px;">
-    <a href="#" style="padding: 12px; text-align: center; background: #7c3aed; color: white; border-radius: 8px; text-decoration: none;">
-        Join free
-    </a>
-    <a href="#" style="padding: 12px; text-align: center; border: 1px solid #d1d5db; color: #4b5563; border-radius: 8px; text-decoration: none;">
-        Log in
-    </a>
-</div>
+  
 
 <!-- Mobile Profile -->
-<div id="mobileProfileSection" class="hidden" style="padding-top: 20px;">
-    <div style="display: flex; justify-content: center;">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
-             alt="Profile" 
-             class="profile-img"
-             id="mobileUserAvatar"
-             onclick="toggleMobileMenu()">
-    </div>
-</div>
+<div id="mobileMenu" class="mobile-only" style="...">
+        <!-- Add profile section to mobile menu -->
+        <div class="mobile-profile">
+            <img src="https://via.placeholder.com/48" class="profile-pic" alt="Profile">
+            <div style="margin-top: 12px;">
+                <div style="font-weight: 600;">John Doe</div>
+                <div style="font-size: 14px; color: #666;">john@example.com</div>
+            </div>
+            <div onclick="logout()" class="logout-btn" style="margin-top: 16px;">
+                Logout
+            </div>
+        </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -686,6 +714,20 @@
             });
         }
     });
+// Logout function
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = '/login.html';
+        }
+
+        // Existing mobile menu code remains same
+
+        // Content protection
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!isLoggedIn) {
+                document.body.innerHTML = '';
+            }
+        });
 </script>
 
    </body>
