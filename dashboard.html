@@ -582,92 +582,61 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
-<script>
-    // Firebase Configuration (Replace with your config)
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
     const firebaseConfig = {
-  apiKey: "AIzaSyBvqzYTaepJn-WvWMPSZJe26Ydkw-7MXLE",
-  authDomain: "syncskilll.firebaseapp.com",
-  projectId: "syncskilll",
-  storageBucket: "syncskilll.firebasestorage.app",
-  messagingSenderId: "203322315096",
-  appId: "1:203322315096:web:958fc7d94806ef9a98552d",
-  measurementId: "G-JWWWM2ZQSK"
-};
+        apiKey: "AIzaSyBvqzYTaepJn-WvWMPSZJe26Ydkw-7MXLE",
+        authDomain: "syncskilll.firebaseapp.com",
+        projectId: "syncskilll",
+        storageBucket: "syncskilll.firebasestorage.app",
+        messagingSenderId: "203322315096",
+        appId: "1:203322315096:web:958fc7d94806ef9a98552d",
+        measurementId: "G-JWWWM2ZQSK"
+    };
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
     // DOM Elements
     const mobileMenu = document.getElementById('mobileMenu');
     const mobileMenuButton = document.getElementById('mobileMenuButton');
     const mobileMenuClose = document.getElementById('mobileMenuClose');
-    const authButtons = document.getElementById('authButtons');
-    const profileSection = document.getElementById('profileSection');
-    const mobileAuthButtons = document.getElementById('mobileAuthButtons');
-    const mobileProfileSection = document.getElementById('mobileProfileSection');
     const userAvatar = document.getElementById('userAvatar');
     const mobileUserAvatar = document.getElementById('mobileUserAvatar');
     const userName = document.getElementById('userName');
 
-    // Auth State Handler
-    const handleAuthState = (user) => {
-        if (user) {
-            // User is authenticated
-            authButtons.classList.add('hidden');
-            profileSection.classList.remove('hidden');
-            mobileAuthButtons.classList.add('hidden');
-            mobileProfileSection.classList.remove('hidden');
-
-            // Update user profile
-            const photoURL = user.photoURL || 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
-            const displayName = user.displayName || 'User';
-
-            userAvatar.src = photoURL;
-            mobileUserAvatar.src = photoURL;
-            userName.textContent = displayName;
-        } else {
-            // User is not authenticated
-            authButtons.classList.remove('hidden');
-            profileSection.classList.add('hidden');
-            mobileAuthButtons.classList.remove('hidden');
-            mobileProfileSection.classList.add('hidden');
+    // Combined Authentication Check
+    const verifyAuthentication = (user) => {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        
+        if (!user || !isLoggedIn) {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = 'login.html';
+            return false;
         }
+        return true;
     };
 
-    // Auth State Listener
-    firebase.auth().onAuthStateChanged(handleAuthState);
+    // Auth State Handler
+    onAuthStateChanged(auth, (user) => {
+        if (!verifyAuthentication(user)) return;
 
-    // Desktop Mega Menu
-    let menuTimeout;
-    const megaMenu = document.getElementById('megaMenu');
+        // Update UI Elements
+        const photoURL = user.photoURL || 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+        const displayName = user.displayName || 'User';
 
-    const showMegaMenu = () => {
-        clearTimeout(menuTimeout);
-        megaMenu.style.opacity = '1';
-        megaMenu.style.visibility = 'visible';
-    };
-
-    const hideMegaMenu = () => {
-        menuTimeout = setTimeout(() => {
-            megaMenu.style.opacity = '0';
-            megaMenu.style.visibility = 'hidden';
-        }, 200);
-    };
+        userAvatar.src = photoURL;
+        mobileUserAvatar.src = photoURL;
+        userName.textContent = displayName;
+    });
 
     // Mobile Menu Functions
     const toggleMobileMenu = () => {
-        const isOpen = mobileMenu.style.transform === 'translateX(0px)' || 
-                      mobileMenu.style.transform === '';
+        const isOpen = mobileMenu.style.transform === 'translateX(0px)';
         mobileMenu.style.transform = isOpen ? 'translateX(100%)' : 'translateX(0)';
-        
-        if (!isOpen) {
-            mobileMenu.addEventListener('click', function handler(e) {
-                if (e.target.closest('#mobileUserAvatar')) {
-                    toggleMobileMenu();
-                    mobileMenu.removeEventListener('click', handler);
-                }
-            });
-        }
     };
 
     // Event Listeners
@@ -694,41 +663,38 @@
         }
     });
 
-    // Auth Button Handlers (Example - implement your auth flows)
-    document.querySelectorAll('[href="#"]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Implement sign-in/sign-up logic here
-            console.log('Auth action triggered');
-        });
-    });
-
-    // Logout Handler (Example - add logout button to profile section)
-    profileSection.addEventListener('click', (e) => {
-        if (e.target.closest('.profile-pill')) {
-            // Implement logout logic
-            firebase.auth().signOut().then(() => {
-                console.log('User signed out');
-            }).catch((error) => {
-                console.error('Logout error:', error);
-            });
-        }
-    });
-// Logout function
-        function logout() {
+    // Enhanced Logout Function
+    window.logout = async () => {
+        try {
+            await signOut(auth);
             localStorage.removeItem('isLoggedIn');
-            window.location.href = '/login.html';
+            window.location.href = 'login.html';
+        } catch (error) {
+            console.error('Logout error:', error);
+            alert('Error during logout. Please try again.');
         }
+    };
 
-        // Existing mobile menu code remains same
+    // Initial Security Check
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+    });
 
-        // Content protection
-        document.addEventListener('DOMContentLoaded', () => {
-            if (!isLoggedIn) {
-                document.body.innerHTML = '';
-            }
-        });
+    // Session Timeout (60 minutes)
+    let timeout;
+    const resetTimeout = () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            logout();
+        }, 3600000); // 1 hour
+    };
+
+    window.addEventListener('mousemove', resetTimeout);
+    window.addEventListener('keypress', resetTimeout);
+    resetTimeout();
 </script>
-
+    
    </body>
 </html>
