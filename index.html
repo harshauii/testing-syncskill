@@ -1026,23 +1026,21 @@ body {
   font-family: 'IBM Plex Sans', 'ibmPlex', 'ibmPlex Fallback', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #ffffff; /* White background */
+  background-color: #ffffff;
 }
 
 .center-wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  padding: 20px;
+  padding: 40px 20px; /* top/bottom spacing, keep left/right padding */
   box-sizing: border-box;
 }
 
 .responsive-element {
-  background-color: #002726; /* Keep original background */
-  width: 1124px;
-  height: auto;
-  color: white; /* White text for contrast */
+  background-color: #002726;
+  width: 100%;
+  max-width: 1124px;
+  color: white;
   padding: 40px;
   display: flex;
   justify-content: space-between;
@@ -1050,7 +1048,6 @@ body {
   box-sizing: border-box;
   border-radius: 12px;
   gap: 40px;
-  font-family: 'IBM Plex Sans', 'ibmPlex', 'ibmPlex Fallback', sans-serif;
 }
 
 .text-content {
@@ -1065,7 +1062,7 @@ body {
   font-size: 32px;
   font-weight: 600;
   color: white;
-  white-space: nowrap; /* Prevent text from wrapping */
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1087,7 +1084,7 @@ body {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px; /* Space between icon and text */
+  gap: 8px;
   transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
@@ -1118,7 +1115,8 @@ body {
 @media only screen and (max-width: 768px) {
   .responsive-element {
     flex-direction: column;
-    width: 430px;
+    width: 100%;
+    max-width: 430px;
     padding: 24px;
   }
 
@@ -1127,20 +1125,21 @@ body {
   }
 
   .text-content h1 {
-    font-size: 18px; /* Reduced font size for mobile */
-    white-space: nowrap; /* Ensure the heading stays on one line */
+    font-size: 18px;
+    white-space: nowrap;
   }
 
   .text-content p {
-    font-size: 14px; /* Adjusted font size for readability */
+    font-size: 14px;
   }
 
   .explore-button {
-    padding: 10px 24px; /* Smaller padding for mobile */
-    font-size: 14px; /* Smaller font size */
+    padding: 10px 24px;
+    font-size: 14px;
   }
 }
 </style>
+
 
 
 
