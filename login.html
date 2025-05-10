@@ -187,61 +187,102 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+    import { 
+        getAuth, 
+        signInWithPopup, 
+        GoogleAuthProvider, 
+        setPersistence, 
+        browserSessionPersistence 
+    } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
     const firebaseConfig = {
-  apiKey: "AIzaSyBvqzYTaepJn-WvWMPSZJe26Ydkw-7MXLE",
-  authDomain: "syncskilll.firebaseapp.com",
-  projectId: "syncskilll",
-  storageBucket: "syncskilll.firebasestorage.app",
-  messagingSenderId: "203322315096",
-  appId: "1:203322315096:web:958fc7d94806ef9a98552d",
-  measurementId: "G-JWWWM2ZQSK"
-};
+        apiKey: "AIzaSyBvqzYTaepJn-WvWMPSZJe26Ydkw-7MXLE",
+        authDomain: "syncskilll.firebaseapp.com",
+        projectId: "syncskilll",
+        storageBucket: "syncskilll.firebasestorage.app",
+        messagingSenderId: "203322315096",
+        appId: "1:203322315096:web:958fc7d94806ef9a98552d",
+        measurementId: "G-JWWWM2ZQSK"
+    };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
+
+    // Configure session persistence
+    setPersistence(auth, browserSessionPersistence)
+        .catch((error) => {
+            console.error("Persistence error:", error);
+            showError("Authentication setup failed. Please refresh the page.");
+        });
 
     const loginBtn = document.getElementById("loginBtn");
     const status = document.getElementById("status");
     const btnText = loginBtn.querySelector('.btn-text');
     const spinner = loginBtn.querySelector('.loading-spinner');
 
-    loginBtn.addEventListener("click", async () => {
-      btnText.style.opacity = '0';
-      spinner.style.display = 'block';
-      loginBtn.disabled = true;
-
-      try {
-        const result = await signInWithPopup(auth, provider);
-        const user = result.user;
-        
-        status.classList.remove('error');
-        status.classList.add('success', 'visible');
-        status.innerHTML = `✅ Signed in as <strong>${user.displayName}</strong><br>Redirecting to dashboard...`;
-        
-        // Simulate redirect
-       setTimeout(() => {
-  localStorage.setItem('isLoggedIn', 'true');
-  window.location.href = 'dashboard.html'; // Your actual dashboard filename
-}, 1500);
-      } catch (error) {
-        console.error(error);
+    const showError = (message) => {
         status.classList.remove('success');
         status.classList.add('error', 'visible');
-        
-        const errorMessage = error.code === 'auth/popup-closed-by-user' 
-          ? 'Sign in process canceled' 
-          : 'Sign in failed. Please try again.';
-        
-        status.textContent = errorMessage;
-      } finally {
-        btnText.style.opacity = '1';
-        spinner.style.display = 'none';
-        loginBtn.disabled = false;
-      }
+        status.textContent = message;
+    };
+
+    const handleLogin = async () => {
+        btnText.style.opacity = '0';
+        spinner.style.display = 'block';
+        loginBtn.disabled = true;
+
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+
+            status.classList.remove('error');
+            status.classList.add('success', 'visible');
+            status.innerHTML = `✅ Signed in as <strong>${user.displayName}</strong><br>Redirecting to dashboard...`;
+
+            // Set authentication flags
+            localStorage.setItem('isLoggedIn', 'true');
+            sessionStorage.setItem('firebaseAuthState', 'true');
+
+            // Ensure persistence before redirect
+            await auth.authStateReady();
+            
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
+
+        } catch (error) {
+            console.error('Login error:', error);
+            const message = error.code === 'auth/popup-closed-by-user' 
+                ? 'Sign in process canceled' 
+                : 'Sign in failed. Please try again.';
+            showError(message);
+            
+            // Clear auth flags on failure
+            localStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('firebaseAuthState');
+        } finally {
+            btnText.style.opacity = '1';
+            spinner.style.display = 'none';
+            loginBtn.disabled = false;
+        }
+    };
+
+    // Event listener with pre-check
+    loginBtn.addEventListener("click", () => {
+        if (!navigator.onLine) {
+            showError("No internet connection. Please check your network.");
+            return;
+        }
+        handleLogin();
     });
-  </script>
+
+    // Check if already logged in
+    auth.onAuthStateChanged((user) => {
+        if (user && localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'dashboard.html';
+        }
+    });
+</script>
 </body>
 </html>
