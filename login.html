@@ -222,9 +222,10 @@
         status.innerHTML = `✅ Signed in as <strong>${user.displayName}</strong><br>Redirecting to dashboard...`;
         
         // Simulate redirect
-        setTimeout(() => {
-          window.location.href = '/dashboard';
-        }, 1500);
+       setTimeout(() => {
+  localStorage.setItem('isLoggedIn', 'true');
+  window.location.href = 'dashboard.html'; // Your actual dashboard filename
+}, 1500);
       } catch (error) {
         console.error(error);
         status.classList.remove('success');
