@@ -592,82 +592,64 @@
 
 <!-- Mobile Profile Section (Bottom Sheet) -->
 <div style="
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #ffffff;
-    border-top: 1px solid #f1f5f9;
-    box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
-    padding: 16px;
-    z-index: 1001;
-">
-    <!-- Profile Info Row -->
-    <div style="
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 16px;
-        margin-bottom: 20px;
+        padding: 16px;
+        margin-bottom: 24px;
+        background: #f8fafc;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     ">
-        <img id="mobileUserAvatar" src="https://via.placeholder.com/56" style="
-            width: 56px;
-            height: 56px;
+        <img id="mobileUserAvatar" src="https://via.placeholder.com/72" style="
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
             object-fit: cover;
+            margin-bottom: 16px;
             border: 2px solid #e2e8f0;
-            flex-shrink: 0;
         ">
         
         <div style="
-            flex-grow: 1;
-            min-width: 0;
+            text-align: center;
+            margin-bottom: 16px;
         ">
             <div id="mobileUserName" style="
-                font-size: 16px;
+                font-size: 18px;
                 font-weight: 600;
                 color: #1e293b;
-                margin-bottom: 2px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                margin-bottom: 4px;
             ">
-                Johnathan Christopher Doe
+                John Doe
             </div>
             <div id="mobileUserEmail" style="
                 font-size: 14px;
                 color: #64748b;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                word-break: break-all;
             ">
-                johnathan.doe@companydomain.com
+                john.doe@example.com
             </div>
         </div>
-    </div>
 
-    <!-- Logout Button -->
-    <div onclick="logout()" style="
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 14px;
-        background: linear-gradient(to right, #fff1f2, #ffe4e6);
-        border-radius: 10px;
-        color: #dc2626;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid #fecaca;
-    " 
-    onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 2px 8px rgba(220,38,38,0.1)'" 
-    onmouseout="this.style.transform='none'; this.style.boxShadow='none'">
-        <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-        </svg>
-        <span>Sign Out</span>
+        <div onclick="logout()" style="
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #fff1f2;
+            color: #dc2626;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        " onmouseover="this.style.backgroundColor='#ffe4e6'" 
+        onmouseout="this.style.backgroundColor='#fff1f2'">
+            <svg style="width: 18px; height: 18px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+            </svg>
+            Log Out
+        </div>
     </div>
-</div>
 
     <!-- Rest of Mobile Menu Content -->
     <div style="display: flex; flex-direction: column; gap: 24px;">
