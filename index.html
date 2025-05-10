@@ -1172,5 +1172,188 @@
   }
 </style>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- IBM Plex Font from Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+<div class="center-wrapper">
+  <div class="responsive-element">
+    <div class="text-content">
+      <h1>Become Top 1% in the AI-First World</h1>
+      <p>Whether it is Product, Growth, Design, Business, Tech or Data, GrowthSchool is the place to learn from top experts in the field to become the Top 1%</p>
+      <button class="explore-button">
+        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5-5 5M6 12h12" />
+        </svg>
+        EXPLORE
+      </button>
+    </div>
+    <div class="image-content">
+      <img src="https://via.placeholder.com/350" alt="AI Illustration">
+    </div>
+  </div>
+</div>
+
+<style>
+body {
+  font-family: 'IBM Plex Sans', 'ibmPlex', 'ibmPlex Fallback', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff; /* White background */
+}
+
+.center-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.responsive-element {
+  background-color: #002726; /* Keep original background */
+  width: 1124px;
+  height: auto;
+  color: white; /* White text for contrast */
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 12px;
+  gap: 40px;
+  font-family: 'IBM Plex Sans', 'ibmPlex', 'ibmPlex Fallback', sans-serif;
+}
+
+.text-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.text-content h1 {
+  margin: 0 0 16px;
+  font-size: 32px;
+  font-weight: 600;
+  color: white;
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-content p {
+  margin: 0 0 24px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: white;
+}
+
+.explore-button {
+  background-color: #00ffae;
+  color: #002726;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.explore-button svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.explore-button:hover {
+  background-color: #00cc88;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 255, 174, 0.3);
+}
+
+.explore-button:hover svg {
+  transform: translateX(4px);
+}
+
+.image-content img {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+@media only screen and (max-width: 768px) {
+  .responsive-element {
+    flex-direction: column;
+    width: 430px;
+    padding: 24px;
+  }
+
+  .image-content {
+    display: none;
+  }
+
+  .text-content h1 {
+    font-size: 18px; /* Reduced font size for mobile */
+    white-space: nowrap; /* Ensure the heading stays on one line */
+  }
+
+  .text-content p {
+    font-size: 14px; /* Adjusted font size for readability */
+  }
+
+  .explore-button {
+    padding: 10px 24px; /* Smaller padding for mobile */
+    font-size: 14px; /* Smaller font size */
+  }
+}
+</style>
+
 </body>
 </html>
