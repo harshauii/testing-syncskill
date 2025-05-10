@@ -78,20 +78,6 @@
       display: none !important; 
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </style>
  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -625,32 +611,39 @@
       box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
       z-index: 1002;
   ">
-
-
-
-    
     <!-- Profile Content -->
-    <div class="profile-section">
-    <div style="display:flex; align-items:center; gap:16px; margin-bottom:12px;">
-      <img src="https://via.placeholder.com/56" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #e2e8f0;">
-      <div style="flex-grow:1; min-width:0;">
-        <div style="font-size:16px;font-weight:600;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-          John Doe
+    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px;">
+      <img id="mobileUserAvatar" src="https://via.placeholder.com/56" style="
+          width: 56px;
+          height: 56px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid #e2e8f0;
+      ">
+      
+      <div style="flex-grow: 1; min-width: 0;">
+        <div id="mobileUserName" style="
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        ">
+            John Doe
         </div>
-        <div style="font-size:14px;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-          john.doe@example.com
+        <div id="mobileUserEmail" style="
+            font-size: 14px;
+            color: #64748b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        ">
+            john.doe@example.com
         </div>
       </div>
     </div>
-    <div onclick="logout()" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;background:linear-gradient(to right,#fff1f2,#ffe4e6);border-radius:8px;color:#dc2626;font-weight:500;cursor:pointer;border:1px solid #fecaca;">
-      <!-- logout icon + text -->
-      <svg style="width:20px;height:20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-      </svg>
-      <span>Sign Out</span>
-    </div>
-  </div>
-</div>
 
     <!-- Logout Button -->
     <div onclick="logout()" style="
