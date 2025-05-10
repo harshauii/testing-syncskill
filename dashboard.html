@@ -177,7 +177,41 @@
         display: none !important; /* Initial state */
     }
 }
+
+
+
+
+
+     .hidden { display: none !important; }
+        .profile-pill {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            border-radius: 50px;
+            background: #f8f9fa;
+            cursor: pointer;
+        }
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        @media (max-width: 768px) {
+            .desktop-only { display: none !important; }
+            .mobile-menu-button { display: block !important; }
+        }
+        @media (min-width: 769px) {
+            .mobile-only { display: none !important; }
+        }
+
   </style>
+
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
 </head>
 <body>
 
@@ -189,7 +223,12 @@
 
 
 
- <header style="background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.12); height: 72px; position: fixed; top: 0; left: 0; width: 100%; z-index: 100;">
+ 
+
+
+<body style="margin: 0; margin-top: 72px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;">
+    <!-- Desktop Navigation -->
+   <header style="background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.12); height: 72px; position: fixed; top: 0; left: 0; width: 100%; z-index: 100;">
         <nav style="max-width: 1440px; margin: 0 auto; padding: 0 32px; height: 100%; display: flex; justify-content: space-between; align-items: center;">
             <a href="#" style="display: flex; align-items: center;">
                 <img src="https://static.uacdn.net/production/_next/static/images/logo.svg" alt="Logo" style="height: 32px;">
@@ -357,14 +396,22 @@
             </div>
 
                 <!-- Auth Buttons -->
-                <div id="desktopAuth" class="desktop-only" style="display: flex; gap: 16px;">
+                <div id="authButtons" style="display: flex; gap: 16px;">
     <a href="#" style="padding: 10px 24px; border-radius: 8px; font-weight: 600; color: #4b5563; border: 1px solid #d1d5db; text-decoration: none;">Log in</a>
     <a href="#" style="padding: 10px 24px; background: #7c3aed; color: white; border-radius: 8px; font-weight: 600; text-decoration: none;">Join free</a>
 </div>
 
-<div id="desktopProfile" style="display: none;" class="desktop-only">
-    <img id="desktopProfilePic" src="placeholder.jpg" style="width: 40px; height: 40px; border-radius: 50%; cursor: pointer;">
-</div>            </div>
+<!-- Profile Section -->
+<div id="profileSection" class="hidden">
+    <div class="profile-pill">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
+             alt="Profile" 
+             class="profile-img"
+             id="userAvatar">
+        <span class="desktop-only" id="userName" style="font-weight: 500; color: #333;">John Doe</span>
+    </div>
+</div>
+            </div>
 
             <!-- Mobile Menu Button -->
 <button
@@ -675,23 +722,34 @@
   </div>
 
   <!-- Auth Buttons -->
-  <div id="mobileAuth" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 20px;">
-    <a href="#" style="padding: 12px; text-align: center; background: #7c3aed; color: white; border-radius: 8px; text-decoration: none;">Join free</a>
-    <a href="#" style="padding: 12px; text-align: center; border: 1px solid #d1d5db; color: #4b5563; border-radius: 8px; text-decoration: none;">Log in</a>
+ <!-- Mobile Auth Buttons -->
+<div id="mobileAuthButtons" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 20px;">
+    <a href="#" style="padding: 12px; text-align: center; background: #7c3aed; color: white; border-radius: 8px; text-decoration: none;">
+        Join free
+    </a>
+    <a href="#" style="padding: 12px; text-align: center; border: 1px solid #d1d5db; color: #4b5563; border-radius: 8px; text-decoration: none;">
+        Log in
+    </a>
 </div>
 
-<div id="mobileProfile" style="display: none; align-items: center; gap: 12px; padding: 16px;">
-    <img id="mobileProfilePic" src="placeholder.jpg" style="width: 40px; height: 40px; border-radius: 50%;">
-    <span id="mobileProfileName" style="font-weight: 500; color: #333;"></span>
+<!-- Mobile Profile -->
+<div id="mobileProfileSection" class="hidden" style="padding-top: 20px;">
+    <div style="display: flex; justify-content: center;">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
+             alt="Profile" 
+             class="profile-img"
+             id="mobileUserAvatar"
+             onclick="toggleMobileMenu()">
+    </div>
 </div>
 </div>
-
 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script>
 
-// onst firebaseConfig = {
+<script>
+    // Firebase Configuration (Replace with your config)
+    const firebaseConfig = {
   apiKey: "AIzaSyBvqzYTaepJn-WvWMPSZJe26Ydkw-7MXLE",
   authDomain: "syncskilll.firebaseapp.com",
   projectId: "syncskilll",
@@ -704,93 +762,132 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
-    // Auth state listener
-    firebase.auth().onAuthStateChanged(user => {
-        const desktopAuth = document.getElementById('desktopAuth');
-        const mobileAuth = document.getElementById('mobileAuth');
-        const desktopProfile = document.getElementById('desktopProfile');
-        const mobileProfile = document.getElementById('mobileProfile');
-        const desktopProfilePic = document.getElementById('desktopProfilePic');
-        const mobileProfilePic = document.getElementById('mobileProfilePic');
-        const mobileProfileName = document.getElementById('mobileProfileName');
+    // DOM Elements
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    const authButtons = document.getElementById('authButtons');
+    const profileSection = document.getElementById('profileSection');
+    const mobileAuthButtons = document.getElementById('mobileAuthButtons');
+    const mobileProfileSection = document.getElementById('mobileProfileSection');
+    const userAvatar = document.getElementById('userAvatar');
+    const mobileUserAvatar = document.getElementById('mobileUserAvatar');
+    const userName = document.getElementById('userName');
 
+    // Auth State Handler
+    const handleAuthState = (user) => {
         if (user) {
-            // User is logged in
-            desktopAuth.style.display = 'none';
-            mobileAuth.style.display = 'none';
-            desktopProfile.style.display = 'block';
-            mobileProfile.style.display = 'flex';
+            // User is authenticated
+            authButtons.classList.add('hidden');
+            profileSection.classList.remove('hidden');
+            mobileAuthButtons.classList.add('hidden');
+            mobileProfileSection.classList.remove('hidden');
 
-            // Update profile details
-            const photoURL = user.photoURL || 'https://via.placeholder.com/40';
-            desktopProfilePic.src = photoURL;
-            mobileProfilePic.src = photoURL;
-            mobileProfileName.textContent = user.displayName || 'User';
+            // Update user profile
+            const photoURL = user.photoURL || 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+            const displayName = user.displayName || 'User';
+
+            userAvatar.src = photoURL;
+            mobileUserAvatar.src = photoURL;
+            userName.textContent = displayName;
         } else {
-            // User is logged out
-            desktopAuth.style.display = 'flex';
-            mobileAuth.style.display = 'grid';
-            desktopProfile.style.display = 'none';
-            mobileProfile.style.display = 'none';
+            // User is not authenticated
+            authButtons.classList.remove('hidden');
+            profileSection.classList.add('hidden');
+            mobileAuthButtons.classList.remove('hidden');
+            mobileProfileSection.classList.add('hidden');
+        }
+    };
+
+    // Auth State Listener
+    firebase.auth().onAuthStateChanged(handleAuthState);
+
+    // Desktop Mega Menu
+    let menuTimeout;
+    const megaMenu = document.getElementById('megaMenu');
+
+    const showMegaMenu = () => {
+        clearTimeout(menuTimeout);
+        megaMenu.style.opacity = '1';
+        megaMenu.style.visibility = 'visible';
+    };
+
+    const hideMegaMenu = () => {
+        menuTimeout = setTimeout(() => {
+            megaMenu.style.opacity = '0';
+            megaMenu.style.visibility = 'hidden';
+        }, 200);
+    };
+
+    // Mobile Menu Functions
+    const toggleMobileMenu = () => {
+        const isOpen = mobileMenu.style.transform === 'translateX(0px)' || 
+                      mobileMenu.style.transform === '';
+        mobileMenu.style.transform = isOpen ? 'translateX(100%)' : 'translateX(0)';
+        
+        if (!isOpen) {
+            mobileMenu.addEventListener('click', function handler(e) {
+                if (e.target.closest('#mobileUserAvatar')) {
+                    toggleMobileMenu();
+                    mobileMenu.removeEventListener('click', handler);
+                }
+            });
+        }
+    };
+
+    // Event Listeners
+    mobileMenuButton.addEventListener('click', toggleMobileMenu);
+    mobileMenuClose.addEventListener('click', toggleMobileMenu);
+
+    document.addEventListener('click', (e) => {
+        if (!mobileMenu.contains(e.target) && 
+            !mobileMenuButton.contains(e.target) &&
+            window.innerWidth <= 768) {
+            mobileMenu.style.transform = 'translateX(100%)';
         }
     });
-        // Desktop Mega Menu
-        let menuTimeout;
-        const megaMenu = document.getElementById('megaMenu');
 
-        function showMegaMenu() {
-            clearTimeout(menuTimeout);
-            megaMenu.style.opacity = '1';
-            megaMenu.style.visibility = 'visible';
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && window.innerWidth <= 768) {
+            mobileMenu.style.transform = 'translateX(100%)';
         }
+    });
 
-        function hideMegaMenu() {
-            menuTimeout = setTimeout(() => {
-                megaMenu.style.opacity = '0';
-                megaMenu.style.visibility = 'hidden';
-            }, 200);
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            mobileMenu.style.transform = 'translateX(100%)';
         }
+    });
 
-        // Mobile Menu
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const mobileMenuClose = document.getElementById('mobileMenuClose');
+    // Auth Button Handlers (Example - implement your auth flows)
+    document.querySelectorAll('[href="#"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Implement sign-in/sign-up logic here
+            console.log('Auth action triggered');
+        });
+    });
 
-        function toggleMobileMenu() {
-            const isOpen = mobileMenu.style.transform === 'translateX(0px)' || 
-                          mobileMenu.style.transform === '';
-            mobileMenu.style.transform = isOpen ? 'translateX(100%)' : 'translateX(0)';
+    // Logout Handler (Example - add logout button to profile section)
+    profileSection.addEventListener('click', (e) => {
+        if (e.target.closest('.profile-pill')) {
+            // Implement logout logic
+            firebase.auth().signOut().then(() => {
+                console.log('User signed out');
+            }).catch((error) => {
+                console.error('Logout error:', error);
+            });
         }
-
-        // Event Listeners
-        mobileMenuButton.addEventListener('click', toggleMobileMenu);
-        mobileMenuClose.addEventListener('click', toggleMobileMenu);
-
-        // Close menu on outside click
-        document.addEventListener('click', (e) => {
-            if (!mobileMenu.contains(e.target) && 
-                !mobileMenuButton.contains(e.target) &&
-                window.innerWidth <= 768) {
-                mobileMenu.style.transform = 'translateX(100%)';
-            }
-        });
-
-        // Close on ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && window.innerWidth <= 768) {
-                mobileMenu.style.transform = 'translateX(100%)';
-            }
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                mobileMenu.style.transform = 'translateX(100%)';
-            }
-        });
-    </script>
+    });
+</script>
 
 
+
+
+
+
+                    
+                
 
 
 
@@ -822,48 +919,5 @@
     </div>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBvqzYTaepJn-WvWMPSZJe26Ydkw-7MXLE",
-      authDomain: "syncskilll.firebaseapp.com",
-      projectId: "syncskilll",
-      storageBucket: "syncskilll.firebasestorage.app",
-      messagingSenderId: "203322315096",
-      appId: "1:203322315096:web:958fc7d94806ef9a98552d",
-      measurementId: "G-JWWWM2ZQSK"
-    };
-
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    const profilePicNav = document.getElementById("profilePicNav");
-    const dropdownName = document.getElementById("dropdownName");
-    const dropdownEmail = document.getElementById("dropdownEmail");
-    const logoutButtons = document.querySelectorAll(".logout-btn");
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        profilePicNav.src = user.photoURL;
-        dropdownName.textContent = user.displayName;
-        dropdownEmail.textContent = user.email;
-      } else {
-        window.location.href = '/login';
-      }
-    });
-
-    logoutButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        signOut(auth).then(() => {
-          window.location.href = '/login';
-        }).catch((error) => {
-          console.error(error);
-        });
-      });
-    });
-  </script>
 </body>
 </html>
