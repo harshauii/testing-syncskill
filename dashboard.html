@@ -311,22 +311,170 @@
 
                 
                 
-               <div class="profile-menu">
-            <img id="userAvatar" src="https://via.placeholder.com/36" class="profile-pic" alt="Profile">
-            <span id="userName" style="font-weight: 500;">Loading...</span>
-            <div class="profile-dropdown">
-                <div style="text-align: center; margin-bottom: 12px;">
-                    <img id="dropdownAvatar" src="https://via.placeholder.com/60" class="profile-pic" alt="Profile">
-                    <div id="dropdownName" style="font-weight: 600; margin-top: 8px;">Loading...</div>
-                    <div id="dropdownEmail" style="font-size: 14px; color: #666;">Loading...</div>
-                </div>
-                <div class="logout-btn" onclick="logout()" style="padding: 8px; text-align: center; border-radius: 6px;"
-                     onmouseover="this.style.background='#f8f9fa'"
-                     onmouseout="this.style.background='transparent'">
-                    Logout
-                </div>
-                    </div>
-                </div>
+               <div class="profile-menu" style="position: relative;">
+    <!-- Profile Trigger -->
+    <div class="profile-trigger" 
+         onclick="toggleDropdown()"
+         style="
+             display: flex;
+             align-items: center;
+             gap: 12px;
+             padding: 8px 16px;
+             border-radius: 8px;
+             cursor: pointer;
+             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+             background: transparent;
+         "
+         onmouseover="this.style.background='#f8f9fa'"
+         onmouseout="this.style.background='transparent'">
+        <img id="userAvatar" src="https://via.placeholder.com/36" 
+             style="
+                 width: 36px;
+                 height: 36px;
+                 border-radius: 50%;
+                 object-fit: cover;
+                 border: 2px solid #e2e8f0;
+             ">
+        <span id="userName" style="
+            font-weight: 500;
+            color: #1e293b;
+            font-size: 14px;
+            position: relative;
+            padding-right: 20px;
+        ">Loading...
+        <span style="
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.2s ease;
+            font-size: 18px;
+        ">▾</span>
+        </span>
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="profile-dropdown" 
+         style="
+             position: absolute;
+             right: 0;
+             top: calc(100% + 8px);
+             width: 280px;
+             background: #ffffff;
+             border-radius: 12px;
+             box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+             padding: 24px;
+             opacity: 0;
+             transform: translateY(-10px);
+             visibility: hidden;
+             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+             z-index: 1000;
+         ">
+        <!-- Profile Info -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img id="dropdownAvatar" src="https://via.placeholder.com/60" 
+                 style="
+                     width: 80px;
+                     height: 80px;
+                     border-radius: 50%;
+                     object-fit: cover;
+                     border: 3px solid #e2e8f0;
+                     margin-bottom: 16px;
+                     transition: transform 0.2s ease;
+                 "
+                 onmouseover="this.style.transform='scale(1.05)'"
+                 onmouseout="this.style.transform='scale(1)'">
+            <div id="dropdownName" style="
+                font-weight: 600;
+                font-size: 18px;
+                color: #1e293b;
+                margin-bottom: 4px;
+                line-height: 1.4;
+            ">Loading...</div>
+            <div id="dropdownEmail" style="
+                font-size: 14px;
+                color: #64748b;
+                margin-bottom: 16px;
+                word-break: break-all;
+            ">Loading...</div>
+        </div>
+
+        <!-- Divider -->
+        <div style="height: 1px; background: #f1f5f9; margin: 16px 0;"></div>
+
+        <!-- Logout Button -->
+        <div class="logout-btn" 
+             onclick="logout()"
+             style="
+                 padding: 12px;
+                 text-align: center;
+                 border-radius: 8px;
+                 background: #fff;
+                 border: 1px solid #f1f5f9;
+                 color: #dc2626;
+                 font-weight: 500;
+                 cursor: pointer;
+                 transition: all 0.2s ease;
+                 display: flex;
+                 align-items: center;
+                 justify-content: center;
+                 gap: 8px;
+             "
+             onmouseover="this.style.background='#fef2f2'; this.style.borderColor='#fecaca'"
+             onmouseout="this.style.background='#fff'; this.style.borderColor='#f1f5f9'">
+            <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+            </svg>
+            <span>Sign Out</span>
+        </div>
+    </div>
+</div>
+
+<script>
+// Dropdown Toggle
+let dropdownVisible = false;
+
+function toggleDropdown() {
+    const dropdown = document.querySelector('.profile-dropdown');
+    dropdown.style.opacity = dropdownVisible ? 0 : 1;
+    dropdown.style.transform = dropdownVisible ? 'translateY(-10px)' : 'translateY(0)';
+    dropdown.style.visibility = dropdownVisible ? 'hidden' : 'visible';
+    dropdownVisible = !dropdownVisible;
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.profile-menu')) {
+        dropdownVisible = false;
+        document.querySelector('.profile-dropdown').style.opacity = 0;
+        document.querySelector('.profile-dropdown').style.transform = 'translateY(-10px)';
+        document.querySelector('.profile-dropdown').style.visibility = 'hidden';
+    }
+});
+
+// Load user data
+document.addEventListener('DOMContentLoaded', () => {
+    const user = {
+        name: "John Doe",
+        email: "john.doe@example.com",
+        avatar: "https://source.unsplash.com/random/600x600/?face"
+    };
+
+    // Update all profile elements
+    document.querySelectorAll('[id^="user"], [id^="dropdown"]').forEach(el => {
+        if(el.id.includes('Name')) el.textContent = user.name;
+        if(el.id.includes('Email')) el.textContent = user.email;
+        if(el.id.includes('Avatar')) el.src = user.avatar;
+    });
+});
+
+// Add error handling for avatars
+document.querySelectorAll('img').forEach(img => {
+    img.onerror = () => {
+        img.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNjYmQ0ZGIiIHN0cm9rZS13aWR0aD0iMiI+PHBhdGggc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJNMTYgN3YxNG03LTdoN003IDNoMTNhMiAyIDAgMCAxIDIgMnYxNGEyIDIgMCAwIDEtMiAySDdhMiAyIDAgMCAxLTItMlY1YTIgMiAwIDAgMSAyLTJ6Ii8+PC9zdmc+';
+    }
+});
+</script>
 
 
 
