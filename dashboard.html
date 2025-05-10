@@ -56,6 +56,8 @@
       margin-bottom: 24px;
       background: #f8f9fa;
       border-radius: 12px;
+         opacity: 1 !important;
+        visibility: visible !important;
     }
 
     /* Fix mobile menu z-index */
@@ -588,7 +590,7 @@
 
   
 
-<!-- Mobile Profile -->
+<!-- Mobile Menu -->
 <div id="mobileMenu" class="mobile-only" style="
     position: fixed;
     top: 0;
@@ -602,7 +604,7 @@
     transform: translateX(100%);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: -4px 0 16px rgba(0,0,0,0.08);
-    z-index: 1000;
+    z-index: 9999;
 ">
     <!-- Close Button -->
     <div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
@@ -620,7 +622,7 @@
     </div>
 
     <!-- Mobile Profile Section -->
-    <div style="
+    <div class="mobile-profile" style="
         padding: 20px;
         background: #f8f9fa;
         border-radius: 12px;
@@ -678,6 +680,12 @@
             ">Log Out</span>
         </div>
     </div>
+
+    <!-- Rest of Mobile Menu Content -->
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+        <!-- Add your other menu sections here -->
+    </div>
+</div>
 
 </div>
 
