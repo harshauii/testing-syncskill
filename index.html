@@ -1662,4 +1662,196 @@ body {
 
 </body>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div class="section-wrapper">
+  <a href="YOUR_LINK_HERE" role="button" aria-label="Career recommendation" tabindex="0" class="card-link">
+    <div class="card-container">
+      <!-- Grid overlay -->
+      <div class="grid-overlay"></div>
+
+      <!-- Text content -->
+      <div class="card-text">
+        <h3>Not sure what you're interested in?</h3>
+        <div class="card-cta">
+          <span>Find your next Career Move</span>
+          <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M6.25 13.75L13.75 6.25M13.75 6.25H6.25M13.75 6.25V13.75" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right image -->
+      <div class="card-image" style="background-image: url('https://www.growthschool.io/_next/static/media/GS-NSQ-Logo.0decf121.svg');"></div>
+    </div>
+  </a>
+</div>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  .section-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 16px;
+    overflow-x: auto;
+  }
+
+  .card-link {
+    display: block;
+    width: 100%;
+    max-width: 1150px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .card-container {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #101f52, #1e49d2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 32px;
+    gap: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: background 0.4s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .card-container:hover {
+    background: linear-gradient(135deg, #4f46e5, #3b82f6);
+    box-shadow: 0 12px 28px rgba(59, 130, 246, 0.3);
+  }
+
+  .grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.growthschool.io/_next/static/media/GS-Grid.7248f125.png');
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .card-text {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .card-text h3 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .card-cta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .card-cta svg {
+    transition: transform 0.3s ease;
+  }
+
+  .card-container:hover .card-cta svg {
+    transform: translateX(4px);
+  }
+
+  .card-image {
+    position: relative;
+    z-index: 2;
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .card-container {
+      width: 610px;
+      height: 150px;
+      flex-direction: row;
+      padding: 16px;
+    }
+
+    .card-text h3 {
+      font-size: 1.25rem;
+    }
+
+    .card-cta {
+      font-size: 0.95rem;
+    }
+
+    .card-image {
+      width: 80px;
+      height: 80px;
+    }
+  }
+</style>
+
 </html>
