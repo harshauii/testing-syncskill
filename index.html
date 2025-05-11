@@ -6,18 +6,6 @@
     <title>SYNCSKILL</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-.page-container {
-  margin-left: 130px;
-  margin-right: 130px;
-}
-
-@media (max-width: 768px) {
-    .page-container {
-        margin-left: 3px;
-        margin-right: 3px;
-    }
-}
-
        :root {
             --primary-900: #37be72;
             --secondary-900: #1A1A1A;
@@ -36,7 +24,7 @@
         }
 
         body {
-            font-family: 'IBM Plex Sans', inter, system-ui, -apple-system, sans-serif, font-family: '', sans-serif;;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             line-height: 1.6;
         }
 
@@ -84,7 +72,6 @@
             opacity: 0;
             transform: translateY(40px);
             transition: all 0.8s var(--transition) 0.2s;
- font-family: 'IBM Plex Sans', sans-serif;
         }
 
         .slide-title {
@@ -232,7 +219,6 @@
         }
     </style>
 </head>
- <div class="page-container">
 <body style="margin: 0; margin-top: 72px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;">
     <!-- Desktop Navigation -->
    <header style="background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.12); height: 72px; position: fixed; top: 0; left: 0; width: 100%; z-index: 100;">
@@ -840,13 +826,12 @@
       <!-- Slide 1 -->
       <div class="carousel-slide active">
           <picture>
-              <source media="(max-width: 640px)" srcset="1.png">
-              <source media="(min-width: 641px)" srcset="11.png">
+              <source media="(max-width: 640px)" srcset="mobile.png">
+              <source media="(min-width: 641px)" srcset="desktop.png">
               <img src="fallback-1.jpg" alt="Innovation" class="slide-media" loading="lazy" decoding="async">
           </picture>
           <div class="slide-content">
               <h1 class="slide-title">Next-Gen Solutions</h1>
-
               <p class="slide-description">Innovative approaches for modern challenges</p>
               <a href="#" class="slide-cta">
                   Explore Now
@@ -860,8 +845,8 @@
       <!-- Slide 2 -->
       <div class="carousel-slide">
           <picture>
-              <source media="(max-width: 640px)" srcset="2.png">
-              <source media="(min-width: 641px)" srcset="22.png">
+              <source media="(max-width: 640px)" srcset="mobile.png">
+              <source media="(min-width: 641px)" srcset="desktop.png">
               <img src="fallback-2.jpg" alt="Sustainability" class="slide-media" loading="lazy" decoding="async">
           </picture>
           <div class="slide-content">
@@ -1042,31 +1027,29 @@ body {
   font-family: 'IBM Plex Sans', 'ibmPlex', 'ibmPlex Fallback', sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #ffffff;
 }
 
 .center-wrapper {
   display: flex;
   justify-content: center;
-  padding: 0px 0px;
+  padding: 10px 0px;
   box-sizing: border-box;
-  background-color: #ffffff;
-  width: 100%;  /* Ensure full width available for the section */
 }
 
 .responsive-element {
   background-color: #ffffff;
-  width: 1280px;              /* Exact width of the section */
-  height: 360px;              /* Exact height of the section */
+  width: 100%;
+  max-width: 1124px;
   color: #111827;
+  padding: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 40px;
   box-sizing: border-box;
   border-radius: 12px;
   gap: 40px;
-  border: 0px solid #002726;
-  margin: 0 auto;             /* Center it horizontally */
+  border: 2px solid #002726;
 }
 
 .text-content {
@@ -1124,10 +1107,6 @@ body {
   transform: translateX(4px);
 }
 
-.image-content {
-    display: none;
-  }
-
 .image-content img {
   width: 350px;
   height: 350px;
@@ -1135,17 +1114,7 @@ body {
   border-radius: 8px;
 }
 
-/* Mobile View */
 @media only screen and (max-width: 768px) {
-  body {
-    margin-left: 10px;  /* Small margin on the left */
-    margin-right: 10px; /* Small margin on the right */
-  }
-
-  .center-wrapper {
-    padding: 20px 0; /* Adjust padding for mobile */
-  }
-
   .responsive-element {
     flex-direction: column;
     width: 100%;
@@ -1153,10 +1122,8 @@ body {
     padding: 24px;
     margin-left: 20px;
     margin-right: 20px;
-    height: auto;  /* Let the height be dynamic for mobile */
   }
 
-  /* Hide image in mobile view */
   .image-content {
     display: none;
   }
@@ -1167,7 +1134,7 @@ body {
   }
 
   .text-content p {
-    font-size: 14px; /* Decrease the size of the paragraph */
+    font-size: 14px;
   }
 
   .explore-button {
@@ -1189,7 +1156,6 @@ body {
 
 
 
-<div style="width: 100%; height: 0.5px; background-color: #E0E0E0; margin: 16px 0;"></div>
 
 
 
@@ -1222,436 +1188,10 @@ body {
 
 
 
-
-<body style="margin: 0; font-family: 'IBM Plex Sans', sans-serif; background-color: #F4F4F4;">
-
-<div style="overflow-x: auto; white-space: nowrap; padding: 32px 64px; position: relative; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none;" id="scrollContainer">
-  <div style="display: inline-block; white-space: nowrap; padding-bottom: 16px;" id="cardWrapper">
-
-    <!-- Course Card 1 -->
-    <div style="display: inline-block; width: 280px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
-         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
-         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
-      <!-- Image with decreased height -->
-      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
-      <div style="padding: 24px; height: 200px; display: flex; flex-direction: column;">
-        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
-        <div style="display: flex; align-items: center; margin-bottom: 16px;">
-          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
-        </div>
-        <div style="margin-top: auto; display: flex; gap: 8px;">
-          <button style="flex: 1; padding: 12px; height: 40px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
-                  onmouseover="this.style.backgroundColor='#0043CE'"
-                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
-          <button style="flex: 1; padding: 12px; height: 40px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
-                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
-                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
-        </div>
-      </div>
-</div>
-
-
-    <!-- Repeat other cards here -->
-<!-- Course Card 1 -->
-   <div style="display: inline-block; width: 280px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
-         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
-         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
-      <!-- Image with decreased height -->
-      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
-      <div style="padding: 24px; height: 200px; display: flex; flex-direction: column;">
-        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
-        <div style="display: flex; align-items: center; margin-bottom: 16px;">
-          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
-        </div>
-        <div style="margin-top: auto; display: flex; gap: 8px;">
-          <button style="flex: 1; padding: 12px; height: 40px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
-                  onmouseover="this.style.backgroundColor='#0043CE'"
-                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
-          <button style="flex: 1; padding: 12px; height: 40px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
-                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
-                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
-        </div>
-      </div>
-</div>
-    <!-- Repeat other cards here -->
-<div style="display: inline-block; width: 280px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
-         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
-         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
-      <!-- Image with decreased height -->
-      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
-      <div style="padding: 24px; height: 200px; display: flex; flex-direction: column;">
-        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
-        <div style="display: flex; align-items: center; margin-bottom: 16px;">
-          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
-        </div>
-        <div style="margin-top: auto; display: flex; gap: 8px;">
-          <button style="flex: 1; padding: 12px; height: 40px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
-                  onmouseover="this.style.backgroundColor='#0043CE'"
-                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
-          <button style="flex: 1; padding: 12px; height: 40px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
-                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
-                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
-        </div>
-      </div>
-</div>
-
-    <!-- Repeat other cards here -->
-<div style="display: inline-block; width: 280px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
-         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
-         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
-      <!-- Image with decreased height -->
-      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
-      <div style="padding: 24px; height: 200px; display: flex; flex-direction: column;">
-        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
-        <div style="display: flex; align-items: center; margin-bottom: 16px;">
-          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
-        </div>
-        <div style="margin-top: auto; display: flex; gap: 8px;">
-          <button style="flex: 1; padding: 12px; height: 40px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
-                  onmouseover="this.style.backgroundColor='#0043CE'"
-                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
-          <button style="flex: 1; padding: 12px; height: 40px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
-                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
-                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
-        </div>
-      </div>
-</div>
-    <!-- Repeat other cards here -->
-<div style="display: inline-block; width: 280px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
-         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
-         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
-      <!-- Image with decreased height -->
-      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
-      <div style="padding: 24px; height: 200px; display: flex; flex-direction: column;">
-        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
-        <div style="display: flex; align-items: center; margin-bottom: 16px;">
-          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
-        </div>
-        <div style="margin-top: auto; display: flex; gap: 8px;">
-          <button style="flex: 1; padding: 12px; height: 40px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
-                  onmouseover="this.style.backgroundColor='#0043CE'"
-                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
-          <button style="flex: 1; padding: 12px; height: 40px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
-                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
-                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
-        </div>
-      </div>
-</div>
-    <!-- Repeat other cards here -->
-    <!-- Repeat other cards here -->
-
-  </div>
-</div>
-
-<!-- Place this just BELOW #cardWrapper's parent (scrollContainer) -->
-<div style="position: relative; margin-top: 16px; display: flex; justify-content: center; gap: 8px; background: rgba(255,255,255,0.96); padding: 8px; border-radius: 50px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); backdrop-filter: blur(4px); width: fit-content; margin-left: auto; margin-right: auto;">
-
-  <button id="prevBtn" 
-          style="background: #FFFFFF; color: #0F62FE; padding: 12px 20px; border-radius: 25px; border: 1px solid #E0E0E0; cursor: pointer; font-weight: 600; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; min-width: 100px;"
-          onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
-          onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">
-    <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
-    </svg>
-    Prev
-  </button>
-  <button id="nextBtn" 
-          style="background: #0F62FE; color: #FFFFFF; padding: 12px 20px; border-radius: 25px; border: 1px solid #0F62FE; cursor: pointer; font-weight: 600; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; min-width: 100px;"
-          onmouseover="this.style.backgroundColor='#0043CE'; this.style.borderColor='#0043CE'"
-          onmouseout="this.style.backgroundColor='#0F62FE'; this.style.borderColor='#0F62FE'">
-    Next
-    <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-    </svg>
-  </button>
-</div>
-
-<script>
-  const scrollContainer = document.getElementById('scrollContainer');
-  const cardWrapper = document.getElementById('cardWrapper');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-
-  // Calculate scroll amount based on card width
-  const getScrollAmount = () => {
-    const firstCard = cardWrapper.firstElementChild;
-    return firstCard.offsetWidth + parseInt(window.getComputedStyle(firstCard).marginRight);
-  };
-
-  // Update button states
-  const updateButtonStates = () => {
-    prevBtn.disabled = scrollContainer.scrollLeft <= 0;
-    nextBtn.disabled = scrollContainer.scrollLeft + scrollContainer.offsetWidth >= cardWrapper.scrollWidth;
-    
-    prevBtn.style.opacity = prevBtn.disabled ? '0.6' : '1';
-    nextBtn.style.opacity = nextBtn.disabled ? '0.6' : '1';
-    prevBtn.style.cursor = prevBtn.disabled ? 'not-allowed' : 'pointer';
-    nextBtn.style.cursor = nextBtn.disabled ? 'not-allowed' : 'pointer';
-  };
-
-  // Scroll handlers
-  const scrollLeft = () => {
-    scrollContainer.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-  };
-
-  const scrollRight = () => {
-    scrollContainer.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-  };
-
-  // Event listeners
-  prevBtn.addEventListener('click', scrollLeft);
-  nextBtn.addEventListener('click', scrollRight);
-  scrollContainer.addEventListener('scroll', updateButtonStates);
-  window.addEventListener('resize', updateButtonStates);
-  updateButtonStates(); // Initial check
-</script>
-
-</body>
-
-
-<div style="height: 30px;"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<div class="section-wrapper">
-  <a href="YOUR_LINK_HERE" role="button" aria-label="Career recommendation" tabindex="0" class="card-link">
-    <div class="card-container">
-      <!-- Grid overlay -->
-      <div class="grid-overlay"></div>
-
-      <!-- Text content -->
-      <div class="card-text">
-        <h3>Not sure what you're interested in?</h3>
-        <div class="card-cta">
-          <span>Find your next Career Move</span>
-          <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true">
-            <path d="M6.25 13.75L13.75 6.25M13.75 6.25H6.25M13.75 6.25V13.75" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Right image -->
-      <div class="card-image" style="background-image: url('https://www.growthschool.io/_next/static/media/GS-NSQ-Logo.0decf121.svg');"></div>
-    </div>
-  </a>
-</div>
-
-<style>
-  * {
-    box-sizing: border-box;
-  }
-
-  .section-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 0 12px;
- padding: 40px 12px;
-  }
-
-  .card-link {
-    width: 100%;
-    max-width: 1150px;
-    text-decoration: none;
-  }
-
-  .card-container {
-    position: relative;
-    width: 100%;
-    height: 200px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #101f52, #1e49d2);
-    display: flex;
-    align-items: center; /* vertical center */
-    justify-content: space-between;
-    padding: 28px 36px;
-
-    gap: 24px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    transition: background 0.4s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .card-container:hover {
-    background: linear-gradient(135deg, #4f46e5, #3b82f6);
-    box-shadow: 0 12px 28px rgba(59, 130, 246, 0.3);
-  }
-
-  .grid-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('https://www.growthschool.io/_next/static/media/GS-Grid.7248f125.png');
-    opacity: 0.15;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .card-text {
-    position: relative;
-    z-index: 2;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start; /* Left align text */
-    text-align: left; /* Ensures the text is left aligned */
-  }
-
-  .card-text h3 {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 1.75rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 10px;
-    line-height: 1.4;
-  }
-
-  .card-cta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #ffffff;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-align: left; /* Ensures left alignment */
-    margin-top: 5px;
-  }
-
-  .card-cta svg {
-    transition: transform 0.3s ease;
-  }
-
-  .card-container:hover .card-cta svg {
-    transform: translateX(4px);
-  }
-
-  .card-image {
-    position: relative;
-    z-index: 2;
-    width: 120px;
-    height: 120px;
-    flex-shrink: 0;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 12px;
-  }
-
-  @media (max-width: 768px) {
-    .card-container {
-      flex-direction: row;
-      height: auto;
-      max-width: 610px;
-      padding: 20px;
-      gap: 16px;
-    }
-
-    .card-text h3 {
-      font-size: 1.2rem;
-      line-height: 1.3;
-    }
-
-    .card-cta {
-      font-size: 0.9rem;
-    }
-
-    .card-image {
-      width: 70px;
-      height: 70px;
-    }
-  }
-</style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<section style="
-  background-color: #FFFDE7;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  padding: 40px 0;
-  max-width: 1400px;
-  margin: 0 auto;
-  font-family: 'IBM Plex Sans', inter, sans-serif;
-">
+<section style="display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; padding: 2px 40px; max-width: 1400px; margin: 0 auto; font-family: 'Inter', sans-serif;">
     
   <!-- Card 1 -->
-  <div style="flex: 1 1 300px; max-width: 320px; height: 440px; background: #ffffff; border-radius: 16px; padding: 22px; box-shadow: 0 4px 6px rgba(37, 148, 86, 0.05); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; overflow: hidden; border: 1px solid #e0f3e8; font-family: 'Inter', sans-serif;"
+  <div style="flex: 1 1 300px; max-width: 360px; background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(37, 148, 86, 0.05); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; overflow: hidden; border: 1px solid #e0f3e8; font-family: 'Inter', sans-serif;"
        onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 10px 15px rgba(37, 148, 86, 0.1)';this.querySelector('.card-highlight').style.opacity='1';this.querySelector('.feature-title').querySelector('span').style.width='40px';this.querySelector('.learn-more').style.opacity='1';this.querySelector('.learn-more').style.transform='translateX(0)';this.querySelector('.feature-icon').style.transform='scale(1.03)';"
        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 6px rgba(37, 148, 86, 0.05)';this.querySelector('.card-highlight').style.opacity='0';this.querySelector('.feature-title').querySelector('span').style.width='0';this.querySelector('.learn-more').style.opacity='0';this.querySelector('.learn-more').style.transform='translateX(-10px)';this.querySelector('.feature-icon').style.transform='scale(1)';">
     
@@ -1670,12 +1210,19 @@ body {
       <p style="font-size: 16px; color: #217446; margin-bottom: 24px; line-height: 1.7; font-family: 'Inter', sans-serif;">
         Engage with top educators in real-time—ask questions, participate in live polls, and get instant doubt resolution during class.
       </p>
-      
+      <a href="#" class="learn-more" style="display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; color: #37be72; text-decoration: none; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); opacity: 0; transform: translateX(-10px); font-family: 'Inter', sans-serif;"
+         onmouseover="this.style.color='#259456';this.querySelector('svg').style.transform='translateX(4px)';"
+         onmouseout="this.style.color='#37be72';this.querySelector('svg').style.transform='translateX(0)';">
+        Learn more
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 8px; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);">
+          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
   </div>
 
   <!-- Card 2 -->
-   <div style="flex: 1 1 300px; max-width: 320px; height: 440px; background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(37, 148, 86, 0.05); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; overflow: hidden; border: 1px solid #e0f3e8; font-family: 'Inter', sans-serif;"
+  <div style="flex: 1 1 300px; max-width: 360px; background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(37, 148, 86, 0.05); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; overflow: hidden; border: 1px solid #e0f3e8; font-family: 'Inter', sans-serif;"
        onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 10px 15px rgba(37, 148, 86, 0.1)';this.querySelector('.card-highlight').style.opacity='1';this.querySelector('.feature-title').querySelector('span').style.width='40px';this.querySelector('.learn-more').style.opacity='1';this.querySelector('.learn-more').style.transform='translateX(0)';this.querySelector('.feature-icon').style.transform='scale(1.03)';"
        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 6px rgba(37, 148, 86, 0.05)';this.querySelector('.card-highlight').style.opacity='0';this.querySelector('.feature-title').querySelector('span').style.width='0';this.querySelector('.learn-more').style.opacity='0';this.querySelector('.learn-more').style.transform='translateX(-10px)';this.querySelector('.feature-icon').style.transform='scale(1)';">
     
@@ -1706,7 +1253,7 @@ body {
   </div>
 
   <!-- Card 3 -->
-  <div style="flex: 1 1 300px; max-width: 320px; height: 440px; background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(37, 148, 86, 0.05); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; overflow: hidden; border: 1px solid #e0f3e8; font-family: 'Inter', sans-serif;"
+  <div style="flex: 1 1 300px; max-width: 360px; background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(37, 148, 86, 0.05); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; overflow: hidden; border: 1px solid #e0f3e8; font-family: 'Inter', sans-serif;"
        onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 10px 15px rgba(37, 148, 86, 0.1)';this.querySelector('.card-highlight').style.opacity='1';this.querySelector('.feature-title').querySelector('span').style.width='40px';this.querySelector('.learn-more').style.opacity='1';this.querySelector('.learn-more').style.transform='translateX(0)';this.querySelector('.feature-icon').style.transform='scale(1.03)';"
        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 6px rgba(37, 148, 86, 0.05)';this.querySelector('.card-highlight').style.opacity='0';this.querySelector('.feature-title').querySelector('span').style.width='0';this.querySelector('.learn-more').style.opacity='0';this.querySelector('.learn-more').style.transform='translateX(-10px)';this.querySelector('.feature-icon').style.transform='scale(1)';">
     
@@ -1810,7 +1357,501 @@ body {
 
 
 
+    
+<body style="margin: 0; font-family: 'IBM Plex Sans', sans-serif; background-color: #F4F4F4;">
+
+<div style="overflow-x: auto; white-space: nowrap; padding: 32px 64px; position: relative; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none;" id="scrollContainer">
+  <div style="display: inline-block; white-space: nowrap; padding-bottom: 16px;" id="cardWrapper">
+
+    <!-- Course Card 1 -->
+    <div style="display: inline-block; width: 320px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 240px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
+        </div>
+        <p style="margin: 0 0 16px 0; color: #525252; font-size: 14px; line-height: 1.5; white-space: normal;">Master full-stack development with modern frameworks and best practices for enterprise applications.</p>
+        <div style="margin-top: auto; display: flex; gap: 12px;">
+          <button style="flex: 1; padding: 12px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
       </div>
+    </div>
+
+    <!-- Repeat other cards here -->
+<!-- Course Card 1 -->
+    <div style="display: inline-block; width: 320px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 240px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
+        </div>
+        <p style="margin: 0 0 16px 0; color: #525252; font-size: 14px; line-height: 1.5; white-space: normal;">Master full-stack development with modern frameworks and best practices for enterprise applications.</p>
+        <div style="margin-top: auto; display: flex; gap: 12px;">
+          <button style="flex: 1; padding: 12px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat other cards here -->
+<!-- Course Card 1 -->
+    <div style="display: inline-block; width: 320px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 240px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
+        </div>
+        <p style="margin: 0 0 16px 0; color: #525252; font-size: 14px; line-height: 1.5; white-space: normal;">Master full-stack development with modern frameworks and best practices for enterprise applications.</p>
+        <div style="margin-top: auto; display: flex; gap: 12px;">
+          <button style="flex: 1; padding: 12px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat other cards here -->
+<!-- Course Card 1 -->
+    <div style="display: inline-block; width: 320px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 240px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
+        </div>
+        <p style="margin: 0 0 16px 0; color: #525252; font-size: 14px; line-height: 1.5; white-space: normal;">Master full-stack development with modern frameworks and best practices for enterprise applications.</p>
+        <div style="margin-top: auto; display: flex; gap: 12px;">
+          <button style="flex: 1; padding: 12px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat other cards here -->
+<!-- Course Card 1 -->
+    <div style="display: inline-block; width: 320px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 240px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
+        </div>
+        <p style="margin: 0 0 16px 0; color: #525252; font-size: 14px; line-height: 1.5; white-space: normal;">Master full-stack development with modern frameworks and best practices for enterprise applications.</p>
+        <div style="margin-top: auto; display: flex; gap: 12px;">
+          <button style="flex: 1; padding: 12px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat other cards here -->
+<!-- Course Card 1 -->
+    <div style="display: inline-block; width: 320px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 240px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
+        </div>
+        <p style="margin: 0 0 16px 0; color: #525252; font-size: 14px; line-height: 1.5; white-space: normal;">Master full-stack development with modern frameworks and best practices for enterprise applications.</p>
+        <div style="margin-top: auto; display: flex; gap: 12px;">
+          <button style="flex: 1; padding: 12px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat other cards here -->
+<!-- Course Card 1 -->
+    <div style="display: inline-block; width: 320px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <img src="https://via.placeholder.com/320x180" alt="Course Image" style="width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 240px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
+        </div>
+        <p style="margin: 0 0 16px 0; color: #525252; font-size: 14px; line-height: 1.5; white-space: normal;">Master full-stack development with modern frameworks and best practices for enterprise applications.</p>
+        <div style="margin-top: auto; display: flex; gap: 12px;">
+          <button style="flex: 1; padding: 12px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat other cards here -->
+<!-- Course Card 1 -->
+    <div style="display: inline-block; width: 320px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <img src="https://via.placeholder.com/320x180" alt="Course Image" style="width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 240px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
+        </div>
+        <p style="margin: 0 0 16px 0; color: #525252; font-size: 14px; line-height: 1.5; white-space: normal;">Master full-stack development with modern frameworks and best practices for enterprise applications.</p>
+        <div style="margin-top: auto; display: flex; gap: 12px;">
+          <button style="flex: 1; padding: 12px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat other cards here -->
+<!-- Course Card 1 -->
+    <div style="display: inline-block; width: 320px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <img src="https://via.placeholder.com/320x180" alt="Course Image" style="width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 240px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
+        </div>
+        <p style="margin: 0 0 16px 0; color: #525252; font-size: 14px; line-height: 1.5; white-space: normal;">Master full-stack development with modern frameworks and best practices for enterprise applications.</p>
+        <div style="margin-top: auto; display: flex; gap: 12px;">
+          <button style="flex: 1; padding: 12px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat other cards here -->
+<!-- Course Card 1 -->
+    <div style="display: inline-block; width: 320px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <img src="https://via.placeholder.com/320x180" alt="Course Image" style="width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 240px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
+        </div>
+        <p style="margin: 0 0 16px 0; color: #525252; font-size: 14px; line-height: 1.5; white-space: normal;">Master full-stack development with modern frameworks and best practices for enterprise applications.</p>
+        <div style="margin-top: auto; display: flex; gap: 12px;">
+          <button style="flex: 1; padding: 12px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Repeat other cards here -->
+
+  </div>
+</div>
+
+<!-- Place this just BELOW #cardWrapper's parent (scrollContainer) -->
+<div style="position: relative; margin-top: 16px; display: flex; justify-content: center; gap: 8px; background: rgba(255,255,255,0.96); padding: 8px; border-radius: 50px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); backdrop-filter: blur(4px); width: fit-content; margin-left: auto; margin-right: auto;">
+
+  <button id="prevBtn" 
+          style="background: #FFFFFF; color: #0F62FE; padding: 12px 20px; border-radius: 25px; border: 1px solid #E0E0E0; cursor: pointer; font-weight: 600; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; min-width: 100px;"
+          onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+          onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">
+    <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Prev
+  </button>
+  <button id="nextBtn" 
+          style="background: #0F62FE; color: #FFFFFF; padding: 12px 20px; border-radius: 25px; border: 1px solid #0F62FE; cursor: pointer; font-weight: 600; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; min-width: 100px;"
+          onmouseover="this.style.backgroundColor='#0043CE'; this.style.borderColor='#0043CE'"
+          onmouseout="this.style.backgroundColor='#0F62FE'; this.style.borderColor='#0F62FE'">
+    Next
+    <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  const scrollContainer = document.getElementById('scrollContainer');
+  const cardWrapper = document.getElementById('cardWrapper');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  // Calculate scroll amount based on card width
+  const getScrollAmount = () => {
+    const firstCard = cardWrapper.firstElementChild;
+    return firstCard.offsetWidth + parseInt(window.getComputedStyle(firstCard).marginRight);
+  };
+
+  // Update button states
+  const updateButtonStates = () => {
+    prevBtn.disabled = scrollContainer.scrollLeft <= 0;
+    nextBtn.disabled = scrollContainer.scrollLeft + scrollContainer.offsetWidth >= cardWrapper.scrollWidth;
+    
+    prevBtn.style.opacity = prevBtn.disabled ? '0.6' : '1';
+    nextBtn.style.opacity = nextBtn.disabled ? '0.6' : '1';
+    prevBtn.style.cursor = prevBtn.disabled ? 'not-allowed' : 'pointer';
+    nextBtn.style.cursor = nextBtn.disabled ? 'not-allowed' : 'pointer';
+  };
+
+  // Scroll handlers
+  const scrollLeft = () => {
+    scrollContainer.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    scrollContainer.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+  };
+
+  // Event listeners
+  prevBtn.addEventListener('click', scrollLeft);
+  nextBtn.addEventListener('click', scrollRight);
+  scrollContainer.addEventListener('scroll', updateButtonStates);
+  window.addEventListener('resize', updateButtonStates);
+  updateButtonStates(); // Initial check
+</script>
 
 </body>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div class="section-wrapper">
+  <a href="YOUR_LINK_HERE" role="button" aria-label="Career recommendation" tabindex="0" class="card-link">
+    <div class="card-container">
+      <!-- Grid overlay -->
+      <div class="grid-overlay"></div>
+
+      <!-- Text content -->
+      <div class="card-text">
+        <h3>Not sure what you're interested in?</h3>
+        <div class="card-cta">
+          <span>Find your next Career Move</span>
+          <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M6.25 13.75L13.75 6.25M13.75 6.25H6.25M13.75 6.25V13.75" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right image -->
+      <div class="card-image" style="background-image: url('https://www.growthschool.io/_next/static/media/GS-NSQ-Logo.0decf121.svg');"></div>
+    </div>
+  </a>
+</div>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  .section-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 12px;
+  }
+
+  .card-link {
+    width: 100%;
+    max-width: 1150px;
+    text-decoration: none;
+  }
+
+  .card-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #101f52, #1e49d2);
+    display: flex;
+    align-items: center; /* vertical center */
+    justify-content: space-between;
+    padding: 28px 36px;
+    gap: 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: background 0.4s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .card-container:hover {
+    background: linear-gradient(135deg, #4f46e5, #3b82f6);
+    box-shadow: 0 12px 28px rgba(59, 130, 246, 0.3);
+  }
+
+  .grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.growthschool.io/_next/static/media/GS-Grid.7248f125.png');
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .card-text {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Left align text */
+    text-align: left; /* Ensures the text is left aligned */
+  }
+
+  .card-text h3 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  .card-cta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: left; /* Ensures left alignment */
+    margin-top: 5px;
+  }
+
+  .card-cta svg {
+    transition: transform 0.3s ease;
+  }
+
+  .card-container:hover .card-cta svg {
+    transform: translateX(4px);
+  }
+
+  .card-image {
+    position: relative;
+    z-index: 2;
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .card-container {
+      flex-direction: row;
+      height: auto;
+      max-width: 610px;
+      padding: 20px;
+      gap: 16px;
+    }
+
+    .card-text h3 {
+      font-size: 1.2rem;
+      line-height: 1.3;
+    }
+
+    .card-cta {
+      font-size: 0.9rem;
+    }
+
+    .card-image {
+      width: 70px;
+      height: 70px;
+    }
+  }
+</style>
+
+
+
 </html>
