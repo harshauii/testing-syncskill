@@ -1713,8 +1713,7 @@ div p {
   </div>
 </div>
 
-<section style="
-  
+<section class="features-wrapper" style="
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -1724,7 +1723,6 @@ div p {
   margin: 0 auto;
   font-family: 'IBM Plex Sans', inter, sans-serif;
 ">
-    
 
 
 
@@ -1825,6 +1823,10 @@ div p {
 }
 
 @media (max-width: 768px) {
+
+ .features-wrapper {
+    padding: 0 !important;
+  }
     .page-container1 {
         margin-left: 3px;
         margin-right: 3px;
@@ -1868,7 +1870,7 @@ div p {
 
   @media (max-width: 768px) {
 .section-growth {
-      padding: 24px;
+      padding: 24 px;
     }
 
     .section-growth-subtitle {
