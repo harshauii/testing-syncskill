@@ -1711,7 +1711,7 @@ body {
         <h3>Not sure what you're interested in?</h3>
         <div class="card-cta">
           <span>Find your next Career Move</span>
-          <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true">
             <path d="M6.25 13.75L13.75 6.25M13.75 6.25H6.25M13.75 6.25V13.75" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
@@ -1728,16 +1728,11 @@ body {
     box-sizing: border-box;
   }
 
-  body {
-    margin: 0;
-  }
-
   .section-wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 0 16px;
-    overflow-x: auto;
+    padding: 0 12px;
   }
 
   .card-link {
@@ -1752,12 +1747,13 @@ body {
     position: relative;
     width: 100%;
     height: 150px;
+    max-width: 610px;
     border-radius: 16px;
     background: linear-gradient(135deg, #101f52, #1e49d2);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 32px;
+    padding: 20px 28px;
     gap: 20px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     overflow: hidden;
@@ -1797,14 +1793,14 @@ body {
     font-size: 1.5rem;
     font-weight: 600;
     color: #ffffff;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     line-height: 1.4;
   }
 
   .card-cta {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     color: #ffffff;
     font-family: 'IBM Plex Sans', sans-serif;
     font-weight: 600;
@@ -1822,8 +1818,8 @@ body {
   .card-image {
     position: relative;
     z-index: 2;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     flex-shrink: 0;
     background-size: contain;
     background-repeat: no-repeat;
@@ -1833,25 +1829,28 @@ body {
 
   @media (max-width: 768px) {
     .card-container {
-      width: 610px;
-      height: 150px;
+      width: 100%;
+      height: auto;
       flex-direction: row;
       padding: 16px;
+      gap: 16px;
     }
 
     .card-text h3 {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
+      line-height: 1.3;
     }
 
     .card-cta {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
 
     .card-image {
-      width: 80px;
-      height: 80px;
+      width: 70px;
+      height: 70px;
     }
   }
 </style>
+
 
 </html>
