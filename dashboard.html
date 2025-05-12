@@ -1101,6 +1101,12 @@ document.querySelectorAll('img').forEach(img => {
     });
 
     resetSessionTimer();
+    firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      const displayName = user.displayName;
+      document.querySelector("#username").textContent = displayName;
+    }
+  });
 </script>
         </header>
 
@@ -1143,6 +1149,7 @@ document.querySelectorAll('img').forEach(img => {
 <div class="center-wrapper">
   <div class="responsive-element">
     <div class="text-content">
+<h1 id="username">username</h1>
       <h1>Become Top 1% in the AI-First World</h1>
       <p>Whether it is Product, Growth, Design, Business, Tech or Data, Syncskill is the place to learn from top experts in the field to become the Top 1%</p>
       <button class="explore-button">
