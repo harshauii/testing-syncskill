@@ -946,7 +946,8 @@ document.querySelectorAll('img').forEach(img => {
     import { 
         getAuth, 
         onAuthStateChanged, 
-        signOut 
+        signOut,
+        updateProfile
     } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -975,50 +976,57 @@ document.querySelectorAll('img').forEach(img => {
         dropdownName: document.getElementById('dropdownName'),
         dropdownEmail: document.getElementById('dropdownEmail'),
         mobileUserName: document.getElementById('mobileUserName'),
-        mobileUserEmail: document.getElementById('mobileUserEmail')
-         welcomeUsername: document.getElementById('welcomeUsername')
+        mobileUserEmail: document.getElementById('mobileUserEmail'),
+        usernamePlaceholder: document.getElementById('usernamePlaceholder')
     };
 
-    // In the updateUserProfile function
-const updateUserProfile = (user) => {
-    const fallbackAvatar = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
-    
-    // Update welcome message
-    const displayName = user.displayName || user.email.split('@')[0] || 'User';
-    document.getElementById('usernamePlaceholder').textContent = displayName;
-    
-    // Update avatar elements
-    const avatarElements = document.querySelectorAll('[id*="Avatar"], [id*="avatar"]');
-    avatarElements.forEach(el => el.src = user.photoURL || fallbackAvatar);
-    
-    // Update other profile elements
-    document.querySelectorAll('[id*="Name"]').forEach(el => {
-        el.textContent = displayName;
-    });
-    
-    document.querySelectorAll('[id*="Email"]').forEach(el => {
-        el.textContent = user.email || 'No email provided';
-    });
-};
+    // User profile updater with enhanced error handling
+    const updateUserProfile = (user) => {
+        if (!user) return;
+        
+        const fallbackAvatar = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+        const displayName = user.displayName || user.email?.split('@')[0] || 'User';
+        const email = user.email || 'No email provided';
+        const photoURL = user.photoURL || fallbackAvatar;
 
-    // Authentication verification
-    const verifyAuthentication = (user) => {
+        try {
+            // Update all profile elements
+            elements.usernamePlaceholder.textContent = displayName;
+            elements.userName.textContent = displayName;
+            elements.dropdownName.textContent = displayName;
+            elements.mobileUserName.textContent = displayName;
+            
+            // Update email elements
+            elements.dropdownEmail.textContent = email;
+            elements.mobileUserEmail.textContent = email;
+
+            // Update avatars
+            [elements.userAvatar, elements.dropdownAvatar, elements.mobileUserAvatar].forEach(img => {
+                img.src = photoURL;
+                img.onerror = () => img.src = fallbackAvatar;
+            });
+
+        } catch (error) {
+            console.error('Profile update error:', error);
+        }
+    };
+
+    // Auth state handler with proper initialization
+    const handleAuthState = (user) => {
         const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        const isAuthenticated = user && isLoggedIn;
-
-        if (!isAuthenticated) {
+        
+        if (!user || !isLoggedIn) {
             localStorage.removeItem('isLoggedIn');
             window.location.href = 'login.html';
-            return false;
+            return;
         }
-        return true;
+
+        updateUserProfile(user);
+        console.log('Authenticated user:', user); // Debug log
     };
 
-    // Auth state handler
-    onAuthStateChanged(auth, (user) => {
-        if (!verifyAuthentication(user)) return;
-        updateUserProfile(user);
-    });
+    // Initialize auth listener
+    onAuthStateChanged(auth, handleAuthState);
 
     // Mobile menu controller
     const toggleMobileMenu = () => {
@@ -1067,13 +1075,18 @@ const updateUserProfile = (user) => {
         if (!localStorage.getItem('isLoggedIn')) {
             window.location.href = 'login.html';
         } else {
-            // Wait for auth state to resolve
-            const unsubscribe = onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    updateUserProfile(user);
-                    unsubscribe();
-                }
-            });
+            // Force immediate auth check
+            const user = auth.currentUser;
+            if (user) {
+                handleAuthState(user);
+            } else {
+                const unsubscribe = onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        handleAuthState(user);
+                        unsubscribe();
+                    }
+                });
+            }
         }
     });
 
@@ -1092,12 +1105,6 @@ const updateUserProfile = (user) => {
     });
 
     resetSessionTimer();
-    firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      const displayName = user.displayName;
-      document.querySelector("#username").textContent = displayName;
-    }
-  });
 </script>
         </header>
 
