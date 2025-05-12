@@ -1101,6 +1101,1700 @@ document.querySelectorAll('img').forEach(img => {
 
     resetSessionTimer();
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="carousel-container">
+  <div class="carousel-track">
+      <!-- Slide 1 -->
+      <div class="carousel-slide active">
+          <picture>
+              <source media="(max-width: 640px)" srcset="1.png">
+              <source media="(min-width: 641px)" srcset="11.png">
+              <img src="fallback-1.jpg" alt="Innovation" class="slide-media" loading="lazy" decoding="async">
+          </picture>
+          <div class="slide-content">
+              <h1 class="slide-title">Next-Gen Solutions</h1>
+
+              <p class="slide-description">Innovative approaches for modern challenges</p>
+              <a href="#" class="slide-cta">
+                  Explore Now
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+              </a>
+          </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="carousel-slide">
+          <picture>
+              <source media="(max-width: 640px)" srcset="2.png">
+              <source media="(min-width: 641px)" srcset="22.png">
+              <img src="fallback-2.jpg" alt="Sustainability" class="slide-media" loading="lazy" decoding="async">
+          </picture>
+          <div class="slide-content">
+              <h1 class="slide-title">Eco Innovation</h1>
+              <p class="slide-description">Sustainable solutions for tomorrow</p>
+              <a href="#" class="slide-cta">
+                  Discover More
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+              </a>
+          </div>
+      </div>
+  </div>
+
+  <div class="carousel-controls">
+      <div class="controls-group">
+          <button class="control-button prev" aria-label="Previous slide">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M15 18l-6-6 6-6"/>
+              </svg>
+          </button>
+          <button class="control-button next" aria-label="Next slide">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M9 18l6-6-6-6"/>
+              </svg>
+          </button>
+      </div>
+      <div class="pagination">
+          <div class="pagination-dot active" aria-label="Slide 1"></div>
+          <div class="pagination-dot" aria-label="Slide 2"></div>
+      </div>
+  </div>
+</div>
+<script>
+    class PremiumCarousel {
+        constructor(container) {
+            this.DOM = {
+                container,
+                track: container.querySelector('.carousel-track'),
+                slides: Array.from(container.querySelectorAll('.carousel-slide')),
+                prevBtn: container.querySelector('.prev'),
+                nextBtn: container.querySelector('.next'),
+                dots: Array.from(container.querySelectorAll('.pagination-dot'))
+            };
+
+            this.state = {
+                currentIndex: 0,
+                isAnimating: false,
+                totalSlides: this.DOM.slides.length,
+                autoPlayInterval: null,
+                autoPlayDelay: 8000
+            };
+
+            this.init();
+        }
+
+        init() {
+            this.setupEventListeners();
+            this.startAutoPlay();
+        }
+
+        setupEventListeners() {
+            this.DOM.prevBtn.addEventListener('click', () => this.prevSlide());
+            this.DOM.nextBtn.addEventListener('click', () => this.nextSlide());
+
+            this.DOM.dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => this.goToSlide(index));
+            });
+
+            let touchStartX = 0;
+            this.DOM.container.addEventListener('touchstart', e => {
+                touchStartX = e.touches[0].clientX;
+            });
+
+            this.DOM.container.addEventListener('touchend', e => {
+                const touchEndX = e.changedTouches[0].clientX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    diff > 0 ? this.nextSlide() : this.prevSlide();
+                }
+            });
+
+            document.addEventListener('keydown', e => {
+                if (e.key === 'ArrowLeft') this.prevSlide();
+                if (e.key === 'ArrowRight') this.nextSlide();
+            });
+        }
+
+        updateUI() {
+            this.DOM.slides.forEach(slide => slide.classList.remove('active'));
+            this.DOM.dots.forEach(dot => dot.classList.remove('active'));
+
+            this.DOM.slides[this.state.currentIndex].classList.add('active');
+            this.DOM.dots[this.state.currentIndex].classList.add('active');
+        }
+
+        nextSlide() {
+            if (this.state.isAnimating) return;
+            this.state.isAnimating = true;
+            this.state.currentIndex = (this.state.currentIndex + 1) % this.state.totalSlides;
+            this.animateTransition();
+        }
+
+        prevSlide() {
+            if (this.state.isAnimating) return;
+            this.state.isAnimating = true;
+            this.state.currentIndex = (this.state.currentIndex - 1 + this.state.totalSlides) % this.state.totalSlides;
+            this.animateTransition();
+        }
+
+        goToSlide(index) {
+            if (this.state.isAnimating || index === this.state.currentIndex) return;
+            this.state.isAnimating = true;
+            this.state.currentIndex = index;
+            this.animateTransition();
+        }
+
+        animateTransition() {
+            this.DOM.track.style.transform = `translateX(-${this.state.currentIndex * 100}%)`;
+            this.updateUI();
+
+            setTimeout(() => {
+                this.state.isAnimating = false;
+            }, 1000);
+        }
+
+        startAutoPlay() {
+            this.state.autoPlayInterval = setInterval(() => {
+                if (!this.state.isAnimating) this.nextSlide();
+            }, this.state.autoPlayDelay);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const carouselContainer = document.querySelector('.carousel-container');
+        if (carouselContainer) {
+            new PremiumCarousel(carouselContainer);
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- IBM Plex Font from Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+<div class="center-wrapper">
+  <div class="responsive-element">
+    <div class="text-content">
+      <h1>Become Top 1% in the AI-First World</h1>
+      <p>Whether it is Product, Growth, Design, Business, Tech or Data, Syncskill is the place to learn from top experts in the field to become the Top 1%</p>
+      <button class="explore-button">
+        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5-5 5M6 12h12" />
+        </svg>
+        EXPLORE
+      </button>
+    </div>
+    <div class="image-content">
+      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="AI Illustration">
+    </div>
+  </div>
+</div>
+
+<style>
+body {
+  font-family: 'IBM Plex Sans', 'ibmPlex', 'ibmPlex Fallback', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.center-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 0px 0px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  width: 100%;  /* Ensure full width available for the section */
+}
+
+.responsive-element {
+  background-color: #ffffff;
+  width: 1280px;              /* Exact width of the section */
+  height: 360px;              /* Exact height of the section */
+  color: #111827;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  gap: 40px;
+  border: 0px solid #002726;
+  margin: 0 auto;             /* Center it horizontally */
+}
+
+.text-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.text-content h1 {
+  margin: 0 0 16px;
+  font-size: 32px;
+  font-weight: 600;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-content p {
+  margin: 0 0 24px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #374151;
+}
+
+.explore-button {
+  background-color: #002726;
+  color: white;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.explore-button svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.explore-button:hover {
+  background-color: #00b87b;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 255, 174, 0.3);
+}
+
+.explore-button:hover svg {
+  transform: translateX(4px);
+}
+
+.image-content {
+    display: none;
+  }
+
+.image-content img {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Mobile View */
+@media only screen and (max-width: 768px) {
+  body {
+    margin-left: 10px;  /* Small margin on the left */
+    margin-right: 10px; /* Small margin on the right */
+  }
+
+  .center-wrapper {
+    padding: 20px 0; /* Adjust padding for mobile */
+  }
+
+  .responsive-element {
+    flex-direction: column;
+    width: 100%;
+    max-width: 430px;
+    padding: 24px;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: auto;  /* Let the height be dynamic for mobile */
+  }
+
+  /* Hide image in mobile view */
+  .image-content {
+    display: none;
+  }
+
+  .text-content h1 {
+    font-size: 20px;
+    white-space: nowrap;
+  }
+
+  .text-content p {
+    font-size: 14px; /* Decrease the size of the paragraph */
+  }
+
+  .explore-button {
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="width: 100%; height: 0.5px; background-color: #E0E0E0; margin: 16px 0;"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body style="margin: 0; font-family: 'IBM Plex Sans', sans-serif; background-color: #F4F4F4;">
+
+
+
+<div class="section-growthh">
+  <div class="section-growth-innerr">
+    <p class="section-growth-subtitlee">
+      Explore Your Possibilities
+    </p>
+    <h2 class="section-growth-titlee">
+      Your Carrier, Your Path
+    </h2>
+  </div>
+</div>
+
+
+
+
+
+
+<div style="overflow-x: auto; white-space: nowrap; padding: 32px 64px; position: relative; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none;" id="scrollContainer">
+  <div style="display: inline-block; white-space: nowrap; padding-bottom: 16px;" id="cardWrapper">
+
+
+
+<div style="display: inline-block; width: 280px; margin-right: 24px; background: linear-gradient(145deg, #e3f2ff 0%, #f0e8ff 100%); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.12); transition: all 0.3s ease-in-out; vertical-align: top; position: relative;"
+     onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 30px rgba(15, 98, 254, 0.25)'"
+     onmouseout="this.style.transform='none'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.12)'">
+  
+  <!-- Image -->
+  <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid #D0D0D0;">
+  
+  <div style="padding: 24px; height: 200px; display: flex; flex-direction: column;">
+
+    <div style="display: flex; align-items: center; margin-bottom: 1px;">
+      <span style="padding: 4px 8px; background: linear-gradient(to right, #7B61FF, #0F62FE); color: #ffffff; border-radius: 4px; font-size: 14px; font-weight: 600;">🌟 FEATURED PROGRAM</span>
+    </div>
+
+    <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #1A1A1A;">GenAI Mastery</h3>
+
+    <div style="display: flex; align-items: center; margin-bottom: 16px;">
+      <span style="padding: 4px 8px; background: #E8F0FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">12 Weeks</span>
+    </div>
+
+    <div style="margin-top: auto; display: flex; gap: 8px;">
+      <button style="flex: 1; padding: 12px; height: 40px; background: linear-gradient(to right, #7B61FF, #0F62FE); color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+              onmouseover="this.style.opacity='0.9'"
+              onmouseout="this.style.opacity='1'">Syllabus</button>
+      
+      <button style="flex: 1; padding: 12px; height: 40px; background: #FFFFFF; color: #7B61FF; border: 1px solid #D0D0D0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+              onmouseover="this.style.backgroundColor='#F7F5FF'; this.style.borderColor='#7B61FF'"
+              onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#D0D0D0'">Know More</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+    <!-- Repeat other cards here -->
+
+    <!-- Course Card 1 -->
+    <div style="display: inline-block; width: 280px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <!-- Image with decreased height -->
+      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 200px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Web Development</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">4 Weeks</span>
+        </div>
+        <div style="margin-top: auto; display: flex; gap: 8px;">
+          <button style="flex: 1; padding: 12px; height: 40px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; height: 40px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
+      </div>
+</div>
+
+
+    <!-- Repeat other cards here -->
+<!-- Course Card 1 -->
+   <div style="display: inline-block; width: 280px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <!-- Image with decreased height -->
+      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 200px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">Java Full Stack</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">8 Weeks</span>
+        </div>
+        <div style="margin-top: auto; display: flex; gap: 8px;">
+          <button style="flex: 1; padding: 12px; height: 40px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; height: 40px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
+      </div>
+</div>
+    <!-- Repeat other cards here -->
+<div style="display: inline-block; width: 280px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <!-- Image with decreased height -->
+      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 200px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">AI & ML</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">6 Weeks</span>
+        </div>
+        <div style="margin-top: auto; display: flex; gap: 8px;">
+          <button style="flex: 1; padding: 12px; height: 40px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; height: 40px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
+      </div>
+</div>
+
+    <!-- Repeat other cards here -->
+<div style="display: inline-block; width: 280px; margin-right: 24px; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); vertical-align: top; position: relative;"
+         onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+         onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+      <!-- Image with decreased height -->
+      <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" alt="Course Image" style="width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid #E0E0E0;">
+      <div style="padding: 24px; height: 200px; display: flex; flex-direction: column;">
+        <h3 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 600; color: #161616;">UI UX Design</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <span style="padding: 4px 8px; background: #E8F4FF; color: #0F62FE; border-radius: 4px; font-size: 14px; font-weight: 500;">2 Weeks</span>
+        </div>
+        <div style="margin-top: auto; display: flex; gap: 8px;">
+          <button style="flex: 1; padding: 12px; height: 40px; background: #0F62FE; color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#0043CE'"
+                  onmouseout="this.style.backgroundColor='#0F62FE'">Syllabus</button>
+          <button style="flex: 1; padding: 12px; height: 40px; background: #FFFFFF; color: #0F62FE; border: 1px solid #E0E0E0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
+                  onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+                  onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">Know More</button>
+        </div>
+      </div>
+</div>
+    <!-- Repeat other cards here -->
+    <!-- Repeat other cards here -->
+
+  </div>
+</div>
+
+<!-- Place this just BELOW #cardWrapper's parent (scrollContainer) -->
+<div style="position: relative; margin-top: 16px; display: flex; justify-content: center; gap: 8px; background: rgba(255,255,255,0.96); padding: 8px; border-radius: 50px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); backdrop-filter: blur(4px); width: fit-content; margin-left: auto; margin-right: auto;">
+
+  <button id="prevBtn" 
+          style="background: #FFFFFF; color: #0F62FE; padding: 12px 20px; border-radius: 25px; border: 1px solid #E0E0E0; cursor: pointer; font-weight: 600; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; min-width: 100px;"
+          onmouseover="this.style.backgroundColor='#F4F4F4'; this.style.borderColor='#0F62FE'"
+          onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.borderColor='#E0E0E0'">
+    <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Prev
+  </button>
+  <button id="nextBtn" 
+          style="background: #0F62FE; color: #FFFFFF; padding: 12px 20px; border-radius: 25px; border: 1px solid #0F62FE; cursor: pointer; font-weight: 600; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; min-width: 100px;"
+          onmouseover="this.style.backgroundColor='#0043CE'; this.style.borderColor='#0043CE'"
+          onmouseout="this.style.backgroundColor='#0F62FE'; this.style.borderColor='#0F62FE'">
+    Next
+    <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  const scrollContainer = document.getElementById('scrollContainer');
+  const cardWrapper = document.getElementById('cardWrapper');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  // Calculate scroll amount based on card width
+  const getScrollAmount = () => {
+    const firstCard = cardWrapper.firstElementChild;
+    return firstCard.offsetWidth + parseInt(window.getComputedStyle(firstCard).marginRight);
+  };
+
+  // Update button states
+  const updateButtonStates = () => {
+    prevBtn.disabled = scrollContainer.scrollLeft <= 0;
+    nextBtn.disabled = scrollContainer.scrollLeft + scrollContainer.offsetWidth >= cardWrapper.scrollWidth;
     
+    prevBtn.style.opacity = prevBtn.disabled ? '0.6' : '1';
+    nextBtn.style.opacity = nextBtn.disabled ? '0.6' : '1';
+    prevBtn.style.cursor = prevBtn.disabled ? 'not-allowed' : 'pointer';
+    nextBtn.style.cursor = nextBtn.disabled ? 'not-allowed' : 'pointer';
+  };
+
+  // Scroll handlers
+  const scrollLeft = () => {
+    scrollContainer.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    scrollContainer.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+  };
+
+  // Event listeners
+  prevBtn.addEventListener('click', scrollLeft);
+  nextBtn.addEventListener('click', scrollRight);
+  scrollContainer.addEventListener('scroll', updateButtonStates);
+  window.addEventListener('resize', updateButtonStates);
+  updateButtonStates(); // Initial check
+</script>
+
+
+</body>
+
+<style>
+  .section-growthh {
+    padding: 32px 64px 0 64px;
+  }
+
+  .section-growth-subtitlee {
+    margin: 0;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    text-transform: uppercase;
+    color: #002726;
+  }
+
+  .section-growth-titlee {
+    margin: 4px 0 24px 0;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%;
+    letter-spacing: -0.558px;
+    color: #002726;
+  }
+
+  /* Mobile view adjustments */
+  @media (max-width: 767px) {
+    .section-growthh {
+      padding: 24px;
+    }
+
+    .section-growth-subtitlee {
+      font-size: 14px !important;
+    }
+
+    .section-growth-titlee {
+      font-size: 28px !important;
+    }
+  }
+</style>
+<div style="height: 30px;"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div class="section-wrapper">
+  <a href="YOUR_LINK_HERE" role="button" aria-label="Career recommendation" tabindex="0" class="card-link">
+    <div class="card-container">
+      <!-- Grid overlay -->
+      <div class="grid-overlay"></div>
+
+      <!-- Text content -->
+      <div class="card-text">
+        <h3>Not sure what you're interested in?</h3>
+        <div class="card-cta">
+          <span>Join our Free  Career Guidance Session</span>
+          <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M6.25 13.75L13.75 6.25M13.75 6.25H6.25M13.75 6.25V13.75" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right image -->
+      <div class="card-image" style="background-image: url('https://www.growthschool.io/_next/static/media/GS-NSQ-Logo.0decf121.svg');"></div>
+    </div>
+  </a>
+</div>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  .section-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 12px;
+ padding: 40px 12px;
+  }
+
+  .card-link {
+    width: 100%;
+    max-width: 1150px;
+    text-decoration: none;
+  }
+
+  .card-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #101f52, #1e49d2);
+    display: flex;
+    align-items: center; /* vertical center */
+    justify-content: space-between;
+    padding: 28px 36px;
+
+    gap: 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: background 0.4s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .card-container:hover {
+    background: linear-gradient(135deg, #4f46e5, #3b82f6);
+    box-shadow: 0 12px 28px rgba(59, 130, 246, 0.3);
+  }
+
+  .grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.growthschool.io/_next/static/media/GS-Grid.7248f125.png');
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .card-text {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Left align text */
+    text-align: left; /* Ensures the text is left aligned */
+  }
+
+  .card-text h3 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  .card-cta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: left; /* Ensures left alignment */
+    margin-top: 5px;
+  }
+
+  .card-cta svg {
+    transition: transform 0.3s ease;
+  }
+
+  .card-container:hover .card-cta svg {
+    transform: translateX(4px);
+  }
+
+  .card-image {
+    position: relative;
+    z-index: 2;
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 768px) {
+div p {
+      font-size: 14px !important; /* Decrease font size for mobile */
+    }
+    div h2 {
+      font-size: 28px !important; /* Decrease font size for mobile */
+    }
+    .card-container {
+      flex-direction: row;
+      height: auto;
+      max-width: 610px;
+      padding: 20px;
+      gap: 16px;
+    }
+
+    .card-text h3 {
+      font-size: 1.2rem;
+      line-height: 1.3;
+    }
+
+    .card-cta {
+      font-size: 0.9rem;
+    }
+
+    .card-image {
+      width: 70px;
+      height: 70px;
+    }
+  }
+</style>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="background-color: #FFFDE7;">
+<div class="page-container2">
+
+<div class="section-growth2">
+  <div class="section-growth-inner2">
+<p class="section-growth-subtitle2" style="margin-top: 20px;">
+      Learn at Your Own Pace
+    </p>
+
+    <h2 class="section-growth-title2">
+      Designed for your Growth
+    </h2>
+  </div>
+</div>
+
+<section class="features-wrapper" style="
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: 'IBM Plex Sans', inter, sans-serif;
+">
+
+
+
+
+
+
+  <!-- Card 1 -->
+  <div style="flex: 1 1 300px; max-width: 320px; height: 440px; background: #ffffff; border-radius: 16px; padding: 22px; box-shadow: 0 4px 6px rgba(37, 148, 86, 0.05); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; overflow: hidden; border: 1px solid #e0f3e8; font-family: 'Inter', sans-serif;"
+       onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 10px 15px rgba(37, 148, 86, 0.1)';this.querySelector('.card-highlight').style.opacity='1';this.querySelector('.feature-title').querySelector('span').style.width='40px';this.querySelector('.learn-more').style.opacity='1';this.querySelector('.learn-more').style.transform='translateX(0)';this.querySelector('.feature-icon').style.transform='scale(1.03)';"
+       onmouseout="this.style.transform='';this.style.boxShadow='0 4px 6px rgba(37, 148, 86, 0.05)';this.querySelector('.card-highlight').style.opacity='0';this.querySelector('.feature-title').querySelector('span').style.width='0';this.querySelector('.learn-more').style.opacity='0';this.querySelector('.learn-more').style.transform='translateX(-10px)';this.querySelector('.feature-icon').style.transform='scale(1)';">
+    
+    <div class="card-highlight" style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #37be72, #5ace8c); opacity: 0; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"></div>
+    
+    <img src="https://static.uacdn.net/web-cms/dailyliveclasses_0c0023950f_c187155ee3.svg?q=75&auto=format,compress&w=3840" 
+         alt="Daily live classes" 
+         class="feature-icon"
+         style="width: 100%; height: auto; margin-bottom: 24px; border-radius: 8px; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); filter: drop-shadow(0 4px 8px rgba(55, 190, 114, 0.1));">
+    
+    <div style="font-family: 'Inter', sans-serif;">
+      <h3 class="feature-title" style="font-size: 22px; font-weight: 700; color: #1f5c3a; margin-bottom: 16px; position: relative; display: inline-block; font-family: 'Inter', sans-serif;">
+        Daily Live Classes
+        <span style="position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #37be72; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"></span>
+      </h3>
+      <p style="font-size: 16px; color: #217446; margin-bottom: 24px; line-height: 1.7; font-family: 'Inter', sans-serif;">
+        Engage with top educators in real-time—ask questions, participate in live polls, and get instant doubt resolution during class.
+      </p>
+      
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+   <div style="flex: 1 1 300px; max-width: 320px; height: 440px; background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(37, 148, 86, 0.05); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; overflow: hidden; border: 1px solid #e0f3e8; font-family: 'Inter', sans-serif;"
+       onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 10px 15px rgba(37, 148, 86, 0.1)';this.querySelector('.card-highlight').style.opacity='1';this.querySelector('.feature-title').querySelector('span').style.width='40px';this.querySelector('.learn-more').style.opacity='1';this.querySelector('.learn-more').style.transform='translateX(0)';this.querySelector('.feature-icon').style.transform='scale(1.03)';"
+       onmouseout="this.style.transform='';this.style.boxShadow='0 4px 6px rgba(37, 148, 86, 0.05)';this.querySelector('.card-highlight').style.opacity='0';this.querySelector('.feature-title').querySelector('span').style.width='0';this.querySelector('.learn-more').style.opacity='0';this.querySelector('.learn-more').style.transform='translateX(-10px)';this.querySelector('.feature-icon').style.transform='scale(1)';">
+    
+    <div class="card-highlight" style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #37be72, #5ace8c); opacity: 0; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"></div>
+    
+    <img src="https://static.uacdn.net/web-cms/syllabus_a9da21d824_b20b285483.svg?q=75&auto=format,compress&w=3840" 
+         alt="Practice and revise" 
+         class="feature-icon"
+         style="width: 100%; height: auto; margin-bottom: 24px; border-radius: 8px; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); filter: drop-shadow(0 4px 8px rgba(55, 190, 114, 0.1));">
+    
+    <div style="font-family: 'Inter', sans-serif;">
+      <h3 class="feature-title" style="font-size: 22px; font-weight: 700; color: #1f5c3a; margin-bottom: 16px; position: relative; display: inline-block; font-family: 'Inter', sans-serif;">
+        Practice & Revision
+        <span style="position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #37be72; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"></span>
+      </h3>
+      <p style="font-size: 16px; color: #217446; margin-bottom: 24px; line-height: 1.7; font-family: 'Inter', sans-serif;">
+        Reinforce learning with curated practice sections, mock tests, and downloadable PDF notes for comprehensive revision.
+      </p>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div style="flex: 1 1 300px; max-width: 320px; height: 440px; background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px rgba(37, 148, 86, 0.05); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; overflow: hidden; border: 1px solid #e0f3e8; font-family: 'Inter', sans-serif;"
+       onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 10px 15px rgba(37, 148, 86, 0.1)';this.querySelector('.card-highlight').style.opacity='1';this.querySelector('.feature-title').querySelector('span').style.width='40px';this.querySelector('.learn-more').style.opacity='1';this.querySelector('.learn-more').style.transform='translateX(0)';this.querySelector('.feature-icon').style.transform='scale(1.03)';"
+       onmouseout="this.style.transform='';this.style.boxShadow='0 4px 6px rgba(37, 148, 86, 0.05)';this.querySelector('.card-highlight').style.opacity='0';this.querySelector('.feature-title').querySelector('span').style.width='0';this.querySelector('.learn-more').style.opacity='0';this.querySelector('.learn-more').style.transform='translateX(-10px)';this.querySelector('.feature-icon').style.transform='scale(1)';">
+    
+    <div class="card-highlight" style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #37be72, #5ace8c); opacity: 0; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"></div>
+    
+    <img src="https://static.uacdn.net/web-cms/learnanytimeanywhere_cb19d5de30_b92bc0c6a1.svg?q=75&auto=format,compress&w=3840" 
+         alt="Learn anytime, anywhere" 
+         class="feature-icon"
+         style="width: 100%; height: auto; margin-bottom: 24px; border-radius: 8px; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); filter: drop-shadow(0 4px 8px rgba(55, 190, 114, 0.1));">
+    
+    <div style="font-family: 'Inter', sans-serif;">
+      <h3 class="feature-title" style="font-size: 22px; font-weight: 700; color: #1f5c3a; margin-bottom: 16px; position: relative; display: inline-block; font-family: 'Inter', sans-serif;">
+        Anywhere Access
+        <span style="position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #37be72; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"></span>
+      </h3>
+      <p style="font-size: 16px; color: #217446; margin-bottom: 24px; line-height: 1.7; font-family: 'Inter', sans-serif;">
+        Single subscription unlocks all live and recorded classes across devices—learn at your convenience, wherever you are.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+.page-container1 {
+  margin-left: 130px;
+  margin-right: 130px;
+}
+
+
+
+
+
+
+
+.section-growth2 {
+ margin-left: 130px;
+  margin-right: 130px;
+padding: 32px 64px 0 64px;
+}
+
+    
+  .section-growth-subtitle2 {
+    margin: 0;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    text-transform: uppercase;
+    color: #002726;
+  }
+
+  .section-growth-title2 {
+    margin: 4px 0 24px 0;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%;
+    letter-spacing: -0.558px;
+    color: #002726;
+  }
+
+
+
+
+
+
+
+
+    
+@media (max-width: 768px) {
+
+ .features-wrapper {
+    padding: 10 !important;
+  }
+    .page-container1 {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+
+
+
+
+
+.section-growth2 {
+      padding: 24px 24px 0 24px;
+margin-left: 0px;
+  margin-right: 0px;
+    }
+
+    .section-growth-subtitl2e {
+      font-size: 14px !important;
+    }
+
+    .section-growth-title2 {
+      font-size: 28px !important;
+    }
+
+}
+
+
+
+
+  @media (max-width: 768px) {
+.custom-section {
+      padding: 24px 24px 0 24px; /* Reduced padding for mobile */
+    }
+
+    .custom-section p {
+      font-size: 14px !important;
+    }
+
+    .custom-section h2 {
+      font-size: 24px !important;
+    }
+.section-growth {
+      padding: 24 px;
+    }
+
+    .section-growth-subtitle {
+      font-size: 14px !important;
+    }
+
+    .section-growth-title {
+      font-size: 28px !important;
+    }
+    }
+    .features-section {
+      padding: 60px 24px !important;
+      gap: 24px !important;
+    }
+    
+    .feature-card {
+      padding: 24px !important;
+    }
+    
+    .learn-more {
+      opacity: 1 !important;
+      transform: translateX(0) !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .features-section {
+      padding: 40px 16px !important;
+    }
+    
+    .feature-title {
+      font-size: 20px !important;
+    }
+    
+    .feature-description {
+      font-size: 15px !important;
+    }
+  }
+</style>
+
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section style="padding: 64px 64px 20px 64px; background-color: #ffffff;">
+  <div style="padding-left: 0px;">
+    <p style="margin: 0; font-size: 16px; font-style: normal; font-weight: 500; line-height: 120%; text-transform: uppercase; color: #002726;">
+      learn,grow,excel
+    </p>
+    <h2 style="margin: 4px 0 24px 0; font-size: 36px; font-style: normal; font-weight: 500; line-height: 130%; letter-spacing: -0.558px; color: #002726;">
+      Build With ❤️
+    </h2>
+  </div>
+
+</section>
+ </div>
+<div style="width: 100%; height: 0.5px; background-color: #E0E0E0; margin: 16px 16px 50px 16px; "></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <div class="fotter-padding">
+
+
+    <footer class="aquilla-footer footer css-lt94f6">
+      <div class="aquilla-gridcontainer gridcontainer css-13i3ch5">
+        <div class="aquilla-griditem griditem css-18w0bx7">
+          <div class="css-jxgq5w">
+            <img src="Syncskill.png"
+            alt="Unacademy Logo" loading="lazy" class=
+            "css-1owqn1u">
+            <div class=
+            "p2_variant aquilla-typography typography css-66jn11">
+            Empowering every Student with real-world experience. Join the revolution—launch your future on India's leading internship platform.
+            </div>
+          </div>
+          <hr class="css-lm9dzg">
+          <div class="css-194ohqz">
+            <h5 class=
+            "h5_variant aquilla-typography typography css-jbioe5">
+            Reach out to us</h5>
+            <p class=
+            "p2_variant aquilla-typography typography css-66jn11">
+            Get your questions answered about learning with
+            Sync.</p><a href="tel:+91%207799181716" class=
+            "css-1f7ozwz">
+            <svg class="css-a1vwta" fill="none" xmlns=
+            "http://www.w3.org/2000/svg" width="18" height="18"
+            viewbox="0 0 24 24">
+            <path fill-rule="evenodd" clip-rule="evenodd" d=
+            "M10.0479 14.2293C8.87792 13.0593 7.99592 11.7493 7.40992 10.4203C7.28592 10.1393 7.35892 9.81032 7.57592 9.59332L8.39492 8.77432C9.06592 8.10332 9.06592 7.15432 8.47992 6.56832L7.30592 5.39532C6.52492 4.61432 5.25892 4.61432 4.47792 5.39532L3.82592 6.04632C3.08492 6.78732 2.77592 7.85632 2.97592 8.91632C3.46992 11.5293 4.98792 14.3903 7.43692 16.8393C9.88592 19.2883 12.7469 20.8063 15.3599 21.3003C16.4199 21.5003 17.4889 21.1913 18.2299 20.4503L18.8809 19.7993C19.6619 19.0183 19.6619 17.7523 18.8809 16.9713L17.7079 15.7983C17.1219 15.2123 16.1719 15.2123 15.5869 15.7983L14.6839 16.7023C14.4669 16.9193 14.1379 16.9923 13.8569 16.8683C12.5279 16.2813 11.2179 15.3983 10.0479 14.2293Z"
+            stroke="currentcolor" stroke-width="1.125"
+            stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M12.9198 5.53043V3.19043" stroke=
+            "currentcolor" stroke-width="1.125" stroke-linecap=
+            "round" stroke-linejoin="round"></path>
+            <path d="M17.0897 7.18053L18.7397 5.54053" stroke=
+            "currentcolor" stroke-width="1.125" stroke-linecap=
+            "round" stroke-linejoin="round"></path>
+            <path d="M18.7499 11.3604H21.0799" stroke=
+            "currentcolor" stroke-width="1.125" stroke-linecap=
+            "round" stroke-linejoin="round"></path></svg> 
+            <div class=
+            "h5_variant aquilla-typography typography css-1uhb9xi">
+            Call +91 7799181716
+            </div></a>
+          </div>
+        </div>
+        <div class="aquilla-griditem griditem css-612a3e">
+          <div class="css-1k6cs3k">
+            <h5 class=
+            "h5_variant aquilla-typography typography css-bshnsn">
+            Company</h5>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/about" rel="" target="_blank">About Us</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/careers" rel="" target="_blank">Careers</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "##" rel=
+              "noopener noreferrer" target="_blank">Blogs</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/privacy" rel="" target="_blank">Privacy policy</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/terms" rel="" target="_blank">Terms and
+              conditions</a>
+            </div>
+          </div>
+          <div class="css-1k6cs3k">
+            <h5 class=
+            "h5_variant aquilla-typography typography css-bshnsn">
+            Help & support</h5>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/guidelines" rel="" target="_blank">User
+              Guidelines</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/sitemap" rel="" target="_blank">Site Map</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/refund-policy" rel="" target="_blank">Refund
+              Policy</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/takedown-policy" rel="" target="_blank">Takedown
+              Policy</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/ugrc" rel="" target="_blank">Grievance
+              Redressal</a>
+            </div>
+          </div>
+          <div class="css-1k6cs3k">
+            <h5 class=
+            "h5_variant aquilla-typography typography css-bshnsn">
+            Get updates </h5>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="css-1gygzac">
+              <a class="e1upzolw1 css-g6b8m-StyledAnchor-FlexLink-LinkWithImage e1hrbfz00"
+                 href="https://play.google.com/store/apps/details?id=com.unacademy&amp;referrer=utm_source%3DFooter%26utm_medium%3DWebApp%26utm_campaign%3DFooter%26"
+                 rel="noopener noreferrer" target="_blank">
+                <span style="box-sizing:border-box; display:inline-block; overflow:hidden; width:initial; height:initial; background:none; opacity:1; border:0; margin:0; padding:0; position:relative; max-width:100%;">
+                  <span style="box-sizing:border-box; display:block; width:initial; height:initial; background:none; opacity:1; border:0; margin:0; padding:0; max-width:100%;">
+                    <img style="display:block; max-width:100%; width:initial; height:initial; background:none; opacity:1; border:0; margin:0; padding:0" 
+                         alt="" aria-hidden="true" 
+                         src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2724%27%20height=%2724%27/%3e">
+                  </span>
+                  <img alt="Educator app"
+                       src="images/Instagram.webp"
+                       decoding="async"
+                       data-nimg="intrinsic"
+                       class="e1upzolw2 css-1wndfxo-StyledNextImage-AppImage e1pacfim0"
+                       style="position:absolute; top:0; left:0; bottom:0; right:0; box-sizing:border-box; padding:0; border:none; margin:auto; display:block; width:0; height:0; min-width:100%; max-width:100%; min-height:100%; max-height:100%;">
+                  <noscript>
+                    <img alt="Educator app"
+                         src="images/Instagram.webp"
+                         decoding="async"
+                         data-nimg="intrinsic"
+                         class="e1upzolw2 css-1wndfxo-StyledNextImage-AppImage e1pacfim0"
+                         loading="lazy">
+                  </noscript>
+                </span>
+                <span>Instagram</span>
+              </a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="e1upzolw1 css-g6b8m-StyledAnchor-FlexLink-LinkWithImage e1hrbfz00"
+                 href="https://play.google.com/store/apps/details?id=com.unacademy&amp;referrer=utm_source%3DFooter%26utm_medium%3DWebApp%26utm_campaign%3DFooter%26"
+                 rel="noopener noreferrer" target="_blank">
+                <span style="box-sizing:border-box; display:inline-block; overflow:hidden; width:initial; height:initial; background:none; opacity:1; border:0; margin:0; padding:0; position:relative; max-width:100%;">
+                  <span style="box-sizing:border-box; display:block; width:initial; height:initial; background:none; opacity:1; border:0; margin:0; padding:0; max-width:100%;">
+                    <img style="display:block; max-width:100%; width:initial; height:initial; background:none; opacity:1; border:0; margin:0; padding:0" 
+                         alt="" aria-hidden="true" 
+                         src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2724%27%20height=%2724%27/%3e">
+                  </span>
+                  <img alt="Educator app"
+                       src="images/Whatsapp.webp"
+                       decoding="async"
+                       data-nimg="intrinsic"
+                       class="e1upzolw2 css-1wndfxo-StyledNextImage-AppImage e1pacfim0"
+                       style="position:absolute; top:0; left:0; bottom:0; right:0; box-sizing:border-box; padding:0; border:none; margin:auto; display:block; width:0; height:0; min-width:100%; max-width:100%; min-height:100%; max-height:100%;">
+                  <noscript>
+                    <img alt="Educator app"
+                         src="images/Whatsapp.webp"
+                         decoding="async"
+                         data-nimg="intrinsic"
+                         class="e1upzolw2 css-1wndfxo-StyledNextImage-AppImage e1pacfim0"
+                         loading="lazy">
+                  </noscript>
+                </span>
+                <span>Whatsapp</span>
+              </a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="e1upzolw1 css-g6b8m-StyledAnchor-FlexLink-LinkWithImage e1hrbfz00"
+                 href="https://play.google.com/store/apps/details?id=com.unacademy&amp;referrer=utm_source%3DFooter%26utm_medium%3DWebApp%26utm_campaign%3DFooter%26"
+                 rel="noopener noreferrer" target="_blank">
+                <span style="box-sizing:border-box; display:inline-block; overflow:hidden; width:initial; height:initial; background:none; opacity:1; border:0; margin:0; padding:0; position:relative; max-width:100%;">
+                  <span style="box-sizing:border-box; display:block; width:initial; height:initial; background:none; opacity:1; border:0; margin:0; padding:0; max-width:100%;">
+                    <!-- Placeholder SVG remains unchanged -->
+                    <img style="display:block; max-width:100%; width:initial; height:initial; background:none; opacity:1; border:0; margin:0; padding:0" 
+                         alt="" aria-hidden="true" 
+                         src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2724%27%20height=%2724%27/%3e">
+                  </span>
+                  <!-- Updated image: Loads local image from images/Instagram.png -->
+                  <img alt="Educator app"
+                       src="images/Linkedin.webp"
+                       decoding="async"
+                       data-nimg="intrinsic"
+                       class="e1upzolw2 css-1wndfxo-StyledNextImage-AppImage e1pacfim0"
+                       style="position:absolute; top:0; left:0; bottom:0; right:0; box-sizing:border-box; padding:0; border:none; margin:auto; display:block; width:0; height:0; min-width:100%; max-width:100%; min-height:100%; max-height:100%;">
+                  <noscript>
+                    <img alt="Educator app"
+                         src="images/Linkedin.webp"
+                         decoding="async"
+                         data-nimg="intrinsic"
+                         class="e1upzolw2 css-1wndfxo-StyledNextImage-AppImage e1pacfim0"
+                         loading="lazy">
+                  </noscript>
+                </span>
+                <span>Linkedin</span>
+              </a>
+            </div>
+
+
+
+          </div>
+          <div class="css-1k6cs3k">
+            <h5 class=
+            "h5_variant aquilla-typography typography css-bshnsn">
+            Popular goals</h5>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/goal/jee-main-and-advanced-preparation/TMUVD" rel=
+              "" target="_blank">IIT JEE</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/goal/upsc-civil-services-examination-ias-preparation/KSCGY"
+              rel="" target="_blank">UPSC</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/goal/ssc-exams-non-technical/VLEMN" rel="" target=
+              "_blank">SSC</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/goal/csir-ugc-net/BIZXQ" rel="" target=
+              "_blank">CSIR UGC NET</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/goal/neet-ug/YOTUH" rel="" target="_blank">NEET
+              UG</a>
+            </div>
+          </div>
+          <div class="css-1k6cs3k">
+            <h5 class=
+            "h5_variant aquilla-typography typography css-bshnsn">
+            Syncskill</h5>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/goal/kota-jee-coaching/TMUVD/centre/Kota-Centre/NXG6I0UBPB?source=footer"
+              rel="" target="_blank">1.</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/goal/kota-neet-coaching/YOTUH/centre/Kota-Centre/NXG6I0UBPB?source=footer"
+              rel="" target="_blank">2.</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/goal/kota-foundation-coaching/TPSBK/centre/Kota-Centre/NXG6I0UBPB?source=footer"
+              rel="" target="_blank">3.</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/goal/UPSC-coaching/KSCGY/centre/Delhi-Centre/ZKSQFCU30C?source=footer"
+              rel="" target="_blank">4.</a>
+            </div>
+          </div>
+          <div class="css-1k6cs3k">
+            <h5 class=
+            "h5_variant aquilla-typography typography css-bshnsn">
+            Study material</h5>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/content/upsc/study-material" rel="" target=
+              "_blank">UPSC Study Material</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/content/neet-ug/study-material" rel="" target=
+              "_blank">NEET UG Study Material</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/content/ca-foundation/study-material" rel=""
+              target="_blank">CA Foundation Study Material</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/content/jee/study-material" rel="" target=
+              "_blank">JEE Study Material</a>
+            </div>
+            <div class="css-1gygzac">
+              <a class="css-wcnz4c-StyledAnchor e1hrbfz00" href=
+              "/content/ssc/study-material" rel="" target=
+              "_blank">SSC Study Material</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="css-nf35w8">
+      <div class="css-wxpek7">
+        <div class="css-12au0dw">
+          <div class=
+          "p2_variant aquilla-typography typography css-1lbru7d">
+            © <!-- -->2025<!-- --> SyncSkill Technologies Pvt Ltd
+          </div>
+        </div>
+        <div class="css-1c84t2p">
+          <a href="https://www.facebook.com/unacademy/" rel=
+          "noopener noreferrer" target="_blank"><svg class=
+          "css-a1vwta" fill="none" xmlns=
+          "http://www.w3.org/2000/svg" width="24" height="24"
+          viewbox="0 0 24 24">
+          <path d=
+          "M12.8945 17.5V12.4824H14.6635L14.9284 10.5269H12.8945V9.27847C12.8945 8.71232 13.0597 8.3265 13.9124 8.3265L15 8.32605V6.57707C14.8119 6.55324 14.1663 6.5 13.4152 6.5C11.8471 6.5 10.7735 7.41129 10.7735 9.08481V10.5269H9V12.4824H10.7735V17.5H12.8945Z"
+          fill="currentcolor"></path></svg></a><a href=
+          "https://www.youtube.com/channel/UCABe2FgVNv2hgBeMu2mySVg"
+          rel="noopener noreferrer" target="_blank"><svg class=
+          "css-a1vwta" fill="none" xmlns=
+          "http://www.w3.org/2000/svg" width="24" height="24"
+          viewbox="0 0 24 24">
+          <path fill-rule="evenodd" clip-rule="evenodd" d=
+          "M8.50979 8.08183C10.1593 7.97294 13.8384 7.9725 15.4902 8.08183C17.2782 8.2005 17.4867 9.25115 17.5 12C17.4867 14.7537 17.2763 15.7999 15.4902 15.9182C13.8384 16.0275 10.1598 16.0271 8.50979 15.9182C6.72183 15.7995 6.51329 14.7489 6.5 12C6.51329 9.24626 6.72367 8.20005 8.50979 8.08183ZM10.6261 10.2241V13.7796L14.2927 11.9988L10.6261 10.2241Z"
+          fill="currentcolor"></path></svg></a><a href=
+          "https://twitter.com/unacademy" rel="noopener noreferrer"
+          target="_blank"><svg class="css-a1vwta" fill="none"
+          xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+          viewbox="0 0 24 24">
+          <path d=
+          "M17.5 8.56547C17.0953 8.74636 16.6603 8.86818 16.2038 8.92309C16.67 8.64207 17.0279 8.19678 17.1961 7.66612C16.7603 7.92637 16.2772 8.11557 15.7629 8.21755C15.3518 7.77594 14.7647 7.5 14.1157 7.5C12.6586 7.5 11.588 8.86864 11.917 10.2894C10.042 10.1948 8.37917 9.2904 7.26588 7.91576C6.67463 8.93694 6.95925 10.2728 7.96392 10.9493C7.5945 10.9373 7.24617 10.8353 6.94229 10.665C6.91754 11.7176 7.66692 12.7023 8.75225 12.9215C8.43463 13.0083 8.08675 13.0286 7.73292 12.9603C8.01983 13.8628 8.85308 14.5195 9.84125 14.5379C8.8925 15.2869 7.69717 15.6214 6.5 15.4793C7.49871 16.1239 8.68533 16.5 9.9595 16.5C14.1496 16.5 16.5169 12.9372 16.3739 9.74169C16.8148 9.42099 17.1975 9.02092 17.5 8.56547Z"
+          fill="currentcolor"></path></svg></a><a href=
+          "https://www.instagram.com/unacademy/" rel=
+          "noopener noreferrer" target="_blank"><svg class=
+          "css-a1vwta" fill="none" xmlns=
+          "http://www.w3.org/2000/svg" width="24" height="24"
+          viewbox="0 0 24 24">
+          <path fill-rule="evenodd" clip-rule="evenodd" d=
+          "M12 6.5C10.5063 6.5 10.3193 6.50642 9.73263 6.533C7.73521 6.62467 6.62513 7.73292 6.53346 9.73217C6.50642 10.3193 6.5 10.5063 6.5 12C6.5 13.4937 6.50642 13.6812 6.533 14.2678C6.62467 16.2653 7.73292 17.3753 9.73217 17.467C10.3193 17.4936 10.5063 17.5 12 17.5C13.4937 17.5 13.6812 17.4936 14.2678 17.467C16.2634 17.3753 17.3763 16.2671 17.4665 14.2678C17.4936 13.6812 17.5 13.4937 17.5 12C17.5 10.5063 17.4936 10.3193 17.467 9.73263C17.3772 7.73704 16.2675 6.62513 14.2683 6.53346C13.6812 6.50642 13.4937 6.5 12 6.5ZM12.0013 7.49121C13.4698 7.49121 13.6439 7.49671 14.2242 7.52329C15.7147 7.59113 16.4109 8.29834 16.4787 9.77784C16.5053 10.3576 16.5104 10.5318 16.5104 12.0003C16.5104 13.4693 16.5049 13.643 16.4787 14.2228C16.4104 15.7009 15.7161 16.4095 14.2242 16.4773C13.6439 16.5039 13.4707 16.5094 12.0013 16.5094C10.5328 16.5094 10.3586 16.5039 9.77881 16.4773C8.28465 16.409 7.5921 15.6986 7.52427 14.2223C7.49769 13.6425 7.49219 13.4688 7.49219 11.9998C7.49219 10.5313 7.49815 10.3576 7.52427 9.77738C7.59256 8.29834 8.28694 7.59067 9.77881 7.52284C10.3591 7.49671 10.5328 7.49121 12.0013 7.49121ZM9.1757 11.9999C9.1757 10.4402 10.4402 9.1757 11.9999 9.1757C13.5597 9.1757 14.8242 10.4402 14.8242 11.9999C14.8242 13.5601 13.5597 14.8247 11.9999 14.8247C10.4402 14.8247 9.1757 13.5597 9.1757 11.9999ZM12.0013 13.8327C10.9888 13.8327 10.168 13.0123 10.168 11.9993C10.168 10.9869 10.9888 10.166 12.0013 10.166C13.0138 10.166 13.8346 10.9869 13.8346 11.9993C13.8346 13.0123 13.0138 13.8327 12.0013 13.8327ZM14.2734 9.0643C14.2734 8.69992 14.5691 8.4043 14.9339 8.4043C15.2983 8.4043 15.5934 8.69992 15.5934 9.0643C15.5934 9.42867 15.2983 9.7243 14.9339 9.7243C14.5691 9.7243 14.2734 9.42867 14.2734 9.0643Z"
+          fill="currentcolor"></path></svg></a><a href=
+          "https://www.linkedin.com/company/unacademy" rel=
+          "noopener noreferrer" target="_blank"><svg class=
+          "css-a1vwta" fill="none" xmlns=
+          "http://www.w3.org/2000/svg" width="24" height="24"
+          viewbox="0 0 24 24">
+          <path fill-rule="evenodd" clip-rule="evenodd" d=
+          "M8.1476 9.23359C7.51412 9.23359 7 8.73344 7 8.1168C7 7.50015 7.51412 7 8.1476 7C8.78107 7 9.2952 7.50015 9.2952 8.1168C9.2952 8.73344 8.78173 9.23359 8.1476 9.23359ZM9.13116 16.9997H7.16385V10.0355H9.13116V16.9997ZM15.0338 17H17.0011V12.7208C17.0011 9.39513 13.3261 9.51606 12.4107 11.1533V10.0358H10.4434V17H12.4107V13.4521C12.4107 11.4812 15.0338 11.3198 15.0338 13.4521V17Z"
+          fill="currentcolor"></path></svg></a>
+        </div>
+      </div>
+    </footer><!--$!-->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
    </body>
 </html>
