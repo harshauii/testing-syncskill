@@ -422,20 +422,7 @@ document.addEventListener('click', (e) => {
 });
 
 // Load user data
-document.addEventListener('DOMContentLoaded', () => {
-    const user = {
-        name: "John Doe",
-        email: "john.doe@example.com",
-        avatar: "https://source.unsplash.com/random/600x600/?face"
-    };
 
-    // Update all profile elements
-    document.querySelectorAll('[id^="user"], [id^="dropdown"]').forEach(el => {
-        if(el.id.includes('Name')) el.textContent = user.name;
-        if(el.id.includes('Email')) el.textContent = user.email;
-        if(el.id.includes('Avatar')) el.src = user.avatar;
-    });
-});
 
 // Add error handling for avatars
 document.querySelectorAll('img').forEach(img => {
@@ -992,27 +979,27 @@ document.querySelectorAll('img').forEach(img => {
          welcomeUsername: document.getElementById('welcomeUsername')
     };
 
-    // User profile updater
-    const updateUserProfile = (user) => {
-        const fallbackAvatar = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
-
-         // Update welcome message
-    elements.welcomeUsername.textContent = `Hie, ${user.displayName || 'User'}`;
-        
-        // Update desktop elements
-        elements.userAvatar.src = user.photoURL || fallbackAvatar;
-        elements.userName.textContent = user.displayName || 'User';
-        
-        // Update profile dropdown
-        elements.dropdownAvatar.src = user.photoURL || fallbackAvatar;
-        elements.dropdownName.textContent = user.displayName || 'User';
-        elements.dropdownEmail.textContent = user.email || 'No email provided';
-
-        // Update mobile elements
-        elements.mobileUserAvatar.src = user.photoURL || fallbackAvatar;
-        elements.mobileUserName.textContent = user.displayName || 'User';
-        elements.mobileUserEmail.textContent = user.email || 'No email provided';
-    };
+    // In the updateUserProfile function
+const updateUserProfile = (user) => {
+    const fallbackAvatar = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+    
+    // Update welcome message
+    const displayName = user.displayName || user.email.split('@')[0] || 'User';
+    document.getElementById('usernamePlaceholder').textContent = displayName;
+    
+    // Update avatar elements
+    const avatarElements = document.querySelectorAll('[id*="Avatar"], [id*="avatar"]');
+    avatarElements.forEach(el => el.src = user.photoURL || fallbackAvatar);
+    
+    // Update other profile elements
+    document.querySelectorAll('[id*="Name"]').forEach(el => {
+        el.textContent = displayName;
+    });
+    
+    document.querySelectorAll('[id*="Email"]').forEach(el => {
+        el.textContent = user.email || 'No email provided';
+    });
+};
 
     // Authentication verification
     const verifyAuthentication = (user) => {
@@ -1153,7 +1140,7 @@ document.querySelectorAll('img').forEach(img => {
 <div class="center-wrapper">
   <div class="responsive-element">
     <div class="text-content">
-<h1 id="welcomeUsername">Hie,username</h1>
+<h1 id="welcomeHeading">Hie, <span id="usernamePlaceholder">username</span></h1>
       <h1>Become Top 1% in the AI-First World</h1>
       <p>Whether it is Product, Growth, Design, Business, Tech or Data, Syncskill is the place to learn from top experts in the field to become the Top 1%</p>
       <button class="explore-button">
