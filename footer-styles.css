@@ -1,0 +1,718 @@
+/* ============================================================
+   Font Style Code (Extracted)
+   ============================================================ */
+/* Change footer font style */
+
+  
+/* From the "css-global 191jpgc" block */
+
+@media (max-width: 768px) {
+  .fotter-padding {
+    padding-left: 20px;
+  }
+}
+
+
+.h1_variant {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 56px;
+  letter-spacing: -0.01em;
+}
+@media screen and (max-width: 47.95em) {
+  .h1_variant {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+.h2_variant {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: -0.01em;
+}
+@media screen and (max-width: 47.95em) {
+  .h2_variant {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.005em;
+  }
+}
+.h3_variant {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: -0.005em;
+}
+@media screen and (max-width: 47.95em) {
+  .h3_variant {
+    font-size: 20px;
+    line-height: 26px;
+  }
+}
+.h4_variant {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 26px;
+  letter-spacing: -0.005em;
+}
+.h5_variant {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.005em;
+}
+.h6_variant {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+.p1_variant {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+.p2_variant {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+.p3_variant {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+/* From the "css-global ta60ka" block */
+h1 {
+  font-size: 2em;
+}
+pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+code, kbd, samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+small {
+  font-size: 80%;
+}
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+}
+button, input, optgroup, select, textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+}
+::-webkit-file-upload-button {
+  font: inherit;
+}
+.fa {
+  font-family: FontAwesome, sans-serif !important;
+}
+* {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+/* Additional font‑related rules */
+.css-wlp5yf-Link {
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 150%;
+}
+.css-1sk7ptd-NewLoginCTA {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+}
+.css-w0paca-NewLoginCTA {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+.css-e8l3el-NewLoginCTA {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+.css-srwts2-H4-SubTitle {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 150%;
+}
+@media only screen and (max-width: 70.95em) {
+  .css-srwts2-H4-SubTitle {
+    font-size: 16px;
+    line-height: 100%;
+  }
+}
+@media only screen and (max-width: 47.95em) {
+  .css-srwts2-H4-SubTitle {
+    font-size: 14px;
+  }
+}
+@media only screen and (max-width: 47.95em) {
+  .css-1egzfew-SubHeaderContainer * {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+.css-1kx8zk2-StyledNumberField {
+  font-size: 14px;
+  line-height: 50%;
+}
+.css-bqrcax-StyledTextField-StyledNumberField {
+  font-size: 14px;
+  line-height: 50%;
+}
+.css-1g45d6a-P1-BoldP1 {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 150%;
+  /* (Additional properties omitted) */
+}
+.css-673nqp-JoinforFree {
+  font-size: 14px;
+}
+.css-1j3rrid-CloseCTA {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+.css-wcnz4c-StyledAnchor {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 150%;
+}
+.css-g6b8m-StyledAnchor-FlexLink-LinkWithImage {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 150%;
+}
+.css-1gygzac a {
+  font-weight: 400;
+}
+
+/* ============================================================
+   Additional CSS Code (Layout & Miscellaneous)
+   ============================================================ */
+.css-13i3ch5 {
+  max-width: 1136px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: calc(1 * 16px) calc(1 * 16px);
+  margin: 0 auto;
+}
+.css-14kyzyk {
+  -webkit-box-flex-flow: column;
+  -webkit-flex-flow: column;
+  -ms-flex-flow: column;
+  flex-flow: column;
+}
+.css-18w0bx7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-flow: column;
+  -webkit-flex-flow: column;
+  -ms-flex-flow: column;
+  flex-flow: column;
+}
+@media screen and (min-width: 47.95em) {
+  .css-18w0bx7 {
+    -webkit-flex-basis: 41.667%;
+    -ms-flex-preferred-size: 41.667%;
+    flex-basis: 41.667%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 41.667%;
+  }
+}
+@media screen and (min-width: 70.95em) {
+  .css-18w0bx7 {
+    -webkit-flex-basis: 41.667%;
+    -ms-flex-preferred-size: 41.667%;
+    flex-basis: 41.667%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 41.667%;
+  }
+}
+.css-10wxcdn {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-flow: column;
+  -webkit-flex-flow: column;
+  -ms-flex-flow: column;
+  flex-flow: column;
+  gap: 16px;
+  max-width: 300px;
+}
+.css-jxgq5w {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0px;
+  /* Repeated display rules for column flow with gap */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-flow: column;
+  -webkit-flex-flow: column;
+  -ms-flex-flow: column;
+  flex-flow: column;
+  gap: 16px;
+  max-width: 300px;
+}
+.css-1owqn1u {
+  max-width: 176px;
+  max-height: 27px;
+}
+.css-66jn11 {
+  margin: 0;
+  color: #7A8B94;
+}
+.css-p8y0n7 {
+  margin-top: 8px;
+  gap: 8px;
+}
+.css-9cozmf {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  gap: 0px;
+  margin-top: 8px;
+  gap: 8px;
+}
+.css-vomc4q {
+  width: 40px;
+  margin-top: 40px;
+  margin-bottom: 24px;
+}
+.css-lm9dzg {
+  margin: 0;
+  border-width: 0px 0px 1px;
+  border-color: #E9EEF2;
+  border-style: solid;
+  width: 100%;
+  width: 40px;
+  margin-top: 40px;
+  margin-bottom: 24px;
+}
+.css-1pp2qz6 {
+  max-width: 300px;
+}
+.css-194ohqz {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0px;
+  max-width: 300px;
+}
+.css-jbioe5 {
+  margin: 0;
+  color: #3C4852;
+}
+.css-1f7ozwz {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-top: 12px;
+  gap: 10px;
+}
+.css-1lhd7sn {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 2px;
+}
+.css-1gwbzof {
+  margin: 0;
+  color: #3C4852;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 2px;
+}
+.css-a1vwta {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: #3C4852;
+  cursor: inherit;
+}
+.css-1uhb9xi {
+  margin: 0;
+  color: #3C4852;
+}
+.css-1t8jked {
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 16px;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+@media screen and (max-width: 47.95em) {
+  .css-1t8jked {
+    margin-top: 30px;
+  }
+}
+.css-612a3e {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 16px;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+@media screen and (min-width: 47.95em) {
+  .css-612a3e {
+    -webkit-flex-basis: 53.542%;
+    -ms-flex-preferred-size: 53.542%;
+    flex-basis: 53.542%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 53.542%;
+  }
+}
+@media screen and (min-width: 70.95em) {
+  .css-612a3e {
+    -webkit-flex-basis: 54.167%;
+    -ms-flex-preferred-size: 54.167%;
+    flex-basis: 54.167%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 54.167%;
+  }
+}
+@media screen and (max-width: 47.95em) {
+  .css-612a3e {
+    margin-top: 30px;
+  }
+}
+.css-1k6cs3k {
+  min-width: 25%;
+  max-width: 25%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-flow: column;
+  -webkit-flex-flow: column;
+  -ms-flex-flow: column;
+  flex-flow: column;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+@media screen and (max-width: 70.95em) {
+  .css-1k6cs3k {
+    min-width: 35%;
+    max-width: 35%;
+  }
+}
+@media screen and (max-width: 47.95em) {
+  .css-1k6cs3k {
+    min-width: 47.5%;
+    max-width: 47.5%;
+  }
+}
+.css-env1z2 {
+  margin-bottom: 8px;
+}
+.css-bshnsn {
+  margin: 0;
+  color: #3C4852;
+  margin-bottom: 8px;
+}
+.css-1gygzac {
+  color: #7A8B94;
+}
+.css-1gygzac a {
+  color: #7A8B94;
+  font-weight: 400;
+}
+.css-1gygzac a:hover {
+  color: #3C4852;
+}
+.css-1gygzac:hover {
+  color: #3C4852;
+}
+.css-wcnz4c-StyledAnchor {
+  color: var(--color-text-secondary);
+  line-height: 150%;
+  font-size: 14px;
+  font-weight: normal;
+  -webkit-transition: color 200ms ease-in-out;
+  transition: color 200ms ease-in-out;
+}
+.css-wcnz4c-StyledAnchor:hover {
+  color: var(--color-text-primary);
+}
+.css-1fwskfr-FlexLink-LinkWithImage {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  grid-gap: 10px;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 12px !important;
+}
+.css-1fwskfr-FlexLink-LinkWithImage > span {
+  display: contents;
+}
+.css-g6b8m-StyledAnchor-FlexLink-LinkWithImage {
+  color: var(--color-text-secondary);
+  line-height: 150%;
+  font-size: 14px;
+  font-weight: normal;
+  -webkit-transition: color 200ms ease-in-out;
+  transition: color 200ms ease-in-out;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  grid-gap: 10px;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 12px !important;
+}
+.css-g6b8m-StyledAnchor-FlexLink-LinkWithImage:hover {
+  color: var(--color-text-primary);
+}
+.css-g6b8m-StyledAnchor-FlexLink-LinkWithImage > span {
+  display: contents;
+}
+.css-272rib-AppImage {
+  border-radius: 4px;
+}
+.css-1wndfxo-StyledNextImage-AppImage {
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 4px;
+}
+.css-jra0fj {
+  width: 100%;
+  max-width: 1136px;
+  margin: 20px auto 40px;
+}
+.css-nf35w8 {
+  margin: 0;
+  border-width: 0px 0px 1px;
+  border-color: #E9EEF2;
+  border-style: solid;
+  width: 100%;
+  width: 100%;
+  max-width: 1136px;
+  margin: 20px auto 40px;
+}
+.css-1ej07gw {
+  max-width: 1136px;
+  margin: 0 auto;
+}
+@media screen and (max-width: 47.95em) {
+  .css-1ej07gw {
+    -webkit-flex-direction: column-reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+}
+.css-wxpek7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  gap: 0px;
+  max-width: 1136px;
+  margin: 0 auto;
+}
+@media screen and (max-width: 47.95em) {
+  .css-wxpek7 {
+    -webkit-flex-direction: column-reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+}
+.css-12au0dw {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: left;
+  color: #7A8B94;
+}
+.css-1lbru7d {
+  margin: 0;
+  color: #7A8B94;
+}
+
+/* ============================================================
+   Link Style Rule (No Underline On Any State)
+   ============================================================ */
+a,
+a:hover {
+  text-decoration: none;
+}
+
+/* ============================================================
+   Override for Next.js Icon Images
+   ============================================================
+   Force the container of the icon (first child span) to have fixed
+   dimensions, then let the absolutely positioned icon image fill it.
+------------------------------------------------------------ */
+a.css-g6b8m-StyledAnchor-FlexLink-LinkWithImage > span:first-child {
+  width: 24px !important;
+  height: 24px !important;
+  position: relative !important;
+}
+
+a.css-g6b8m-StyledAnchor-FlexLink-LinkWithImage > span:first-child > img.css-1wndfxo-StyledNextImage-AppImage {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
+}
+
+
+
+
+
+
+
+/* ============================================================
+   ... (Your typography and layout CSS from before)
+   ============================================================ */
+
+/* Example of your previous image rules may include: */
+.css-1wndfxo-StyledNextImage-AppImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  margin: auto;
+  display: block;
+  /* These rules force the image to fill its container: */
+  width: 0;
+  height: 0;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
+
+/* Existing rule for .css-1gygzac (if any) */
+.css-1gygzac {
+  /* Your previous styles (e.g., color rules) */
+  color: #7A8B94;
+}
+.css-1gygzac a {
+  color: #7A8B94;
+  font-weight: 400;
+}
+.css-1gygzac a:hover {
+  color: #3C4852;
+}
+.css-1gygzac:hover {
+  color: #3C4852;
+}
+
+/* Remove underlines from links */
+a,
+a:hover {
+  text-decoration: none;
+}
+
+/* (Other combined CSS rules go here as needed) */
