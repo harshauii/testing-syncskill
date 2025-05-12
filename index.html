@@ -2422,7 +2422,9 @@ margin-left: 0px;
 
 
 
-<!-- Premium Emoji Auth Popup -->
+
+
+<!-- Static Permanent Popup -->
 <div id="popupOverlay" 
      style="display: none; 
             position: fixed; 
@@ -2434,8 +2436,7 @@ margin-left: 0px;
             z-index: 2147483647; 
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            animation: gentleAppear 500ms cubic-bezier(0.2, 0, 0, 1);">
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;">
 
   <div style="position: absolute;
               top: 50%;
@@ -2446,15 +2447,14 @@ margin-left: 0px;
               border-radius: 24px;
               box-shadow: 0 24px 48px -12px rgba(0,0,0,0.12);
               border: 1px solid rgba(0,0,0,0.04);
-              overflow: hidden;
-              transition: transform 300ms cubic-bezier(0.2, 0, 0, 1);">
+              overflow: hidden;">
 
     <!-- Emoji Badge -->
     <div style="padding: 48px 40px;
                 text-align: center;
                 color: #1D1D1F;">
 
-      <!-- Animated Emoji Container -->
+      <!-- Static Emoji Container -->
       <div style="margin: 0 auto 28px;
                   width: 96px;
                   height: 96px;
@@ -2463,13 +2463,10 @@ margin-left: 0px;
                   display: flex;
                   align-items: center;
                   justify-content: center;
-                  transition: all 300ms ease;
                   box-shadow: 0 8px 24px -4px rgba(0,0,0,0.08);
                   font-size: 48px;
                   line-height: 1;
-                  cursor: default;"
-           onmouseover="this.style.transform='scale(1.08) rotate(2deg)'; this.style.boxShadow='0 12px 32px -4px rgba(0,0,0,0.12)'"
-           onmouseout="this.style.transform='none'; this.style.boxShadow='0 8px 24px -4px rgba(0,0,0,0.08)'">
+                  cursor: default;">
         🔐
       </div>
 
@@ -2502,12 +2499,7 @@ margin-left: 0px;
                   padding: 16px 28px;
                   border-radius: 14px;
                   font-weight: 600;
-                  font-size: 15px;
-                  transition: all 300ms cubic-bezier(0.2, 0, 0, 1);
-                  position: relative;
-                  overflow: hidden;"
-           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(0,122,255,0.25)'"
-           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                  font-size: 15px;">
           <span style="font-size: 18px; line-height: 1;">🔑</span>
           Continue to Login
         </a>
@@ -2517,30 +2509,15 @@ margin-left: 0px;
   </div>
 </div>
 
-<style>
-  @keyframes gentleAppear {
-    from { opacity: 0; transform: scale(0.98); }
-    to { opacity: 1; transform: scale(1); }
-  }
-</style>
-
 <script>
 setTimeout(() => {
   const popup = document.getElementById('popupOverlay');
   popup.style.display = 'block';
   document.documentElement.style.overflow = 'hidden';
-  
-  // Add emoji animation
-  const emoji = popup.querySelector('div > div:first-child');
-  emoji.animate([
-    { transform: 'scale(0.5) rotate(-10deg)', opacity: 0 },
-    { transform: 'scale(1) rotate(0deg)', opacity: 1 }
-  ], {
-    duration: 600,
-    easing: 'cubic-bezier(0.2, 0, 0, 1)'
-  });
-}, 20000);
+}, 10000);
 </script>
+
+
 
 
 
