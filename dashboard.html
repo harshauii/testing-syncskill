@@ -989,11 +989,15 @@ document.querySelectorAll('img').forEach(img => {
         dropdownEmail: document.getElementById('dropdownEmail'),
         mobileUserName: document.getElementById('mobileUserName'),
         mobileUserEmail: document.getElementById('mobileUserEmail')
+         welcomeUsername: document.getElementById('welcomeUsername')
     };
 
     // User profile updater
     const updateUserProfile = (user) => {
         const fallbackAvatar = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+
+         // Update welcome message
+    elements.welcomeUsername.textContent = `Hie, ${user.displayName || 'User'}`;
         
         // Update desktop elements
         elements.userAvatar.src = user.photoURL || fallbackAvatar;
@@ -1149,7 +1153,7 @@ document.querySelectorAll('img').forEach(img => {
 <div class="center-wrapper">
   <div class="responsive-element">
     <div class="text-content">
-<h1 id="username">username</h1>
+<h1 id="welcomeUsername">Hie,username</h1>
       <h1>Become Top 1% in the AI-First World</h1>
       <p>Whether it is Product, Growth, Design, Business, Tech or Data, Syncskill is the place to learn from top experts in the field to become the Top 1%</p>
       <button class="explore-button">
