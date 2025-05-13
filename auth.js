@@ -43,11 +43,11 @@ const updateUserProfile = (user) => {
   const photoURL = user.photoURL || fallbackAvatar;
 
   try {
-    elements.userName.textContent = displayName;
-    elements.dropdownName.textContent = displayName;
-    elements.mobileUserName.textContent = displayName;
-    elements.dropdownEmail.textContent = email;
-    elements.mobileUserEmail.textContent = email;
+    if (elements.userName) elements.userName.textContent = displayName;
+    if (elements.dropdownName) elements.dropdownName.textContent = displayName;
+    if (elements.mobileUserName) elements.mobileUserName.textContent = displayName;
+    if (elements.dropdownEmail) elements.dropdownEmail.textContent = email;
+    if (elements.mobileUserEmail) elements.mobileUserEmail.textContent = email;
 
     [elements.userAvatar, elements.dropdownAvatar, elements.mobileUserAvatar].forEach(img => {
       if (img) {
@@ -80,6 +80,30 @@ const toggleMobileMenu = () => {
     elements.mobileMenu.style.transform = isOpen ? 'translateX(100%)' : 'translateX(0)';
   }
 };
+
+// Dropdown toggle
+window.toggleDropdown = () => {
+  const dropdown = document.querySelector('.profile-dropdown');
+  if (dropdown) {
+    const isVisible = dropdown.style.opacity === '1';
+    dropdown.style.opacity = isVisible ? '0' : '1';
+    dropdown.style.transform = isVisible ? 'translateY(-10px)' : 'translateY(0)';
+    dropdown.style.visibility = isVisible ? 'hidden' : 'visible';
+  }
+};
+
+// Close dropdown on outside click
+document.addEventListener('click', (e) => {
+  const profileMenu = document.querySelector('.profile-menu');
+  if (profileMenu && !e.target.closest('.profile-menu')) {
+    const dropdown = document.querySelector('.profile-dropdown');
+    if (dropdown) {
+      dropdown.style.opacity = '0';
+      dropdown.style.transform = 'translateY(-10px)';
+      dropdown.style.visibility = 'hidden';
+    }
+  }
+});
 
 // Event listeners
 if (elements.mobileMenuButton) elements.mobileMenuButton.addEventListener('click', toggleMobileMenu);
@@ -134,7 +158,13 @@ resetSessionTimer();
 
 // Initial auth check
 document.addEventListener('DOMContentLoaded', () => {
-  if (!localStorage.getItem('isLoggedIn')) {
-    window.location.href = '/login.html';
-  }
+  const loadingOverlay = document.createElement('div');
+  loadingOverlay.style = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.8); z-index: 9999; display: flex; align-items: center; justify-content: center;';
+  loadingOverlay.innerHTML = '<p>Loading...</p>';
+  document.body.appendChild(loadingOverlay);
+
+  onAuthStateChanged(auth, (user) => {
+    loadingOverlay.remove();
+    handleAuthState(user);
+  });
 });
