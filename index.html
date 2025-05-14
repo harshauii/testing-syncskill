@@ -2060,45 +2060,48 @@ margin-left: 0px;
     <!-- Right Side - Text -->
     <div class="right">
       <h1>Leading EdTech Platform for Learning in Native Languages.</h1>
-      <p id="color-change-text">GUVI-HCL, backed by IIT-M, IIM-A, and HCL, is India’s top tech-driven EdTech platform for learning in regional and global languages. With 3M+ learners worldwide, it offers personalized online learning, upskilling, and job opportunities.</p>
+      <p class="color-change-paragraph">GUVI-HCL, backed by IIT-M, IIM-A, and HCL, is India’s top tech-driven EdTech platform for learning in regional and global languages. With 3M+ learners worldwide, it offers personalized online learning, upskilling, and job opportunities.</p>
       <p>GUVI <span>- Grab Ur Vernacular Imprint</span></p>
     </div>
   </section>
   <style>
-    /* Added color transition for smooth effect */
-    .color-transition {
-      transition: color 0.3s ease !important;
+    /* Add ONLY necessary color transition */
+    .color-change-paragraph span.word {
+      transition: color 0.3s ease;
+      display: inline-block; /* Preserve original layout */
+      white-space: nowrap;
     }
   </style>
   <script>
     (function() {
-      const paragraph = document.getElementById('color-change-text');
-      const words = paragraph.textContent.trim().split(/\s+/);
+      // Original color values from your CSS
       const originalColor = '#555';
       const highlightColor = '#34d399';
-
-      // Wrap words in spans without disrupting layout
+      
+      const paragraph = document.querySelector('.color-change-paragraph');
+      const words = paragraph.textContent.trim().split(/\s+/);
+      
+      // Wrap words without changing layout
       paragraph.innerHTML = words.map(word => 
-        `<span class="color-transition" style="color:${originalColor}">${word}</span>`
+        `<span class="word">${word}</span>`
       ).join(' ');
 
-      const wordSpans = Array.from(paragraph.querySelectorAll('span'));
-      const totalWords = wordSpans.length;
-      let windowHeight = window.innerHeight;
-
+      const wordElements = Array.from(paragraph.querySelectorAll('.word'));
+      const totalWords = wordElements.length;
+      
       function updateColors() {
-        const scrollPosition = window.scrollY || window.pageYOffset;
-        const elementTop = paragraph.offsetTop;
-        const elementHeight = paragraph.offsetHeight;
+        const paragraphRect = paragraph.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
         
-        // Calculate scroll progress through the paragraph
-        const start = elementTop - windowHeight + 100;
-        const end = elementTop + elementHeight - 100;
-        const progress = (scrollPosition - start) / (end - start);
+        // Calculate visibility percentage
+        const start = paragraphRect.top;
+        const end = paragraphRect.bottom;
+        const progress = 1 - Math.max(0, Math.min(1, (start - viewportHeight * 0.2) / (viewportHeight * 0.6)));
 
-        wordSpans.forEach((span, index) => {
-          const wordProgress = (index / totalWords);
-          span.style.color = progress > wordProgress ? highlightColor : originalColor;
+        // Update colors based on scroll progress
+        wordElements.forEach((word, index) => {
+          const wordProgress = index / totalWords;
+          word.style.color = progress >= wordProgress ? highlightColor : originalColor;
         });
       }
 
@@ -2106,7 +2109,7 @@ margin-left: 0px;
       let ticking = false;
       window.addEventListener('scroll', () => {
         if (!ticking) {
-          window.requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
             updateColors();
             ticking = false;
           });
@@ -2114,12 +2117,9 @@ margin-left: 0px;
         }
       });
 
-      // Initial update
+      // Initial setup
       updateColors();
-      window.addEventListener('resize', () => {
-        windowHeight = window.innerHeight;
-        updateColors();
-      });
+      window.addEventListener('resize', updateColors);
     })();
   </script>
 </div>
