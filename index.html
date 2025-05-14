@@ -2227,69 +2227,64 @@ margin-left: 0px;
 
 
 
-<body>
-
-  <section id="animated-section">
+<section id="animated-section">
     <p class="animated-text">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     </p>
   </section>
 <style>
- section {
-      margin: 100vh auto;      /* push it into view on scroll */
+   section {
+      margin: 100vh auto;   /* pushes it into view */
       width: 90%;
-      max-width: 600px;
-      padding: clamp(1rem, 2vw, 2rem);
-    }
-    .animated-text {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      text-align: justify;
-    }
-    .animated-text span {
-      color: #222;             /* initial light-black */
-      transition: color 0.3s ease;
-      white-space: pre-wrap;   /* preserve spaces */
-    }
-    @media (max-width: 400px) {
-      .animated-text { font-size: 1rem; }
+      max-width: 700px;
+      padding: clamp(1.5rem, 3vw, 3rem);
     }
 
+    /* --- Animated Text --- */
+    .animated-text {
+      /* bigger, responsive font */
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      text-align: justify;
+      font-weight: 400;
+    }
+    .animated-text span {
+      color: #919191;            /* initial light-black */
+      transition: color 0.3s ease;
+      white-space: pre-wrap;  /* preserve spaces */
+    }
+
+    @media (max-width: 400px) {
+      .animated-text {
+        font-size: 1.75rem;
+      }
+    }
 </style>
   <script>
-    // Register ScrollTrigger
+    // Register ScrollTrigger plugin
     gsap.registerPlugin(ScrollTrigger);
 
     // Wrap each word in a span
-    const p     = document.querySelector('.animated-text');
-    const words = p.textContent.trim().split(/\s+/);
-    p.innerHTML  = words.map(w => `<span>${w} </span>`).join('');
-    const spans  = p.querySelectorAll('span');
+    const p       = document.querySelector('.animated-text');
+    const words   = p.textContent.trim().split(/\s+/);
+    p.innerHTML   = words.map(w => `<span>${w} </span>`).join('');
+    const spans   = p.querySelectorAll('span');
 
-    // Create GSAP timeline with tighter start/end
-    const tl = gsap.timeline({
+    // Build timeline: light-black → pure black
+    gsap.timeline({
       scrollTrigger: {
         trigger: "#animated-section",
-        start:   "top 80%",   // trigger earlier (20% from bottom)
-        end:     "bottom 60%",// finish before exiting
+        start:   "top 85%",   // begin when top is 85% down viewport
+        end:     "bottom 50%",// finish by the middle
         scrub:   true
       }
-    });
-
-    // Animate: light-black → black → gray
-    tl.to(spans, {
-      color:    "#000",
-      stagger:  0.08,
-      duration: 1,
-      ease:     "none"
     })
     .to(spans, {
-      color:    "#c4c4c4",
+      color:    "#000",
       stagger:  0.08,
       duration: 1,
       ease:     "none"
     });
   </script>
-
 
 
 
