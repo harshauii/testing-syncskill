@@ -2244,11 +2244,11 @@ margin-left: 0px;
   <script>
     (function() {
       const p = document.getElementById('text');
-      // split into spans
+      // Split into spans, all starting black
       const words = p.textContent.trim().split(/\s+/);
       p.innerHTML = words
         .map(w => `<span style="
-                      color:#222;
+                      color:#000;
                       transition: color 0.2s ease;
                       white-space: pre-wrap;
                     ">${w} </span>`)
@@ -2259,19 +2259,18 @@ margin-left: 0px;
       function onScroll() {
         const rect = section.getBoundingClientRect();
         const winH = window.innerHeight;
-        // progress from 0 (section bottom at viewport bottom) to 1 (section top at viewport top)
+        // progress: 0 when section bottom hits bottom of viewport, to 1 when section top hits top
         let prog = (winH - rect.top) / (winH + rect.height);
         prog = Math.min(Math.max(prog, 0), 1);
 
-        // calculate how many words to turn black
+        // how many words to turn red
         const count = Math.floor(prog * total);
         spans.forEach((span, i) => {
-          span.style.color = i < count ? '#000' : '#222';
+          span.style.color = i < count ? '#ff0000' : '#000';
         });
       }
 
       const section = document.getElementById('animated-section');
-      // throttle with requestAnimationFrame
       let ticking = false;
       window.addEventListener('scroll', () => {
         if (!ticking) {
@@ -2282,7 +2281,7 @@ margin-left: 0px;
           });
         }
       });
-      // run once in case it’s already in view
+      // trigger initial
       onScroll();
     })();
   </script>
