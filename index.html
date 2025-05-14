@@ -2227,7 +2227,7 @@ margin-left: 0px;
 
 
 <section id="animated-section" style="
-      margin:60vh auto;           /* visible sooner on phones */
+      margin:60vh auto;   /* push into view sooner on mobile */
       width:90%; max-width:700px;
       padding:clamp(1.5rem,3vw,3rem);
     ">
@@ -2243,9 +2243,11 @@ margin-left: 0px;
 
   <script>
     (function() {
-      const p = document.getElementById('text');
-      // Split into spans, all starting black
-      const words = p.textContent.trim().split(/\s+/);
+      const section = document.getElementById('animated-section');
+      const p       = document.getElementById('text');
+      const words   = p.textContent.trim().split(/\s+/);
+
+      // wrap each word in an inline-styled <span>
       p.innerHTML = words
         .map(w => `<span style="
                       color:#000;
@@ -2256,21 +2258,31 @@ margin-left: 0px;
       const spans = Array.from(p.querySelectorAll('span'));
       const total = spans.length;
 
+      // On resize/update, compute start & end offsets:
+      let startOffset, endOffset;
+      function updateOffsets() {
+        const vh = window.innerHeight;
+        const h  = section.offsetHeight;
+        startOffset = vh / 2;            // when section.top hits middle
+        endOffset   = (vh / 2) - h;      // when section.bottom hits middle
+      }
+      updateOffsets();
+      window.addEventListener('resize', updateOffsets);
+
       function onScroll() {
         const rect = section.getBoundingClientRect();
-        const winH = window.innerHeight;
-        // progress: 0 when section bottom hits bottom of viewport, to 1 when section top hits top
-        let prog = (winH - rect.top) / (winH + rect.height);
-        prog = Math.min(Math.max(prog, 0), 1);
+        // raw progress from startOffset → endOffset
+        let prog = (startOffset - rect.top) / (startOffset - endOffset);
+        prog = Math.min(Math.max(prog, 0), 1);  // clamp 0–1
 
-        // how many words to turn red
+        // how many words to paint red
         const count = Math.floor(prog * total);
         spans.forEach((span, i) => {
           span.style.color = i < count ? '#ff0000' : '#000';
         });
       }
 
-      const section = document.getElementById('animated-section');
+      // throttle scroll events
       let ticking = false;
       window.addEventListener('scroll', () => {
         if (!ticking) {
@@ -2281,7 +2293,8 @@ margin-left: 0px;
           });
         }
       });
-      // trigger initial
+
+      // initial paint
       onScroll();
     })();
   </script>
