@@ -2116,8 +2116,10 @@ margin-left: 0px;
         min-height: auto;
         padding: 40px 20px;
       }
-      .section-growth {
-        padding: 24 px;
+      .section-growth3 {
+        padding: 24px;
+        margin-left: 0px;
+        margin-right: 0px;
       }
       .left,
       .right {
@@ -2135,10 +2137,6 @@ margin-left: 0px;
       h1 {
         font-size: 1.5rem;
       }
-      .section-growth3 {
-        margin-left: 0px;
-        margin-right: 0px;
-      }
     }
 
     @media (max-width: 480px) {
@@ -2146,35 +2144,44 @@ margin-left: 0px;
         max-height: 300px;
       }
     }
+
+    /* Added for color transition */
+    #colorChangeParagraph span.word {
+      transition: color 0.3s ease;
+      display: inline-block;
+      white-space: nowrap;
+    }
   </style>
   <script>
     (function() {
-      // Get the target paragraph
       const para = document.getElementById('colorChangeParagraph');
-      const originalColor = '#555'; // From original CSS
-      const newColor = '#34d399'; // From original span color
-
-      // Split text into words and wrap in spans
+      const originalColor = '#555';
+      const newColor = '#34d399';
+      
+      // Split text into words
       const words = para.textContent.split(' ');
       para.innerHTML = words.map(word => 
-        `<span style="color:${originalColor}; transition:color 0.3s ease; display:inline-block;">${word}</span>`
+        `<span class="word">${word}</span>`
       ).join(' ');
 
-      const wordElements = para.querySelectorAll('span');
+      const wordElements = Array.from(para.querySelectorAll('.word'));
       const totalWords = wordElements.length;
       const vh = window.innerHeight;
 
       function updateColors() {
         const rect = para.getBoundingClientRect();
-        const progress = 1 - (rect.top + rect.height) / (vh + rect.height);
-        
+        const startTrigger = vh * 0.2;
+        const endTrigger = vh * 0.8;
+        const progress = 1 - Math.max(0, Math.min(1, 
+          (rect.top - startTrigger) / (endTrigger - startTrigger)
+        );
+
         wordElements.forEach((word, index) => {
           const wordProgress = index / totalWords;
-          word.style.color = progress > wordProgress ? newColor : originalColor;
+          word.style.color = progress >= wordProgress ? newColor : originalColor;
         });
       }
 
-      // Throttle scroll events
       let ticking = false;
       window.addEventListener('scroll', () => {
         if (!ticking) {
@@ -2186,7 +2193,6 @@ margin-left: 0px;
         }
       });
 
-      // Initial update
       updateColors();
     })();
   </script>
