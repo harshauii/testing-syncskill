@@ -2051,8 +2051,7 @@ margin-left: 0px;
 
 
 <div class="section-growth3">
-
-<section class="container">
+  <section class="container" id="animated-section">
     <!-- Left Side - Image -->
     <div class="left">
       <img src="https://www.guvi.in/assets/DUN3iNaq-women-with-notebook-latest.webp" alt="EdTech Platform" class="image" />
@@ -2061,100 +2060,54 @@ margin-left: 0px;
     <!-- Right Side - Text -->
     <div class="right">
       <h1>Leading EdTech Platform for Learning in Native Languages.</h1>
-      <p>GUVI-HCL, backed by IIT-M, IIM-A, and HCL, is India’s top tech-driven EdTech platform for learning in regional and global languages. With 3M+ learners worldwide, it offers personalized online learning, upskilling, and job opportunities.</p>
+      <p id="color-text">GUVI-HCL, backed by IIT-M, IIM-A, and HCL, is India’s top tech-driven EdTech platform for learning in regional and global languages. With 3M+ learners worldwide, it offers personalized online learning, upskilling, and job opportunities.</p>
       <p>GUVI <span>- Grab Ur Vernacular Imprint</span></p>
     </div>
   </section>
-  <style>
-   .section-growth3 {
- margin-left: 130px;
-  margin-right: 130px;
+</div>
 
-}
-    /* Base styles for desktop */
-    .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px;
-      background-color: white;
-      min-height: 100vh;
-      font-family: 'IBM Plex Sans', sans-serif;
-    }
-    .left {
-      width: 50%;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-    }
-    .right {
-      width: 50%;
-      padding-left: 20px;
-    }
-    .image {
-      width: 100%;
-      height: auto;
-      max-height: 500px;
-      object-fit: contain;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 15px;
-    }
-    p {
-      color: #555;
-      margin-bottom: 10px;
-    }
-    span {
-      font-weight: bold;
-      color: #34d399;
+<style>
+  /* Add this CSS */
+  #color-text span {
+    transition: color 0.3s ease;
+    display: inline-block;
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  (function() {
+    const section = document.getElementById('animated-section');
+    const p = document.getElementById('color-text');
+    const words = p.textContent.trim().split(/\s+/);
+
+    // Wrap each word in a span
+    p.innerHTML = words.map(word => 
+      `<span style="color:#555; margin-right: 4px;">${word}</span>`
+    ).join('');
+
+    const spans = p.querySelectorAll('span');
+    const totalWords = spans.length;
+    const viewHeight = window.innerHeight;
+
+    function updateColors() {
+      const rect = section.getBoundingClientRect();
+      const scrollProgress = Math.min(1, Math.max(0, (rect.top * -1 + viewHeight/2) / (viewHeight/2)));
+
+      spans.forEach((span, index) => {
+        const wordProgress = index / totalWords;
+        span.style.color = wordProgress < scrollProgress ? '#34d399' : '#555';
+      });
     }
 
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        text-align: center;
-        min-height: auto;
-        padding: 40px 20px;
-      }
-     .section-growth {
-      padding: 24 px;
-    }
-      .left,
-      .right {
-        width: 100%;
-        padding-left: 0;
-      }
-      .right {
-        order: -1;
-        margin-bottom: 30px;
-        text-align: left; /* Left align the text on mobile */
-      }
-      .image {
-        max-height: 400px;
-      }
-      h1 {
-        font-size: 1.5rem;
-      }
-      .section-growth3 {
- margin-left: 0px;
-  margin-right: 0px;
+    window.addEventListener('scroll', () => {
+      requestAnimationFrame(updateColors);
+    });
 
-}
-    }
-
-    @media (max-width: 480px) {
-      .image {
-        max-height: 300px;
-      }
-    }
-  </style>
-
+    // Initial update
+    updateColors();
+  })();
+</script>
  
 
 
