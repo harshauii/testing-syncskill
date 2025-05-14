@@ -2051,7 +2051,7 @@ margin-left: 0px;
 
 
 <div class="section-growth3">
-  <section class="container" id="animated-section">
+  <section class="container">
     <!-- Left Side - Image -->
     <div class="left">
       <img src="https://www.guvi.in/assets/DUN3iNaq-women-with-notebook-latest.webp" alt="EdTech Platform" class="image" />
@@ -2060,53 +2060,63 @@ margin-left: 0px;
     <!-- Right Side - Text -->
     <div class="right">
       <h1>Leading EdTech Platform for Learning in Native Languages.</h1>
-      <p id="color-text">GUVI-HCL, backed by IIT-M, IIM-A, and HCL, is India’s top tech-driven EdTech platform for learning in regional and global languages. With 3M+ learners worldwide, it offers personalized online learning, upskilling, and job opportunities.</p>
+      <p id="color-change-text">GUVI-HCL, backed by IIT-M, IIM-A, and HCL, is India’s top tech-driven EdTech platform for learning in regional and global languages. With 3M+ learners worldwide, it offers personalized online learning, upskilling, and job opportunities.</p>
       <p>GUVI <span>- Grab Ur Vernacular Imprint</span></p>
     </div>
   </section>
 </div>
 
-<style>
-  /* Add this CSS */
-  #color-text span {
-    transition: color 0.3s ease;
-    display: inline-block;
-    white-space: nowrap;
-  }
-</style>
-
 <script>
-  (function() {
-    const section = document.getElementById('animated-section');
-    const p = document.getElementById('color-text');
-    const words = p.textContent.trim().split(/\s+/);
+(function() {
+  const section = document.querySelector('.container');
+  const p = document.getElementById('color-change-text');
+  const words = p.textContent.trim().split(/\s+/);
 
-    // Wrap each word in a span
-    p.innerHTML = words.map(word => 
-      `<span style="color:#555; margin-right: 4px;">${word}</span>`
-    ).join('');
+  // Wrap each word in a span
+  p.innerHTML = words.map(w => 
+    `<span style="color:#555; transition:color 0.2s ease; white-space:nowrap; display:inline-block; margin-right:0.25em;">${w}</span>`
+  ).join('');
+  const spans = Array.from(p.querySelectorAll('span'));
+  const total = spans.length;
 
-    const spans = p.querySelectorAll('span');
-    const totalWords = spans.length;
-    const viewHeight = window.innerHeight;
+  // Calculate scroll offsets
+  let startOffset, endOffset;
+  function updateOffsets() {
+    const vh = window.innerHeight;
+    const h = section.offsetHeight;
+    startOffset = vh / 2;
+    endOffset = (vh / 2) - h;
+  }
+  updateOffsets();
+  window.addEventListener('resize', updateOffsets);
 
-    function updateColors() {
-      const rect = section.getBoundingClientRect();
-      const scrollProgress = Math.min(1, Math.max(0, (rect.top * -1 + viewHeight/2) / (viewHeight/2)));
-
-      spans.forEach((span, index) => {
-        const wordProgress = index / totalWords;
-        span.style.color = wordProgress < scrollProgress ? '#34d399' : '#555';
-      });
-    }
-
-    window.addEventListener('scroll', () => {
-      requestAnimationFrame(updateColors);
+  // Scroll handler
+  function onScroll() {
+    const rect = section.getBoundingClientRect();
+    let prog = (startOffset - rect.top) / (startOffset - endOffset);
+    prog = Math.min(Math.max(prog, 0), 1);
+    const count = Math.floor(prog * total);
+    
+    spans.forEach((span, i) => {
+      span.style.color = i < count ? '#34d399' : '#555';
     });
+  }
 
-    // Initial update
-    updateColors();
-  })();
+  // Throttle scroll events
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        onScroll();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Initial call
+  onScroll();
+})();
 </script>
  
 
