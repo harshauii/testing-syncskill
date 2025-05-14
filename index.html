@@ -2226,25 +2226,19 @@ margin-left: 0px;
 
 
 
-
- <section
-    id="animated-section"
-    style="
-      margin:100vh auto;
+<section id="animated-section" style="
+      margin:60vh auto;            /* push up so it’s in view sooner */
       width:90%;
       max-width:700px;
       padding:clamp(1.5rem,3vw,3rem);
-    "
-  >
-    <p
-      class="animated-text"
-      style="
-        font-size:clamp(1.75rem,4vw,3rem);
+    ">
+    <p class="animated-text" style="
+        /* bigger clamp for mobile: min 2.5rem, ideal 8vw, max 4rem */
+        font-size:clamp(2.5rem,8vw,4rem);
         text-align:justify;
         font-weight:400;
         margin:0;
-      "
-    >
+      ">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     </p>
   </section>
@@ -2252,37 +2246,34 @@ margin-left: 0px;
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    // Grab the paragraph, split into words, and inject spans with inline styles
+    // wrap each word in a span with inline styles
     const p     = document.querySelector('.animated-text');
     const words = p.textContent.trim().split(/\s+/);
     p.innerHTML  = words
       .map(w => `<span style="
-                    color:#919191;
+                    color:#FF0000;
                     transition:color 0.3s ease;
                     white-space:pre-wrap;
                   ">${w} </span>`)
       .join('');
     const spans = p.querySelectorAll('span');
 
-    // Build timeline: light-black → pure black
+    // tighter trigger so it animates high on mobile
     gsap.timeline({
       scrollTrigger: {
         trigger: "#animated-section",
-        start:   "top 85%",
-        end:     "bottom 50%",
+        start:   "top 90%",   // begin when top is 90% down viewport
+        end:     "bottom 40%",// finish well before exit
         scrub:   true
       }
     })
     .to(spans, {
-      // GSAP will animate the inline 'color' style
       color:    "#000",
       stagger:  0.08,
       duration: 1,
       ease:     "none"
     });
   </script>
-
-
 
 
 
