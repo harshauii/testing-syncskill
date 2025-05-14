@@ -2116,10 +2116,8 @@ margin-left: 0px;
         min-height: auto;
         padding: 40px 20px;
       }
-      .section-growth3 {
+      .section-growth {
         padding: 24px;
-        margin-left: 0px;
-        margin-right: 0px;
       }
       .left,
       .right {
@@ -2136,6 +2134,10 @@ margin-left: 0px;
       }
       h1 {
         font-size: 1.5rem;
+      }
+      .section-growth3 {
+        margin-left: 0px;
+        margin-right: 0px;
       }
     }
 
@@ -2154,34 +2156,39 @@ margin-left: 0px;
   </style>
   <script>
     (function() {
+      // Configuration
       const para = document.getElementById('colorChangeParagraph');
       const originalColor = '#555';
-      const newColor = '#34d399';
-      
-      // Split text into words
+      const highlightColor = '#34d399';
+      const triggerOffset = 0.2; // Start earlier
+
+      // Prepare text
       const words = para.textContent.split(' ');
       para.innerHTML = words.map(word => 
         `<span class="word">${word}</span>`
       ).join(' ');
-
       const wordElements = Array.from(para.querySelectorAll('.word'));
       const totalWords = wordElements.length;
-      const vh = window.innerHeight;
 
+      // Scroll handler
       function updateColors() {
         const rect = para.getBoundingClientRect();
-        const startTrigger = vh * 0.2;
-        const endTrigger = vh * 0.8;
-        const progress = 1 - Math.max(0, Math.min(1, 
-          (rect.top - startTrigger) / (endTrigger - startTrigger)
-        );
+        const viewHeight = window.innerHeight;
+        
+        // Calculate progress from 0 to 1
+        const start = viewHeight * (1 - triggerOffset);
+        const end = -rect.height * triggerOffset;
+        const progress = (rect.top - start) / (end - start);
+        const clampedProgress = Math.min(Math.max(progress, 0), 1);
 
+        // Update colors
         wordElements.forEach((word, index) => {
           const wordProgress = index / totalWords;
-          word.style.color = progress >= wordProgress ? newColor : originalColor;
+          word.style.color = clampedProgress >= wordProgress ? highlightColor : originalColor;
         });
       }
 
+      // Optimized scroll handling
       let ticking = false;
       window.addEventListener('scroll', () => {
         if (!ticking) {
@@ -2193,7 +2200,9 @@ margin-left: 0px;
         }
       });
 
+      // Initial setup
       updateColors();
+      window.addEventListener('resize', updateColors);
     })();
   </script>
 </div>
