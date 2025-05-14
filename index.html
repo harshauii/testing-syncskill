@@ -2156,54 +2156,61 @@ margin-left: 0px;
     }
   </style>
 <script>
-    (function() {
-      const para = document.getElementById('colorChangeParagraph');
-      const originalColor = '#555';
-      const highlightColor = '#34d399';
-      
-      const words = para.textContent.split(' ');
-      para.innerHTML = words.map(word => 
+(function() {
+    const para = document.getElementById('colorChangeParagraph');
+    const originalColor = '#555';
+    const highlightColor = '#34d399';
+    
+    // Wrap words
+    const words = para.textContent.split(' ');
+    para.innerHTML = words.map(word => 
         `<span class="word">${word}</span>`
-      ).join(' ');
-      
-      const wordElements = Array.from(para.querySelectorAll('.word'));
-      const totalWords = wordElements.length;
-      const vh = window.innerHeight;
+    ).join(' ');
+    
+    const wordElements = Array.from(para.querySelectorAll('.word'));
+    const totalWords = wordElements.length;
 
-      function updateColors() {
+    // Get navbar height (adjust selector if needed)
+    const navbar = document.querySelector('header, nav') || { offsetHeight: 0 };
+    const navbarHeight = navbar.offsetHeight;
+
+    function updateColors() {
         const rect = para.getBoundingClientRect();
-        const paraHeight = rect.height;
+        const viewportHeight = window.innerHeight;
         
-        // Adjusted calculation to complete before leaving viewport
-        const start = vh - paraHeight * 0.2;  // Start earlier
-        const end = -paraHeight * 0.8;         // End later
-        const progress = (rect.top - start) / (end - start);
+        // Calculate visible area considering navbar
+        const startPosition = viewportHeight - navbarHeight - rect.height;
+        const endPosition = navbarHeight;
+        
+        // Progress from 1 (fully visible) to 0 (hidden by navbar)
+        const progress = (rect.top - endPosition) / (startPosition - endPosition);
         const clampedProgress = Math.min(Math.max(progress, 0), 1);
 
+        // Update colors
         wordElements.forEach((word, index) => {
-          const threshold = index / totalWords;
-          word.style.color = clampedProgress >= threshold ? highlightColor : originalColor;
+            const wordThreshold = index / totalWords;
+            word.style.color = clampedProgress >= (1 - wordThreshold) ? 
+                             highlightColor : 
+                             originalColor;
         });
-      }
+    }
 
-      let ticking = false;
-      window.addEventListener('scroll', () => {
+    // Optimized scroll handler
+    let ticking = false;
+    window.addEventListener('scroll', () => {
         if (!ticking) {
-          requestAnimationFrame(() => {
-            updateColors();
-            ticking = false;
-          });
-          ticking = true;
+            requestAnimationFrame(() => {
+                updateColors();
+                ticking = false;
+            });
+            ticking = true;
         }
-      });
+    });
 
-      // Initialize and handle resize
-      updateColors();
-      window.addEventListener('resize', () => {
-        vh = window.innerHeight;
-        updateColors();
-      });
-    })();
+    // Initial setup
+    updateColors();
+    window.addEventListener('resize', updateColors);
+})();
 </script>
 </div>
 
