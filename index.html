@@ -2062,6 +2062,7 @@ margin-left: 0px;
     </div>
   </section>
   <style>
+    /* Original CSS - 100% preserved */
     .section-growth3 {
       margin-left: 130px;
       margin-right: 130px;
@@ -2146,10 +2147,12 @@ margin-left: 0px;
       }
     }
 
-    /* Added only for color transition */
-    #colorChangeParagraph span {
+    /* Added for color transition */
+    #colorChangeParagraph span.word {
       transition: color 0.3s ease;
       display: inline-block;
+      white-space: nowrap;
+      font-weight: normal !important; /* PREVENT BOLD TEXT */
     }
   </style>
   <script>
@@ -2158,30 +2161,34 @@ margin-left: 0px;
       const originalColor = '#555';
       const highlightColor = '#34d399';
       
-      // Wrap words while preserving spacing
-      para.innerHTML = para.textContent.split(' ').map(word => 
-        `<span>${word}</span>`
+      // Wrap words while preserving original layout
+      const words = para.textContent.split(' ');
+      para.innerHTML = words.map(word => 
+        `<span class="word">${word}</span>`
       ).join(' ');
       
-      const words = para.querySelectorAll('span');
-      const totalWords = words.length;
+      const wordElements = Array.from(para.querySelectorAll('.word'));
+      const totalWords = wordElements.length;
+      const vh = window.innerHeight;
 
       function updateColors() {
         const rect = para.getBoundingClientRect();
-        const viewHeight = window.innerHeight;
+        const viewportMiddle = vh / 2;
+        const start = viewportMiddle + rect.height;
+        const end = -rect.height;
         
-        // Calculate scroll progress from bottom to top
-        const start = viewHeight - rect.top;
-        const end = viewHeight - rect.bottom;
-        const progress = start / (start - end);
-        
-        words.forEach((word, index) => {
-          const wordProgress = index / totalWords;
-          word.style.color = progress >= wordProgress ? highlightColor : originalColor;
+        // Calculate smooth progress
+        const rawProgress = (rect.top - start) / (end - start);
+        const progress = Math.min(Math.max(rawProgress, 0), 1);
+
+        // Update colors
+        wordElements.forEach((word, index) => {
+          const threshold = index / totalWords;
+          word.style.color = progress >= threshold ? highlightColor : originalColor;
         });
       }
 
-      // Throttled scroll handler
+      // Optimized scroll handler
       let ticking = false;
       window.addEventListener('scroll', () => {
         if (!ticking) {
@@ -2192,8 +2199,10 @@ margin-left: 0px;
           ticking = true;
         }
       });
-      
-      updateColors(); // Initial update
+
+      // Initial setup
+      updateColors();
+      window.addEventListener('resize', updateColors);
     })();
   </script>
 </div>
