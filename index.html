@@ -2225,17 +2225,26 @@ margin-left: 0px;
 
 
 
-
 <section id="animated-section" style="
-        /* push into view sooner on mobile */
-      width:90%; max-width:700px;
-      padding:clamp(1.5rem,3vw,3rem);
+      width: 90%;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: clamp(1.25rem, 5vw, 2.5rem);
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 1rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
     ">
     <p id="text" style="
-        font-size:clamp(2.5rem,8vw,4rem);
-        text-align:justify;
-        font-weight:400;
-        margin:0;
+        font-size: clamp(1.5rem, 4vw + 1rem, 2.5rem);
+        line-height: 1.4;
+        text-align: left;
+        font-weight: 400;
+        margin: 0;
+        font-family: 'IBM Plex Sans', sans-serif;
+        color: #1a1a1a;
+        word-wrap: break-word;
+        hyphens: auto;
       ">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     </p>
@@ -2244,47 +2253,75 @@ margin-left: 0px;
   <script>
     (function() {
       const section = document.getElementById('animated-section');
-      const p       = document.getElementById('text');
-      const words   = p.textContent.trim().split(/\s+/);
+      const p = document.getElementById('text');
+      const words = p.textContent.trim().split(/\s+/);
+      let resizeTimeout;
 
-      // wrap each word in an inline-styled <span>
-      p.innerHTML = words
-        .map(w => `<span style="
-                      color:#000;
-                      transition: color 0.2s ease;
-                      white-space: pre-wrap;
-                    ">${w} </span>`)
-        .join('');
+      // Font loading optimization
+      document.fonts.ready.then(() => {
+        updateOffsets();
+        onScroll();
+      });
+
+      // Wrap words with improved spacing
+      p.innerHTML = words.map(w => `
+        <span style="
+          color: #000;
+          transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          display: inline-block;
+          margin-right: 0.35em;
+          word-break: keep-all;
+        ">${w}</span>
+      `).join('');
+
       const spans = Array.from(p.querySelectorAll('span'));
       const total = spans.length;
 
-      // On resize/update, compute start & end offsets:
-      let startOffset, endOffset;
       function updateOffsets() {
         const vh = window.innerHeight;
-        const h  = section.offsetHeight;
-        startOffset = vh / 2;            // when section.top hits middle
-        endOffset   = (vh / 2) - h;      // when section.bottom hits middle
+        const h = section.offsetHeight;
+        startOffset = vh * 0.4;
+        endOffset = vh * 0.6 - h;
       }
-      updateOffsets();
-      window.addEventListener('resize', updateOffsets);
 
       function onScroll() {
         const rect = section.getBoundingClientRect();
-        // raw progress from startOffset → endOffset
         let prog = (startOffset - rect.top) / (startOffset - endOffset);
-        prog = Math.min(Math.max(prog, 0), 1);  // clamp 0–1
-
-        // how many words to paint red
-        const count = Math.floor(prog * total);
+        prog = Math.min(Math.max(prog, 0), 1);
+        
+        // Smooth transition with easing
+        const easedProg = Math.pow(prog, 1.5);
+        const count = Math.floor(easedProg * total);
+        
         spans.forEach((span, i) => {
-          span.style.color = i < count ? '#ff0000' : '#000';
+          span.style.color = i < count ? '#e1193e' : '#1a1a1a';
+          span.style.transform = i < count ? 
+            'translateY(-2px)' : 'translateY(0)';
         });
       }
 
-      // throttle scroll events
+      // Optimized resize handler
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          updateOffsets();
+          onScroll();
+        }, 100);
+      });
+
+      // Intersection Observer for performance
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            window.addEventListener('scroll', scrollHandler);
+          } else {
+            window.removeEventListener('scroll', scrollHandler);
+          }
+        });
+      });
+
       let ticking = false;
-      window.addEventListener('scroll', () => {
+      function scrollHandler() {
         if (!ticking) {
           ticking = true;
           requestAnimationFrame(() => {
@@ -2292,12 +2329,14 @@ margin-left: 0px;
             ticking = false;
           });
         }
-      });
+      }
 
-      // initial paint
+      observer.observe(section);
+      updateOffsets();
       onScroll();
     })();
   </script>
+
 
 
 
