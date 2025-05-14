@@ -1198,111 +1198,111 @@ body {
 
 
 
-<section>
- <h2 class="testimonial-heading">What Our Learners Are Saying!</h2>
+ <section id="testimonials-section">
+        <h2 id="testimonials-heading">What Our Learners Are Saying!</h2>
 
-  <div class="review-box">
-    <div class="logo-container">
-      <img src="https://www.guvi.in/assets/BWZD7RpZ-google-logo.webp" alt="Google Logo">
-    </div>
-    <div class="text-container">
-      <p>Rated 4.3/5.0</p>
-      <p>More than 2500 Google Reviews</p>
-    </div>
-  </div>
-</section>
-  <style>
-    section {
-      text-align: center;
-      padding: 40px 20px;
-    }
+        <div id="review-container" class="review-box">
+            <div id="google-logo-container" class="logo-container">
+                <img src="https://www.guvi.in/assets/BWZD7RpZ-google-logo.webp" alt="Google Logo">
+            </div>
+            <div id="rating-text-container" class="text-container">
+                <p>Rated 4.3/5.0</p>
+                <p>More than 2500 Google Reviews</p>
+            </div>
+        </div>
+    </section>
 
-    .testimonial-heading {
-  font-size: 28px;
-  margin-bottom: 30px;
-  color: #333;
-}
+ <style>
+        #testimonials-section {
+            text-align: center;
+            padding: 40px 20px;
+            font-family: Arial, sans-serif;
+        }
 
-    .review-box {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      background: #fff;
-      padding: 20px 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transition: transform 0.3s, box-shadow 0.3s;
-      max-width: 600px;
-      margin: 0 auto;
-    }
+        #testimonials-heading {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
 
-    .review-box:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    }
+        #review-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-    .logo-container {
-      max-width: 80px;
-      flex-shrink: 0;
-    }
+        #review-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
 
-    .logo-container img {
-      max-width: 100%;
-      transition: transform 0.3s;
-    }
+        #google-logo-container {
+            max-width: 80px;
+            flex-shrink: 0;
+        }
 
-    .text-container {
-      text-align: left;
-    }
+        #google-logo-container img {
+            max-width: 100%;
+            transition: transform 0.3s;
+        }
 
-    .text-container p {
-      margin: 5px 0;
-    }
+        #rating-text-container {
+            text-align: left;
+        }
 
-    .text-container p:first-child {
-      font-size: 18px;
-      font-weight: 600;
-      color: #222;
-    }
+        #rating-text-container p {
+            margin: 5px 0;
+        }
 
-    .text-container p:last-child {
-      font-size: 16px;
-      color: #666;
-    }
+        #rating-text-container p:first-child {
+            font-size: 18px;
+            font-weight: 600;
+            color: #222;
+        }
 
-    /* 👇 Responsive scaling for mobile without stacking */
-  
-  @media (max-width: 768px) {
-      section {
-        padding: 30px 15px;
-      }
+        #rating-text-container p:last-child {
+            font-size: 16px;
+            color: #666;
+        }
 
-     div h2  {
-    font-size: 20px; /* More reasonable mobile size */
-    margin-bottom: 20px;
-  }
+        /* Mobile Responsive Styles */
+        @media (max-width: 480px) {
+            #testimonials-section {
+                padding: 30px 15px;
+            }
 
-      .review-box {
-        padding: 15px 20px;
-        gap: 15px;
-        max-width: 95%;
-      }
+            #testimonials-heading {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
 
-      .logo-container {
-        max-width: 50px;
-      }
+            #review-container {
+                padding: 15px 20px;
+                gap: 15px;
+                max-width: 95%;
+            }
 
-      .text-container p:first-child {
-        font-size: 14px;
-      }
+            #google-logo-container {
+                max-width: 50px;
+            }
 
-      .text-container p:last-child {
-        font-size: 13px;
-      }
-    }
-  </style>
+            #rating-text-container p:first-child {
+                font-size: 14px;
+            }
 
+            #rating-text-container p:last-child {
+                font-size: 13px;
+            }
+        }
+    </style>
 
 
 
