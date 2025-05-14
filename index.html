@@ -2155,13 +2155,13 @@ margin-left: 0px;
       font-weight: normal !important; /* PREVENT BOLD TEXT */
     }
   </style>
- <script>
+<script>
 (function() {
   const para = document.getElementById('colorChangeParagraph');
   const originalColor = '#555';
   const highlightColor = '#34d399';
   
-  // Wrap words while preserving original layout
+  // Wrap words
   const words = para.textContent.split(' ');
   para.innerHTML = words.map(word => 
     `<span class="word">${word}</span>`
@@ -2174,17 +2174,16 @@ margin-left: 0px;
     const rect = para.getBoundingClientRect();
     const viewHeight = window.innerHeight;
     
-    // Adjusted calculation to complete before leaving viewport
-    const startOffset = viewHeight * 0.2; // Start when 20% from bottom
-    const endOffset = -rect.height * 0.2; // End when 20% from top
-    
-    const progress = (rect.top - startOffset) / (endOffset - startOffset);
+    // Adjusted calculation to start earlier and end later
+    const start = viewHeight * 0.8;  // Start when paragraph enters bottom 20% of viewport
+    const end = -rect.height * 0.2;  // End when paragraph is 20% past top of viewport
+    const progress = (rect.top - start) / (end - start);
     const clampedProgress = Math.min(Math.max(progress, 0), 1);
 
     // Update colors with smooth progression
     wordElements.forEach((word, index) => {
-      const wordThreshold = index / totalWords;
-      word.style.color = clampedProgress >= wordThreshold ? highlightColor : originalColor;
+      const wordProgress = index / totalWords;
+      word.style.color = clampedProgress >= wordProgress ? highlightColor : originalColor;
     });
   }
 
