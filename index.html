@@ -2155,56 +2155,56 @@ margin-left: 0px;
       font-weight: normal !important; /* PREVENT BOLD TEXT */
     }
   </style>
-  <script>
-    (function() {
-      const para = document.getElementById('colorChangeParagraph');
-      const originalColor = '#555';
-      const highlightColor = '#34d399';
-      
-      // Wrap words while preserving original layout
-      const words = para.textContent.split(' ');
-      para.innerHTML = words.map(word => 
-        `<span class="word">${word}</span>`
-      ).join(' ');
-      
-      const wordElements = Array.from(para.querySelectorAll('.word'));
-      const totalWords = wordElements.length;
-      const vh = window.innerHeight;
+ <script>
+(function() {
+  const para = document.getElementById('colorChangeParagraph');
+  const originalColor = '#555';
+  const highlightColor = '#34d399';
+  
+  // Wrap words while preserving original layout
+  const words = para.textContent.split(' ');
+  para.innerHTML = words.map(word => 
+    `<span class="word">${word}</span>`
+  ).join(' ');
+  
+  const wordElements = Array.from(para.querySelectorAll('.word'));
+  const totalWords = wordElements.length;
 
-      function updateColors() {
-        const rect = para.getBoundingClientRect();
-        const viewportMiddle = vh / 2;
-        const start = viewportMiddle + rect.height;
-        const end = -rect.height;
-        
-        // Calculate smooth progress
-        const rawProgress = (rect.top - start) / (end - start);
-        const progress = Math.min(Math.max(rawProgress, 0), 1);
+  function updateColors() {
+    const rect = para.getBoundingClientRect();
+    const viewHeight = window.innerHeight;
+    
+    // Adjusted calculation to complete before leaving viewport
+    const startOffset = viewHeight * 0.2; // Start when 20% from bottom
+    const endOffset = -rect.height * 0.2; // End when 20% from top
+    
+    const progress = (rect.top - startOffset) / (endOffset - startOffset);
+    const clampedProgress = Math.min(Math.max(progress, 0), 1);
 
-        // Update colors
-        wordElements.forEach((word, index) => {
-          const threshold = index / totalWords;
-          word.style.color = progress >= threshold ? highlightColor : originalColor;
-        });
-      }
+    // Update colors with smooth progression
+    wordElements.forEach((word, index) => {
+      const wordThreshold = index / totalWords;
+      word.style.color = clampedProgress >= wordThreshold ? highlightColor : originalColor;
+    });
+  }
 
-      // Optimized scroll handler
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            updateColors();
-            ticking = false;
-          });
-          ticking = true;
-        }
+  // Optimized scroll handler
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateColors();
+        ticking = false;
       });
+      ticking = true;
+    }
+  });
 
-      // Initial setup
-      updateColors();
-      window.addEventListener('resize', updateColors);
-    })();
-  </script>
+  // Initial setup
+  updateColors();
+  window.addEventListener('resize', updateColors);
+})();
+</script>
 </div>
 
 
