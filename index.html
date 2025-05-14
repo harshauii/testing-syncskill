@@ -2156,53 +2156,54 @@ margin-left: 0px;
     }
   </style>
 <script>
-(function() {
-  const para = document.getElementById('colorChangeParagraph');
-  const originalColor = '#555';
-  const highlightColor = '#34d399';
-  
-  // Wrap words
-  const words = para.textContent.split(' ');
-  para.innerHTML = words.map(word => 
-    `<span class="word">${word}</span>`
-  ).join(' ');
-  
-  const wordElements = Array.from(para.querySelectorAll('.word'));
-  const totalWords = wordElements.length;
+    (function() {
+      const para = document.getElementById('colorChangeParagraph');
+      const originalColor = '#555';
+      const highlightColor = '#34d399';
+      
+      const words = para.textContent.split(' ');
+      para.innerHTML = words.map(word => 
+        `<span class="word">${word}</span>`
+      ).join(' ');
+      
+      const wordElements = Array.from(para.querySelectorAll('.word'));
+      const totalWords = wordElements.length;
+      const vh = window.innerHeight;
 
-  function updateColors() {
-    const rect = para.getBoundingClientRect();
-    const viewHeight = window.innerHeight;
-    
-    // Adjusted calculation to start earlier and end later
-    const start = viewHeight * 0.8;  // Start when paragraph enters bottom 20% of viewport
-    const end = -rect.height * 0.2;  // End when paragraph is 20% past top of viewport
-    const progress = (rect.top - start) / (end - start);
-    const clampedProgress = Math.min(Math.max(progress, 0), 1);
+      function updateColors() {
+        const rect = para.getBoundingClientRect();
+        const paraHeight = rect.height;
+        
+        // Adjusted calculation to complete before leaving viewport
+        const start = vh - paraHeight * 0.2;  // Start earlier
+        const end = -paraHeight * 0.8;         // End later
+        const progress = (rect.top - start) / (end - start);
+        const clampedProgress = Math.min(Math.max(progress, 0), 1);
 
-    // Update colors with smooth progression
-    wordElements.forEach((word, index) => {
-      const wordProgress = index / totalWords;
-      word.style.color = clampedProgress >= wordProgress ? highlightColor : originalColor;
-    });
-  }
+        wordElements.forEach((word, index) => {
+          const threshold = index / totalWords;
+          word.style.color = clampedProgress >= threshold ? highlightColor : originalColor;
+        });
+      }
 
-  // Optimized scroll handler
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateColors();
-        ticking = false;
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateColors();
+            ticking = false;
+          });
+          ticking = true;
+        }
       });
-      ticking = true;
-    }
-  });
 
-  // Initial setup
-  updateColors();
-  window.addEventListener('resize', updateColors);
-})();
+      // Initialize and handle resize
+      updateColors();
+      window.addEventListener('resize', () => {
+        vh = window.innerHeight;
+        updateColors();
+      });
+    })();
 </script>
 </div>
 
