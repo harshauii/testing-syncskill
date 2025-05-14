@@ -1277,9 +1277,15 @@ body {
         padding: 30px 15px;
       }
 
-      .testimonial-heading {
-    font-size: 20px; /* More reasonable mobile size */
-    margin-bottom: 20px;
+       .testimonial-heading {
+    font-size: 18px; /* Reduced from 20px */
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow if any */
+    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+    padding: 0 15px; /* Add horizontal padding */
+    max-width: 100vw; /* Ensure it stays within viewport */
+    margin: 0 auto 20px; /* Center align */
+    display: block; /* Ensure proper box model */
   }
 
       .review-box {
@@ -1299,6 +1305,12 @@ body {
       .text-container p:last-child {
         font-size: 13px;
       }
+       @media (max-width: 360px) {
+    .testimonial-heading {
+      font-size: 16px; /* Further reduce size */
+      letter-spacing: -0.3px; /* Compensate for smaller size */
+    }
+  }
     }
   </style>
 
