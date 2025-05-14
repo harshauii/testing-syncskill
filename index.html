@@ -2226,102 +2226,73 @@ margin-left: 0px;
 
 
 <section id="animated-section" style="
-      width: 90%;
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: clamp(1.25rem, 5vw, 2.5rem);
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 1rem;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    ">
+    width: 90%;
+    max-width: 700px;
+    margin: 4rem auto;
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    font-family: 'IBM Plex Sans', sans-serif;
+">
     <p id="text" style="
-        font-size: clamp(1.5rem, 4vw + 1rem, 2.5rem);
+        font-size: clamp(1.75rem, 5vw, 3.125rem);
         line-height: 1.4;
         text-align: left;
         font-weight: 400;
         margin: 0;
-        font-family: 'IBM Plex Sans', sans-serif;
-        color: #1a1a1a;
-        word-wrap: break-word;
+        padding: 0;
         hyphens: auto;
-      ">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        letter-spacing: -0.02em;
+        word-spacing: 0.05em;
+    ">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     </p>
-  </section>
+</section>
 
-  <script>
+<script>
     (function() {
       const section = document.getElementById('animated-section');
-      const p = document.getElementById('text');
-      const words = p.textContent.trim().split(/\s+/);
-      let resizeTimeout;
+      const p       = document.getElementById('text');
+      const words   = p.textContent.trim().split(/\s+/);
 
-      // Font loading optimization
-      document.fonts.ready.then(() => {
-        updateOffsets();
-        onScroll();
-      });
-
-      // Wrap words with improved spacing
-      p.innerHTML = words.map(w => `
-        <span style="
-          color: #000;
-          transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          display: inline-block;
-          margin-right: 0.35em;
-          word-break: keep-all;
-        ">${w}</span>
-      `).join('');
-
+      // wrap each word in an inline-styled <span>
+      p.innerHTML = words
+        .map(w => `<span style="
+                      color:#000;
+                      transition: color 0.2s ease;
+                      white-space: nowrap;
+                      display: inline-block;
+                      margin-right: 0.25em;
+                    ">${w}</span>`)
+        .join('');
       const spans = Array.from(p.querySelectorAll('span'));
       const total = spans.length;
 
+      // On resize/update, compute start & end offsets:
+      let startOffset, endOffset;
       function updateOffsets() {
         const vh = window.innerHeight;
-        const h = section.offsetHeight;
-        startOffset = vh * 0.4;
-        endOffset = vh * 0.6 - h;
+        const h  = section.offsetHeight;
+        startOffset = vh / 2;            // when section.top hits middle
+        endOffset   = (vh / 2) - h;      // when section.bottom hits middle
       }
+      updateOffsets();
+      window.addEventListener('resize', updateOffsets);
 
       function onScroll() {
         const rect = section.getBoundingClientRect();
+        // raw progress from startOffset → endOffset
         let prog = (startOffset - rect.top) / (startOffset - endOffset);
-        prog = Math.min(Math.max(prog, 0), 1);
-        
-        // Smooth transition with easing
-        const easedProg = Math.pow(prog, 1.5);
-        const count = Math.floor(easedProg * total);
-        
+        prog = Math.min(Math.max(prog, 0), 1);  // clamp 0–1
+
+        // how many words to paint red
+        const count = Math.floor(prog * total);
         spans.forEach((span, i) => {
-          span.style.color = i < count ? '#e1193e' : '#1a1a1a';
-          span.style.transform = i < count ? 
-            'translateY(-2px)' : 'translateY(0)';
+          span.style.color = i < count ? '#ff0000' : '#000';
         });
       }
 
-      // Optimized resize handler
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-          updateOffsets();
-          onScroll();
-        }, 100);
-      });
-
-      // Intersection Observer for performance
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            window.addEventListener('scroll', scrollHandler);
-          } else {
-            window.removeEventListener('scroll', scrollHandler);
-          }
-        });
-      });
-
+      // throttle scroll events
       let ticking = false;
-      function scrollHandler() {
+      window.addEventListener('scroll', () => {
         if (!ticking) {
           ticking = true;
           requestAnimationFrame(() => {
@@ -2329,13 +2300,12 @@ margin-left: 0px;
             ticking = false;
           });
         }
-      }
+      });
 
-      observer.observe(section);
-      updateOffsets();
+      // initial paint
       onScroll();
     })();
-  </script>
+</script>
 
 
 
