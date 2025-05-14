@@ -2227,13 +2227,11 @@ margin-left: 0px;
 
 
 <section id="animated-section" style="
-      margin:60vh auto;            /* push up so it’s in view sooner */
-      width:90%;
-      max-width:700px;
+      margin:60vh auto;           /* visible sooner on phones */
+      width:90%; max-width:700px;
       padding:clamp(1.5rem,3vw,3rem);
     ">
-    <p class="animated-text" style="
-        /* bigger clamp for mobile: min 2.5rem, ideal 8vw, max 4rem */
+    <p id="text" style="
         font-size:clamp(2.5rem,8vw,4rem);
         text-align:justify;
         font-weight:400;
@@ -2244,35 +2242,49 @@ margin-left: 0px;
   </section>
 
   <script>
-    gsap.registerPlugin(ScrollTrigger);
+    (function() {
+      const p = document.getElementById('text');
+      // split into spans
+      const words = p.textContent.trim().split(/\s+/);
+      p.innerHTML = words
+        .map(w => `<span style="
+                      color:#222;
+                      transition: color 0.2s ease;
+                      white-space: pre-wrap;
+                    ">${w} </span>`)
+        .join('');
+      const spans = Array.from(p.querySelectorAll('span'));
+      const total = spans.length;
 
-    // wrap each word in a span with inline styles
-    const p     = document.querySelector('.animated-text');
-    const words = p.textContent.trim().split(/\s+/);
-    p.innerHTML  = words
-      .map(w => `<span style="
-                    color:#FF0000;
-                    transition:color 0.3s ease;
-                    white-space:pre-wrap;
-                  ">${w} </span>`)
-      .join('');
-    const spans = p.querySelectorAll('span');
+      function onScroll() {
+        const rect = section.getBoundingClientRect();
+        const winH = window.innerHeight;
+        // progress from 0 (section bottom at viewport bottom) to 1 (section top at viewport top)
+        let prog = (winH - rect.top) / (winH + rect.height);
+        prog = Math.min(Math.max(prog, 0), 1);
 
-    // tighter trigger so it animates high on mobile
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: "#animated-section",
-        start:   "top 90%",   // begin when top is 90% down viewport
-        end:     "bottom 40%",// finish well before exit
-        scrub:   true
+        // calculate how many words to turn black
+        const count = Math.floor(prog * total);
+        spans.forEach((span, i) => {
+          span.style.color = i < count ? '#000' : '#222';
+        });
       }
-    })
-    .to(spans, {
-      color:    "#000",
-      stagger:  0.08,
-      duration: 1,
-      ease:     "none"
-    });
+
+      const section = document.getElementById('animated-section');
+      // throttle with requestAnimationFrame
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(() => {
+            onScroll();
+            ticking = false;
+          });
+        }
+      });
+      // run once in case it’s already in view
+      onScroll();
+    })();
   </script>
 
 
