@@ -2064,60 +2064,65 @@ margin-left: 0px;
       <p>GUVI <span>- Grab Ur Vernacular Imprint</span></p>
     </div>
   </section>
-</div>
-
-<script>
-(function() {
-  const section = document.querySelector('.container');
-  const p = document.getElementById('color-change-text');
-  const words = p.textContent.trim().split(/\s+/);
-
-  // Wrap each word in a span
-  p.innerHTML = words.map(w => 
-    `<span style="color:#555; transition:color 0.2s ease; white-space:nowrap; display:inline-block; margin-right:0.25em;">${w}</span>`
-  ).join('');
-  const spans = Array.from(p.querySelectorAll('span'));
-  const total = spans.length;
-
-  // Calculate scroll offsets
-  let startOffset, endOffset;
-  function updateOffsets() {
-    const vh = window.innerHeight;
-    const h = section.offsetHeight;
-    startOffset = vh / 2;
-    endOffset = (vh / 2) - h;
-  }
-  updateOffsets();
-  window.addEventListener('resize', updateOffsets);
-
-  // Scroll handler
-  function onScroll() {
-    const rect = section.getBoundingClientRect();
-    let prog = (startOffset - rect.top) / (startOffset - endOffset);
-    prog = Math.min(Math.max(prog, 0), 1);
-    const count = Math.floor(prog * total);
-    
-    spans.forEach((span, i) => {
-      span.style.color = i < count ? '#34d399' : '#555';
-    });
-  }
-
-  // Throttle scroll events
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        onScroll();
-        ticking = false;
-      });
-      ticking = true;
+  <style>
+    /* Added color transition for smooth effect */
+    .color-transition {
+      transition: color 0.3s ease !important;
     }
-  });
+  </style>
+  <script>
+    (function() {
+      const paragraph = document.getElementById('color-change-text');
+      const words = paragraph.textContent.trim().split(/\s+/);
+      const originalColor = '#555';
+      const highlightColor = '#34d399';
 
-  // Initial call
-  onScroll();
-})();
-</script>
+      // Wrap words in spans without disrupting layout
+      paragraph.innerHTML = words.map(word => 
+        `<span class="color-transition" style="color:${originalColor}">${word}</span>`
+      ).join(' ');
+
+      const wordSpans = Array.from(paragraph.querySelectorAll('span'));
+      const totalWords = wordSpans.length;
+      let windowHeight = window.innerHeight;
+
+      function updateColors() {
+        const scrollPosition = window.scrollY || window.pageYOffset;
+        const elementTop = paragraph.offsetTop;
+        const elementHeight = paragraph.offsetHeight;
+        
+        // Calculate scroll progress through the paragraph
+        const start = elementTop - windowHeight + 100;
+        const end = elementTop + elementHeight - 100;
+        const progress = (scrollPosition - start) / (end - start);
+
+        wordSpans.forEach((span, index) => {
+          const wordProgress = (index / totalWords);
+          span.style.color = progress > wordProgress ? highlightColor : originalColor;
+        });
+      }
+
+      // Optimized scroll handler
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            updateColors();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+
+      // Initial update
+      updateColors();
+      window.addEventListener('resize', () => {
+        windowHeight = window.innerHeight;
+        updateColors();
+      });
+    })();
+  </script>
+</div>
  
 
 
