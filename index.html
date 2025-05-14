@@ -2103,6 +2103,7 @@ margin-left: 0px;
     p {
       color: #555;
       margin-bottom: 10px;
+      font-weight: normal !important; /* Prevent bold text */
     }
     span {
       font-weight: bold;
@@ -2152,6 +2153,7 @@ margin-left: 0px;
       transition: color 0.3s ease;
       display: inline-block;
       white-space: nowrap;
+      font-weight: normal; /* Ensure normal weight */
     }
   </style>
   <script>
@@ -2160,7 +2162,8 @@ margin-left: 0px;
       const para = document.getElementById('colorChangeParagraph');
       const originalColor = '#555';
       const highlightColor = '#34d399';
-      const triggerOffset = 0.2; // Start earlier
+      const startOffset = 0.2; // 20% from top
+      const endOffset = 0.8;   // 80% from top
 
       // Prepare text
       const words = para.textContent.split(' ');
@@ -2175,10 +2178,10 @@ margin-left: 0px;
         const rect = para.getBoundingClientRect();
         const viewHeight = window.innerHeight;
         
-        // Calculate progress from 0 to 1
-        const start = viewHeight * (1 - triggerOffset);
-        const end = -rect.height * triggerOffset;
-        const progress = (rect.top - start) / (end - start);
+        // Calculate visible progress
+        const visibleStart = viewHeight * startOffset;
+        const visibleEnd = viewHeight * endOffset;
+        const progress = (rect.top - visibleStart) / (visibleEnd - visibleStart);
         const clampedProgress = Math.min(Math.max(progress, 0), 1);
 
         // Update colors
@@ -2206,7 +2209,6 @@ margin-left: 0px;
     })();
   </script>
 </div>
-
 
 
 
