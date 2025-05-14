@@ -2047,9 +2047,6 @@ margin-left: 0px;
 
 
 
-
-
-
 <div class="section-growth3">
   <section class="container">
     <!-- Left Side - Image -->
@@ -2060,52 +2057,124 @@ margin-left: 0px;
     <!-- Right Side - Text -->
     <div class="right">
       <h1>Leading EdTech Platform for Learning in Native Languages.</h1>
-      <p class="color-change-paragraph">GUVI-HCL, backed by IIT-M, IIM-A, and HCL, is India’s top tech-driven EdTech platform for learning in regional and global languages. With 3M+ learners worldwide, it offers personalized online learning, upskilling, and job opportunities.</p>
+      <p id="colorChangeParagraph">GUVI-HCL, backed by IIT-M, IIM-A, and HCL, is India’s top tech-driven EdTech platform for learning in regional and global languages. With 3M+ learners worldwide, it offers personalized online learning, upskilling, and job opportunities.</p>
       <p>GUVI <span>- Grab Ur Vernacular Imprint</span></p>
     </div>
   </section>
   <style>
-    /* Add ONLY necessary color transition */
-    .color-change-paragraph span.word {
-      transition: color 0.3s ease;
-      display: inline-block; /* Preserve original layout */
-      white-space: nowrap;
+    /* Original CSS - 100% preserved */
+    .section-growth3 {
+      margin-left: 130px;
+      margin-right: 130px;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: white;
+      min-height: 100vh;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+    .left {
+      width: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+    .right {
+      width: 50%;
+      padding-left: 20px;
+    }
+    .image {
+      width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: contain;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    p {
+      color: #555;
+      margin-bottom: 10px;
+    }
+    span {
+      font-weight: bold;
+      color: #34d399;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        text-align: center;
+        min-height: auto;
+        padding: 40px 20px;
+      }
+      .section-growth {
+        padding: 24 px;
+      }
+      .left,
+      .right {
+        width: 100%;
+        padding-left: 0;
+      }
+      .right {
+        order: -1;
+        margin-bottom: 30px;
+        text-align: left;
+      }
+      .image {
+        max-height: 400px;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      .section-growth3 {
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .image {
+        max-height: 300px;
+      }
     }
   </style>
   <script>
     (function() {
-      // Original color values from your CSS
-      const originalColor = '#555';
-      const highlightColor = '#34d399';
-      
-      const paragraph = document.querySelector('.color-change-paragraph');
-      const words = paragraph.textContent.trim().split(/\s+/);
-      
-      // Wrap words without changing layout
-      paragraph.innerHTML = words.map(word => 
-        `<span class="word">${word}</span>`
+      // Get the target paragraph
+      const para = document.getElementById('colorChangeParagraph');
+      const originalColor = '#555'; // From original CSS
+      const newColor = '#34d399'; // From original span color
+
+      // Split text into words and wrap in spans
+      const words = para.textContent.split(' ');
+      para.innerHTML = words.map(word => 
+        `<span style="color:${originalColor}; transition:color 0.3s ease; display:inline-block;">${word}</span>`
       ).join(' ');
 
-      const wordElements = Array.from(paragraph.querySelectorAll('.word'));
+      const wordElements = para.querySelectorAll('span');
       const totalWords = wordElements.length;
-      
-      function updateColors() {
-        const paragraphRect = paragraph.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        
-        // Calculate visibility percentage
-        const start = paragraphRect.top;
-        const end = paragraphRect.bottom;
-        const progress = 1 - Math.max(0, Math.min(1, (start - viewportHeight * 0.2) / (viewportHeight * 0.6)));
+      const vh = window.innerHeight;
 
-        // Update colors based on scroll progress
+      function updateColors() {
+        const rect = para.getBoundingClientRect();
+        const progress = 1 - (rect.top + rect.height) / (vh + rect.height);
+        
         wordElements.forEach((word, index) => {
           const wordProgress = index / totalWords;
-          word.style.color = progress >= wordProgress ? highlightColor : originalColor;
+          word.style.color = progress > wordProgress ? newColor : originalColor;
         });
       }
 
-      // Optimized scroll handler
+      // Throttle scroll events
       let ticking = false;
       window.addEventListener('scroll', () => {
         if (!ticking) {
@@ -2117,13 +2186,14 @@ margin-left: 0px;
         }
       });
 
-      // Initial setup
+      // Initial update
       updateColors();
-      window.addEventListener('resize', updateColors);
     })();
   </script>
 </div>
- 
+
+
+
 
 
 
