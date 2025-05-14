@@ -2062,7 +2062,6 @@ margin-left: 0px;
     </div>
   </section>
   <style>
-    /* Original CSS - 100% preserved */
     .section-growth3 {
       margin-left: 130px;
       margin-right: 130px;
@@ -2103,7 +2102,6 @@ margin-left: 0px;
     p {
       color: #555;
       margin-bottom: 10px;
-      font-weight: normal !important; /* Prevent bold text */
     }
     span {
       font-weight: bold;
@@ -2118,7 +2116,7 @@ margin-left: 0px;
         padding: 40px 20px;
       }
       .section-growth {
-        padding: 24px;
+        padding: 24 px;
       }
       .left,
       .right {
@@ -2126,7 +2124,7 @@ margin-left: 0px;
         padding-left: 0;
       }
       .right {
-        order: -1;
+        /* REMOVED order: -1 TO SHOW IMAGE FIRST */
         margin-bottom: 30px;
         text-align: left;
       }
@@ -2148,50 +2146,42 @@ margin-left: 0px;
       }
     }
 
-    /* Added for color transition */
-    #colorChangeParagraph span.word {
+    /* Added only for color transition */
+    #colorChangeParagraph span {
       transition: color 0.3s ease;
       display: inline-block;
-      white-space: nowrap;
-      font-weight: normal; /* Ensure normal weight */
     }
   </style>
   <script>
     (function() {
-      // Configuration
       const para = document.getElementById('colorChangeParagraph');
       const originalColor = '#555';
       const highlightColor = '#34d399';
-      const startOffset = 0.2; // 20% from top
-      const endOffset = 0.8;   // 80% from top
-
-      // Prepare text
-      const words = para.textContent.split(' ');
-      para.innerHTML = words.map(word => 
-        `<span class="word">${word}</span>`
+      
+      // Wrap words while preserving spacing
+      para.innerHTML = para.textContent.split(' ').map(word => 
+        `<span>${word}</span>`
       ).join(' ');
-      const wordElements = Array.from(para.querySelectorAll('.word'));
-      const totalWords = wordElements.length;
+      
+      const words = para.querySelectorAll('span');
+      const totalWords = words.length;
 
-      // Scroll handler
       function updateColors() {
         const rect = para.getBoundingClientRect();
         const viewHeight = window.innerHeight;
         
-        // Calculate visible progress
-        const visibleStart = viewHeight * startOffset;
-        const visibleEnd = viewHeight * endOffset;
-        const progress = (rect.top - visibleStart) / (visibleEnd - visibleStart);
-        const clampedProgress = Math.min(Math.max(progress, 0), 1);
-
-        // Update colors
-        wordElements.forEach((word, index) => {
+        // Calculate scroll progress from bottom to top
+        const start = viewHeight - rect.top;
+        const end = viewHeight - rect.bottom;
+        const progress = start / (start - end);
+        
+        words.forEach((word, index) => {
           const wordProgress = index / totalWords;
-          word.style.color = clampedProgress >= wordProgress ? highlightColor : originalColor;
+          word.style.color = progress >= wordProgress ? highlightColor : originalColor;
         });
       }
 
-      // Optimized scroll handling
+      // Throttled scroll handler
       let ticking = false;
       window.addEventListener('scroll', () => {
         if (!ticking) {
@@ -2202,14 +2192,11 @@ margin-left: 0px;
           ticking = true;
         }
       });
-
-      // Initial setup
-      updateColors();
-      window.addEventListener('resize', updateColors);
+      
+      updateColors(); // Initial update
     })();
   </script>
 </div>
-
 
 
 
