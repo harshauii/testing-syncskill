@@ -2176,7 +2176,6 @@ margin-left: 0px;
         padding-left: 0;
       }
       .right {
-        /* REMOVED order: -1 TO SHOW IMAGE FIRST */
         margin-bottom: 30px;
         text-align: left;
       }
@@ -2203,66 +2202,67 @@ margin-left: 0px;
       transition: color 0.3s ease;
       display: inline-block;
       white-space: nowrap;
-      font-weight: normal !important; /* PREVENT BOLD TEXT */
+      font-weight: normal !important;
     }
   </style>
-<script>
-(function() {
-  const para = document.getElementById('colorChangeParagraph');
-  const originalColor = '#555';
-  const highlightColor = '#34d399';
-  const navbar = document.querySelector('header'); // Select your navbar element
-  
-  // Get dynamic navbar height
-  function getNavbarHeight() {
-    return navbar ? navbar.offsetHeight : 0;
-  }
+  <script>
+    (function() {
+      const para = document.getElementById('colorChangeParagraph');
+      const originalColor = '#555';
+      const highlightColor = '#34d399';
+      const navbar = document.querySelector('header'); // Replace with your navbar selector
 
-  // Wrap words
-  const words = para.textContent.split(' ');
-  para.innerHTML = words.map(word => 
-    `<span class="word">${word}</span>`
-  ).join(' ');
-  
-  const wordElements = Array.from(para.querySelectorAll('.word'));
-  const totalWords = wordElements.length;
+      // Get dynamic navbar height
+      function getNavbarHeight() {
+        return navbar ? navbar.offsetHeight : 0;
+      }
 
-  function updateColors() {
-    const rect = para.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-    const navbarHeight = getNavbarHeight();
-    
-    // Calculate adjusted positions with 20px safety margin
-    const start = (viewportHeight * 0.8) - navbarHeight;
-    const end = rect.height - (viewportHeight * 0.2) - navbarHeight;
-    
-    // Calculate progress with navbar protection
-    const progress = 1 - Math.min(Math.max((rect.top - start) / (end - start), 0), 1);
+      // Wrap words
+      const words = para.textContent.split(' ');
+      para.innerHTML = words.map(word => 
+        `<span class="word">${word}</span>`
+      ).join(' ');
+      
+      const wordElements = Array.from(para.querySelectorAll('.word'));
+      const totalWords = wordElements.length;
 
-    // Update colors
-    wordElements.forEach((word, index) => {
-      const threshold = index / totalWords;
-      word.style.color = progress >= threshold ? highlightColor : originalColor;
-    });
-  }
+      function updateColors() {
+        const rect = para.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const navbarHeight = getNavbarHeight();
+        
+        // Calculate positions with 25% safety margin
+        const startTrigger = viewportHeight * 0.75;
+        const endTrigger = navbarHeight + (viewportHeight * 0.25);
+        
+        // Calculate progress with navbar protection
+        const progress = 1 - Math.min(Math.max(
+          (rect.top - startTrigger) / (endTrigger - startTrigger), 0), 1);
 
-  // Optimized scroll handler
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateColors();
-        ticking = false;
+        // Update colors
+        wordElements.forEach((word, index) => {
+          const threshold = index / totalWords;
+          word.style.color = progress >= threshold ? highlightColor : originalColor;
+        });
+      }
+
+      // Optimized scroll handler
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateColors();
+            ticking = false;
+          });
+          ticking = true;
+        }
       });
-      ticking = true;
-    }
-  });
 
-  // Initial setup
-  updateColors();
-  window.addEventListener('resize', updateColors);
-})();
-</script>
+      // Initial setup
+      updateColors();
+      window.addEventListener('resize', updateColors);
+    })();
+  </script>
 </div>
 
 
