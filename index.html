@@ -2099,7 +2099,8 @@ margin-left: 0px;
 
 
 <div class="section-growth3">
-  <section class="container">
+
+<section class="container">
     <!-- Left Side - Image -->
     <div class="left">
       <img src="https://www.guvi.in/assets/DUN3iNaq-women-with-notebook-latest.webp" alt="EdTech Platform" class="image" />
@@ -2108,16 +2109,17 @@ margin-left: 0px;
     <!-- Right Side - Text -->
     <div class="right">
       <h1>Leading EdTech Platform for Learning in Native Languages.</h1>
-      <p id="colorChangeParagraph">GUVI-HCL, backed by IIT-M, IIM-A, and HCL, is India’s top tech-driven EdTech platform for learning in regional and global languages. With 3M+ learners worldwide, it offers personalized online learning, upskilling, and job opportunities.</p>
+      <p>GUVI-HCL, backed by IIT-M, IIM-A, and HCL, is India’s top tech-driven EdTech platform for learning in regional and global languages. With 3M+ learners worldwide, it offers personalized online learning, upskilling, and job opportunities.</p>
       <p>GUVI <span>- Grab Ur Vernacular Imprint</span></p>
     </div>
   </section>
   <style>
-    /* Original CSS - 100% preserved */
-    .section-growth3 {
-      margin-left: 130px;
-      margin-right: 130px;
-    }
+   .section-growth3 {
+ margin-left: 130px;
+  margin-right: 130px;
+
+}
+    /* Base styles for desktop */
     .container {
       display: flex;
       justify-content: space-between;
@@ -2160,6 +2162,7 @@ margin-left: 0px;
       color: #34d399;
     }
 
+    /* Mobile responsiveness */
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -2167,18 +2170,18 @@ margin-left: 0px;
         min-height: auto;
         padding: 40px 20px;
       }
-      .section-growth {
-        padding: 24 px;
-      }
+     .section-growth {
+      padding: 24 px;
+    }
       .left,
       .right {
         width: 100%;
         padding-left: 0;
       }
       .right {
-        /* REMOVED order: -1 TO SHOW IMAGE FIRST */
+        order: -1;
         margin-bottom: 30px;
-        text-align: left;
+        text-align: left; /* Left align the text on mobile */
       }
       .image {
         max-height: 400px;
@@ -2187,9 +2190,10 @@ margin-left: 0px;
         font-size: 1.5rem;
       }
       .section-growth3 {
-        margin-left: 0px;
-        margin-right: 0px;
-      }
+ margin-left: 0px;
+  margin-right: 0px;
+
+}
     }
 
     @media (max-width: 480px) {
@@ -2197,44 +2201,7 @@ margin-left: 0px;
         max-height: 300px;
       }
     }
-
-    /* Added for color transition */
-    #colorChangeParagraph span.word {
-      transition: color 0.3s ease;
-      display: inline-block;
-      white-space: nowrap;
-      font-weight: normal !important; /* PREVENT BOLD TEXT */
-    }
   </style>
-<script>
-    (function() {
-      const para = document.getElementById('colorChangeParagraph');
-      const originalColor = '#555';
-      const highlightColor = '#34d399';
-      const navbarHeight = 60; // Adjust according to your navbar height
-
-      // ... rest of the previous setup code ...
-
-      function updateColors() {
-        const rect = para.getBoundingClientRect();
-        const viewportMiddle = window.innerHeight / 2;
-        
-        // Adjust for navbar height in calculations
-        const start = viewportMiddle + rect.height - navbarHeight;
-        const end = -rect.height + navbarHeight;
-        
-        const rawProgress = (rect.top - start) / (end - start);
-        const progress = Math.min(Math.max(rawProgress, 0), 1);
-
-        wordElements.forEach((word, index) => {
-          const threshold = index / totalWords;
-          word.style.color = progress >= threshold ? highlightColor : originalColor;
-        });
-      }
-
-      // ... rest of the previous scroll handler code ...
-    })();
-</script>
 </div>
 
 
