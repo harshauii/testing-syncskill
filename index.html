@@ -2211,9 +2211,14 @@ margin-left: 0px;
   const para = document.getElementById('colorChangeParagraph');
   const originalColor = '#555';
   const highlightColor = '#34d399';
-  const navbarHeight = 350; // Adjust this value to match your navbar height
+  const navbar = document.querySelector('header'); // Select your navbar element
   
-  // Wrap words while preserving original layout
+  // Get dynamic navbar height
+  function getNavbarHeight() {
+    return navbar ? navbar.offsetHeight : 0;
+  }
+
+  // Wrap words
   const words = para.textContent.split(' ');
   para.innerHTML = words.map(word => 
     `<span class="word">${word}</span>`
@@ -2225,14 +2230,14 @@ margin-left: 0px;
   function updateColors() {
     const rect = para.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
+    const navbarHeight = getNavbarHeight();
     
-    // Calculate adjusted positions considering navbar
-    const start = viewportHeight - navbarHeight - rect.height;
-    const end = -rect.height + navbarHeight;
+    // Calculate adjusted positions with 20px safety margin
+    const start = (viewportHeight * 0.8) - navbarHeight;
+    const end = rect.height - (viewportHeight * 0.2) - navbarHeight;
     
-    // Calculate progress with navbar offset
-    const rawProgress = (rect.top - start) / (end - start);
-    const progress = Math.min(Math.max(rawProgress, 0), 1);
+    // Calculate progress with navbar protection
+    const progress = 1 - Math.min(Math.max((rect.top - start) / (end - start), 0), 1);
 
     // Update colors
     wordElements.forEach((word, index) => {
