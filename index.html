@@ -2206,63 +2206,67 @@ margin-left: 0px;
     }
   </style>
   <script>
-    (function() {
-      const para = document.getElementById('colorChangeParagraph');
-      const originalColor = '#555';
-      const highlightColor = '#34d399';
-      const navbar = document.querySelector('header'); // Replace with your navbar selector
+(function() {
+  const para = document.getElementById('colorChangeParagraph');
+  const originalColor = '#555';
+  const highlightColor = '#34d399';
+  const navbar = document.querySelector('header'); // Replace with your navbar selector
 
-      // Get dynamic navbar height
-      function getNavbarHeight() {
-        return navbar ? navbar.offsetHeight : 0;
-      }
+  // Get dynamic navbar height
+  function getNavbarHeight() {
+    return navbar ? navbar.offsetHeight : 0;
+  }
 
-      // Wrap words
-      const words = para.textContent.split(' ');
-      para.innerHTML = words.map(word => 
-        `<span class="word">${word}</span>`
-      ).join(' ');
-      
-      const wordElements = Array.from(para.querySelectorAll('.word'));
-      const totalWords = wordElements.length;
+  // Wrap words
+  const words = para.textContent.split(' ');
+  para.innerHTML = words.map(word => 
+    `<span class="word">${word}</span>`
+  ).join(' ');
+  
+  const wordElements = Array.from(para.querySelectorAll('.word'));
+  const totalWords = wordElements.length;
 
-      function updateColors() {
-        const rect = para.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const navbarHeight = getNavbarHeight();
-        
-        // Calculate positions with 25% safety margin
-        const startTrigger = viewportHeight * 0.75;
-        const endTrigger = navbarHeight + (viewportHeight * 0.25);
-        
-        // Calculate progress with navbar protection
-        const progress = 1 - Math.min(Math.max(
-          (rect.top - startTrigger) / (endTrigger - startTrigger), 0), 1);
+  function updateColors() {
+    const rect = para.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const navbarHeight = getNavbarHeight();
+    
+    // Adjusted calculations for top-to-bottom transition
+    const startTrigger = viewportHeight * 0.8;
+    const endTrigger = -rect.height + navbarHeight + (viewportHeight * 0.2);
+    
+    // Reverse progress calculation
+    const rawProgress = (rect.top - startTrigger) / (endTrigger - startTrigger);
+    const progress = 1 - Math.min(Math.max(rawProgress, 0), 1);
 
-        // Update colors
-        wordElements.forEach((word, index) => {
-          const threshold = index / totalWords;
-          word.style.color = progress >= threshold ? highlightColor : originalColor;
-        });
-      }
+    // Mobile-specific adjustments
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const speedFactor = isMobile ? 0.7 : 1; // Slow down mobile transition
 
-      // Optimized scroll handler
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            updateColors();
-            ticking = false;
-          });
-          ticking = true;
-        }
+    // Update colors with speed factor
+    wordElements.forEach((word, index) => {
+      const threshold = (index / totalWords) * speedFactor;
+      word.style.color = progress >= threshold ? highlightColor : originalColor;
+    });
+  }
+
+  // Optimized scroll handler
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateColors();
+        ticking = false;
       });
+      ticking = true;
+    }
+  });
 
-      // Initial setup
-      updateColors();
-      window.addEventListener('resize', updateColors);
-    })();
-  </script>
+  // Initial setup
+  updateColors();
+  window.addEventListener('resize', updateColors);
+})();
+</script>
 </div>
 
 
