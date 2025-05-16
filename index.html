@@ -2205,7 +2205,7 @@ margin-left: 0px;
       font-weight: normal !important;
     }
   </style>
-  <script>
+ <script>
 (function() {
   const para = document.getElementById('colorChangeParagraph');
   const originalColor = '#555';
@@ -2232,18 +2232,18 @@ margin-left: 0px;
     const navbarHeight = getNavbarHeight();
     
     // Adjusted calculations for top-to-bottom transition
-    const startTrigger = viewportHeight * 0.8;
-    const endTrigger = -rect.height + navbarHeight + (viewportHeight * 0.2);
+    const start = viewportHeight * 0.3; // Start when 30% into view
+    const end = -rect.height + navbarHeight + (viewportHeight * 0.3);
     
-    // Reverse progress calculation
-    const rawProgress = (rect.top - startTrigger) / (endTrigger - startTrigger);
-    const progress = 1 - Math.min(Math.max(rawProgress, 0), 1);
+    // Calculate progress
+    const rawProgress = (rect.top - start) / (end - start);
+    const progress = Math.min(Math.max(1 - rawProgress, 0), 1);
 
-    // Mobile-specific adjustments
+    // Mobile speed adjustment
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const speedFactor = isMobile ? 0.7 : 1; // Slow down mobile transition
+    const speedFactor = isMobile ? 0.6 : 1; // Slower on mobile
 
-    // Update colors with speed factor
+    // Update colors from first word (top) to last word (bottom)
     wordElements.forEach((word, index) => {
       const threshold = (index / totalWords) * speedFactor;
       word.style.color = progress >= threshold ? highlightColor : originalColor;
