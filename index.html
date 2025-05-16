@@ -2199,74 +2199,72 @@ margin-left: 0px;
 
     /* Added for color transition */
     #colorChangeParagraph span.word {
-      transition: color 0.3s ease;
+      transition: color 0.4s ease;
       display: inline-block;
       white-space: nowrap;
       font-weight: normal !important;
     }
   </style>
- <script>
-(function() {
-  const para = document.getElementById('colorChangeParagraph');
-  const originalColor = '#555';
-  const highlightColor = '#34d399';
-  const navbar = document.querySelector('header'); // Replace with your navbar selector
+  <script>
+    (function() {
+      // Configuration
+      const para = document.getElementById('colorChangeParagraph');
+      const originalColor = '#555';
+      const highlightColor = '#34d399';
+      const navbar = document.querySelector('header'); // Set your navbar selector
+      
+      // Word wrapping
+      const words = para.textContent.split(' ');
+      para.innerHTML = words.map(word => 
+        `<span class="word">${word}</span>`
+      ).join(' ');
+      const wordElements = Array.from(para.querySelectorAll('.word'));
+      const totalWords = wordElements.length;
 
-  // Get dynamic navbar height
-  function getNavbarHeight() {
-    return navbar ? navbar.offsetHeight : 0;
-  }
+      // Dynamic calculations
+      function getNavbarHeight() {
+        return navbar ? navbar.offsetHeight : 0;
+      }
 
-  // Wrap words
-  const words = para.textContent.split(' ');
-  para.innerHTML = words.map(word => 
-    `<span class="word">${word}</span>`
-  ).join(' ');
-  
-  const wordElements = Array.from(para.querySelectorAll('.word'));
-  const totalWords = wordElements.length;
+      function updateColors() {
+        const rect = para.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const navbarHeight = getNavbarHeight();
+        
+        // Calculate progress (top-to-bottom)
+        const start = viewportHeight * 0.25;
+        const end = -rect.height + navbarHeight + (viewportHeight * 0.25);
+        const rawProgress = (rect.top - start) / (end - start);
+        const progress = Math.min(Math.max(1 - rawProgress, 0), 1);
 
-  function updateColors() {
-    const rect = para.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-    const navbarHeight = getNavbarHeight();
-    
-    // Adjusted calculations for top-to-bottom transition
-    const start = viewportHeight * 0.3; // Start when 30% into view
-    const end = -rect.height + navbarHeight + (viewportHeight * 0.3);
-    
-    // Calculate progress
-    const rawProgress = (rect.top - start) / (end - start);
-    const progress = Math.min(Math.max(1 - rawProgress, 0), 1);
+        // Mobile adjustments
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+        const speedFactor = isMobile ? 0.65 : 1;
 
-    // Mobile speed adjustment
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const speedFactor = isMobile ? 0.6 : 1; // Slower on mobile
+        // Update colors
+        wordElements.forEach((word, index) => {
+          const threshold = (index / totalWords) * speedFactor;
+          word.style.color = progress >= threshold ? highlightColor : originalColor;
+        });
+      }
 
-    // Update colors from first word (top) to last word (bottom)
-    wordElements.forEach((word, index) => {
-      const threshold = (index / totalWords) * speedFactor;
-      word.style.color = progress >= threshold ? highlightColor : originalColor;
-    });
-  }
-
-  // Optimized scroll handler
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateColors();
-        ticking = false;
+      // Scroll handling
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateColors();
+            ticking = false;
+          });
+          ticking = true;
+        }
       });
-      ticking = true;
-    }
-  });
 
-  // Initial setup
-  updateColors();
-  window.addEventListener('resize', updateColors);
-})();
-</script>
+      // Initial setup
+      updateColors();
+      window.addEventListener('resize', updateColors);
+    })();
+  </script>
 </div>
 
 
