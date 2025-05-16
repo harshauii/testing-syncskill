@@ -1230,7 +1230,50 @@ body {
 }
 </style>
 
+<section>
+ <p class="section-growth-subtitlee">
+      Explore Your Possibilities
+    </p>
+<div class="ticker-container" style="width:100%;max-width:1200px;margin:2rem;position:relative;overflow:hidden;border-radius:24px;background:#ffffff;box-shadow:0 24px 48px -12px rgba(0,0,0,0.18);border:1px solid rgba(255,255,255,0.12);transform:translateZ(0);transition:transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);"
+     onmouseover="this.querySelector('.ticker-track').style.animationPlayState='paused'"
+     onmouseout="this.querySelector('.ticker-track').style.animationPlayState='running'">
+  
+  <!-- Gradient Overlays -->
+  <div class="gradient-overlay" style="position:absolute;top:0;bottom:0;left:0;width:120px;background:linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);pointer-events:none;z-index:2;"></div>
+  <div class="gradient-overlay" style="position:absolute;top:0;bottom:0;right:0;width:120px;background:linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 100%);pointer-events:none;z-index:2;"></div>
 
+  <div class="ticker-track" style="display:flex;will-change:transform;animation:scroll 40s linear infinite;padding:2rem 0;">
+    <!-- Logo Items -->
+    <div class="ticker-item" style="flex-shrink:0;margin:0 2.5rem;transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);transform-origin:center;filter:grayscale(100%) opacity(0.8);position:relative;"
+         onmouseover="this.style.transform='scale(1.15) translateY(-4px)';this.style.filter='grayscale(0%) opacity(1)';this.style.zIndex='1'"
+         onmouseout="this.style.transform='scale(1)';this.style.filter='grayscale(100%) opacity(0.8)';this.style.zIndex='0'">
+      <img src="https://d3kl8zsmmx4oop.cloudfront.net/Google_c2d8e527c7.svg" alt="Google" style="width:auto;height:40px;object-fit:contain;">
+    </div>
+    <!-- Duplicate items 5x for smooth looping -->
+  </div>
+</div>
+ <style>
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-50% - 5rem)); }
+    }
+    @media (max-width: 768px) {
+      .ticker-container { margin: 1rem !important; border-radius: 16px !important; }
+      .ticker-item { margin: 0 1.5rem !important; }
+      .ticker-item img { height: 30px !important; }
+      .gradient-overlay { width: 60px !important; }
+    }
+    @media (max-width: 480px) {
+      .ticker-track { padding: 1.5rem 0 !important; }
+      .ticker-item { margin: 0 1rem !important; }
+      .ticker-item img { height: 24px !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track { animation: none !important; justify-content: center !important; }
+    }
+  </style>
+
+</section>
 
 
 
@@ -2458,48 +2501,7 @@ margin-left: 0px;
 
 
 
-<section>
- 
-<div class="ticker-container" style="width:100%;max-width:1200px;margin:2rem;position:relative;overflow:hidden;border-radius:24px;background:#ffffff;box-shadow:0 24px 48px -12px rgba(0,0,0,0.18);border:1px solid rgba(255,255,255,0.12);transform:translateZ(0);transition:transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);"
-     onmouseover="this.querySelector('.ticker-track').style.animationPlayState='paused'"
-     onmouseout="this.querySelector('.ticker-track').style.animationPlayState='running'">
-  
-  <!-- Gradient Overlays -->
-  <div class="gradient-overlay" style="position:absolute;top:0;bottom:0;left:0;width:120px;background:linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);pointer-events:none;z-index:2;"></div>
-  <div class="gradient-overlay" style="position:absolute;top:0;bottom:0;right:0;width:120px;background:linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 100%);pointer-events:none;z-index:2;"></div>
 
-  <div class="ticker-track" style="display:flex;will-change:transform;animation:scroll 40s linear infinite;padding:2rem 0;">
-    <!-- Logo Items -->
-    <div class="ticker-item" style="flex-shrink:0;margin:0 2.5rem;transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);transform-origin:center;filter:grayscale(100%) opacity(0.8);position:relative;"
-         onmouseover="this.style.transform='scale(1.15) translateY(-4px)';this.style.filter='grayscale(0%) opacity(1)';this.style.zIndex='1'"
-         onmouseout="this.style.transform='scale(1)';this.style.filter='grayscale(100%) opacity(0.8)';this.style.zIndex='0'">
-      <img src="https://d3kl8zsmmx4oop.cloudfront.net/Google_c2d8e527c7.svg" alt="Google" style="width:auto;height:40px;object-fit:contain;">
-    </div>
-    <!-- Duplicate items 5x for smooth looping -->
-  </div>
-</div>
- <style>
-    @keyframes scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(calc(-50% - 5rem)); }
-    }
-    @media (max-width: 768px) {
-      .ticker-container { margin: 1rem !important; border-radius: 16px !important; }
-      .ticker-item { margin: 0 1.5rem !important; }
-      .ticker-item img { height: 30px !important; }
-      .gradient-overlay { width: 60px !important; }
-    }
-    @media (max-width: 480px) {
-      .ticker-track { padding: 1.5rem 0 !important; }
-      .ticker-item { margin: 0 1rem !important; }
-      .ticker-item img { height: 24px !important; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .ticker-track { animation: none !important; justify-content: center !important; }
-    }
-  </style>
-
-</section>
 
 
 
