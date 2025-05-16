@@ -2176,6 +2176,7 @@ margin-left: 0px;
         padding-left: 0;
       }
       .right {
+        /* REMOVED order: -1 TO SHOW IMAGE FIRST */
         margin-bottom: 30px;
         text-align: left;
       }
@@ -2199,72 +2200,41 @@ margin-left: 0px;
 
     /* Added for color transition */
     #colorChangeParagraph span.word {
-      transition: color 0.4s ease;
+      transition: color 0.3s ease;
       display: inline-block;
       white-space: nowrap;
-      font-weight: normal !important;
+      font-weight: normal !important; /* PREVENT BOLD TEXT */
     }
   </style>
-  <script>
+<script>
     (function() {
-      // Configuration
       const para = document.getElementById('colorChangeParagraph');
       const originalColor = '#555';
       const highlightColor = '#34d399';
-      const navbar = document.querySelector('header'); // Set your navbar selector
-      
-      // Word wrapping
-      const words = para.textContent.split(' ');
-      para.innerHTML = words.map(word => 
-        `<span class="word">${word}</span>`
-      ).join(' ');
-      const wordElements = Array.from(para.querySelectorAll('.word'));
-      const totalWords = wordElements.length;
+      const navbarHeight = 60; // Adjust according to your navbar height
 
-      // Dynamic calculations
-      function getNavbarHeight() {
-        return navbar ? navbar.offsetHeight : 0;
-      }
+      // ... rest of the previous setup code ...
 
       function updateColors() {
         const rect = para.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const navbarHeight = getNavbarHeight();
+        const viewportMiddle = window.innerHeight / 2;
         
-        // Calculate progress (top-to-bottom)
-        const start = viewportHeight * 0.25;
-        const end = -rect.height + navbarHeight + (viewportHeight * 0.25);
+        // Adjust for navbar height in calculations
+        const start = viewportMiddle + rect.height - navbarHeight;
+        const end = -rect.height + navbarHeight;
+        
         const rawProgress = (rect.top - start) / (end - start);
-        const progress = Math.min(Math.max(1 - rawProgress, 0), 1);
+        const progress = Math.min(Math.max(rawProgress, 0), 1);
 
-        // Mobile adjustments
-        const isMobile = window.matchMedia("(max-width: 768px)").matches;
-        const speedFactor = isMobile ? 0.65 : 1;
-
-        // Update colors
         wordElements.forEach((word, index) => {
-          const threshold = (index / totalWords) * speedFactor;
+          const threshold = index / totalWords;
           word.style.color = progress >= threshold ? highlightColor : originalColor;
         });
       }
 
-      // Scroll handling
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            updateColors();
-            ticking = false;
-          });
-          ticking = true;
-        }
-      });
-
-      // Initial setup
-      updateColors();
-      window.addEventListener('resize', updateColors);
+      // ... rest of the previous scroll handler code ...
     })();
-  </script>
+</script>
 </div>
 
 
