@@ -345,7 +345,7 @@ html, body {
       height: 100%;
       background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(8px);
-      z-index: 100;
+      z-index: 1000;
       display: none;
     }
 
@@ -359,7 +359,7 @@ html, body {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      z-index: 101;
+      z-index: 1001;
       display: none;
       opacity: 0;
       transform: translate(-50%, -50%) scale(0.95);
@@ -1724,12 +1724,15 @@ body {
     </div>
 
     <div style="margin-top: auto; display: flex; gap: 8px;">
-      <button id="openPopup"
+     
+     
+     <button class="openPopup"
         style="flex: 1; padding: 12px; height: 40px; background: linear-gradient(to right, #7B61FF, #0F62FE); color: #FFFFFF; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
         onmouseover="this.style.opacity='0.9'"
         onmouseout="this.style.opacity='1'">
   Syllabus
 </button>
+     
       
       <button style="flex: 1; padding: 12px; height: 40px; background: #FFFFFF; color: #7B61FF; border: 1px solid #D0D0D0; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.2s ease;"
               onmouseover="this.style.backgroundColor='#F7F5FF'; this.style.borderColor='#7B61FF'"
@@ -1856,45 +1859,95 @@ body {
   </button>
 </div>
 
-<script>
-  const scrollContainer = document.getElementById('scrollContainer');
-  const cardWrapper = document.getElementById('cardWrapper');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
+// Carousel Scroll Functionality
+const scrollContainer = document.getElementById('scrollContainer');
+const cardWrapper = document.getElementById('cardWrapper');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
 
-  // Calculate scroll amount based on card width
-  const getScrollAmount = () => {
-    const firstCard = cardWrapper.firstElementChild;
-    return firstCard.offsetWidth + parseInt(window.getComputedStyle(firstCard).marginRight);
-  };
+// Calculate scroll amount based on card width
+const getScrollAmount = () => {
+  const firstCard = cardWrapper.firstElementChild;
+  return firstCard.offsetWidth + parseInt(window.getComputedStyle(firstCard).marginRight);
+};
 
-  // Update button states
-  const updateButtonStates = () => {
-    prevBtn.disabled = scrollContainer.scrollLeft <= 0;
-    nextBtn.disabled = scrollContainer.scrollLeft + scrollContainer.offsetWidth >= cardWrapper.scrollWidth;
-    
-    prevBtn.style.opacity = prevBtn.disabled ? '0.6' : '1';
-    nextBtn.style.opacity = nextBtn.disabled ? '0.6' : '1';
-    prevBtn.style.cursor = prevBtn.disabled ? 'not-allowed' : 'pointer';
-    nextBtn.style.cursor = nextBtn.disabled ? 'not-allowed' : 'pointer';
-  };
+// Update button states
+const updateButtonStates = () => {
+  prevBtn.disabled = scrollContainer.scrollLeft <= 0;
+  nextBtn.disabled = scrollContainer.scrollLeft + scrollContainer.offsetWidth >= cardWrapper.scrollWidth;
+  
+  prevBtn.style.opacity = prevBtn.disabled ? '0.6' : '1';
+  nextBtn.style.opacity = nextBtn.disabled ? '0.6' : '1';
+  prevBtn.style.cursor = prevBtn.disabled ? 'not-allowed' : 'pointer';
+  nextBtn.style.cursor = nextBtn.disabled ? 'not-allowed' : 'pointer';
+};
 
-  // Scroll handlers
-  const scrollLeft = () => {
-    scrollContainer.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-  };
+// Scroll handlers
+const scrollLeft = () => {
+  scrollContainer.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+};
 
-  const scrollRight = () => {
-    scrollContainer.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-  };
+const scrollRight = () => {
+  scrollContainer.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+};
 
-  // Event listeners
-  prevBtn.addEventListener('click', scrollLeft);
-  nextBtn.addEventListener('click', scrollRight);
-  scrollContainer.addEventListener('scroll', updateButtonStates);
-  window.addEventListener('resize', updateButtonStates);
-  updateButtonStates(); // Initial check
-</script>
+// Popup Handling
+const overlay = document.querySelector('.overlay');
+const popup = document.querySelector('.popup-container');
+
+// Add event listeners to all syllabus buttons
+document.querySelectorAll('.openPopup').forEach(btn => {
+  btn.addEventListener('click', showPopup);
+});
+
+// Show popup function
+function showPopup() {
+  overlay.style.display = 'block';
+  popup.style.display = 'block';
+  setTimeout(() => popup.classList.add('active'), 10);
+}
+
+// Close popup function
+function closePopup() {
+  popup.classList.remove('active');
+  setTimeout(() => {
+    popup.style.display = 'none';
+    overlay.style.display = 'none';
+  }, 300);
+}
+
+// Event listeners for carousel
+prevBtn.addEventListener('click', scrollLeft);
+nextBtn.addEventListener('click', scrollRight);
+scrollContainer.addEventListener('scroll', updateButtonStates);
+window.addEventListener('resize', updateButtonStates);
+
+// Close popup when clicking outside
+overlay.addEventListener('click', closePopup);
+
+// Close popup with ESC key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && popup.classList.contains('active')) {
+    closePopup();
+  }
+});
+
+// Initial setup
+updateButtonStates();
+
+// Mobile menu handling (existing code remains the same)
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileMenuButton = document.getElementById('mobileMenuButton');
+const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+function toggleMobileMenu() {
+  const isOpen = mobileMenu.style.transform === 'translateX(0px)' || 
+                mobileMenu.style.transform === '';
+  mobileMenu.style.transform = isOpen ? 'translateX(100%)' : 'translateX(0)';
+}
+
+mobileMenuButton.addEventListener('click', toggleMobileMenu);
+mobileMenuClose.addEventListener('click', toggleMobileMenu);
 
 
 <style>
