@@ -3281,7 +3281,7 @@ margin-left: 0px;
             await auth.authStateReady();
             
             setTimeout(() => {
-                window.location.href = 'pages/courses/course-1.html';
+                window.location.href = 'login.html';
             }, 1500);
 
         } catch (error) {
@@ -3310,7 +3310,7 @@ margin-left: 0px;
 
     auth.onAuthStateChanged((user) => {
         if (user && localStorage.getItem('isLoggedIn')) {
-            window.location.href = 'pages/courses/course-1.html';
+            window.location.href = 'dashboard.html';
         }
     });
   </script>
