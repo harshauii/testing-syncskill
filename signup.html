@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Sign Up for GrowthSchool</title>
+    <title>Sign Up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
       *,
@@ -401,7 +401,7 @@
     <div class="bg-white rounded-3xl shadow-lg p-8 w-full max-w-md">
       <div class="text-center mb-8">
         <img src="https://d31bwppm8yl9g2.cloudfront.net/learner/GrowthSchoolNewLogo.svg" alt="Brand Logo" class="w-16 h-16 mx-auto mb-6">
-        <h1 class="text-2xl font-semibold text-gs-navy">Sign Up for GrowthSchool</h1>
+        <h1 class="text-2xl font-semibold text-gs-navy">Sign Up for Syncskill</h1>
       </div>
 
       <div id="success-message" class="success-message">
@@ -516,8 +516,8 @@
         errorMessage.style.display = 'none';
         document.getElementById('signup-form').reset();
 
-        // Redirect to another page (e.g., /dashboard)
-        window.location.href = '/dashboard';  // Change '/dashboard' to your desired URL
+        // Redirect to another page (e.g., /user)
+        window.location.href = '/user';  // Change '/dashboard' to your desired URL
       })
       .catch((error) => {
         errorMessage.textContent = `Sign-up failed: ${error.message}`;
@@ -540,7 +540,7 @@
         errorMessage.style.display = 'none';
 
         // Redirect to another page (e.g., /dashboard)
-        window.location.href = '/dashboard';  // Change '/dashboard' to your desired URL
+        window.location.href = '/user';  // Change '/dashboard' to your desired URL
       })
       .catch((error) => {
         errorMessage.textContent = `Google Sign-Up failed: ${error.message}`;
