@@ -2504,6 +2504,9 @@ margin-left: 0px;
       onScroll();
     })();
 </script>
+
+
+
 <section id="animated-section" style="
     width: 90%;
     max-width: 700px;
@@ -2514,17 +2517,20 @@ margin-left: 0px;
     <p id="text" style="
         font-size: clamp(1.75rem, 5vw, 3.125rem);
         line-height: 1.4;
-        text-align: left;
+-digitalocean-        text-align: center;
         font-weight: 400;
         margin: 0;
         padding: 0;
         hyphens: auto;
         letter-spacing: -0.02em;
         word-spacing: 0.05em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     ">
-        LEARN<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GROW<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEL
+        <span style="align-self: flex-start;">LEARN</span>
+        <span style="align-self: center;">GROW</span>
+        <span style="align-self: flex-end;">EXCEL</span>
     </p>
 </section>
 
@@ -2536,12 +2542,13 @@ margin-left: 0px;
 
       // wrap each word in an inline-styled <span>
       p.innerHTML = words
-        .map(w => `<span style="
+        .map((w, i) => `<span style="
                       color:#000;
                       transition: color 0.2s ease;
                       white-space: nowrap;
                       display: inline-block;
                       margin-right: 0.25em;
+                      ${i === 0 ? 'align-self: flex-start;' : i === 1 ? 'align-self: center;' : 'align-self: flex-end;'}
                     ">${w}</span>`)
         .join('');
       const spans = Array.from(p.querySelectorAll('span'));
