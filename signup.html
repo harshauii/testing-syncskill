@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Sign Up</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
       *,
       ::before,
@@ -17,12 +15,11 @@
         margin: 0;
         line-height: 1.5;
         font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-        background-color: #f8fafc;
         min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 1rem; /* Added for small screens */
+        padding: 0;
       }
 
       h1 {
@@ -86,7 +83,7 @@
       }
 
       .max-w-md {
-        max-width: min(28rem, 90vw); /* Use 90% of viewport width if smaller than 28rem */
+        max-width: min(28rem, 100vw);
       }
 
       .text-center {
@@ -319,28 +316,88 @@
         transform: scale(0.98);
       }
 
+      /* Loading State Styles */
+      .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1.5rem;
+        z-index: 10;
+        display: none;
+      }
+
+      .spinner {
+        width: 2.5rem;
+        height: 2.5rem;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid rgb(1 35 65);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .loading {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      .loading-button {
+        position: relative;
+        pointer-events: none;
+      }
+
+      .loading-button .button-text {
+        visibility: hidden;
+      }
+
+      .loading-button .spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 1.5rem;
+        height: 1.5rem;
+        border-width: 3px;
+      }
+
+      .form-disabled {
+        pointer-events: none;
+        opacity: 0.6;
+      }
+
       /* Media Queries for Responsiveness */
       @media (max-width: 640px) {
         .max-w-md {
-          max-width: 95vw; /* Use 95% of viewport width on small screens */
+          max-width: 100vw;
+          border-radius: 0;
         }
 
         .p-8 {
-          padding: 1.5rem; /* Reduce padding on smaller screens */
+          padding: 1.5rem;
         }
 
         .text-2xl {
-          font-size: 1.25rem; /* Slightly smaller heading */
+          font-size: 1.25rem;
           line-height: 1.75rem;
         }
 
         .w-16, .h-16 {
-          width: 3rem; /* Smaller logo */
+          width: 3rem;
           height: 3rem;
         }
 
         .py-3 {
-          padding-top: 0.5rem; /* Adjust button/input padding */
+          padding-top: 0.5rem;
           padding-bottom: 0.5rem;
         }
 
@@ -350,126 +407,147 @@
         }
 
         .text-sm {
-          font-size: 0.8125rem; /* Slightly smaller text */
+          font-size: 0.8125rem;
         }
 
         .divider-text {
-          margin: 0 0.5rem; /* Reduce divider text margin */
+          margin: 0 0.5rem;
           font-size: 0.75rem;
         }
 
         .mb-8 {
-          margin-bottom: 1.5rem; /* Adjust margins */
+          margin-bottom: 1.5rem;
         }
 
         .mb-6 {
           margin-bottom: 1rem;
         }
+
+        .spinner {
+          width: 2rem;
+          height: 2rem;
+        }
       }
 
       @media (max-width: 480px) {
         .p-8 {
-          padding: 1rem; /* Further reduce padding */
+          padding: 1rem;
         }
 
         .text-2xl {
-          font-size: 1.125rem; /* Even smaller heading */
+          font-size: 1.125rem;
           line-height: 1.5rem;
         }
 
         .w-16, .h-16 {
-          width: 2.5rem; /* Smaller logo for very small screens */
+          width: 2.5rem;
           height: 2.5rem;
         }
 
         .text-sm {
-          font-size: 0.75rem; /* Smaller text */
+          font-size: 0.75rem;
         }
 
         .google-button img {
-          width: 1rem; /* Smaller Google icon */
+          width: 1rem;
           height: 1rem;
         }
 
         .mr-3 {
-          margin-right: 0.5rem; /* Adjust icon margin */
+          margin-right: 0.5rem;
+        }
+
+        .spinner {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+
+        .loading-button .spinner {
+          width: 1.25rem;
+          height: 1.25rem;
+          border-width: 2px;
         }
       }
     </style>
-  </head>
-  <body>
-    <div class="bg-white rounded-3xl shadow-lg p-8 w-full max-w-md">
-      <div class="text-center mb-8">
-        <img src="https://d31bwppm8yl9g2.cloudfront.net/learner/GrowthSchoolNewLogo.svg" alt="Brand Logo" class="w-16 h-16 mx-auto mb-6">
-        <h1 class="text-2xl font-semibold text-gs-navy">Sign Up for Syncskill</h1>
-      </div>
-
-      <div id="success-message" class="success-message">
-        Welcome, <span id="username"></span>! Your account has been created.
-      </div>
-      <div id="error-message" class="error-message">
-        Sign-up failed. Please try again.
-      </div>
-
-      <form id="signup-form" class="space-y-4 mb-8">
-        <div class="space-y-2">
-          <label for="username" class="text-sm font-medium text-gray-700">Username</label>
-          <input
-            type="text"
-            id="username-input"
-            placeholder="Enter your username"
-            class="w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:ring-2 focus:border-gs-navy transition duration-300"
-            required
-          >
-        </div>
-        <div class="space-y-2">
-          <label for="email" class="text-sm font-medium text-gray-700">Email</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            class="w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:ring-2 focus:border-gs-navy transition duration-300"
-            required
-          >
-        </div>
-        <div class="space-y-2">
-          <label for="password" class="text-sm font-medium text-gray-700">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            class="w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:ring-2 focus:border-gs-navy transition duration-300"
-            required
-          >
-        </div>
-        <button
-          type="submit"
-          class="w-full bg-gray-900 text-white rounded-lg py-3 font-semibold hover:bg-gray-800 transition duration-300"
-        >
-          Sign Up
-        </button>
-      </form>
-
-      <div class="divider">
-        <div class="divider-line"></div>
-        <span class="divider-text">Or</span>
-        <div class="divider-line"></div>
-      </div>
-
-      <div id="sso-options" class="space-y-4 mb-8">
-        <button
-          id="google-signin"
-          class="google-button flex items-center justify-center w-full rounded-lg py-3 font-semibold text-gray-700"
-        >
-          <img src="https://s3.ap-south-1.amazonaws.com/assets.growthschool.io/google.svg" alt="Google" class="w-5 h-5 mr-3">
-          Sign Up with Google
-        </button>
-      </div>
-
-      <p class="text-center text-sm text-gray-600">
-        Already have an account? <a href="/login" class="text-gs-green hover:underline">Log In</a>
-      </p>
+</head>
+<body>
+  <div class="bg-white rounded-3xl shadow-lg p-8 w-full max-w-md relative">
+    <div id="loading-overlay" class="loading-overlay">
+      <div class="spinner"></div>
     </div>
+    <div class="text-center mb-8">
+      <img src="logo-1.png" alt="Brand Logo" class="w-16 h-16 mx-auto mb-6">
+      <h1 class="text-2xl font-semibold text-gs-navy">Sign Up for SYNCSKILL</h1>
+    </div>
+
+    <div id="success-message" class="success-message">
+      Welcome, <span id="username"></span>! Your account has been created.
+    </div>
+    <div id="error-message" class="error-message">
+      Sign-up failed. Please try again.
+    </div>
+
+    <form id="signup-form" class="space-y-4 mb-8">
+      <div class="space-y-2">
+        <label for="username" class="text-sm font-medium text-gray-700">Username</label>
+        <input
+          type="text"
+          id="username-input"
+          placeholder="Enter your username"
+          class="w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:ring-2 focus:border-gs-navy transition duration-300"
+          required
+        >
+      </div>
+      <div class="space-y-2">
+        <label for="email" class="text-sm font-medium text-gray-700">Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          class="w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:ring-2 focus:border-gs-navy transition duration-300"
+          required
+        >
+      </div>
+      <div class="space-y-2">
+        <label for="password" class="text-sm font-medium text-gray-700">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          class="w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:ring-2 focus:border-gs-navy transition duration-300"
+          required
+        >
+      </div>
+      <button
+        type="submit"
+        class="w-full bg-gray-900 text-white rounded-lg py-3 font-semibold hover:bg-gray-800 transition duration-300"
+      >
+        <span class="button-text">Sign Up</span>
+        <div class="spinner" style="display: none;"></div>
+      </button>
+    </form>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-text">Or</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <div id="sso-options" class="space-y-4 mb-8">
+      <button
+        id="google-signin"
+        class="google-button flex items-center justify-center w-full rounded-lg py-3 font-semibold text-gray-700"
+      >
+        <img src="https://s3.ap-south-1.amazonaws.com/assets.growthschool.io/google.svg" alt="Google" class="w-5 h-5 mr-3">
+        <span class="button-text">Sign Up with Google</span>
+        <div class="spinner" style="display: none;"></div>
+      </button>
+    </div>
+
+    <p class="text-center text-sm text-gray-600">
+      Already have an account? <a href="/login" class="text-gs-green hover:underline">Log In</a>
+    </p>
+  </div>
 
     <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
