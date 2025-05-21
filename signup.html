@@ -472,86 +472,95 @@
     </div>
 
     <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
+<script>
+  // Firebase configuration (replace with your Firebase project credentials)
+  const firebaseConfig = {
+    apiKey: "AIzaSyAKz4LhJcThTJ1ZowKYMV7rVlKwDhuXz3g",
+    authDomain: "rolebased-test-1.firebaseapp.com",
+    databaseURL: "https://rolebased-test-1-default-rtdb.firebaseio.com",
+    projectId: "rolebased-test-1",
+    storageBucket: "rolebased-test-1.firebasestorage.app",
+    messagingSenderId: "951301430114",
+    appId: "1:951301430114:web:17cae16a755c2cbc086a3b",
+    measurementId: "G-CFC2EF9MQF"
+  };
 
-    <script>
-      // Firebase configuration (replace with your Firebase project credentials)
-      const firebaseConfig = {
-  apiKey: "AIzaSyAKz4LhJcThTJ1ZowKYMV7rVlKwDhuXz3g",
-  authDomain: "rolebased-test-1.firebaseapp.com",
-  databaseURL: "https://rolebased-test-1-default-rtdb.firebaseio.com",
-  projectId: "rolebased-test-1",
-  storageBucket: "rolebased-test-1.firebasestorage.app",
-  messagingSenderId: "951301430114",
-  appId: "1:951301430114:web:17cae16a755c2cbc086a3b",
-  measurementId: "G-CFC2EF9MQF"
-};
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
 
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
+  // Hide success/error messages initially
+  const successMessage = document.getElementById('success-message');
+  const errorMessage = document.getElementById('error-message');
+  const usernameSpan = document.getElementById('username');
 
-      // Hide success/error messages initially
-      const successMessage = document.getElementById('success-message');
-      const errorMessage = document.getElementById('error-message');
-      const usernameSpan = document.getElementById('username');
+  // Email/Password Sign-Up
+  document.getElementById('signup-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = document.getElementById('username-input').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-      // Email/Password Sign-Up
-      document.getElementById('signup-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const username = document.getElementById('username-input').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+    auth.createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        return user.updateProfile({ displayName: username });
+      })
+      .then(() => {
+        // Display success message and redirect to dashboard
+        successMessage.style.display = 'block';
+        usernameSpan.textContent = username;
+        errorMessage.style.display = 'none';
+        document.getElementById('signup-form').reset();
 
-        auth.createUserWithEmailAndPassword(email, password)
-          .then((userCredential) => {
-            const user = userCredential.user;
-            return user.updateProfile({ displayName: username });
-          })
-          .then(() => {
-            successMessage.style.display = 'block';
-            usernameSpan.textContent = username;
-            errorMessage.style.display = 'none';
-            document.getElementById('signup-form').reset();
-          })
-          .catch((error) => {
-            errorMessage.textContent = `Sign-up failed: ${error.message}`;
-            errorMessage.style.display = 'block';
-            successMessage.style.display = 'none';
-          });
+        // Redirect to another page (e.g., /dashboard)
+        window.location.href = '/dashboard';  // Change '/dashboard' to your desired URL
+      })
+      .catch((error) => {
+        errorMessage.textContent = `Sign-up failed: ${error.message}`;
+        errorMessage.style.display = 'block';
+        successMessage.style.display = 'none';
       });
+  });
 
-      // Google Sign-In
-      document.getElementById('google-signin').addEventListener('click', () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider)
-          .then((result) => {
-            const user = result.user;
-            const displayName = user.displayName || user.email.split('@')[0];
-            successMessage.style.display = 'block';
-            usernameSpan.textContent = displayName;
-            errorMessage.style.display = 'none';
-          })
-          .catch((error) => {
-            errorMessage.textContent = `Google Sign-Up failed: ${error.message}`;
-            errorMessage.style.display = 'block';
-            successMessage.style.display = 'none';
-          });
-      });
+  // Google Sign-In
+  document.getElementById('google-signin').addEventListener('click', () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        const displayName = user.displayName || user.email.split('@')[0];
 
-      // Monitor auth state
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          const displayName = user.displayName || user.email.split('@')[0];
-          successMessage.style.display = 'block';
-          usernameSpan.textContent = displayName;
-          errorMessage.style.display = 'none';
-        } else {
-          successMessage.style.display = 'none';
-        }
+        // Display success message and redirect to dashboard
+        successMessage.style.display = 'block';
+        usernameSpan.textContent = displayName;
+        errorMessage.style.display = 'none';
+
+        // Redirect to another page (e.g., /dashboard)
+        window.location.href = '/dashboard';  // Change '/dashboard' to your desired URL
+      })
+      .catch((error) => {
+        errorMessage.textContent = `Google Sign-Up failed: ${error.message}`;
+        errorMessage.style.display = 'block';
+        successMessage.style.display = 'none';
       });
-    </script>
+  });
+
+  // Monitor auth state
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      const displayName = user.displayName || user.email.split('@')[0];
+      successMessage.style.display = 'block';
+      usernameSpan.textContent = displayName;
+      errorMessage.style.display = 'none';
+    } else {
+      successMessage.style.display = 'none';
+    }
+  });
+</script>
+
   </body>
 </html>
