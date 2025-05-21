@@ -2441,39 +2441,72 @@ margin-left: 0px;
         hyphens: auto;
         letter-spacing: -0.02em;
         word-spacing: 0.05em;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5em;
     ">
-        <span style="display: block; padding-left: 0;">LEARN</span>
-        <span style="display: block; padding-left: clamp(2rem, 5vw, 3rem);">GROW</span>
-        <span style="display: block; padding-left: clamp(4rem, 10vw, 6rem);">EXCEL</span>
+        <span>LEARN</span>
+        <span>GROW</span>
+        <span>EXCEL</span>
     </p>
 </section>
+
+<style>
+    @media (max-width: 768px) {
+        #text {
+            display: block;
+        }
+        #text span {
+            display: block;
+        }
+        #text span:nth-child(1) {
+            padding-left: 0;
+        }
+        #text span:nth-child(2) {
+            padding-left: clamp(2rem, 5vw, 3rem);
+        }
+        #text span:nth-child(3) {
+            padding-left: clamp(4rem, 10vw, 6rem);
+        }
+    }
+</style>
 
 <script>
     (function() {
       const section = document.getElementById('animated-section');
-      const p       = document.getElementById('text');
-      const words   = p.textContent.trim().split(/\s+/);
+      const p = document.getElementById('text');
+      const words = p.textContent.trim().split(/\s+/);
 
-      // wrap each word in an inline-styled <span>
+      // Detect if mobile view (screen width <= 768px)
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+      // Wrap each word in a <span> with appropriate styles
       p.innerHTML = words
-        .map((w, i) => `<span style="
-                      color:#000;
+        .map((w, i) => {
+          const padding = isMobile 
+            ? (i === 0 ? '0' : i === 1 ? 'clamp(2rem, 5vw, 3rem)' : 'clamp(4rem, 10vw, 6rem)')
+            : '0';
+          return `<span style="
+                      color: #000;
                       transition: color 0.2s ease;
                       white-space: nowrap;
-                      display: block;
-                      padding-left: ${i === 0 ? '0' : i === 1 ? 'clamp(2rem, 5vw, 3rem)' : 'clamp(4rem, 10vw, 6rem)'};
-                    ">${w}</span>`)
+                      display: ${isMobile ? 'block' : 'inline-block'};
+                      padding-left: ${padding};
+                      margin-right: ${isMobile ? '0' : '0.25em'};
+                    ">${w}</span>`;
+        })
         .join('');
+
       const spans = Array.from(p.querySelectorAll('span'));
       const total = spans.length;
 
-      // On resize/update, compute start & end offsets:
+      // On resize/update, compute start & end offsets
       let startOffset, endOffset;
       function updateOffsets() {
         const vh = window.innerHeight;
-        const h  = section.offsetHeight;
-        startOffset = vh / 2;            // when section.top hits middle
-        endOffset   = (vh / 2) - h;      // when section.bottom hits middle
+        const h = section.offsetHeight;
+        startOffset = vh / 2; // when section.top hits middle
+        endOffset = (vh / 2) - h; // when section.bottom hits middle
       }
       updateOffsets();
       window.addEventListener('resize', updateOffsets);
@@ -2482,7 +2515,7 @@ margin-left: 0px;
         const rect = section.getBoundingClientRect();
         // raw progress from startOffset → endOffset
         let prog = (startOffset - rect.top) / (startOffset - endOffset);
-        prog = Math.min(Math.max(prog, 0), 1);  // clamp 0–1
+        prog = Math.min(Math.max(prog, 0), 1); // clamp 0–1
 
         // how many words to paint red
         const count = Math.floor(prog * total);
@@ -2491,7 +2524,7 @@ margin-left: 0px;
         });
       }
 
-      // throttle scroll events
+      // Throttle scroll events
       let ticking = false;
       window.addEventListener('scroll', () => {
         if (!ticking) {
@@ -2503,7 +2536,7 @@ margin-left: 0px;
         }
       });
 
-      // initial paint
+      // Initial paint
       onScroll();
     })();
 </script>
