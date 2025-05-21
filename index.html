@@ -2504,7 +2504,89 @@ margin-left: 0px;
       onScroll();
     })();
 </script>
+<section id="animated-section" style="
+    width: 90%;
+    max-width: 700px;
+    margin: 4rem auto;
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    font-family: 'IBM Plex Sans', sans-serif;
+">
+    <p id="text" style="
+        font-size: clamp(1.75rem, 5vw, 3.125rem);
+        line-height: 1.4;
+        text-align: left;
+        font-weight: 400;
+        margin: 0;
+        padding: 0;
+        hyphens: auto;
+        letter-spacing: -0.02em;
+        word-spacing: 0.05em;
+    ">
+        LEARN<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GROW<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEL
+    </p>
+</section>
 
+<script>
+    (function() {
+      const section = document.getElementById('animated-section');
+      const p       = document.getElementById('text');
+      const words   = p.textContent.trim().split(/\s+/);
+
+      // wrap each word in an inline-styled <span>
+      p.innerHTML = words
+        .map(w => `<span style="
+                      color:#000;
+                      transition: color 0.2s ease;
+                      white-space: nowrap;
+                      display: inline-block;
+                      margin-right: 0.25em;
+                    ">${w}</span>`)
+        .join('');
+      const spans = Array.from(p.querySelectorAll('span'));
+      const total = spans.length;
+
+      // On resize/update, compute start & end offsets:
+      let startOffset, endOffset;
+      function updateOffsets() {
+        const vh = window.innerHeight;
+        const h  = section.offsetHeight;
+        startOffset = vh / 2;            // when section.top hits middle
+        endOffset   = (vh / 2) - h;      // when section.bottom hits middle
+      }
+      updateOffsets();
+      window.addEventListener('resize', updateOffsets);
+
+      function onScroll() {
+        const rect = section.getBoundingClientRect();
+        // raw progress from startOffset → endOffset
+        let prog = (startOffset - rect.top) / (startOffset - endOffset);
+        prog = Math.min(Math.max(prog, 0), 1);  // clamp 0–1
+
+        // how many words to paint red
+        const count = Math.floor(prog * total);
+        spans.forEach((span, i) => {
+          span.style.color = i < count ? '#ff0000' : '#000';
+        });
+      }
+
+      // throttle scroll events
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(() => {
+            onScroll();
+            ticking = false;
+          });
+        }
+      });
+
+      // initial paint
+      onScroll();
+    })();
+</script>
 
 
 
