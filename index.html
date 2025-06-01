@@ -1308,7 +1308,7 @@ html, body {
             // Only prevent default if horizontal movement is greater than vertical
             if (deltaX > deltaY) {
                 e.preventDefault(); // Prevent vertical scroll for horizontal swipe
-                const walk = (x - startX) * 0.5; // Slower swiping
+                const walk = (x - startX) * 1; // Slower swiping
                 container.scrollLeft = scrollLeft - walk;
             }
             // If vertical movement is greater, allow default behavior (vertical scroll)
