@@ -741,8 +741,7 @@ html, body {
 
 
 
-
-<div class="relative wc-container">
+    <div class="relative wc-container">
         <div class="wc-mb-12">
             <h2 class="wc-header-title">
                 <span class="wc-header-title-text">EXPLORE YOUR POSSIBILITIES</span>
@@ -753,6 +752,44 @@ html, body {
         </div>
         <div class="wc-scrollable-container" id="scrollableContainer">
             <!-- Card 1 -->
+            <div class="wc-workshop-card wc-card-1">
+                <div class="wc-workshop-image">
+                    <img 
+                        alt="Generative AI Marketing Mastermind" 
+                        loading="lazy" 
+                        decoding="async" 
+                        class="wc-image" 
+                        src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/work2.png"
+                    >
+                </div>
+                <div class="wc-p-6 wc-flex wc-flex-col wc-flex-grow">
+                    <h2 class="wc-font-semibold wc-title">
+                        <span class="wc-title-text">Generative AI Marketing Mastermind</span>
+                    </h2>
+                    <h3 class="wc-font-normal wc-subtitle">
+                        <span class="wc-subtitle-text">Learn the Basics of Digital Marketing in One Day</span>
+                    </h3>
+                    <div class="wc-flex wc-items-center wc-gap-2 wc-duration-price">
+                        <svg class="wc-duration-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--color-dark-teal)" stroke-width="2"></path>
+                            <path d="M12 6V12L15 15" stroke="var(--color-dark-teal)" stroke-width="2" stroke-linecap="round"></path>
+                        </svg>
+                        <span class="wc-font-medium wc-duration-text">2 Days</span>
+                    </div>
+                    <div class="wc-flex wc-items-center wc-gap-2 wc-price">
+                        <svg class="wc-price-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <text x="12" y="16" font-size="20" font-weight="bold" text-anchor="middle" fill="var(--color-dark-teal)" font-family="var(--font-ibm-plex-sans)">₹</text>
+                        </svg>
+                        <span class="wc-font-medium wc-price-text">499</span>
+                    </div>
+                    <div class="wc-flex wc-justify-center wc-gap-4 wc-mt-auto">
+                        <a href="/workshops/marketing-mastermind/syllabus" class="wc-custom-button wc-syllabus-button">Syllabus</a>
+                        <a href="/workshops/marketing-mastermind" class="wc-custom-button wc-know-more-button">Know More</a>
+                    </div>
+                </div>
+            </div>
+            
+            
             <div class="wc-workshop-card wc-card-1">
                 <div class="wc-workshop-image">
                     <img 
@@ -865,12 +902,12 @@ html, body {
             </div>
         </div>
         <div class="wc-flex wc-justify-center wc-gap-4 wc-mt-4">
-            <button id="scrollLeft" class="wc-nav-button wc-scroll-left">
+            <button id="wc-scrollLeft" class="wc-nav-button wc-scroll-left">
                 <svg class="wc-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15 18L9 12L15 6" stroke="var(--color-white)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
-            <button id="scrollRight" class="wc-nav-button wc-scroll-right">
+            <button id="wc-scrollRight" class="wc-nav-button wc-scroll-right">
                 <svg class="wc-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 18L15 12L9 6" stroke="var(--color-white)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -927,10 +964,15 @@ html, body {
         }
         .wc-scrollable-container {
             display: flex;
+            flex-direction: row;
             gap: 20px;
-            padding: 16px;
+            padding: 16px 16px 16px 150px;
             user-select: none;
-            overflow: hidden;
+            overflow-x: auto;
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+        }
+        .wc-scrollable-container::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome, Safari, Edge */
         }
         .wc-nav-button {
             background-color: var(--color-dark-teal);
@@ -977,7 +1019,7 @@ html, body {
         }
         .wc-mb-12 {
             margin-bottom: 1rem;
-            padding-left: 1rem;
+            padding-left: 150px;
         }
         .wc-font-semibold {
             font-weight: 600;
@@ -1059,8 +1101,12 @@ html, body {
                 padding: 10px 0;
             }
             .wc-scrollable-container {
+                flex-direction: row;
                 gap: 16px;
                 padding: 14px;
+            }
+            .wc-mb-12 {
+                padding-left: 16px;
             }
             .wc-nav-button {
                 width: 44px;
@@ -1111,8 +1157,12 @@ html, body {
                 padding: 8px 0;
             }
             .wc-scrollable-container {
+                flex-direction: row;
                 gap: 12px;
                 padding: 12px;
+            }
+            .wc-mb-12 {
+                padding-left: 12px;
             }
             .wc-nav-button {
                 width: 40px;
@@ -1163,8 +1213,12 @@ html, body {
                 padding: 6px 0;
             }
             .wc-scrollable-container {
+                flex-direction: row;
                 gap: 8px;
                 padding: 10px;
+            }
+            .wc-mb-12 {
+                padding-left: 10px;
             }
             .wc-nav-button {
                 width: 36px;
@@ -1228,7 +1282,7 @@ html, body {
             if (!isDragging) return;
             e.preventDefault();
             const x = e.pageX - container.offsetLeft;
-            const walk = (x - startX) * 2;
+            const walk = (x - startX) * 1; // Reduced multiplier for slower swiping
             container.scrollLeft = scrollLeft - walk;
         });
 
@@ -1247,16 +1301,16 @@ html, body {
             if (!isDragging) return;
             e.preventDefault();
             const x = e.touches[0].pageX - container.offsetLeft;
-            const walk = (x - startX) * 2;
+            const walk = (x - startX) * 0.5; // Reduced multiplier for slower swiping
             container.scrollLeft = scrollLeft - walk;
         });
 
         // Navigation buttons
-        document.getElementById('scrollLeft').addEventListener('click', () => {
+        document.getElementById('wc-scrollLeft').addEventListener('click', () => {
             container.scrollBy({ left: -320, behavior: 'smooth' });
         });
 
-        document.getElementById('scrollRight').addEventListener('click', () => {
+        document.getElementById('wc-scrollRight').addEventListener('click', () => {
             container.scrollBy({ left: 320, behavior: 'smooth' });
         });
     </script>
