@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Scrollable Workshop Cards with Adjusted Mobile Layout</title>
+    <title>Responsive Scrollable Workshop Cards with Smaller Desktop Cards and Reduced Text Spacing</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -17,22 +17,22 @@
         }
         /* Base styles for larger screens (Computer: ≥ 1024px) */
         .workshop-card {
-            width: 400px;
-            height: 550px;
+            width: 350px; /* Reduced from 400px */
+            height: 500px; /* Reduced from 550px */
             flex: 0 0 auto;
         }
         .workshop-image {
-            height: 300px;
+            height: 270px; /* Adjusted from 300px to maintain proportion */
         }
         .custom-button {
             background-color: var(--color-dark-teal);
             color: var(--color-white);
-            padding: 12px 0;
-            width: 150px;
+            padding: 10px 0; /* Slightly reduced padding */
+            width: 130px; /* Reduced from 150px */
             text-align: center;
             border-radius: 8px;
             font-weight: 500;
-            font-size: 1.125rem;
+            font-size: 1rem; /* Reduced from 1.125rem */
             text-decoration: none;
             transition: background-color 0.3s ease;
         }
@@ -42,8 +42,8 @@
         .scrollable-container {
             display: flex;
             overflow-x: auto;
-            gap: 24px;
-            padding: 24px;
+            gap: 20px; /* Reduced from 24px */
+            padding: 20px; /* Reduced from 24px */
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
         }
@@ -56,6 +56,27 @@
         }
         .scrollable-container::-webkit-scrollbar-track {
             background: #f1f1f1;
+        }
+        /* Base text spacing for all devices */
+        h2 {
+            font-size: 1.5rem; /* Slightly reduced */
+            margin-bottom: 0.75rem; /* Reduced from 1rem (mb-4) */
+        }
+        h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem; /* Reduced from 1.5rem (mb-6) */
+        }
+        .duration-price {
+            margin-bottom: 0.75rem; /* Reduced from 1rem (mb-4) */
+        }
+        .price {
+            margin-bottom: 1rem; /* Reduced from 1.5rem (mb-6) */
+        }
+        span {
+            font-size: 1rem;
+        }
+        .p-6 {
+            padding: 1rem; /* Reduced from default */
         }
         /* Tablet (768px - 1023px) */
         @media (max-width: 1023px) {
@@ -77,12 +98,23 @@
             }
             h2 {
                 font-size: 1.25rem;
+                margin-bottom: 0.5rem; /* Further reduced */
             }
             h3 {
                 font-size: 0.875rem;
+                margin-bottom: 0.75rem; /* Further reduced */
+            }
+            .duration-price {
+                margin-bottom: 0.5rem; /* Further reduced */
+            }
+            .price {
+                margin-bottom: 0.75rem; /* Further reduced */
             }
             span {
                 font-size: 0.875rem;
+            }
+            .p-6 {
+                padding: 0.875rem; /* Slightly reduced */
             }
         }
         /* Mobile (375px - 767px) */
@@ -92,7 +124,7 @@
                 height: 400px;
             }
             .workshop-image {
-                height: 240px; /* Increased from 220px to make the image larger */
+                height: 240px;
             }
             .custom-button {
                 width: 100px;
@@ -105,23 +137,23 @@
             }
             h2 {
                 font-size: 1.125rem;
-                margin-bottom: 0.75rem; /* Reduced from 1rem (mb-4) */
+                margin-bottom: 0.5rem; /* Already reduced in previous step */
             }
             h3 {
                 font-size: 0.75rem;
-                margin-bottom: 1rem; /* Reduced from 1.5rem (mb-6) */
+                margin-bottom: 0.75rem; /* Already reduced */
             }
             .duration-price {
-                margin-bottom: 0.75rem; /* Reduced from 1rem (mb-4) */
+                margin-bottom: 0.5rem; /* Already reduced */
             }
             .price {
-                margin-bottom: 1rem; /* Reduced from 1.5rem (mb-6) */
+                margin-bottom: 0.75rem; /* Already reduced */
             }
             span {
                 font-size: 0.75rem;
             }
             .p-6 {
-                padding: 0.75rem; /* Reduced from 1rem */
+                padding: 0.75rem; /* Already reduced */
             }
         }
         /* Small-screen mobile (< 375px) */
@@ -131,7 +163,7 @@
                 height: 350px;
             }
             .workshop-image {
-                height: 220px; /* Increased from 200px to make the image larger */
+                height: 220px;
             }
             .custom-button {
                 width: 90px;
@@ -144,23 +176,23 @@
             }
             h2 {
                 font-size: 1rem;
-                margin-bottom: 0.5rem; /* Reduced further */
+                margin-bottom: 0.375rem; /* Further reduced */
             }
             h3 {
                 font-size: 0.675rem;
-                margin-bottom: 0.75rem; /* Reduced further */
+                margin-bottom: 0.5rem; /* Further reduced */
             }
             .duration-price {
-                margin-bottom: 0.5rem; /* Reduced further */
+                margin-bottom: 0.375rem; /* Further reduced */
             }
             .price {
-                margin-bottom: 0.75rem; /* Reduced further */
+                margin-bottom: 0.5rem; /* Further reduced */
             }
             span {
                 font-size: 0.675rem;
             }
             .p-6 {
-                padding: 0.5rem; /* Reduced further */
+                padding: 0.5rem; /* Already reduced */
             }
         }
     </style>
@@ -179,20 +211,20 @@
                 >
             </div>
             <div class="p-6 flex flex-col flex-grow">
-                <h2 class="font-semibold text-[var(--color-dark-teal)] mb-4">
+                <h2 class="font-semibold text-[var(--color-dark-teal)]">
                     Generative AI Marketing Mastermind
                 </h2>
-                <h3 class="font-normal text-[var(--color-dark-teal)] mb-6">
+                <h3 class="font-normal text-[var(--color-dark-teal)]">
                     Learn the Basics of Digital Marketing in One Day
                 </h3>
-                <div class="flex items-center gap-2 mb-4 duration-price">
+                <div class="flex items-center gap-2 duration-price">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--color-dark-teal)" stroke-width="2"></path>
                         <path d="M12 6V12L15 15" stroke="var(--color-dark-teal)" stroke-width="2" stroke-linecap="round"></path>
                     </svg>
                     <span class="font-medium text-[var(--color-dark-teal)]">2 Days</span>
                 </div>
-                <div class="flex items-center mb-6 price">
+                <div class="flex items-center price">
                     <span class="font-medium text-[var(--color-dark-teal)]">₹ 499</span>
                 </div>
                 <div class="flex justify-center gap-4 mt-auto">
@@ -213,20 +245,20 @@
                 >
             </div>
             <div class="p-6 flex flex-col flex-grow">
-                <h2 class="font-semibold text-[var(--color-dark-teal)] mb-4">
+                <h2 class="font-semibold text-[var(--color-dark-teal)]">
                     Generative AI Marketing Mastermind
                 </h2>
-                <h3 class="font-normal text-[var(--color-dark-teal)] mb-6">
+                <h3 class="font-normal text-[var(--color-dark-teal)]">
                     Learn the Basics of Digital Marketing in One Day
                 </h3>
-                <div class="flex items-center gap-2 mb-4 duration-price">
+                <div class="flex items-center gap-2 duration-price">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--color-dark-teal)" stroke-width="2"></path>
                         <path d="M12 6V12L15 15" stroke="var(--color-dark-teal)" stroke-width="2" stroke-linecap="round"></path>
                     </svg>
                     <span class="font-medium text-[var(--color-dark-teal)]">2 Days</span>
                 </div>
-                <div class="flex items-center mb-6 price">
+                <div class="flex items-center price">
                     <span class="font-medium text-[var(--color-dark-teal)]">₹ 499</span>
                 </div>
                 <div class="flex justify-center gap-4 mt-auto">
@@ -247,20 +279,20 @@
                 >
             </div>
             <div class="p-6 flex flex-col flex-grow">
-                <h2 class="font-semibold text-[var(--color-dark-teal)] mb-4">
+                <h2 class="font-semibold text-[var(--color-dark-teal)]">
                     Generative AI Marketing Mastermind
                 </h2>
-                <h3 class="font-normal text-[var(--color-dark-teal)] mb-6">
+                <h3 class="font-normal text-[var(--color-dark-teal)]">
                     Learn the Basics of Digital Marketing in One Day
                 </h3>
-                <div class="flex items-center gap-2 mb-4 duration-price">
+                <div class="flex items-center gap-2 duration-price">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--color-dark-teal)" stroke-width="2"></path>
                         <path d="M12 6V12L15 15" stroke="var(--color-dark-teal)" stroke-width="2" stroke-linecap="round"></path>
                     </svg>
                     <span class="font-medium text-[var(--color-dark-teal)]">2 Days</span>
                 </div>
-                <div class="flex items-center mb-6 price">
+                <div class="flex items-center price">
                     <span class="font-medium text-[var(--color-dark-teal)]">₹ 499</span>
                 </div>
                 <div class="flex justify-center gap-4 mt-auto">
