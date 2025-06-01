@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Scrollable Workshop Cards with Adjusted Mobile Layout</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-ibm-plex-sans: "IBM Plex Sans", sans-serif;
+            --color-dark-teal: #012726;
+            --color-white: #fff;
+        }
+        body {
+            font-family: var(--font-ibm-plex-sans);
+        }
+        /* Base styles for larger screens (Computer: ≥ 1024px) */
+        .workshop-card {
+            width: 400px;
+            height: 550px;
+            flex: 0 0 auto;
+        }
+        .workshop-image {
+            height: 300px;
+        }
+        .custom-button {
+            background-color: var(--color-dark-teal);
+            color: var(--color-white);
+            padding: 12px 0;
+            width: 150px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 1.125rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .custom-button:hover {
+            background-color: #024a47;
+        }
+        .scrollable-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 24px;
+            padding: 24px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .scrollable-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .scrollable-container::-webkit-scrollbar-thumb {
+            background-color: var(--color-dark-teal);
+            border-radius: 4px;
+        }
+        .scrollable-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        /* Tablet (768px - 1023px) */
+        @media (max-width: 1023px) {
+            .workshop-card {
+                width: 320px;
+                height: 450px;
+            }
+            .workshop-image {
+                height: 240px;
+            }
+            .custom-button {
+                width: 120px;
+                font-size: 1rem;
+                padding: 10px 0;
+            }
+            .scrollable-container {
+                gap: 16px;
+                padding: 16px;
+            }
+            h2 {
+                font-size: 1.25rem;
+            }
+            h3 {
+                font-size: 0.875rem;
+            }
+            span {
+                font-size: 0.875rem;
+            }
+        }
+        /* Mobile (375px - 767px) */
+        @media (max-width: 767px) {
+            .workshop-card {
+                width: 280px;
+                height: 400px;
+            }
+            .workshop-image {
+                height: 240px; /* Increased from 220px to make the image larger */
+            }
+            .custom-button {
+                width: 100px;
+                font-size: 0.875rem;
+                padding: 8px 0;
+            }
+            .scrollable-container {
+                gap: 12px;
+                padding: 12px;
+            }
+            h2 {
+                font-size: 1.125rem;
+                margin-bottom: 0.75rem; /* Reduced from 1rem (mb-4) */
+            }
+            h3 {
+                font-size: 0.75rem;
+                margin-bottom: 1rem; /* Reduced from 1.5rem (mb-6) */
+            }
+            .duration-price {
+                margin-bottom: 0.75rem; /* Reduced from 1rem (mb-4) */
+            }
+            .price {
+                margin-bottom: 1rem; /* Reduced from 1.5rem (mb-6) */
+            }
+            span {
+                font-size: 0.75rem;
+            }
+            .p-6 {
+                padding: 0.75rem; /* Reduced from 1rem */
+            }
+        }
+        /* Small-screen mobile (< 375px) */
+        @media (max-width: 374px) {
+            .workshop-card {
+                width: 240px;
+                height: 350px;
+            }
+            .workshop-image {
+                height: 220px; /* Increased from 200px to make the image larger */
+            }
+            .custom-button {
+                width: 90px;
+                font-size: 0.75rem;
+                padding: 6px 0;
+            }
+            .scrollable-container {
+                gap: 8px;
+                padding: 8px;
+            }
+            h2 {
+                font-size: 1rem;
+                margin-bottom: 0.5rem; /* Reduced further */
+            }
+            h3 {
+                font-size: 0.675rem;
+                margin-bottom: 0.75rem; /* Reduced further */
+            }
+            .duration-price {
+                margin-bottom: 0.5rem; /* Reduced further */
+            }
+            .price {
+                margin-bottom: 0.75rem; /* Reduced further */
+            }
+            span {
+                font-size: 0.675rem;
+            }
+            .p-6 {
+                padding: 0.5rem; /* Reduced further */
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="scrollable-container">
+        <!-- Card 1 -->
+        <div class="workshop-card bg-white rounded-3xl border flex flex-col overflow-hidden">
+            <div class="relative w-full workshop-image overflow-hidden">
+                <img 
+                    alt="Generative AI Marketing Mastermind" 
+                    loading="lazy" 
+                    decoding="async" 
+                    class="object-contain w-full h-full" 
+                    src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/work2.png"
+                >
+            </div>
+            <div class="p-6 flex flex-col flex-grow">
+                <h2 class="font-semibold text-[var(--color-dark-teal)] mb-4">
+                    Generative AI Marketing Mastermind
+                </h2>
+                <h3 class="font-normal text-[var(--color-dark-teal)] mb-6">
+                    Learn the Basics of Digital Marketing in One Day
+                </h3>
+                <div class="flex items-center gap-2 mb-4 duration-price">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--color-dark-teal)" stroke-width="2"></path>
+                        <path d="M12 6V12L15 15" stroke="var(--color-dark-teal)" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                    <span class="font-medium text-[var(--color-dark-teal)]">2 Days</span>
+                </div>
+                <div class="flex items-center mb-6 price">
+                    <span class="font-medium text-[var(--color-dark-teal)]">₹ 499</span>
+                </div>
+                <div class="flex justify-center gap-4 mt-auto">
+                    <a href="/workshops/marketing-mastermind/syllabus" class="custom-button">Syllabus</a>
+                    <a href="/workshops/marketing-mastermind" class="custom-button">Know More</a>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="workshop-card bg-white rounded-3xl border flex flex-col overflow-hidden">
+            <div class="relative w-full workshop-image overflow-hidden">
+                <img 
+                    alt="Generative AI Marketing Mastermind" 
+                    loading="lazy" 
+                    decoding="async" 
+                    class="object-contain w-full h-full" 
+                    src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/work2.png"
+                >
+            </div>
+            <div class="p-6 flex flex-col flex-grow">
+                <h2 class="font-semibold text-[var(--color-dark-teal)] mb-4">
+                    Generative AI Marketing Mastermind
+                </h2>
+                <h3 class="font-normal text-[var(--color-dark-teal)] mb-6">
+                    Learn the Basics of Digital Marketing in One Day
+                </h3>
+                <div class="flex items-center gap-2 mb-4 duration-price">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--color-dark-teal)" stroke-width="2"></path>
+                        <path d="M12 6V12L15 15" stroke="var(--color-dark-teal)" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                    <span class="font-medium text-[var(--color-dark-teal)]">2 Days</span>
+                </div>
+                <div class="flex items-center mb-6 price">
+                    <span class="font-medium text-[var(--color-dark-teal)]">₹ 499</span>
+                </div>
+                <div class="flex justify-center gap-4 mt-auto">
+                    <a href="/workshops/marketing-mastermind/syllabus" class="custom-button">Syllabus</a>
+                    <a href="/workshops/marketing-mastermind" class="custom-button">Know More</a>
+                </div>
+            </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="workshop-card bg-white rounded-3xl border flex flex-col overflow-hidden">
+            <div class="relative w-full workshop-image overflow-hidden">
+                <img 
+                    alt="Generative AI Marketing Mastermind" 
+                    loading="lazy" 
+                    decoding="async" 
+                    class="object-contain w-full h-full" 
+                    src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/work2.png"
+                >
+            </div>
+            <div class="p-6 flex flex-col flex-grow">
+                <h2 class="font-semibold text-[var(--color-dark-teal)] mb-4">
+                    Generative AI Marketing Mastermind
+                </h2>
+                <h3 class="font-normal text-[var(--color-dark-teal)] mb-6">
+                    Learn the Basics of Digital Marketing in One Day
+                </h3>
+                <div class="flex items-center gap-2 mb-4 duration-price">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--color-dark-teal)" stroke-width="2"></path>
+                        <path d="M12 6V12L15 15" stroke="var(--color-dark-teal)" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                    <span class="font-medium text-[var(--color-dark-teal)]">2 Days</span>
+                </div>
+                <div class="flex items-center mb-6 price">
+                    <span class="font-medium text-[var(--color-dark-teal)]">₹ 499</span>
+                </div>
+                <div class="flex justify-center gap-4 mt-auto">
+                    <a href="/workshops/marketing-mastermind/syllabus" class="custom-button">Syllabus</a>
+                    <a href="/workshops/marketing-mastermind" class="custom-button">Know More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
