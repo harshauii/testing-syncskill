@@ -1,0 +1,406 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYNCSKILL</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/footer-styles.css">
+    <style>
+        :root {
+            --primary-900: #37be72;
+            --secondary-900: #1A1A1A;
+            --surface-100: #F8F9FA;
+            --text-primary: #1A1A1A;
+            --text-inverse: #FFFFFF;
+            --transition: cubic-bezier(0.33, 1, 0.68, 1);
+            --shadow-lg: 0 24px 48px -12px rgba(0,0,0,0.18);
+            --radius-2xl: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+html, body {
+    overflow-x: hidden;
+}
+</style>
+</head>
+
+
+  <header style="background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.12); height: 72px; position: fixed; top: 0; left: 0; width: 100%; z-index: 100;">
+        <nav style="max-width: 1440px; margin: 0 auto; padding: 0 15px; height: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <a href="#" style="display: flex; align-items: center;">
+                <img src="assets/logo.jpg" alt="Logo" style="height: 32px;">
+            </a>
+
+            <div class="desktop-only" style="display: flex; align-items: center; gap: 40px;">
+                <div style="position: relative;">
+                    <button id="learningPathsBtn" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; background: transparent; border: none; cursor: pointer; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);">
+                        <span style="font-size: 15px; font-weight: 500; color: #333333; letter-spacing: 0.2px;">Learning Paths</span>
+                        <svg style="width: 18px; height: 18px; color: #4d4d4d; transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M6 9l6 6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div id="megaMenu" class="mega-menu" style="position: fixed; top: 0; left: 50%; width: min(800px, 90vw); background: #fff; border-radius: 16px; box-shadow: 0 24px 48px rgba(0,0,0,0.12); padding: 32px; opacity: 0; transform: translate(-50%, 8px); transition: all 0.3s cubic-bezier(0.4,0,0.2,1); pointer-events: none;">
+                        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;">
+                            <div>
+                                <div style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e9ecef;">
+                                    <h3 style="font-size: 14px; font-weight: 700; color: #2d3436; letter-spacing: 0.25px; margin: 0; text-transform: uppercase;">Career Accelerators</h3>
+                                </div>
+                                <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 12px;">
+                                    <li>
+                                        <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);">
+                                            <div style="width: 32px; height: 32px; background: #6366f1; border-radius: 6px; margin-right: 12px; display: flex; align-items: center; justify-content: center;">
+                                                <svg style="width: 16px; height: 16px; color: white;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Data Science Pro</div>
+                                                <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">12 Courses · 98 Hours</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);">
+                                            <div style="width: 32px; height: 32px; background: #6366f1; border-radius: 6px; margin-right: 12px; display: flex; align-items: center; justify-content: center;">
+                                                <svg style="width: 16px; height: 16px; color: white;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div style="font-size: 14px; font-weight: 600; color: #2d3436;">AI & ML Foundation</div>
+                                                <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">8 Courses · 64 Hours</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);">
+                                            <div style="width: 32px; height: 32px; background: #6366f1; border-radius: 6px; margin-right: 12px; display: flex; align-items: center; justify-content: center;">
+                                                <img src="your-icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+                                            </div>
+                                            <div>
+                                                <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Full Stack Development</div>
+                                                <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">10 Courses · 80 Hours</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e9ecef;">
+                                    <h3 style="font-size: 14px; font-weight: 700; color: #2d3436; letter-spacing: 0.25px; margin: 0; text-transform: uppercase;">Certifications</h3>
+                                </div>
+                                <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 12px;">
+                                    <li>
+                                        <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: #ffffff; border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);">
+                                            <div style="width: 32px; height: 32px; background: #10b981; border-radius: 6px; margin-right: 12px;"></div>
+                                            <div>
+                                                <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Cloud Architect</div>
+                                                <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">AWS · Azure · GCP</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="featured-program">
+                                <span class="label">FEATURED PROGRAM</span>
+                                <h3 class="title">GenAI Mastery</h3>
+                                <p class="description">Master LLMs, Diffusion Models, and Production Deployment</p>
+                                <button class="cta-button">Explore Program</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 16px;">
+                    <a href="/pages/verify/login.html" style="padding: 10px 24px; border-radius: 8px; font-weight: 600; color: #4b5563; border: 1px solid #d1d5db; text-decoration: none; transition: background 0.2s ease;">Log in</a>
+                    <a href="/pages/verify/signup.html" style="padding: 10px 24px; background: #7c3aed; color: white; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background 0.2s ease;">Join free</a>
+                </div>
+            </div>
+
+            <button class="mobile-menu-button" id="mobileMenuButton" style="padding: 8px; border-radius: 8px; border: none; background: transparent; transition: transform 0.2s ease, background 0.2s ease; display: none;">
+                <svg style="width: 24px; height: 24px; color: #4b5563;" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <div id="mobileMenu" class="mobile-only" style="position: fixed; top: 0; right: 0; bottom: 0; width: 75vw; max-width: 320px; background: #ffffff; padding: 24px 16px; transform: translateX(100%); transition: transform 0.3s ease; box-shadow: -2px 0 8px rgba(0,0,0,0.1); z-index: 1000; border-top-left-radius: 16px; display: flex; flex-direction: column;">
+        <div style="flex-shrink: 0; display: flex; justify-content: flex-end; margin-bottom: 24px;">
+            <button id="mobileMenuClose" style="padding: 8px; border-radius: 8px; border: none; background: transparent; transition: background 0.2s ease, transform 0.2s ease;">
+                <svg style="width: 24px; height: 24px; color: #4b5563;" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div style="flex-grow: 1; overflow-y: auto;">
+            <div style="display: flex; flex-direction: column; gap: 24px;">
+                <div style="border-bottom: 1px solid #e5e7eb; padding-bottom: 8px;">
+                    <h3 onclick="(function(c){c.style.display=c.style.display==='flex'?'none':'flex'})(this.nextElementSibling)" style="font-size: 16px; font-weight: 700; color: #2d3436; margin: 0; padding: 12px 0; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                        <span>Popular Courses</span>
+                        <span style="font-size: 18px; line-height: 1;">+</span>
+                    </h3>
+                    <div style="display: none; flex-direction: column; gap: 12px; padding: 8px 0;">
+                        <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4,0,0.2,1);">
+                            <div style="width: 24px; height: 24px; background: #6366f1; border-radius: 6px; margin-right: 12px;"></div>
+                            <div>
+                                <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Data Science Pro</div>
+                                <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">12 Courses · 98 Hours</div>
+                            </div>
+                        </a>
+                        <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4,0,0.2,1);">
+                            <div style="width: 24px; height: 24px; background: #6366f1; border-radius: 6px; margin-right: 12px;"></div>
+                            <div>
+                                <div style="font-size: 14px; font-weight: 600; color: #2d3436;">AI & ML Foundation</div>
+                                <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">8 Courses · 64 Hours</div>
+                            </div>
+                        </a>
+                        <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4,0,0.2,1);">
+                            <div style="width: 24px; height: 24px; background: #6366f1; border-radius: 6px; margin-right: 12px;"></div>
+                            <div>
+                                <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Full Stack Development</div>
+                                <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">10 Courses · 80 Hours</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div style="border-bottom: 1px solid #e5e7eb; padding-bottom: 8px;">
+                    <h3 onclick="(function(c){c.style.display=c.style.display==='flex'?'none':'flex'})(this.nextElementSibling)" style="font-size: 16px; font-weight: 700; color: #2d3436; margin: 0; padding: 12px 0; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                        <span>Certifications</span>
+                        <span style="font-size: 18px; line-height: 1;">+</span>
+                    </h3>
+                    <div style="display: none; flex-direction: column; gap: 12px; padding: 8px 0;">
+                        <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4,0,0.2,1);">
+                            <div style="width: 24px; height: 24px; background: #10b981; border-radius: 6px; margin-right: 12px;"></div>
+                            <div>
+                                <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Cloud Architect</div>
+                                <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">AWS · Azure · GCP</div>
+                            </div>
+                        </a>
+                        <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4,0,0.2,1);">
+                            <div style="width: 24px; height: 24px; background: #10b981; border-radius: 6px; margin-right: 12px;"></div>
+                            <div>
+                                <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Cybersecurity Expert</div>
+                                <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">3 Badges</div>
+                            </div>
+                        </a>
+                        <a href="#" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 8px; background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #f1f3f5; text-decoration: none; transition: all 0.25s cubic-bezier(0.4,0,0.2,1);">
+                            <div style="width: 24px; height: 24px; background: #10b981; border-radius: 6px; margin-right: 12px;"></div>
+                            <div>
+                                <div style="font-size: 14px; font-weight: 600; color: #2d3436;">Data Analytics</div>
+                                <div style="font-size: 12px; color: #6c757d; margin-top: 4px;">5 Badges</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div style="padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
+                    <div style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); border-radius: 12px; padding: 16px; color: white;">
+                        <div style="font-size: 12px; font-weight: 700; opacity: 0.9; margin-bottom: 8px;">FEATURED PROGRAM</div>
+                        <h3 style="font-size: 18px; font-weight: 700; margin: 0 0 8px 0;">GenAI Mastery</h3>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 0 0 16px 0; line-height: 1.4;">Master LLMs, Diffusion Models, and Production Deployment</p>
+                        <button style="width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: white; font-weight: 600; cursor: pointer; transition: all 0.25s ease;">Explore Program</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="flex-shrink: 0; padding-top: 20px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <a href="/pages/verify/signup.html" style="padding: 12px; text-align: center; background: #7c3aed; color: white; border-radius: 8px; text-decoration: none; transition: background 0.2s ease;">Join free</a>
+                <a href="/pages/verify/login.html" style="padding: 12px; text-align: center; border: 1px solid #d1d5db; color: #4b5563; border-radius: 8px; text-decoration: none; transition: background 0.2s ease;">Log in</a>
+            </div>
+        </div>
+    </div>
+        <div id="menuOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; display: none;"></div>
+    <style>
+         #featured-program * {
+            all: unset;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        #featured-program {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border-radius: 12px;
+    padding: 16px; /* Reduced padding to fit better */
+    color: white;
+    width: 100%;
+    max-width: 100%; /* Changed from 400px to prevent overflow */
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+#featured-program .label {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    opacity: 0.9;
+    display: block;
+}
+
+#featured-program .title {
+    font-size: 16px; /* Slightly reduced for better fit */
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    display: block;
+}
+
+#featured-program .description {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 24px;
+    line-height: 1.5;
+    display: block;
+    overflow-wrap: break-word;
+}
+
+#featured-program .cta-button {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: center;
+    display: block;
+}
+
+#featured-program .cta-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+        .page-container {
+            margin-left: 130px;
+            margin-right: 130px;
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                margin-left: 3px;
+                margin-right: 3px;
+            }
+            .desktop-only {
+                display: none !important;
+            }
+            #mobileMenuButton {
+                display: block !important;
+            }
+        }
+
+        @media (min-width: 769px) {
+            #mobileMenu {
+                display: none !important;
+            }
+        }
+
+    </style>
+
+    <script>
+        // Desktop Mega Menu
+        const learningPathsBtn = document.getElementById('learningPathsBtn');
+        const megaMenu = document.getElementById('megaMenu');
+        const chevron = learningPathsBtn.querySelector('svg');
+        let isMenuOpen = false;
+
+        function showMegaMenu() {
+            const rect = learningPathsBtn.getBoundingClientRect();
+            megaMenu.style.top = rect.bottom + 5 + 'px';
+            megaMenu.style.opacity = '1';
+            megaMenu.style.transform = 'translate(-50%, 0)';
+            megaMenu.style.pointerEvents = 'auto';
+            chevron.style.transform = 'rotate(180deg)';
+            learningPathsBtn.style.background = '#f8f9fa';
+        }
+
+        function hideMegaMenu() {
+            megaMenu.style.opacity = '0';
+            megaMenu.style.transform = 'translate(-50%, 8px)';
+            megaMenu.style.pointerEvents = 'none';
+            chevron.style.transform = 'rotate(0deg)';
+            learningPathsBtn.style.background = 'transparent';
+        }
+
+        learningPathsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (isMenuOpen) {
+                hideMegaMenu();
+            } else {
+                showMegaMenu();
+            }
+            isMenuOpen = !isMenuOpen;
+        });
+
+        document.addEventListener('click', (e) => {
+            if (isMenuOpen && !megaMenu.contains(e.target) && !learningPathsBtn.contains(e.target)) {
+                hideMegaMenu();
+                isMenuOpen = false;
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+            if (isMenuOpen) {
+                hideMegaMenu();
+                isMenuOpen = false;
+            }
+        });
+
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        function toggleMobileMenu() {
+            const isOpen = mobileMenu.style.transform === 'translateX(0px)';
+            if (isOpen) {
+                mobileMenu.style.transform = 'translateX(100%)';
+                menuOverlay.style.display = 'none';
+            } else {
+                mobileMenu.style.transform = 'translateX(0)';
+                menuOverlay.style.display = 'block';
+            }
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuClose.addEventListener('click', toggleMobileMenu);
+        menuOverlay.addEventListener('click', () => {
+            mobileMenu.style.transform = 'translateX(100%)';
+            menuOverlay.style.display = 'none';
+        });
+
+        // Close on ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && window.innerWidth <= 768) {
+                mobileMenu.style.transform = 'translateX(100%)';
+                menuOverlay.style.display = 'none';
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                mobileMenu.style.transform = 'translateX(100%)';
+                menuOverlay.style.display = 'none';
+                if (isMenuOpen) {
+                    hideMegaMenu();
+                    isMenuOpen = false;
+                }
+            } else {
+                if (isMenuOpen) {
+                    hideMegaMenu();
+                    isMenuOpen = false;
+                }
+            }
+        });
+    </script>
