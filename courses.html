@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Scrollable Workshop Cards with Smaller Desktop Cards and Reduced Text Spacing</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -14,6 +13,8 @@
         }
         body {
             font-family: var(--font-ibm-plex-sans);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         /* Base styles for larger screens (Computer: ≥ 1024px) */
         .workshop-card {
@@ -21,12 +22,26 @@
             height: 450px;
             flex: 0 0 auto;
             cursor: grab;
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            border: 0.5px solid #000000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
         .workshop-card:active {
             cursor: grabbing;
         }
         .workshop-image {
             height: 240px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+        .workshop-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         .custom-button {
             background-color: var(--color-dark-teal);
@@ -66,14 +81,52 @@
         .nav-button:hover {
             background-color: #024a47;
         }
+        .flex {
+            display: flex;
+        }
+        .flex-col {
+            flex-direction: column;
+        }
+        .flex-grow {
+            flex-grow: 1;
+        }
+        .justify-center {
+            justify-content: center;
+        }
+        .items-center {
+            align-items: center;
+        }
+        .gap-2 {
+            gap: 0.5rem;
+        }
+        .gap-4 {
+            gap: 1rem;
+        }
+        .mt-auto {
+            margin-top: auto;
+        }
+        .mt-4 {
+            margin-top: 1rem;
+        }
+        .font-semibold {
+            font-weight: 600;
+        }
+        .font-normal {
+            font-weight: 400;
+        }
+        .font-medium {
+            font-weight: 500;
+        }
         /* Base text spacing for all devices */
         h2 {
             font-size: 1.5rem;
             margin-bottom: 0.75rem;
+            color: var(--color-dark-teal);
         }
         h3 {
             font-size: 1rem;
             margin-bottom: 1rem;
+            color: var(--color-dark-teal);
         }
         .duration-price {
             margin-bottom: 0.75rem;
@@ -83,9 +136,11 @@
         }
         .duration-price span {
             font-size: 1.25rem;
+            color: var(--color-dark-teal);
         }
         .price span {
             font-size: 1.25rem;
+            color: var(--color-dark-teal);
         }
         .p-6 {
             padding: 1rem;
@@ -230,12 +285,12 @@
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
     <div class="relative">
         <div class="scrollable-container" id="scrollableContainer">
             <!-- Card 1 -->
-            <div class="workshop-card bg-white rounded-3xl border flex flex-col overflow-hidden">
-                <div class="relative w-full workshop-image overflow-hidden">
+            <div class="workshop-card">
+                <div class="workshop-image">
                     <img 
                         alt="Generative AI Marketing Mastermind" 
                         loading="lazy" 
@@ -245,10 +300,10 @@
                     >
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
-                    <h2 class="font-semibold text-[var(--color-dark-teal)]">
+                    <h2 class="font-semibold">
                         Generative AI Marketing Mastermind
                     </h2>
-                    <h3 class="font-normal text-[var(--color-dark-teal)]">
+                    <h3 class="font-normal">
                         Learn the Basics of Digital Marketing in One Day
                     </h3>
                     <div class="flex items-center gap-2 duration-price">
@@ -256,13 +311,13 @@
                             <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--color-dark-teal)" stroke-width="2"></path>
                             <path d="M12 6V12L15 15" stroke="var(--color-dark-teal)" stroke-width="2" stroke-linecap="round"></path>
                         </svg>
-                        <span class="font-medium text-[var(--color-dark-teal)]">2 Days</span>
+                        <span class="font-medium">2 Days</span>
                     </div>
                     <div class="flex items-center gap-2 price">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <text x="12" y="16" font-size="12" text-anchor="middle" fill="var(--color-dark-teal)" font-family="var(--font-ibm-plex-sans)">₹</text>
+                            <text x="12" y="16" font-size="20" font-weight="bold" text-anchor="middle" fill="var(--color-dark-teal)" font-family="var(--font-ibm-plex-sans)">₹</text>
                         </svg>
-                        <span class="font-medium text-[var(--color-dark-teal)]">499</span>
+                        <span class="font-medium">499</span>
                     </div>
                     <div class="flex justify-center gap-4 mt-auto">
                         <a href="/workshops/marketing-mastermind/syllabus" class="custom-button">Syllabus</a>
@@ -271,8 +326,8 @@
                 </div>
             </div>
             <!-- Card 2 -->
-            <div class="workshop-card bg-white rounded-3xl border flex flex-col overflow-hidden">
-                <div class="relative w-full workshop-image overflow-hidden">
+            <div class="workshop-card">
+                <div class="workshop-image">
                     <img 
                         alt="Generative AI Marketing Mastermind" 
                         loading="lazy" 
@@ -282,10 +337,10 @@
                     >
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
-                    <h2 class="font-semibold text-[var(--color-dark-teal)]">
+                    <h2 class="font-semibold">
                         Generative AI Marketing Mastermind
                     </h2>
-                    <h3 class="font-normal text-[var(--color-dark-teal)]">
+                    <h3 class="font-normal">
                         Learn the Basics of Digital Marketing in One Day
                     </h3>
                     <div class="flex items-center gap-2 duration-price">
@@ -293,13 +348,13 @@
                             <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--color-dark-teal)" stroke-width="2"></path>
                             <path d="M12 6V12L15 15" stroke="var(--color-dark-teal)" stroke-width="2" stroke-linecap="round"></path>
                         </svg>
-                        <span class="font-medium text-[var(--color-dark-teal)]">2 Days</span>
+                        <span class="font-medium">2 Days</span>
                     </div>
                     <div class="flex items-center gap-2 price">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <text x="12" y="16" font-size="12" text-anchor="middle" fill="var(--color-dark-teal)" font-family="var(--font-ibm-plex-sans)">₹</text>
+                            <text x="12" y="16" font-size="20" font-weight="bold" text-anchor="middle" fill="var(--color-dark-teal)" font-family="var(--font-ibm-plex-sans)">₹</text>
                         </svg>
-                        <span class="font-medium text-[var(--color-dark-teal)]">499</span>
+                        <span class="font-medium">499</span>
                     </div>
                     <div class="flex justify-center gap-4 mt-auto">
                         <a href="/workshops/marketing-mastermind/syllabus" class="custom-button">Syllabus</a>
@@ -308,8 +363,8 @@
                 </div>
             </div>
             <!-- Card 3 -->
-            <div class="workshop-card bg-white rounded-3xl border flex flex-col overflow-hidden">
-                <div class="relative w-full workshop-image overflow-hidden">
+            <div class="workshop-card">
+                <div class="workshop-image">
                     <img 
                         alt="Generative AI Marketing Mastermind" 
                         loading="lazy" 
@@ -319,10 +374,10 @@
                     >
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
-                    <h2 class="font-semibold text-[var(--color-dark-teal)]">
+                    <h2 class="font-semibold">
                         Generative AI Marketing Mastermind
                     </h2>
-                    <h3 class="font-normal text-[var(--color-dark-teal)]">
+                    <h3 class="font-normal">
                         Learn the Basics of Digital Marketing in One Day
                     </h3>
                     <div class="flex items-center gap-2 duration-price">
@@ -330,13 +385,13 @@
                             <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--color-dark-teal)" stroke-width="2"></path>
                             <path d="M12 6V12L15 15" stroke="var(--color-dark-teal)" stroke-width="2" stroke-linecap="round"></path>
                         </svg>
-                        <span class="font-medium text-[var(--color-dark-teal)]">2 Days</span>
+                        <span class="font-medium">2 Days</span>
                     </div>
                     <div class="flex items-center gap-2 price">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <text x="12" y="16" font-size="12" text-anchor="middle" fill="var(--color-dark-teal)" font-family="var(--font-ibm-plex-sans)">₹</text>
+                            <text x="12" y="16" font-size="20" font-weight="bold" text-anchor="middle" fill="var(--color-dark-teal)" font-family="var(--font-ibm-plex-sans)">₹</text>
                         </svg>
-                        <span class="font-medium text-[var(--color-dark-teal)]">499</span>
+                        <span class="font-medium">499</span>
                     </div>
                     <div class="flex justify-center gap-4 mt-auto">
                         <a href="/workshops/marketing-mastermind/syllabus" class="custom-button">Syllabus</a>
