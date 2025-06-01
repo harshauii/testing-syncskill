@@ -1258,7 +1258,7 @@ html, body {
     <script>
         const container = document.getElementById('scrollableContainer');
         let isDragging = false;
-        let startX;
+        let startX, startY;
         let scrollLeft;
 
         container.addEventListener('mousedown', (e) => {
@@ -1282,7 +1282,7 @@ html, body {
             if (!isDragging) return;
             e.preventDefault();
             const x = e.pageX - container.offsetLeft;
-            const walk = (x - startX) * 1; // Reduced multiplier for slower swiping
+            const walk = (x - startX) * 0.5; // Slower swiping
             container.scrollLeft = scrollLeft - walk;
         });
 
@@ -1290,6 +1290,7 @@ html, body {
         container.addEventListener('touchstart', (e) => {
             isDragging = true;
             startX = e.touches[0].pageX - container.offsetLeft;
+            startY = e.touches[0].pageY; // Store initial Y position
             scrollLeft = container.scrollLeft;
         });
 
@@ -1299,10 +1300,18 @@ html, body {
 
         container.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
-            e.preventDefault();
             const x = e.touches[0].pageX - container.offsetLeft;
-            const walk = (x - startX) * 0.5; // Reduced multiplier for slower swiping
-            container.scrollLeft = scrollLeft - walk;
+            const y = e.touches[0].pageY;
+            const deltaX = Math.abs(x - startX);
+            const deltaY = Math.abs(y - startY);
+
+            // Only prevent default if horizontal movement is greater than vertical
+            if (deltaX > deltaY) {
+                e.preventDefault(); // Prevent vertical scroll for horizontal swipe
+                const walk = (x - startX) * 0.5; // Slower swiping
+                container.scrollLeft = scrollLeft - walk;
+            }
+            // If vertical movement is greater, allow default behavior (vertical scroll)
         });
 
         // Navigation buttons
