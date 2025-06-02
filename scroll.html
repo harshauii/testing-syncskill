@@ -182,30 +182,35 @@ Feedback
                     threshold: 0.1 // Trigger when 10% of card is visible
                 });
 
-                // Observer to apply hover effect when card's center crosses viewport midpoint
-                const midpointObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        const rect = entry.boundingClientRect;
-                        const viewportHeight = window.innerHeight;
-                        const midpoint = viewportHeight / 2;
+                // Scroll event listener for hover effect
+                const updateHoverEffect = () => {
+                    const viewportHeight = window.innerHeight;
+                    const midpoint = viewportHeight / 2;
+
+                    cards.forEach(card => {
+                        const rect = card.getBoundingClientRect();
                         const cardCenter = rect.top + rect.height / 2;
 
-                        // Apply active class when card center is within 50px of viewport midpoint
-                        if (Math.abs(cardCenter - midpoint) < 50) {
-                            entry.target.classList.add('active');
+                        // Apply active class when card center is within 30px of viewport midpoint
+                        if (Math.abs(cardCenter - midpoint) <= 30) {
+                            card.classList.add('active');
                         } else {
-                            entry.target.classList.remove('active');
+                            card.classList.remove('active');
                         }
                     });
-                }, {
-                    root: null,
-                    rootMargin: '0px',
-                    threshold: [0, 0.25, 0.5, 0.75, 1] // Fine-grained thresholds for smoother detection
-                });
+                };
 
-                cards.forEach(card => {
-                    visibilityObserver.observe(card);
-                    midpointObserver.observe(card);
+                // Initial check and attach scroll listener
+                updateHoverEffect();
+                window.addEventListener('scroll', updateHoverEffect);
+
+                // Observe for visibility
+                cards.forEach(card => visibilityObserver.observe(card));
+
+                // Clean up scroll listener on resize
+                window.addEventListener('resize', () => {
+                    window.removeEventListener('scroll', updateHoverEffect);
+                    initScrollEffect();
                 });
             } else {
                 // Ensure cards are visible on desktop without animation
@@ -220,7 +225,6 @@ Feedback
         document.addEventListener('DOMContentLoaded', initScrollEffect);
         // Re-run on window resize to handle orientation changes
         window.addEventListener('resize', () => {
-            // Clean up previous observers to avoid memory leaks
             document.querySelectorAll('.hover-scale').forEach(card => {
                 card.classList.remove('active', 'card-hidden', 'card-visible');
             });
