@@ -3041,36 +3041,6 @@ Newsletter
                     rootMargin: '0px',
                     threshold: 0.15
                 });
-
-                // Scroll-based hover effect
-                const updateHoverEffect = () => {
-                    const viewportHeight = window.innerHeight;
-                    const midpoint = viewportHeight / 2;
-
-                    cards.forEach(card => {
-                        const rect = card.getBoundingClientRect();
-                        const cardCenter = rect.top + rect.height / 2;
-
-                        if (Math.abs(cardCenter - midpoint) <= 60) {
-                            card.classList.add('active');
-                        } else {
-                            card.classList.remove('active');
-                        }
-                    });
-                };
-
-                // Initial check and attach listeners
-                updateHoverEffect();
-                window.addEventListener('scroll', updateHoverEffect);
-                cards.forEach(card => visibilityObserver.observe(card));
-
-                // Clean up on resize
-                window.addEventListener('resize', () => {
-                    window.removeEventListener('scroll', updateHoverEffect);
-                    visibilityObserver.disconnect();
-                    initScrollEffect();
-                });
-            } else {
                 // Desktop: Show all cards with staggered animations
                 cards.forEach((card, index) => {
                     setTimeout(() => {
