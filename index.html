@@ -2155,229 +2155,165 @@ Newsletter
 
 
 
- <div class="section-wrapper">
-    <a href="YOUR_LINK_HERE" role="button" aria-label="Career recommendation" tabindex="0" class="card-link">
-      <div class="card-container">
-        <div class="grid-overlay"></div>
-        <div class="card-text">
-          <h3>Not sure what you're interested in?</h3>
-          <div class="card-cta">
-            <span>Join our Free Career Guidance Session</span>
-            <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true">
-              <path d="M6.25 13.75L13.75 6.25M13.75 6.25H6.25M13.75 6.25V13.75" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
+<div class="banner-wrapper">
+  <a href="https://d31bwppm8yl9g2.cloudfront.net/learner/website/footgs.svg" class="promo-banner-link">
+    <div class="promo-banner">
+      <div class="promo-content">
+        <div class="promo-text">
+          <h1>Still Unsure?</h1>
+          <p>Find your next Career Move <span class="arrow">→</span></p>
         </div>
-        <div class="card-image" style="background-image: url('webinar.png');"></div>
+        <div class="promo-image">
+          <img src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/footgs.svg" alt="Demo" />
+        </div>
       </div>
-    </a>
-  </div>
-<style>
- .section-wrapper {
-      width: 100%;
-      max-width: calc(100% - 260px); /* Account for 130px left + 130px right margins */
-      margin-left: 130px;
-      margin-right: 130px;
-      padding: 60px 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    </div>
+  </a>
+</div>
+<STYLE>
+  /* RESET DEFAULT MARGINS/PADDING */
+html, body {
+  margin: 0;
+  padding: 0;
+}
 
-    .card-link {
-      text-decoration: none;
-      width: 100%;
-      max-width: 1150px;
-      display: block;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+/* WRAPPER PADDING */
+.banner-wrapper {
+  padding-left: 150px;
+  padding-right: 150px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+}
 
-    .card-link:focus {
-      outline: 2px solid #3b82f6;
-      outline-offset: 4px;
-    }
+/* MOBILE WRAPPER PADDING */
+@media (max-width: 768px) {
+  .banner-wrapper {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
 
-    .card-container {
-      position: relative;
-      width: 100%;
-      height: 180px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #3b82f6, #1e40af);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 24px 32px;
-      gap: 24px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.05);
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
+/* MAKE BANNER CLICKABLE */
+.promo-banner-link {
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-    .card-container:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(37, 99, 235, 0.25), 0 3px 8px rgba(0, 0, 0, 0.1);
-      background: linear-gradient(135deg, #2563eb, #1e3a8a);
-    }
+/* HOVER EFFECT */
+.promo-banner-link:hover .promo-banner {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transform: scale(1.01);
+}
 
-    .grid-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 1px, transparent 1px);
-      background-size: 16px 16px;
-      opacity: 0.3;
-      pointer-events: none;
-      z-index: 1;
-      animation: subtleMove 15s linear infinite;
-    }
+/* MAIN BANNER */
+.promo-banner {
+  width: 100%;
+  max-width: 948px;
+  height: 202px;
+  background: linear-gradient(to right, rgb(0, 10, 38), rgb(1, 45, 152));
+  border-radius: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
 
-    .card-text {
-      position: relative;
-      z-index: 2;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      animation: slideIn 0.5s ease-out;
-    }
+/* FLEX LAYOUT */
+.promo-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    .card-text h3 {
-      font-size: clamp(1.25rem, 2.5vw, 1.5rem);
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 8px;
-      line-height: 1.3;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    }
+/* TEXT SECTION */
+.promo-text {
+  margin-left: 56px;
+  text-align: left;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-    .card-cta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #ffffff;
-      font-weight: 600;
-      font-size: clamp(0.875rem, 2vw, 1rem);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      transition: color 0.3s ease;
-    }
+.promo-text h1 {
+  font-size: 29px;
+  line-height: 34px;
+  margin: 0;
+  padding: 0;
+}
 
-    .card-cta svg {
-      width: 18px;
-      height: 18px;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+.promo-text p {
+  font-size: 14px;
+  line-height: 19px;
+  margin: 12px 0 0 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
 
-    .card-container:hover .card-cta {
-      color: #e0f2fe;
-    }
+.promo-text .arrow {
+  color: #2acc71;
+  font-size: 16px;   /* Slightly increased */
+  line-height: 22px;
+  margin-left: 6px;
+}
 
-    .card-container:hover .card-cta svg {
-      transform: translateX(5px) rotate(45deg);
-      stroke: #e0f2fe;
-    }
+/* IMAGE SECTION */
+.promo-image {
+  margin-right: 56px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .card-image {
-      position: relative;
-      z-index: 2;
-      width: 100px;
-      height: 100px;
-      flex-shrink: 0;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      border-radius: 12px;
-      transition: transform 0.4s ease;
-      transform: perspective(800px) translateZ(0);
-    }
+.promo-image img {
+  height: 135px;
+  width: auto;
+}
 
-    .card-container:hover .card-image {
-      transform: perspective(800px) translateZ(15px);
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes subtleMove {
-      0% {
-        background-position: 0 0;
-      }
-      100% {
-        background-position: 32px 32px;
-      }
-    }
-
-    /* Tablet and Mobile */
-   @media (max-width: 768px) {
-  .section-wrapper {
-    max-width: calc(100% - 80px); /* Keep reduced width */
-    margin: 0 auto;               /* Center horizontally */
-    padding: 30px 0;              /* Simplified padding */
+/* ✅ MOBILE-SPECIFIC STYLES */
+@media (max-width: 768px) {
+  .promo-banner {
+    height: 120px;            /* Shrunk from 160px */
+    border-radius: 18px;      /* Reduced for less pill-like appearance */
   }
 
+  .promo-text {
+    margin-left: 16px;
+  }
 
+  .promo-text h1 {
+    font-size: 13px;
+    line-height: 18px;
+  }
 
-      .card-container {
-        height: 160px;
-        padding: 20px 24px;
-        gap: 16px;
-      }
+  .promo-text p {
+    font-size: 8px;
+    line-height: 12px;
+  }
 
-      .card-text h3 {
-        font-size: clamp(1.125rem, 3vw, 1.25rem);
-      }
+  .promo-text .arrow {
+    font-size: 10px;         /* Increased slightly from 8px */
+    line-height: 14px;
+    margin-left: 4px;
+  }
 
-      .card-cta {
-        font-size: clamp(0.75rem, 2.5vw, 0.875rem);
-      }
+  .promo-image {
+    margin-right: 16px;
+  }
 
-      .card-image {
-        width: 80px;
-        height: 80px;
-      }
-    }
+  .promo-image img {
+    height: 60px;            /* Smaller image on mobile */
+  }
+}
 
-    @media (max-width: 480px) {
-      .section-wrapper {
-        max-width: calc(100% - 40px); /* Further reduced margins for mobile */
-        margin-left: 20px;
-        margin-right: 20px;
-        padding: 12px;
-      }
-
-      .card-container {
-        height: 140px;
-        padding: 16px 20px;
-      }
-
-      .card-text h3 {
-        font-size: clamp(1rem, 2.8vw, 1.125rem);
-      }
-
-      .card-cta {
-        font-size: clamp(0.7rem, 2.2vw, 0.8rem);
-      }
-
-      .card-image {
-        width: 60px;
-        height: 60px;
-      }
-    }
-</style>
-
-
+</STYLE>
 
 
 
