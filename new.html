@@ -385,5 +385,260 @@
         }
     </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <style>
+    /* Global Reset */
+
+    /* Cards Container */
+    .cards-container {
+      width: 100%;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 0px 12px;
+    }
+
+    /* Single Card (Now a Button) */
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 16px;
+      padding: 16px;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      cursor: pointer;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: inherit;
+      font-family: inherit;
+    }
+
+    .card:hover, .card:focus {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      outline: none;
+    }
+
+    .card:focus-visible {
+      outline: 2px solid #1A73E8;
+      outline-offset: 2px;
+    }
+
+    /* Specific Card Backgrounds with Subtle Gradients */
+    .card.nyt {
+      background: linear-gradient(145deg, #FEF8E6, #FDF6D8);
+    }
+    .card.google {
+      background: linear-gradient(145deg, #E9E6F7, #E0DDF5);
+    }
+    .card.wallgrace {
+      background: linear-gradient(145deg, #FBEFEE, #F9E8E7);
+    }
+
+    /* Left Side (Icon + Text) */
+    .card-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Icon Wrapper */
+    .icon-wrapper {
+      width: 56px;
+      height: 56px;
+      background-color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+
+
+    .icon-wrapper img {
+      max-width: 32px;
+      max-height: 32px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+
+
+    /* Info Block */
+    .info-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .company-name {
+      font-size: 18px;
+      font-weight কর্মচারী 700;
+      color: #121212;
+      line-height: 24px;
+      margin-bottom: 4px;
+      transition: color 0.3s ease;
+    }
+
+    .card:hover .company-name, .card:focus .company-name {
+      color: #1A73E8;
+    }
+
+    .sub-text {
+      font-size: 13px;
+      font-weight: 400;
+      color: #4B5563;
+      line-height: 18px;
+      opacity: 0.9;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover .sub-text, .card:focus .sub-text {
+      opacity: 1;
+    }
+
+    /* Bottom Info */
+    .bottom-info {
+      position: absolute;
+      left: 88px;
+      bottom: 16px;
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      color: #6B7280;
+      font-weight: 400;
+      line-height: 16px;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover .bottom-info, .card:focus .bottom-info {
+      opacity: 1;
+    }
+
+    .bottom-info span:not(:last-child) {
+      margin-right: 16px;
+    }
+
+    /* Right Side (Modern Arrow) */
+    .arrow-wrapper {
+      width: 40px;
+      height: 40px;
+      background: rgba(65, 191, 128, 0.15);
+      border: 2px solid #41BF80;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, background 0.3s ease;
+      overflow: hidden;
+    }
+
+    .card:hover .arrow-wrapper, .card:focus .arrow-wrapper {
+      background: #002726;
+      border: 2px #002726;
+    }
+
+    .arrow-wrapper svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: #002726;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.3s ease, stroke 0.3s ease;
+      transform: translateX(0);
+    }
+
+    .card:hover .arrow-wrapper svg, .card:focus .arrow-wrapper svg {
+      stroke: #FFFFFF;
+    }
+  </style>
+
+  <div class="cards-container">
+    <!-- Card #1: New York Times -->
+    <button class="card nyt" aria-label="View New York Times details">
+      <div class="card-left">
+        <div class="icon-wrapper">
+          <img src="https://cdn.iconscout.com/icon/free/png-256/free-new-york-times-282250.png" alt="NYT Logo">
+        </div>
+        <div class="info-block">
+          <div class="company-name">New York Times</div>
+          <div class="sub-text">32 Applicants</div>
+        </div>
+      </div>
+      <div class="arrow-wrapper">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12H19M19 12L12 5M19 12L12 19"/>
+        </svg>
+      </div>
+    </button>
+
+    <!-- Card #2: Google LLC -->
+    <button class="card google" aria-label="View Google LLC details">
+      <div class="card-left">
+        <div class="icon-wrapper">
+          <img src="https://cdn.iconscout.com/icon/free/png-256/free-google-logo-icon-download-in-svg-png-gif-file-formats--brands-pack-logos-icons-189824.png?f=webp&w=256" alt="Google Logo">
+        </div>
+        <div class="info-block">
+          <div class="company-name">Google LLC</div>
+          <div class="sub-text">45 Applicants</div>
+        </div>
+      </div>
+      <div class="arrow-wrapper">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12H19M19 12L12 5M19 12L12 19"/>
+        </svg>
+      </div>
+    </button>
+
+    <!-- Card #3: WallGrace Vintage -->
+    <button class="card wallgrace" aria-label="View WallGrace Vintage details">
+      <div class="card-left">
+        <div class="icon-wrapper">
+          <img src="https://cdn.iconscout.com/icon/free/png-256/free-vintage-282250.png" alt="WallGrace Logo">
+        </div>
+        <div class="info-block">
+          <div class="company-name">WallGrace Vintage</div>
+          <div class="sub-text">12 Applicants</div>
+        </div>
+      </div>
+      <div class="arrow-wrapper">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12H19M19 12L12 5M19 12L12 19"/>
+        </svg>
+      </div>
+    </button>
+  </div>
 </body>
 </html>
