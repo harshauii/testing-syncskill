@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Merged UI</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #FEFDF9;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .page-wrapper {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .subscription-card {
+      background-color: #002726;
+      border-radius: 24px;
+      padding: 32px 24px;
+      width: 100%;
+      max-width: 360px;
+      color: #FFFFFF;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .subscription-card h1 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .subscription-card p {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .subscription-card .btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      color: #41BF80;
+      border: 2px solid #41BF80;
+      border-radius: 50px;
+      padding: 12px 0;
+      background-color: rgba(65, 191, 128, 0.15);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .subscription-card .btn:hover {
+      background-color: #FFFFFF;
+    }
+
+    .still-not-sure {
+      width: 100%;
+      max-width: 360px;
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      margin-top: 20px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      box-sizing: border-box;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      color: #0F2123;
+    }
+
+    .still-not-sure span.arrow {
+      font-size: 18px;
+      line-height: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .card-row {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="card-row">
+          <!-- Subscription Card -->
+      <div class="subscription-card">
+        <h1>Get Full Access</h1>
+        <p>You're partially subscribed. Upgrade to unlock full course content and resources.</p>
+        <a href="#" class="btn">Upgrade Now</a>
+      </div>
+
+    <!-- Still Not Sure Section -->
+    <a href="#" class="still-not-sure">
+      <span>Still Not Sure?</span>
+      <span class="arrow">➔</span>
+    </a>
+    
+
+    </div>
+  </div>
+</body>
+</html>
