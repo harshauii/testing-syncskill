@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Merged UI</title>
+<head>
   <style>
     body {
       margin: 0;
@@ -31,13 +32,13 @@
       flex-direction: column;
     }
 
-    .subscription-card h1 {
+    .subscription-card .card-title {
       font-size: 26px;
       font-weight: 600;
       margin-bottom: 12px;
     }
 
-    .subscription-card p {
+    .subscription-card .card-text {
       font-size: 16px;
       line-height: 1.5;
       margin-bottom: 24px;
@@ -81,7 +82,13 @@
       color: #0F2123;
     }
 
-    .still-not-sure span.arrow {
+    .still-not-sure .sns-text {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+    }
+
+    .still-not-sure .sns-arrow {
       font-size: 18px;
       line-height: 24px;
     }
@@ -93,30 +100,32 @@
       }
     }
   </style>
-</head>
-<body>
+
   <div class="page-wrapper">
     <div class="card-row">
-          <!-- Subscription Card -->
+      <!-- Subscription Card -->
       <div class="subscription-card">
-        <h1>Get Full Access</h1>
-        <p>You're partially subscribed. Upgrade to unlock full course content and resources.</p>
+        <div class="card-title">Get Full Access</div>
+        <div class="card-text">You're partially subscribed. Upgrade to unlock full course content and resources.</div>
         <a href="#" class="btn">Upgrade Now</a>
       </div>
 
-    <!-- Still Not Sure Section -->
-    <a href="#" class="still-not-sure">
-      <span>Still Not Sure?</span>
-      <span class="arrow">➔</span>
-    </a>
-    
-
+      <!-- Still Not Sure Section -->
+      <a href="#" class="still-not-sure">
+        <span class="sns-text">Still Not Sure?</span>
+        <span class="sns-arrow">➔</span>
+      </a>
     </div>
   </div>
-  
-  
-  
-  
+
+  <div style="
+    height: 2px;
+    background: linear-gradient(to right, #ffffff, #002726, #002726, #ffffff);
+    margin: 20px 0;
+  "></div>
+
+
+
   
   
   
@@ -399,6 +408,240 @@
 
 
 
+<div style="max-width: 1280px; margin: 0 auto; padding: 32px 12px;">
+    <div style="display: grid; grid-template-columns: 1fr; gap: 24px;">
+        <main style="max-width: 800px; margin: 0 auto;">
+            <div style="background: #FFFFFF; border-radius: 12px; padding: 24px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
+                <h2 style="font-size: 1.1rem; font-weight: 700; color: #002726; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #D1D5DB;">Course Outline</h2>
+
+                <!-- Module 1 -->
+                <div class="dropdown-item" role="region" aria-labelledby="dropdown-module1-header" style="margin-bottom: 12px; border: 1px solid #D1D5DB; border-radius: 10px; overflow: hidden; transition: all 0.3s ease-in-out;">
+                    <div class="dropdown-header" id="dropdown-module1-header" role="button" aria-expanded="false" tabindex="0" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; cursor: pointer; background: #FFFFFF; transition: background 0.3s ease-in-out;">
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <div style="width: 36px; height: 36px; border-radius: 50%; background: #002726; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">1</div>
+                            <div>
+                                <h3 style="font-size: 1.15rem; font-weight: 600; color: #111827; margin: 0;">AI Fundamentals</h3>
+                                <p style="font-size: 0.95rem; color: #6B7280; margin: 4px 0 0;">Learn the basics of AI and its applications.</p>
+                            </div>
+                        </div>
+                        <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" style="transition: transform 0.3s ease-in-out;">
+                            <path d="M12 5v14m-7-7h14" stroke="#002726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                    <div class="dropdown-content" style="max-height: 0; overflow: hidden; padding: 0 20px; transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out; background: #F9FAFB;">
+                        <ul style="list-style: none; padding: 0; margin: 16px 0;">
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 0.95rem;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px; margin-top: 4px; flex-shrink: 0;">
+                                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"></circle>
+                                </svg>
+                                Understand core AI concepts and terminology
+                            </li>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 0.95rem;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px; margin-top: 4px; flex-shrink: 0;">
+                                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"></circle>
+                                </svg>
+                                Explore real-world AI use cases
+                            </li>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 0.95rem;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px; margin-top: 4px; flex-shrink: 0;">
+                                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"></circle>
+                                </svg>
+                                Identify AI career opportunities
+                            </li>
+                        </ul>
+                        <p style="font-style: italic; padding: 12px 16px; background: rgba(0, 39, 38, 0.08); border-left: 3px solid #002726; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 0.95rem; color: #374151; line-height: 1.5;">
+                            📍 Why it matters: A strong AI foundation sets you up for success in advanced topics.
+                        </p>
+                        <a href="module1.html" aria-label="Start AI Fundamentals module" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #002726, #004D4A); color: #FFFFFF; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.3s ease-in-out; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); text-align: center;">Start Module</a>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="dropdown-item" role="region" aria-labelledby="dropdown-module2-header" style="margin-bottom: 12px; border: 1px solid #D1D5DB; border-radius: 10px; overflow: hidden; transition: all 0.3s ease-in-out;">
+                    <div class="dropdown-header" id="dropdown-module2-header" role="button" aria-expanded="false" tabindex="0" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; cursor: pointer; background: #FFFFFF; transition: background 0.3s ease-in-out;">
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <div style="width: 36px; height: 36px; border-radius: 50%; background: #002726; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">2</div>
+                            <div>
+                                <h3 style="font-size: 1.15rem; font-weight: 600; color: #111827; margin: 0;">Prompt Crafting</h3>
+                                <p style="font-size: 0.95rem; color: #6B7280; margin: 4px 0 0;">Optimize AI interactions with effective prompts.</p>
+                            </div>
+                        </div>
+                        <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" style="transition: transform 0.3s ease-in-out;">
+                            <path d="M12 5v14m-7-7h14" stroke="#002726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                    <div class="dropdown-content" style="max-height: 0; overflow: hidden; padding: 0 20px; transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out; background: #F9FAFB;">
+                        <ul style="list-style: none; padding: 0; margin: 16px 0;">
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 0.95rem;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px; margin-top: 4px; flex-shrink: 0;">
+                                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"></circle>
+                                </svg>
+                                Master prompt engineering techniques
+                            </li>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 0.95rem;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px; margin-top: 4px; flex-shrink: 0;">
+                                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"></circle>
+                                </svg>
+                                Create prompts for content and code generation
+                            </li>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 0.95rem;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px; margin-top: 4px; flex-shrink: 0;">
+                                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"></circle>
+                                </svg>
+                                Apply prompts in professional scenarios
+                            </li>
+                        </ul>
+                        <p style="font-style: italic; padding: 12px 16px; background: rgba(0, 39, 38, 0.08); border-left: 3px solid #002726; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 0.95rem; color: #374151; line-height: 1.5;">
+                            📍 Why it matters: Effective prompts unlock AI's full potential.
+                        </p>
+                        <a href="module2.html" aria-label="Start Prompt Crafting module" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #002726, #004D4A); color: #FFFFFF; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.3s ease-in-out; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); text-align: center;">Start Module</a>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="dropdown-item" role="region" aria-labelledby="dropdown-module3-header" style="margin-bottom: 12px; border: 1px solid #D1D5DB; border-radius: 10px; overflow: hidden; transition: all 0.3s ease-in-out;">
+                    <div class="dropdown-header" id="dropdown-module3-header" role="button" aria-expanded="false" tabindex="0" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; cursor: pointer; background: #FFFFFF; transition: background 0.3s ease-in-out;">
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <div style="width: 36px; height: 36px; border-radius: 50%; background: #002726; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">3</div>
+                            <div>
+                                <h3 style="font-size: 1.15rem; font-weight: 600; color: #111827; margin: 0;">AI Project Building</h3>
+                                <p style="font-size: 0.95rem; color: #6B7280; margin: 4px 0 0;">Create impactful AI projects.</p>
+                            </div>
+                        </div>
+                        <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" style="transition: transform 0.3s ease-in-out;">
+                            <path d="M12 5v14m-7-7h14" stroke="#002726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                    <div class="dropdown-content" style="max-height: 0; overflow: hidden; padding: 0 20px; transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out; background: #F9FAFB;">
+                        <ul style="list-style: none; padding: 0; margin: 16px 0;">
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 0.95rem;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px; margin-top: 4px; flex-shrink: 0;">
+                                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"></circle>
+                                </svg>
+                                Design and build an AI-powered project
+                            </li>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 0.95rem;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px; margin-top: 4px; flex-shrink: 0;">
+                                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"></circle>
+                                </svg>
+                                Use tools like LangChain and Midjourney
+                            </li>
+                            <li style="display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 0.95rem;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px; margin-top: 4px; flex-shrink: 0;">
+                                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"></circle>
+                                </svg>
+                                Showcase your project in a portfolio
+                            </li>
+                        </ul>
+                        <p style="font-style: italic; padding: 12px 16px; background: rgba(0, 39, 38, 0.08); border-left: 3px solid #002726; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 0.95rem; color: #374151; line-height: 1.5;">
+                            📍 Why it matters: Projects demonstrate your skills to employers.
+                        </p>
+                        <a href="module3.html" aria-label="Start AI Project Building module" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #002726, #004D4A); color: #FFFFFF; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.3s ease-in-out; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); text-align: center;">Start Module</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<style>
+    .dropdown-item:hover {
+        border-color: #004D4A;
+        box-shadow: 0 4px 12px rgba(0, 39, 38, 0.1);
+    }
+    .dropdown-header:hover {
+        background: rgba(0, 39, 38, 0.05);
+    }
+    a:hover {
+        background: linear-gradient(135deg, #004D4A, #41BF80);
+        transform: scale(1.03);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    @media (max-width: 600px) {
+        div[style*="max-width: 1280px"] {
+            padding: 24px 8px;
+        }
+        h2[style*="font-size: 1.1rem"] {
+            font-size: 0.95rem;
+        }
+        .dropdown-header {
+            padding: 12px 16px;
+        }
+        div[style*="width: 36px"] {
+            width: 32px;
+            height: 32px;
+            font-size: 0.85rem;
+        }
+        h3[style*="font-size: 1.15rem"] {
+            font-size: 1rem;
+        }
+        p[style*="font-size: 0.95rem"] {
+            font-size: 0.9rem;
+        }
+        a[style*="padding: 12px 24px"] {
+            padding: 10px 20px;
+            font-size: 0.95rem;
+        }
+    }
+</style>
+
+<script>
+    document.querySelectorAll('.dropdown-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Close all other dropdown items
+            document.querySelectorAll('.dropdown-item').forEach(i => {
+                if (i !== item) {
+                    i.classList.remove('active');
+                    i.querySelector('.dropdown-header').setAttribute('aria-expanded', 'false');
+                    i.querySelector('.dropdown-icon').style.transform = 'rotate(0deg)';
+                    i.querySelector('.dropdown-content').style.maxHeight = '0';
+                }
+            });
+
+            // Toggle the clicked item
+            if (isActive) {
+                item.classList.remove('active');
+                header.setAttribute('aria-expanded', 'false');
+                item.querySelector('.dropdown-icon').style.transform = 'rotate(0deg)';
+                item.querySelector('.dropdown-content').style.maxHeight = '0';
+            } else {
+                item.classList.add('active');
+                header.setAttribute('aria-expanded', 'true');
+                item.querySelector('.dropdown-icon').style.transform = 'rotate(45deg)';
+                item.querySelector('.dropdown-content').style.maxHeight = item.querySelector('.dropdown-content').scrollHeight + 'px';
+            }
+        });
+
+        header.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                header.click();
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -409,11 +652,13 @@
     /* Cards Container */
     .cards-container {
       width: 100%;
-      max-width: 360px;
+  max-width: 380px;       /* match or exceed card max-width */
+  margin: 0 auto;         /* center container horizontally */
       display: flex;
       flex-direction: column;
       gap: 16px;
       padding: 0px 12px;
+      
     }
 
     /* Single Card (Now a Button) */
@@ -432,6 +677,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       border: none;
       width: 100%;
+      max-width: 380px;
       text-align: left;
       font-size: inherit;
       font-family: inherit;
