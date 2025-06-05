@@ -13,7 +13,7 @@
 
   <style>
     /* =====================================================
-       GLOBAL RESET & BODY (white background behind entire app)
+       GLOBAL RESET & BODY
        ===================================================== */
     * {
       margin: 0;
@@ -41,7 +41,6 @@
       box-shadow: 0 0 0 rgba(255, 0, 0, 0.7);
       animation: pulse 1.5s infinite;
     }
-
     @keyframes pulse {
       0% {
         transform: scale(0.9);
@@ -70,7 +69,7 @@
     }
 
     /* =========================
-       HEADER: “Date” + “Hi, Kathryn” + Profile
+       HEADER: Date + Greeting + Profile
        ========================= */
     .header {
       width: 100%;
@@ -98,77 +97,18 @@
       color: #1D1D1D;
     }
 
-    .header .profile-wrapper {
-      position: relative;
-      width: 64px;
-      height: 64px;
-      flex-shrink: 0;
-    }
-    .header .profile-wrapper img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-    .header .profile-wrapper .online-indicator {
-      position: absolute;
-      top: 4px;
-      right: 4px;
-      width: 16px;
-      height: 16px;
-      background-color: #3B82F6;
-      border: 2px solid #FFFFFF;
-      border-radius: 50%;
-    }
-
-    /* =====================
-       SEARCH BAR (responsive)
-       ===================== */
-    .search-bar {
-      width: calc(100% - 48px); /* always 24px padding on each side */
-      height: 56px;
-      margin: 0 auto 32px;
-      position: relative;
-    }
-    .search-bar input {
-      width: 100%;
-      height: 100%;
-      padding-left: 24px;
-      padding-right: 56px;
-      border: none;
-      border-radius: 16px;
-      background-color: #F6F6F6;
-      font-size: 20px;
-      line-height: 24px;
-      color: #8F8F8F;
-    }
-    .search-bar input::placeholder {
-      color: #8F8F8F;
-      opacity: 1;
-    }
-    .search-bar .icon-search {
-      position: absolute;
-      top: 50%;
-      right: 24px;
-      transform: translateY(-50%);
-      width: 20px;
-      height: 20px;
-      fill: #8F8F8F;
-    }
 
     /* =====================================================
-       NEW SUBSCRIPTION CARD (replacing the banner)
-       Assigned the exact old-banner size: width and height
+       SUBSCRIPTION CARD (in place of banner)
        ===================================================== */
     .subscription-wrapper {
-      width: calc(100% - 48px); /* same as old banner: 476px when container is 524px */
-      height: 200px;            /* same height as old banner */
-      margin: 0 auto 40px;      /* same bottom margin as old banner */
+      width: calc(100% - 48px);
+      height: 200px;
+      margin: 0 auto 40px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
     .subscription-card {
       background-color: #002726;
       border-radius: 24px;
@@ -181,19 +121,16 @@
       flex-direction: column;
       justify-content: center;
     }
-
     .subscription-card .card-title {
       font-size: 26px;
       font-weight: 600;
       margin-bottom: 12px;
     }
-
     .subscription-card .card-text {
       font-size: 16px;
       line-height: 1.5;
       margin-bottom: 24px;
     }
-
     .subscription-card .btn {
       display: block;
       width: 100%;
@@ -208,14 +145,13 @@
       background-color: rgba(65, 191, 128, 0.15);
       transition: background-color 0.2s ease, color 0.2s ease;
     }
-
     .subscription-card .btn:hover {
       background-color: #FFFFFF;
       color: #002726;
     }
 
     /* =============================
-       “For you” SECTION HEADER, responsive
+       “For you” SECTION HEADER
        ============================= */
     .for-you-header {
       width: calc(100% - 48px);
@@ -249,17 +185,13 @@
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
-      gap: 16px; /* smaller gap to allow shrinking */
+      gap: 16px;
     }
-
-    /* Each “column” adjusts to container width */
     .column {
-      width: calc((100% - 16px) / 2); /* two columns with 16px between */
+      width: calc((100% - 16px) / 2);
       display: flex;
       flex-direction: column;
     }
-
-    /* Default spacing between stacked cards = 16px */
     .column .card + .card {
       margin-top: 16px;
     }
@@ -322,38 +254,6 @@
       margin: 0 24px 24px 24px;
       color: #FFFFFF;
     }
-    .card.green .bottom-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0 24px 24px 24px;
-    }
-    .card.green .duration {
-      font-size: 18px;
-      line-height: 24px;
-      font-weight: 500;
-      color: #FFFFFF;
-    }
-    .card.green .play-button {
-      width: 56px;
-      height: 56px;
-      background-color: #FFFFFF;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    }
-    .card.green .play-button:hover {
-      background-color: #F0F0F0;
-    }
-    .card.green .play-button svg {
-      width: 24px;
-      height: 24px;
-      fill: #5DB671;
-    }
 
     /* ================================
        (2) “Join your class –” CARD (right column)
@@ -362,6 +262,7 @@
       position: relative;
       height: 108px;
       background-color: #F8F9FC;
+      border: 1px solid #e5e7eb;
       padding: 12px 24px;
       display: flex;
       flex-direction: column;
@@ -375,14 +276,15 @@
       margin: 0;
     }
     .card.join-class .live-indicator {
-      /* inherits pulse animation from .live-indicator */
+      /* inherits pulse animation */
     }
 
     /* ================================
-       (3) “Tips for better teamwork” ARTICLE CARD (right column)
+       (3) “Tips for better teamwork” ARTICLE CARD
        ================================ */
     .card.article {
       background-color: #F8F9FC;
+      border: 1px solid #e5e7eb;
       padding: 12px 24px;
       display: flex;
       flex-direction: column;
@@ -408,19 +310,11 @@
        OVERRIDE: Right-column spacing between Join & Article = 4px
        =================================================== */
     .right-column .card + .card {
-      margin-top: 4px;
-    }
-
-    /* ==============================
-       SVG ICON BASE STYLING
-       ============================== */
-    svg {
-      display: block;
+      margin-top: 20px;
     }
 
     /* ==============================================
        MEDIA QUERIES FOR SMALLER DEVICES (max-width: 400px)
-       Adjust padding, font-sizes, gaps while preserving layout
        ============================================== */
     @media (max-width: 400px) {
       .app-container {
@@ -440,10 +334,6 @@
         font-size: 28px;
         line-height: 34px;
       }
-      .header .profile-wrapper {
-        width: 48px;
-        height: 48px;
-      }
       .header .profile-wrapper .online-indicator {
         width: 12px;
         height: 12px;
@@ -453,7 +343,7 @@
 
       /* Search bar adjustments */
       .search-bar {
-        width: calc(100% - 24px); /* 12px padding each side */
+        width: calc(100% - 24px);
         margin-bottom: 24px;
       }
       .search-bar input {
@@ -470,7 +360,7 @@
 
       /* Subscription card adjustments */
       .subscription-wrapper {
-        width: calc(100% - 24px); /* 12px padding each side */
+        width: calc(100% - 24px);
         height: 180px;
         margin-bottom: 32px;
       }
@@ -518,7 +408,7 @@
 
       /* Green card adjustments */
       .card.green {
-        height: auto; /* let content dictate height */
+        height: auto;
       }
       .card.green .category {
         font-size: 14px;
@@ -532,20 +422,6 @@
         font-size: 16px;
         margin: 0 16px 16px 16px;
       }
-      .card.green .bottom-row {
-        margin: 0 16px 16px 16px;
-      }
-      .card.green .duration {
-        font-size: 16px;
-      }
-      .card.green .play-button {
-        width: 48px;
-        height: 48px;
-      }
-      .card.green .play-button svg {
-        width: 20px;
-        height: 20px;
-      }
 
       /* Join-class card adjustments */
       .card.join-class {
@@ -553,8 +429,8 @@
         height: auto;
       }
       .card.join-class .title {
-        font-size: 20px;
-        line-height: 28px;
+        font-size: 18px;
+        line-height: 24px;
       }
       .card.join-class .live-indicator {
         top: 8px;
@@ -570,8 +446,8 @@
         margin-bottom: 4px;
       }
       .card.article .article-title {
-        font-size: 24px;
-        line-height: 32px;
+        font-size: 20px;
+        line-height: 28px;
       }
     }
   </style>
@@ -584,14 +460,9 @@
         <div class="date" id="date"></div>
         <div class="greeting">Hi, Kathryn</div>
       </div>
-      <div class="profile-wrapper">
-        <!-- Replace with your EXACT 64×64 px (or 48×48 on mobile) profile picture -->
-        <img src="https://via.placeholder.com/64" alt="Profile Picture" />
-        <div class="online-indicator"></div>
-      </div>
     </div>
 
-    <!-- ================= NEW SUBSCRIPTION CARD (in place of banner) ================= -->
+    <!-- ================= SUBSCRIPTION CARD ================= -->
     <div class="subscription-wrapper">
       <div class="subscription-card">
         <div class="card-title">Get Full Access</div>
@@ -605,10 +476,9 @@
     <!-- ================= “FOR YOU” HEADER ================= -->
     <div class="for-you-header">
       <div class="title">For you</div>
-      <a href="#" class="see-all">– See all</a>
     </div>
 
-    <!-- ================= CARDS CONTAINER (Two Columns responsive) ================= -->
+    <!-- ================= CARDS CONTAINER ================= -->
     <div class="cards-container">
       <!-- ====== LEFT COLUMN ====== -->
       <div class="column left-column">
@@ -618,16 +488,7 @@
           <div class="category">Introduce</div>
           <div class="title">Basic what is PHP?</div>
           <div class="description">
-            PHP is widely used to program dynamic websites.
-          </div>
-          <div class="bottom-row">
-            <div class="duration">30 min</div>
-            <div class="play-button">
-              <!-- 24×24 px play arrow -->
-              <svg viewBox="0 0 512 512">
-                <path d="M96 52v408l320-204L96 52z" />
-              </svg>
-            </div>
+            PHP is widely used to program dynamic
           </div>
         </div>
       </div>
@@ -636,7 +497,7 @@
       <div class="column right-column">
         <!-- (2) “Join your class –” CARD with live indicator -->
         <div class="card join-class">
-          <div class="title">Join your class –</div>
+          <div class="title">Join your class </div>
           <div class="live-indicator"></div>
         </div>
 
