@@ -663,10 +663,11 @@ if (window.innerWidth <= 480) {
 
 
 
-<style>
-
-
-  .btn {
+<!-- Circle button -->
+<button 
+  id="circleBtn" 
+  aria-label="Subscribe circle button"
+  style="
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -679,150 +680,150 @@ if (window.innerWidth <= 480) {
     align-items: center;
     user-select: none;
     text-decoration: none;
-
-    /* Animation base styles */
-    opacity: 0;
-    transform: scale(0.8);
-    pointer-events: none;
-    transition:
-      opacity 0.4s ease,
-      transform 0.4s ease;
-    z-index: 1000;
-  }
-
-  /* When visible, show and scale up */
-  .btn.visible {
-    opacity: 1;
+    opacity: 1; /* visible by default */
     transform: scale(1);
     pointer-events: auto;
-  }
-
-  /* Circle Button */
-  .circle-btn {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    z-index: 1000;
     width: 52px;
     height: 52px;
-    background-color: #002726; /* dark green background */
-    border-radius: 50%;
-    justify-content: center;
-    box-shadow:
-      0 0 0 1px #265E45,
-      0 0 0 2px #2C6344;
-  }
-
-  .circle-btn:hover {
-    background-color: #003B3A;
-  }
-
-  .star-bg {
-    width: 32px;
-    height: 32px;
-    background-color: #17764E; /* lighter green circle behind star */
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .star-bg svg {
-    width: 20px;
-    height: 20px;
-    fill: #31E979;
-    stroke: #31E979;
-    stroke-linejoin: round;
-    stroke-width: 2;
-    display: block;
-  }
-
-  /* Full Subscribe Button */
-  .full-btn {
-    min-width: 140px;
-    height: 52px;
     background-color: #002726;
-    border-radius: 26px;
-    padding: 0 16px;
-    box-shadow:
-      0 0 0 1px #265E45,
-      0 0 0 2px #2C6344;
-    justify-content: flex-start;
-  }
-
-  .full-btn:hover {
-    background-color: #003B3A;
-  }
-
-  .full-btn .icon {
-    width: 24px;
-    height: 24px;
-    background-color: #17764E;
     border-radius: 50%;
-    display: flex;
     justify-content: center;
-    align-items: center;
-    margin-right: 12px;
-    flex-shrink: 0;
-  }
-
-  .full-btn .icon svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .full-btn .icon svg polygon {
-    fill: #31E979;
-    stroke: #31E979;
-    stroke-linejoin: round;
-    stroke-width: 2;
-  }
-
-  .full-btn .text {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 52px;
-    letter-spacing: 0.3px;
-  }
-</style>
-
-<!-- Circle button -->
-<button class="btn circle-btn visible" id="circleBtn" aria-label="Subscribe circle button">
-  <div class="star-bg" aria-hidden="true">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <polygon points="12,2 14.9,9 22,9.5 16.5,14 18,21 12,17.5 6,21 7.5,14 2,9.5 9.1,9" />
+    box-shadow: 0 0 0 1px #265E45, 0 0 0 2px #2C6344;
+  "
+>
+  <div 
+    aria-hidden="true" 
+    id="starBackground"
+    style="
+      width: 32px;
+      height: 32px;
+      background-color: #17764E;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+  >
+    <svg 
+      viewBox="0 0 24 24" 
+      aria-hidden="true" 
+      focusable="false" 
+      style="width: 20px; height: 20px; fill: #31E979; stroke: #31E979; stroke-linejoin: round; stroke-width: 2; display: block;"
+    >
+      <polygon points="12,2 14.9,9 22,9.5 16.5,14 18,21 12,17.5 6,21 7.5,14 2,9.5 9.1,9"></polygon>
     </svg>
   </div>
 </button>
 
 <!-- Full subscribe button -->
-<a href="demo.html" class="btn full-btn" id="fullBtn" aria-label="Subscribe full button" >
-  <div class="icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <polygon points="12,2 14.9,9 22,9.5 16.5,14 18,21 12,17.5 6,21 7.5,14 2,9.5 9.1,9" />
+<a 
+  href="demo.html" 
+  id="fullBtn" 
+  aria-label="Subscribe full button"
+  style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    text-decoration: none;
+    opacity: 0; /* initially hidden */
+    transform: scale(0.8);
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    z-index: 1000;
+    min-width: 140px;
+    height: 52px;
+    background-color: #002726;
+    border-radius: 26px;
+    padding: 0 16px;
+    box-shadow: 0 0 0 1px #265E45, 0 0 0 2px #2C6344;
+    justify-content: flex-start;
+  "
+  onmouseover="this.style.backgroundColor='#003B3A'"
+  onmouseout="this.style.backgroundColor='#002726'"
+>
+  <div 
+    aria-hidden="true"
+    id="iconContainer"
+    style="
+      width: 24px;
+      height: 24px;
+      background-color: #17764E;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 12px;
+      flex-shrink: 0;
+    "
+  >
+    <svg 
+      viewBox="0 0 24 24" 
+      aria-hidden="true" 
+      focusable="false" 
+      style="width: 14px; height: 14px;"
+    >
+      <polygon 
+        points="12,2 14.9,9 22,9.5 16.5,14 18,21 12,17.5 6,21 7.5,14 2,9.5 9.1,9" 
+        style="fill: #31E979; stroke: #31E979; stroke-linejoin: round; stroke-width: 2;"
+      ></polygon>
     </svg>
   </div>
-  <span class="text">Upgrade</span>
+  <span 
+    id="buttonText" 
+    style="
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 52px;
+      letter-spacing: 0.3px;
+    "
+  >Subscribe</span>
 </a>
 
 <script>
   const circleBtn = document.getElementById('circleBtn');
   const fullBtn = document.getElementById('fullBtn');
 
+  // Helper to toggle visibility styles
+  function showElement(el) {
+    el.style.opacity = '1';
+    el.style.transform = 'scale(1)';
+    el.style.pointerEvents = 'auto';
+  }
+
+  function hideElement(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'scale(0.8)';
+    el.style.pointerEvents = 'none';
+  }
+
   // Initially show only circle button
-  fullBtn.classList.remove('visible');
-  circleBtn.classList.add('visible');
+  showElement(circleBtn);
+  hideElement(fullBtn);
 
   circleBtn.addEventListener('click', () => {
     // Animate circle fade out
-    circleBtn.classList.remove('visible');
+    hideElement(circleBtn);
 
     // After animation duration, show full button
     setTimeout(() => {
-      fullBtn.classList.add('visible');
+      showElement(fullBtn);
     }, 400);
     
     // Auto toggle back after 5 seconds
     setTimeout(() => {
-      fullBtn.classList.remove('visible');
+      hideElement(fullBtn);
       setTimeout(() => {
-        circleBtn.classList.add('visible');
+        showElement(circleBtn);
       }, 400);
     }, 5400);
   });
