@@ -2,135 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Responsive UI with Subscription Card</title>
-
-  <!-- Import IBM Plex Sans from Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Merged UI</title>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
 
   <style>
-    /* =====================================================
-       GLOBAL RESET & BODY
-       ===================================================== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html,
-    body {
-      background-color: #FFFFFF;
-      font-family: "IBM Plex Sans", sans-serif;
-      color: #1D1D1D;
-    }
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+}
 
-    /* =====================================================
-       LIVE INDICATOR PULSE ANIMATION
-       ===================================================== */
-    .live-indicator {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 12px;
-      height: 12px;
-      background-color: red;
-      border-radius: 50%;
-      box-shadow: 0 0 0 rgba(255, 0, 0, 0.7);
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0% {
-        transform: scale(0.9);
-        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.6);
-      }
-      70% {
-        transform: scale(1.3);
-        box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
-      }
-      100% {
-        transform: scale(0.9);
-        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-      }
-    }
 
-    /* ===========================================
-       APP CONTAINER (max-width: 524px, centered)
-       =========================================== */
-    .app-container {
-      width: 100%;
-      max-width: 524px;
-      margin: 0 auto;
-      background-color: #FFFFFF;
-      padding-top: 16px;
-      padding-bottom: 16px;
-    }
-
-    /* =========================
-       HEADER: Date + Greeting + Profile
-       ========================= */
-    .header {
-      width: 100%;
-      padding: 0 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-    .header .left {
+    .page-wrapper {
+      padding: 12px;
       display: flex;
       flex-direction: column;
-    }
-    .header .date {
-      font-size: 16px;
-      line-height: 20px;
-      font-weight: 400;
-      color: #8F8F8F;
-      margin-bottom: 4px;
-    }
-    .header .greeting {
-      font-size: 36px;
-      line-height: 44px;
-      font-weight: 600;
-      color: #1D1D1D;
-    }
-
-
-    /* =====================================================
-       SUBSCRIPTION CARD (in place of banner)
-       ===================================================== */
-    .subscription-wrapper {
-      width: calc(100% - 48px);
-      height: 200px;
-      margin: 0 auto 40px;
-      display: flex;
       align-items: center;
-      justify-content: center;
     }
+
     .subscription-card {
       background-color: #002726;
       border-radius: 24px;
       padding: 32px 24px;
       width: 100%;
-      height: 100%;
+      max-width: 380px;
       color: #FFFFFF;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      justify-content: center;
     }
+
     .subscription-card .card-title {
       font-size: 26px;
       font-weight: 600;
       margin-bottom: 12px;
     }
+
     .subscription-card .card-text {
       font-size: 16px;
       line-height: 1.5;
       margin-bottom: 24px;
     }
+
     .subscription-card .btn {
       display: block;
       width: 100%;
@@ -145,377 +61,1221 @@
       background-color: rgba(65, 191, 128, 0.15);
       transition: background-color 0.2s ease, color 0.2s ease;
     }
+
     .subscription-card .btn:hover {
       background-color: #FFFFFF;
-      color: #002726;
     }
 
-    /* =============================
-       “For you” SECTION HEADER
-       ============================= */
-    .for-you-header {
-      width: calc(100% - 48px);
-      margin: 0 auto 16px;
+    .still-not-sure {
+      width: 100%;
+      max-width: 360px;
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      margin-top: 20px;
+      text-decoration: none;
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: baseline;
+      padding: 16px 20px;
+      box-sizing: border-box;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      color: #0F2123;
     }
-    .for-you-header .title {
-      font-size: 28px;
-      line-height: 36px;
-      font-weight: 600;
-      color: #1D1D1D;
+
+    .still-not-sure .sns-text {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
     }
-    .for-you-header .see-all {
+
+    .still-not-sure .sns-arrow {
       font-size: 18px;
       line-height: 24px;
-      font-weight: 500;
-      color: #3B82F6;
-      text-decoration: none;
-    }
-    .for-you-header .see-all:hover {
-      text-decoration: underline;
     }
 
-    /* ================================
-       CARDS CONTAINER: Two Columns, responsive
-       ================================ */
-    .cards-container {
-      width: calc(100% - 48px);
+    @media (max-width: 768px) {
+      .card-row {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+
+  <div class="page-wrapper">
+    <div class="card-row">
+      <!-- Subscription Card -->
+      <div class="subscription-card">
+        <div class="card-title">Get Full Access</div>
+        <div class="card-text">You're partially subscribed. Upgrade to unlock full course content and resources.</div>
+        <a href="#" class="btn">Upgrade Now</a>
+      </div>
+
+      <!-- Still Not Sure Section -->
+      <a href="#" class="still-not-sure">
+        <span class="sns-text">Still Not Sure?</span>
+        <span class="sns-arrow">➔</span>
+      </a>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .mcard-container {
+    display: flex;
+    padding: 20px 12px;
+    gap: 8px;
+  }
+
+  .mcard-box {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    flex: 1;
+    padding: 12px;
+    padding-bottom: 80px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .mcard-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .mcard-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f3d3f;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .mcard-subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: #4b5563;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .mcard-img-corner {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 140px;
+    height: 80px;
+    border-top-left-radius: 8px;
+    overflow: hidden;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mcard-img-corner img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.3s ease;
+  }
+
+  .mcard-img-corner img.mcard-hover {
+    opacity: 0;
+  }
+
+  .mcard-box.mcard-hover-active .mcard-img-corner img.mcard-default {
+    opacity: 0;
+  }
+
+  .mcard-box.mcard-hover-active .mcard-img-corner img.mcard-hover {
+    opacity: 1;
+  }
+
+  @media (min-width: 481px) {
+    body > * {
+      display: none;
+    }
+  }
+</style>
+
+<div class="mcard-container">
+  <div class="mcard-box">
+    <div class="mcard-label">100+ AUDIOBOOKS</div>
+    <div class="mcard-title">Quick Reads</div>
+    <div class="mcard-subtitle">20-min summaries</div>
+    <div class="mcard-img-corner">
+      <img class="mcard-default" src="https://syncskilll.netlify.app/assets/papers.svg" alt="Audiobook Default" />
+      <img class="mcard-hover" src="https://syncskilll.netlify.app/assets/papers-hover.svg" alt="Audiobook Hover" />
+    </div>
+  </div>
+
+  <div class="mcard-box">
+    <div class="mcard-label">70+ RESOURCES</div>
+    <div class="mcard-title">Pro Guides</div>
+    <div class="mcard-subtitle">Curated picks</div>
+    <div class="mcard-img-corner">
+      <img class="mcard-default" src="https://syncskilll.netlify.app/assets/folder.svg" alt="Guide Default" />
+      <img class="mcard-hover" src="https://syncskilll.netlify.app/assets/folder-hover.svg" alt="Guide Hover" />
+    </div>
+  </div>
+</div>
+
+<script>
+if (window.innerWidth <= 480) {
+  const cards = document.querySelectorAll('.mcard-box');
+
+  function checkCardsCenter() {
+    const viewportCenter = window.innerHeight / 2;
+
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.top + rect.height / 2;
+
+      if (cardCenter < viewportCenter) {
+        // Card center is above viewport center → show hover image
+        card.classList.add('mcard-hover-active');
+      } else {
+        // Card center below viewport center → show default image
+        card.classList.remove('mcard-hover-active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkCardsCenter);
+  window.addEventListener('resize', checkCardsCenter);
+  // Initial check on page load
+  checkCardsCenter();
+}
+
+</script>
+
+
+
+
+  
+  <div style="
+    height: 2px;
+    background: linear-gradient(to right, #ffffff, #002726, #002726, #ffffff);
+    margin: 20px 0;
+  "></div>
+
+
+
+  
+  
+  
+  
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <style>
+    /* Container & Layout */
+    .co-container {
+      max-width: 1280px;
       margin: 0 auto;
+      padding: 32px 12px;
+    }
+    .co-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .co-main {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .co-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 24px 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Title */
+    .co-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #002726;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #D1D5DB
+    }
+
+    /* Dropdown Item */
+    .co-item {
+      margin-bottom: 12px;
+      border: 1px solid #D1D5DB;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.3s ease-in-out;
+    }
+    .co-item:hover {
+      border-color: #004D4A;
+      box-shadow: 0 4px 12px rgba(0, 39, 38, 0.1);
+    }
+
+    /* Dropdown Header */
+    .co-header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      cursor: pointer;
+      background: #FFFFFF;
+      transition: background 0.3s ease-in-out;
+    }
+    .co-header:hover {
+      background: rgba(0, 39, 38, 0.05);
+    }
+    .co-header-left {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .co-number-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #002726;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .co-module-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #111827;
+      margin: 0;
+    }
+    .co-module-subtext {
+      font-size: 0.95rem;
+      color: #6B7280;
+      margin: 4px 0 0;
+    }
+    .co-icon {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    /* Dropdown Content */
+.co-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+  background: #F9FAFB;
+}
+    .co-content[data-expanded="true"] {
+      padding-bottom: 32px !important;
+    }
+.co-content.expanded {
+  padding-top: 16px;
+  padding-bottom: 32px;
+}
+
+    .co-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+    }
+    .co-list-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+    .co-bullet-icon {
+      width: 18px;
+      height: 18px;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    .co-highlight {
+      font-style: italic;
+      padding: 12px 16px;
+      background: rgba(0, 39, 38, 0.08);
+      border-left: 3px solid #002726;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 0.95rem;
+      color: #374151;
+      line-height: 1.5;
+    }
+    .co-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #002726, #004D4A);
+      color: #FFFFFF;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .co-button:hover {
+      background: linear-gradient(135deg, #004D4A, #41BF80);
+      transform: scale(1.03);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .co-container {
+        padding: 24px 8px;
+      }
+      .co-title {
+        font-size: 0.95rem;
+      }
+      .co-header {
+        padding: 12px 16px;
+      }
+      .co-number-circle {
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+      }
+      .co-module-title {
+        font-size: 1rem;
+      }
+      .co-module-subtext {
+        font-size: 0.9rem;
+      }
+      .co-button {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+
+  <div class="co-container">
+    <div class="co-grid">
+      <main class="co-main">
+        <div class="co-card">
+          <h2 class="co-title">Course Outline</h2>
+
+          <!-- Module 1 -->
+          <div class="co-item" role="region" aria-labelledby="co-module1-header">
+            <div class="co-header" id="co-module1-header" role="button" aria-expanded="false" tabindex="0">
+              <div class="co-header-left">
+                <div class="co-number-circle">1</div>
+                <div>
+                  <h3 class="co-module-title">Intro to AI &amp; LLMs</h3>
+                  <p class="co-module-subtext">Tap to view</p>
+                </div>
+              </div>
+              <svg class="co-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <path d="M12 5v14m-7-7h14" stroke="#002726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="co-content" data-expanded="false">
+              <ul class="co-list">
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Understand the tech that's replacing traditional jobs.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Learn the basics of Artificial Intelligence and Large Language Models (LLMs) like ChatGPT, Gemini, Claude.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  How companies are using AI in real-world products.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Career paths in AI—even for non-coders.
+                </li>
+              </ul>
+              <p class="co-highlight">
+                Why it matters: Once you understand the landscape, you’ll stop fearing AI—and start mastering it.
+              </p>
+              <a href="module1.html" class="co-button" aria-label="Start Intro to AI &amp; LLMs Module">Start Module</a>
+            </div>
+          </div>
+
+          <!-- Module 2 -->
+          <div class="co-item" role="region" aria-labelledby="co-module2-header">
+            <div class="co-header" id="co-module2-header" role="button" aria-expanded="false" tabindex="0">
+              <div class="co-header-left">
+                <div class="co-number-circle">2</div>
+                <div>
+                  <h3 class="co-module-title">Prompt Engineering</h3>
+                  <p class="co-module-subtext">Tap to view</p>
+                </div>
+              </div>
+              <svg class="co-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <path d="M12 5v14m-7-7h14" stroke="#002726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="co-content" data-expanded="false">
+              <ul class="co-list">
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Talk to AI like a pro.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Learn the psychology of prompting AI to get exactly what you want.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Craft prompts that generate job-winning content, code, and strategies.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Real-world examples from marketing, software dev, and research.
+                </li>
+              </ul>
+              <p class="co-highlight">
+                Why it matters: Prompting is the new coding. Learn it now or get left behind.
+              </p>
+              <a href="module2.html" class="co-button" aria-label="Start Prompt Engineering Module">Start Module</a>
+            </div>
+          </div>
+
+          <!-- Module 3 -->
+          <div class="co-item" role="region" aria-labelledby="co-module3-header">
+            <div class="co-header" id="co-module3-header" role="button" aria-expanded="false" tabindex="0">
+              <div class="co-header-left">
+                <div class="co-number-circle">3</div>
+                <div>
+                  <h3 class="co-module-title">AI Agents</h3>
+                  <p class="co-module-subtext">Tap to view</p>
+                </div>
+              </div>
+              <svg class="co-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <path d="M12 5v14m-7-7h14" stroke="#002726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="co-content" data-expanded="false">
+              <ul class="co-list">
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  What are AI agents &amp; why are companies investing in them?
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Tools like AutoGPT, AgentGPT, LangChain.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Build your first AI agent that solves real problems.
+                </li>
+              </ul>
+              <p class="co-highlight">
+                Why it matters: Hiring managers are seeking builders. Be the person who makes AI do the work.
+              </p>
+              <a href="module3.html" class="co-button" aria-label="Start AI Agents Module">Start Module</a>
+            </div>
+          </div>
+
+          <!-- Module 4 -->
+          <div class="co-item" role="region" aria-labelledby="co-module4-header">
+            <div class="co-header" id="co-module4-header" role="button" aria-expanded="false" tabindex="0">
+              <div class="co-header-left">
+                <div class="co-number-circle">4</div>
+                <div>
+                  <h3 class="co-module-title">Advanced AI Tools</h3>
+                  <p class="co-module-subtext">Tap to view</p>
+                </div>
+              </div>
+              <svg class="co-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <path d="M12 5v14m-7-7h14" stroke="#002726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="co-content" data-expanded="false">
+              <ul class="co-list">
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Midjourney, Notion AI, Fireflies, ElevenLabs, Runway, and more.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Combine tools to automate content, coding, and design.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Speed = Superpower. Learn how to build faster than your peers.
+                </li>
+              </ul>
+              <p class="co-highlight">
+                Why it matters: Employers love productivity. You’ll do 10× work in 1/10th time.
+              </p>
+              <a href="module4.html" class="co-button" aria-label="Start Advanced AI Tools Module">Start Module</a>
+            </div>
+          </div>
+
+          <!-- Module 5 -->
+          <div class="co-item" role="region" aria-labelledby="co-module5-header">
+            <div class="co-header" id="co-module5-header" role="button" aria-expanded="false" tabindex="0">
+              <div class="co-header-left">
+                <div class="co-number-circle">5</div>
+                <div>
+                  <h3 class="co-module-title">LinkedIn Profile Setup</h3>
+                  <p class="co-module-subtext">Tap to view</p>
+                </div>
+              </div>
+              <svg class="co-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <path d="M12 5v14m-7-7h14" stroke="#002726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="co-content" data-expanded="false">
+              <ul class="co-list">
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  GrowthSchool-style LinkedIn optimization.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Craft a killer headline &amp; summary.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Profile SEO for recruiters and algorithms.
+                </li>
+              </ul>
+              <p class="co-highlight">
+                Why it matters: 80% of job offers today start with a LinkedIn search. Be visible, be desirable.
+              </p>
+              <a href="module5.html" class="co-button" aria-label="Start LinkedIn Profile Setup Module">Start Module</a>
+            </div>
+          </div>
+
+          <!-- Module 6 -->
+          <div class="co-item" role="region" aria-labelledby="co-module6-header">
+            <div class="co-header" id="co-module6-header" role="button" aria-expanded="false" tabindex="0">
+              <div class="co-header-left">
+                <div class="co-number-circle">6</div>
+                <div>
+                  <h3 class="co-module-title">LinkedIn Growth Hacks</h3>
+                  <p class="co-module-subtext">Tap to view</p>
+                </div>
+              </div>
+              <svg class="co-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <path d="M12 5v14m-7-7h14" stroke="#002726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="co-content" data-expanded="false">
+              <ul class="co-list">
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Smart ways to connect with industry leaders.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Psychology-based DM writing.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Growth hacks to go viral and stay top-of-mind.
+                </li>
+              </ul>
+              <p class="co-highlight">
+                Why it matters: Jobs don’t go to the best candidates—they go to the best-connected.
+              </p>
+              <a href="module6.html" class="co-button" aria-label="Start LinkedIn Connections & Growth Hacks Module">Start Module</a>
+            </div>
+          </div>
+
+          <!-- Module 7 -->
+          <div class="co-item" role="region" aria-labelledby="co-module7-header">
+            <div class="co-header" id="co-module7-header" role="button" aria-expanded="false" tabindex="0">
+              <div class="co-header-left">
+                <div class="co-number-circle">7</div>
+                <div>
+                  <h3 class="co-module-title">Portfolio Building</h3>
+                  <p class="co-module-subtext">Tap to view</p>
+                </div>
+              </div>
+              <svg class="co-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <path d="M12 5v14m-7-7h14" stroke="#002726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="co-content" data-expanded="false">
+              <ul class="co-list">
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  What to include, how to showcase.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Deploy projects on GitHub, Notion, and personal websites.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Get feedback from mentors &amp; industry folks.
+                </li>
+              </ul>
+              <p class="co-highlight">
+                Why it matters: Proof of skill beats marksheets. Your portfolio makes you unforgettable.
+              </p>
+              <a href="module7.html" class="co-button" aria-label="Start Portfolio Building & Deployment Module">Start Module</a>
+            </div>
+          </div>
+
+          <!-- Module 8 -->
+          <div class="co-item" role="region" aria-labelledby="co-module8-header">
+            <div class="co-header" id="co-module8-header" role="button" aria-expanded="false" tabindex="0">
+              <div class="co-header-left">
+                <div class="co-number-circle">8</div>
+                <div>
+                  <h3 class="co-module-title">Resume Mastery Advanced</h3>
+                  <p class="co-module-subtext">Tap to view</p>
+                </div>
+              </div>
+              <svg class="co-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <path d="M12 5v14m-7-7h14" stroke="#002726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="co-content" data-expanded="false">
+              <ul class="co-list">
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Craft resumes that beat ATS and impress humans.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Format that top tech companies prefer.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  How to tailor for different job roles.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  AI-powered resume boosters.
+                </li>
+              </ul>
+              <p class="co-highlight">
+                Why it matters: Your resume should get you the interview. This module makes it happen.
+              </p>
+              <a href="module8.html" class="co-button" aria-label="Start Resume Mastery Module">Start Module</a>
+            </div>
+          </div>
+
+          <!-- Module 9 -->
+          <div class="co-item" role="region" aria-labelledby="co-module9-header">
+            <div class="co-header" id="co-module9-header" role="button" aria-expanded="false" tabindex="0">
+              <div class="co-header-left">
+                <div class="co-number-circle">9</div>
+                <div>
+                  <h3 class="co-module-title">Live Industry Networking</h3>
+                  <p class="co-module-subtext">Tap to view</p>
+                </div>
+              </div>
+              <svg class="co-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <path d="M12 5v14m-7-7h14" stroke="#002726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="co-content" data-expanded="false">
+              <ul class="co-list">
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Fireside chats with engineers, PMs, and hiring managers from top companies.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Ask questions, get career advice, and connect live.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Build your professional network while you learn.
+                </li>
+              </ul>
+              <p class="co-highlight">
+                Why it matters: It’s not just what you know—it’s who knows you.
+              </p>
+              <a href="module9.html" class="co-button" aria-label="Start Live Industry Sessions + Real Networking Module">Start Module</a>
+            </div>
+          </div>
+
+          <!-- Module 10 -->
+          <div class="co-item" role="region" aria-labelledby="co-module10-header">
+            <div class="co-header" id="co-module10-header" role="button" aria-expanded="false" tabindex="0">
+              <div class="co-header-left">
+                <div class="co-number-circle">10</div>
+                <div>
+                  <h3 class="co-module-title">Capstone Project</h3>
+                  <p class="co-module-subtext">Tap to view</p>
+                </div>
+              </div>
+              <svg class="co-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <path d="M12 5v14m-7-7h14" stroke="#002726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="co-content" data-expanded="false">
+              <ul class="co-list">
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Solve a real-world problem using AI tools.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Work in teams or solo.
+                </li>
+                <li class="co-list-item">
+                  <svg class="co-bullet-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L10 16L17 9" stroke="#41BF80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="#41BF80" stroke-width="2"/>
+                  </svg>
+                  Present it live to mentors and receive reviews.
+                </li>
+              </ul>
+              <p class="co-highlight">
+                Why it matters: This is your “showpiece” for interviews, LinkedIn, and your portfolio.
+              </p>
+              <a href="module10.html" class="co-button" aria-label="Start Capstone Project Module">Start Module</a>
+            </div>
+          </div>
+          <!-- /Module 10 -->
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+ <script>
+document.querySelectorAll('.co-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const content = header.nextElementSibling;
+    const isExpanded = content.getAttribute('data-expanded') === 'true';
+
+    // Collapse all other dropdowns
+    document.querySelectorAll('.co-content').forEach(el => {
+      el.classList.remove('expanded');
+      el.style.maxHeight = '0';
+      el.setAttribute('data-expanded', 'false');
+      const siblingHeader = el.previousElementSibling;
+      siblingHeader.setAttribute('aria-expanded', 'false');
+      siblingHeader.querySelector('.co-icon').style.transform = 'rotate(0deg)';
+    });
+
+    // Expand this one if not already open
+    if (!isExpanded) {
+      content.classList.add('expanded');
+      // Wait for padding to apply
+      requestAnimationFrame(() => {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      });
+      content.setAttribute('data-expanded', 'true');
+      header.setAttribute('aria-expanded', 'true');
+      header.querySelector('.co-icon').style.transform = 'rotate(45deg)';
+    }
+  });
+
+  header.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      header.click();
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <style>
+    /* Global Reset */
+
+    /* Cards Container */
+    .cards-container {
+      width: 100%;
+  max-width: 380px;       /* match or exceed card max-width */
+  margin: 0 auto;         /* center container horizontally */
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 0px 12px;
+      
+    }
+
+    /* Single Card (Now a Button) */
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 16px;
+      padding: 16px;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      cursor: pointer;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: none;
+      width: 100%;
+      max-width: 380px;
+      text-align: left;
+      font-size: inherit;
+      font-family: inherit;
+    }
+
+    .card:hover, .card:focus {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      outline: none;
+    }
+
+    .card:focus-visible {
+      outline: 2px solid #1A73E8;
+      outline-offset: 2px;
+    }
+
+    /* Specific Card Backgrounds with Subtle Gradients */
+    .card.nyt {
+      background: linear-gradient(145deg, #FEF8E6, #FDF6D8);
+    }
+    .card.google {
+      background: linear-gradient(145deg, #E9E6F7, #E0DDF5);
+    }
+    .card.wallgrace {
+      background: linear-gradient(145deg, #FBEFEE, #F9E8E7);
+    }
+
+    /* Left Side (Icon + Text) */
+    .card-left {
+      display: flex;
+      align-items: center;
       gap: 16px;
     }
-    .column {
-      width: calc((100% - 16px) / 2);
-      display: flex;
-      flex-direction: column;
-    }
-    .column .card + .card {
-      margin-top: 16px;
-    }
 
-    /* ==========================
-       BASE CARD STYLING
-       ========================== */
-    .card {
-      border-radius: 24px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
+    /* Icon Wrapper */
+    .icon-wrapper {
+      width: 56px;
+      height: 56px;
       background-color: #FFFFFF;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    /* ======================
-       (1) GREEN “Basic what is PHP?” CARD
-       ====================== */
-    .card.green {
-      height: 293px;
-      background-color: #5DB671;
-      position: relative;
-      color: #FFFFFF;
-    }
-    .card.green .green-blob {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 160px;
-      height: 160px;
-      background-color: rgba(119, 216, 165, 0.20);
       border-radius: 50%;
-      transform: translate(40px, -40px);
-    }
-    .card.green .category {
-      font-size: 16px;
-      line-height: 20px;
-      font-weight: 500;
-      opacity: 0.9;
-      margin: 24px 24px 12px 24px;
-      color: #FFFFFF;
-    }
-    .card.green .title {
-      font-size: 28px;
-      line-height: 36px;
-      font-weight: 600;
-      margin: 0 24px 12px 24px;
-      color: #FFFFFF;
-    }
-    .card.green .description {
-      font-size: 18px;
-      line-height: 24px;
-      opacity: 0.9;
-      margin: 0 24px 24px 24px;
-      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    /* ================================
-       (2) “Join your class –” CARD (right column)
-       ================================ */
-    .card.join-class {
-      position: relative;
-      height: 108px;
-      background-color: #F8F9FC;
-      border: 1px solid #e5e7eb;
-      padding: 12px 24px;
+
+
+    .icon-wrapper img {
+      max-width: 32px;
+      max-height: 32px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+
+
+    /* Info Block */
+    .info-block {
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
-    .card.join-class .title {
-      font-size: 24px;
-      line-height: 32px;
-      font-weight: 600;
-      color: #1D1D1D;
-      margin: 0;
-    }
-    .card.join-class .live-indicator {
-      /* inherits pulse animation */
+
+    .company-name {
+      font-size: 18px;
+      font-weight কর্মচারী 700;
+      color: #121212;
+      line-height: 24px;
+      margin-bottom: 4px;
+      transition: color 0.3s ease;
     }
 
-    /* ================================
-       (3) “Tips for better teamwork” ARTICLE CARD
-       ================================ */
-    .card.article {
-      background-color: #F8F9FC;
-      border: 1px solid #e5e7eb;
-      padding: 12px 24px;
+    .card:hover .company-name, .card:focus .company-name {
+      color: #1A73E8;
+    }
+
+    .sub-text {
+      font-size: 13px;
+      font-weight: 400;
+      color: #4B5563;
+      line-height: 18px;
+      opacity: 0.9;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover .sub-text, .card:focus .sub-text {
+      opacity: 1;
+    }
+
+    /* Bottom Info */
+    .bottom-info {
+      position: absolute;
+      left: 88px;
+      bottom: 16px;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-    .card.article .article-label {
-      font-size: 16px;
-      line-height: 20px;
-      font-weight: 500;
-      text-transform: uppercase;
-      color: #8F8F8F;
-      margin-bottom: 8px;
-    }
-    .card.article .article-title {
-      font-size: 28px;
-      line-height: 36px;
-      font-weight: 600;
-      color: #1D1D1D;
-      margin: 0;
+      align-items: center;
+      font-size: 12px;
+      color: #6B7280;
+      font-weight: 400;
+      line-height: 16px;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
     }
 
-    /* ===================================================
-       OVERRIDE: Right-column spacing between Join & Article = 4px
-       =================================================== */
-    .right-column .card + .card {
-      margin-top: 20px;
+    .card:hover .bottom-info, .card:focus .bottom-info {
+      opacity: 1;
     }
 
-    /* ==============================================
-       MEDIA QUERIES FOR SMALLER DEVICES (max-width: 400px)
-       ============================================== */
-    @media (max-width: 400px) {
-      .app-container {
-        padding-top: 12px;
-        padding-bottom: 12px;
-      }
-      /* Header adjustments */
-      .header {
-        padding: 0 12px;
-        margin-bottom: 16px;
-      }
-      .header .date {
-        font-size: 14px;
-        line-height: 18px;
-      }
-      .header .greeting {
-        font-size: 28px;
-        line-height: 34px;
-      }
-      .header .profile-wrapper .online-indicator {
-        width: 12px;
-        height: 12px;
-        top: 2px;
-        right: 2px;
-      }
+    .bottom-info span:not(:last-child) {
+      margin-right: 16px;
+    }
 
-      /* Search bar adjustments */
-      .search-bar {
-        width: calc(100% - 24px);
-        margin-bottom: 24px;
-      }
-      .search-bar input {
-        padding-left: 16px;
-        padding-right: 48px;
-        font-size: 16px;
-        line-height: 20px;
-      }
-      .search-bar .icon-search {
-        right: 16px;
-        width: 18px;
-        height: 18px;
-      }
+    /* Right Side (Modern Arrow) */
+    .arrow-wrapper {
+      width: 40px;
+      height: 40px;
+      background: rgba(65, 191, 128, 0.15);
+      border: 2px solid #41BF80;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, background 0.3s ease;
+      overflow: hidden;
+    }
 
-      /* Subscription card adjustments */
-      .subscription-wrapper {
-        width: calc(100% - 24px);
-        height: 180px;
-        margin-bottom: 32px;
-      }
-      .subscription-card {
-        padding: 24px 16px;
-      }
-      .subscription-card .card-title {
-        font-size: 22px;
-        margin-bottom: 8px;
-      }
-      .subscription-card .card-text {
-        font-size: 14px;
-        margin-bottom: 16px;
-      }
-      .subscription-card .btn {
-        font-size: 14px;
-        padding: 10px 0;
-      }
+    .card:hover .arrow-wrapper, .card:focus .arrow-wrapper {
+      background: #002726;
+      border: 2px #002726;
+    }
 
-      /* “For you” header adjustments */
-      .for-you-header {
-        width: calc(100% - 24px);
-        margin-bottom: 12px;
-      }
-      .for-you-header .title {
-        font-size: 24px;
-        line-height: 32px;
-      }
-      .for-you-header .see-all {
-        font-size: 16px;
-        line-height: 20px;
-      }
+    .arrow-wrapper svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: #002726;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.3s ease, stroke 0.3s ease;
+      transform: translateX(0);
+    }
 
-      /* Cards container adjustments */
-      .cards-container {
-        width: calc(100% - 24px);
-        gap: 8px;
-      }
-      .column {
-        width: 100%;
-      }
-      .column .card + .card {
-        margin-top: 12px;
-      }
-
-      /* Green card adjustments */
-      .card.green {
-        height: auto;
-      }
-      .card.green .category {
-        font-size: 14px;
-        margin: 16px 16px 8px 16px;
-      }
-      .card.green .title {
-        font-size: 24px;
-        margin: 0 16px 8px 16px;
-      }
-      .card.green .description {
-        font-size: 16px;
-        margin: 0 16px 16px 16px;
-      }
-
-      /* Join-class card adjustments */
-      .card.join-class {
-        padding: 8px 16px;
-        height: auto;
-      }
-      .card.join-class .title {
-        font-size: 18px;
-        line-height: 24px;
-      }
-      .card.join-class .live-indicator {
-        top: 8px;
-        right: 8px;
-      }
-
-      /* Article card adjustments */
-      .card.article {
-        padding: 8px 16px;
-      }
-      .card.article .article-label {
-        font-size: 14px;
-        margin-bottom: 4px;
-      }
-      .card.article .article-title {
-        font-size: 20px;
-        line-height: 28px;
-      }
+    .card:hover .arrow-wrapper svg, .card:focus .arrow-wrapper svg {
+      stroke: #FFFFFF;
     }
   </style>
-</head>
-<body>
-  <div class="app-container">
-    <!-- ================= HEADER ================= -->
-    <div class="header">
-      <div class="left">
-        <div class="date" id="date"></div>
-        <div class="greeting">Hi, Kathryn</div>
-      </div>
-    </div>
 
-    <!-- ================= SUBSCRIPTION CARD ================= -->
-    <div class="subscription-wrapper">
-      <div class="subscription-card">
-        <div class="card-title">Get Full Access</div>
-        <div class="card-text">
-          You're partially subscribed. Upgrade to unlock full course content and resources.
+  <div class="cards-container">
+    <!-- Card #1: New York Times -->
+    <button class="card nyt" aria-label="View New York Times details">
+      <div class="card-left">
+        <div class="icon-wrapper">
+          <img src="https://cdn.iconscout.com/icon/free/png-256/free-new-york-times-282250.png" alt="NYT Logo">
         </div>
-        <a href="#" class="btn">Upgrade Now</a>
-      </div>
-    </div>
-
-    <!-- ================= “FOR YOU” HEADER ================= -->
-    <div class="for-you-header">
-      <div class="title">For you</div>
-    </div>
-
-    <!-- ================= CARDS CONTAINER ================= -->
-    <div class="cards-container">
-      <!-- ====== LEFT COLUMN ====== -->
-      <div class="column left-column">
-        <!-- (1) GREEN “Basic what is PHP?” CARD -->
-        <div class="card green">
-          <div class="green-blob"></div>
-          <div class="category">Introduce</div>
-          <div class="title">Basic what is PHP?</div>
-          <div class="description">
-            PHP is widely used to program dynamic
-          </div>
+        <div class="info-block">
+          <div class="company-name">New York Times</div>
+          <div class="sub-text">32 Applicants</div>
         </div>
       </div>
+      <div class="arrow-wrapper">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12H19M19 12L12 5M19 12L12 19"/>
+        </svg>
+      </div>
+    </button>
 
-      <!-- ====== RIGHT COLUMN ====== -->
-      <div class="column right-column">
-        <!-- (2) “Join your class –” CARD with live indicator -->
-        <div class="card join-class">
-          <div class="title">Join your class </div>
-          <div class="live-indicator"></div>
+    <!-- Card #2: Google LLC -->
+    <button class="card google" aria-label="View Google LLC details">
+      <div class="card-left">
+        <div class="icon-wrapper">
+          <img src="https://cdn.iconscout.com/icon/free/png-256/free-google-logo-icon-download-in-svg-png-gif-file-formats--brands-pack-logos-icons-189824.png?f=webp&w=256" alt="Google Logo">
         </div>
-
-        <!-- (3) “Tips for better teamwork” ARTICLE CARD -->
-        <div class="card article">
-          <div class="article-label">Article</div>
-          <div class="article-title">Tips for better teamwork</div>
+        <div class="info-block">
+          <div class="company-name">Google LLC</div>
+          <div class="sub-text">45 Applicants</div>
         </div>
       </div>
-    </div>
+      <div class="arrow-wrapper">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12H19M19 12L12 5M19 12L12 19"/>
+        </svg>
+      </div>
+    </button>
+
+    <!-- Card #3: WallGrace Vintage -->
+    <button class="card wallgrace" aria-label="View WallGrace Vintage details">
+      <div class="card-left">
+        <div class="icon-wrapper">
+          <img src="https://cdn.iconscout.com/icon/free/png-256/free-vintage-282250.png" alt="WallGrace Logo">
+        </div>
+        <div class="info-block">
+          <div class="company-name">WallGrace Vintage</div>
+          <div class="sub-text">12 Applicants</div>
+        </div>
+      </div>
+      <div class="arrow-wrapper">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12H19M19 12L12 5M19 12L12 19"/>
+        </svg>
+      </div>
+    </button>
   </div>
-
-  <!-- ================= SCRIPT TO DISPLAY ACTUAL DATE ================= -->
-  <script>
-    // Get today's date in "DD MMM YYYY" format (e.g., "06 Jun 2025")
-    const options = { day: "2-digit", month: "short", year: "numeric" };
-    const today = new Date().toLocaleDateString("en-GB", options);
-    document.getElementById("date").textContent = today;
-  </script>
 </body>
 </html>
