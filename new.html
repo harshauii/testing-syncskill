@@ -517,25 +517,29 @@
   </div>
 </div>
 
-<script>
-  if (window.innerWidth <= 480) {
-    const cards = document.querySelectorAll('.mcard-box');
+if (window.innerWidth <= 480) {
+  const cards = document.querySelectorAll('.mcard-box');
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-          entry.target.classList.add('mcard-hover-active');
-        } else {
-          entry.target.classList.remove('mcard-hover-active');
-        }
-      });
-    }, {
-      threshold: 0.5
+  function checkCardsCenter() {
+    const viewportCenter = window.innerHeight / 2;
+
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.top + rect.height / 2;
+
+      // Add hover only if card center crosses viewport center +- 20px range (adjustable)
+      if (cardCenter >= viewportCenter - 20 && cardCenter <= viewportCenter + 20) {
+        card.classList.add('mcard-hover-active');
+      } else {
+        card.classList.remove('mcard-hover-active');
+      }
     });
-
-    cards.forEach(card => observer.observe(card));
   }
-</script>
+
+  window.addEventListener('scroll', checkCardsCenter);
+  // Run once on load to check initial position
+  checkCardsCenter();
+}
 
 
 
