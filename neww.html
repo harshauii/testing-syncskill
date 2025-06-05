@@ -664,51 +664,61 @@ if (window.innerWidth <= 480) {
 
 
 
-
   <style>
 
-    /* ----------------------------
-       2) Floating Button (50% of Last Size)
-       ---------------------------- */
+    /* ---------------------------------------
+       2) Floating Button Container (Now 56.25% of Original)
+       --------------------------------------- */
     .floating-btn {
       position: fixed;
-      bottom: 20px;      /* unchanged */
-      right: 20px;       /* unchanged */
+      bottom: 20px;      /* 20px from viewport bottom (unchanged) */
+      right: 20px;       /* 20px from viewport right (unchanged) */
 
-      /* Last size: 152px × 52px → now 50%: 76px × 26px */
-      width: 76px;
-      height: 26px;
+      /* Original was 271×93 px. 
+         271 × 0.5625 = 152.4375 → rounded to 152px  
+         93  × 0.5625 = 52.3125  → rounded to 52px */
+      width: 152px;
+      height: 52px;
 
-      /* Fill color unchanged: #002726 */
+      /* Fill color (unchanged): #002726 (rgb(0, 39, 38)) */
       background-color: #002726;
 
-      /* Pill shape: ½ of 26px = 13px */
-      border-radius: 13px;
+      /* Pill shape: radius = ½ of 52px = 26px */
+      border-radius: 26px;
 
-      /* Borders remain 1px inner + 1px outer to stay crisp */
+      /*
+        Two-tone 1px borders remain 1px thick  
+        (because we want them crisp even on high-dpi), exactly as before:
+          • Inner border:  #265E45 (rgb(38, 94, 69))  
+          • Outer border:  #2C6344 (rgb(44, 99, 68))
+      */
       box-shadow:
-        0 0 0 1px #265E45,  /* inner border (#265E45) */
-        0 0 0 2px #2C6344;  /* outer border (#2C6344) */
+        /* inner 1px */ 0 0 0 1px #265E45,
+        /* outer 1px */ 0 0 0 2px #2C6344;
 
       display: flex;
       align-items: center;
 
-      /* Last padding-left: 16px → now 8px */
-      padding-left: 8px;
+      /* 
+        Original padding-left: 28px.  
+        28 × 0.5625 = 15.75 → round to 16px.
+      */
+      padding-left: 16px;
 
-      color: #FFFFFF;      /* text is white */
+      color: #FFFFFF;      /* “Subscribe” text is pure white */
       text-decoration: none;
       z-index: 999;
     }
 
-    /* ----------------------------
-       3) Icon Circle (50% of 24px) = 12px × 12px
-       ---------------------------- */
+    /* ---------------------------------------
+       3) The Icon Circle (56.25% of 43×43)
+       --------------------------------------- */
     .floating-btn .icon {
-      width: 12px;
-      height: 12px;
+      /* 43 × 0.5625 = 24.1875 → round to 24px */
+      width: 24px;
+      height: 24px;
 
-      /* Circle color unchanged: #17764E */
+      /* Circle color unchanged: #17764E (rgb(23, 118, 78)) */
       background-color: #17764E;
 
       border-radius: 50%;
@@ -716,57 +726,73 @@ if (window.innerWidth <= 480) {
       align-items: center;
       justify-content: center;
 
-      /* Last margin-right: 17px → now ~8.5px → rounded to 9px */
-      margin-right: 9px;
+      /*
+        Original margin-right: 30px.  
+        30 × 0.5625 = 16.875 → round to 17px.
+      */
+      margin-right: 17px;
     }
 
-    /* ----------------------------
-       4) Star (SVG) at 50% of 14×14 = 7×7px
-       ---------------------------- */
+    /* ---------------------------------------
+       4) The Star (Code-Generated, Extra-Smooth, 56.25% of 24×24)
+       --------------------------------------- */
     .floating-btn .icon svg {
-      width: 7px;
-      height: 7px;
+      /* 24 × 0.5625 = 13.5 → round to 14px */
+      width: 14px;
+      height: 14px;
       display: block;
     }
     .floating-btn .icon svg polygon {
-      /* Fill/stroke color: #31E979 */
+      /* Fill/stroke color unchanged: #31E979 (rgb(49, 233, 121)) */
       fill: #31E979;
       stroke: #31E979;
       stroke-linejoin: round;
 
-      /* Last stroke-width: 2px → now 1px */
-      stroke-width: 1;
+      /*
+        Original stroke-width: 4px.  
+        4 × 0.5625 = 2.25 → round to 2px.
+      */
+      stroke-width: 2;
     }
 
-    /* ----------------------------
-       5) “Subscribe” Text (50% of Last)
-       ---------------------------- */
+    /* ---------------------------------------
+       5) The “Subscribe” Text (56.25% scale)
+       --------------------------------------- */
     .floating-btn .text {
-      /* Last font-size: 14px → now 7px 
-         Last line-height: 52px → now 26px
-         Last letter-spacing: 0.3px → now ~0.15px */
-      font-size: 7px;
-      font-weight: 500; 
-      line-height: 26px;    /* exactly the button’s height */
-      letter-spacing: 0.15px;
-      white-space: nowrap;
+      /*
+        Original: font-size 24px, line-height 93px, letter-spacing 0.5px  
+        Now: 
+          • 24 × 0.5625 = 13.5 → round to 14px  
+          • 93 × 0.5625 = 52.3125 → round to 52px  
+          • 0.5 × 0.5625 = 0.28125 → round to 0.28px (or 0.3px)
+      */
+      font-size: 14px;
+      font-weight: 500;          /* IBM Plex Sans 500 */
+      line-height: 52px;         /* Exactly the button’s height → vertical centering */
+      letter-spacing: 0.3px;
+      white-space: nowrap;       /* Prevent wrapping */
     }
 
-    /* ----------------------------
-       6) Hover (unchanged aside from slight lift)
-       ---------------------------- */
+    /* ---------------------------------------
+       6) Hover (Subtle Lift + Color Change)
+       --------------------------------------- */
     .floating-btn:hover {
-      background-color: #003B3A;  /* #003B3A = rgb(0,59,58) */
+      /* Hover fill color (unchanged): #003B3A (rgb(0, 59, 58)) */
+      background-color: #003B3A;
       transform: translateY(-2px);
       transition: background-color 0.12s ease-in, transform 0.12s ease-in;
     }
   </style>
+
   <!--
-    Click → demo.html (or replace with any URL)
+    Replace “demo.html” with whatever page you want to redirect to.
   -->
   <a href="demo.html" class="floating-btn">
     <div class="icon">
-      <!-- 24-unit viewBox but displayed at 7×7px with stroke-width 1 -->
+      <!-- 
+        A 5-point star drawn in SVG (size: 14×14px).  
+        With stroke-width=2 and stroke-linejoin=round for smooth corners.
+      -->
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <polygon points="
            12,2 
@@ -784,7 +810,6 @@ if (window.innerWidth <= 480) {
     </div>
     <span class="text">Upgrade</span>
   </a>
-
 
 </body>
 </html>
