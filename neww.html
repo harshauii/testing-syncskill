@@ -664,152 +664,171 @@ if (window.innerWidth <= 480) {
 
 
 
-  <style>
-
-    /* ---------------------------------------
-       2) Floating Button Container (Now 56.25% of Original)
-       --------------------------------------- */
-    .floating-btn {
-      position: fixed;
-      bottom: 20px;      /* 20px from viewport bottom (unchanged) */
-      right: 20px;       /* 20px from viewport right (unchanged) */
-
-      /* Original was 271×93 px. 
-         271 × 0.5625 = 152.4375 → rounded to 152px  
-         93  × 0.5625 = 52.3125  → rounded to 52px */
-      width: 152px;
-      height: 52px;
-
-      /* Fill color (unchanged): #002726 (rgb(0, 39, 38)) */
-      background-color: #002726;
-
-      /* Pill shape: radius = ½ of 52px = 26px */
-      border-radius: 26px;
-
-      /*
-        Two-tone 1px borders remain 1px thick  
-        (because we want them crisp even on high-dpi), exactly as before:
-          • Inner border:  #265E45 (rgb(38, 94, 69))  
-          • Outer border:  #2C6344 (rgb(44, 99, 68))
-      */
-      box-shadow:
-        /* inner 1px */ 0 0 0 1px #265E45,
-        /* outer 1px */ 0 0 0 2px #2C6344;
-
-      display: flex;
-      align-items: center;
-
-      /* 
-        Original padding-left: 28px.  
-        28 × 0.5625 = 15.75 → round to 16px.
-      */
-      padding-left: 16px;
-
-      color: #FFFFFF;      /* “Subscribe” text is pure white */
-      text-decoration: none;
-      z-index: 999;
-    }
-
-    /* ---------------------------------------
-       3) The Icon Circle (56.25% of 43×43)
-       --------------------------------------- */
-    .floating-btn .icon {
-      /* 43 × 0.5625 = 24.1875 → round to 24px */
-      width: 24px;
-      height: 24px;
-
-      /* Circle color unchanged: #17764E (rgb(23, 118, 78)) */
+ <!-- Circle button -->
+<button 
+  id="circleBtn" 
+  aria-label="Subscribe circle button"
+  style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    text-decoration: none;
+    opacity: 1; /* visible by default */
+    transform: scale(1);
+    pointer-events: auto;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    z-index: 1000;
+    width: 52px;
+    height: 52px;
+    background-color: #002726;
+    border-radius: 50%;
+    justify-content: center;
+    box-shadow: 0 0 0 1px #265E45, 0 0 0 2px #2C6344;
+  "
+>
+  <div 
+    aria-hidden="true" 
+    id="starBackground"
+    style="
+      width: 32px;
+      height: 32px;
       background-color: #17764E;
-
       border-radius: 50%;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+    "
+  >
+    <svg 
+      viewBox="0 0 24 24" 
+      aria-hidden="true" 
+      focusable="false" 
+      style="width: 20px; height: 20px; fill: #31E979; stroke: #31E979; stroke-linejoin: round; stroke-width: 2; display: block;"
+    >
+      <polygon points="12,2 14.9,9 22,9.5 16.5,14 18,21 12,17.5 6,21 7.5,14 2,9.5 9.1,9"></polygon>
+    </svg>
+  </div>
+</button>
 
-      /*
-        Original margin-right: 30px.  
-        30 × 0.5625 = 16.875 → round to 17px.
-      */
-      margin-right: 17px;
-    }
-
-    /* ---------------------------------------
-       4) The Star (Code-Generated, Extra-Smooth, 56.25% of 24×24)
-       --------------------------------------- */
-    .floating-btn .icon svg {
-      /* 24 × 0.5625 = 13.5 → round to 14px */
-      width: 14px;
-      height: 14px;
-      display: block;
-    }
-    .floating-btn .icon svg polygon {
-      /* Fill/stroke color unchanged: #31E979 (rgb(49, 233, 121)) */
-      fill: #31E979;
-      stroke: #31E979;
-      stroke-linejoin: round;
-
-      /*
-        Original stroke-width: 4px.  
-        4 × 0.5625 = 2.25 → round to 2px.
-      */
-      stroke-width: 2;
-    }
-
-    /* ---------------------------------------
-       5) The “Subscribe” Text (56.25% scale)
-       --------------------------------------- */
-    .floating-btn .text {
-      /*
-        Original: font-size 24px, line-height 93px, letter-spacing 0.5px  
-        Now: 
-          • 24 × 0.5625 = 13.5 → round to 14px  
-          • 93 × 0.5625 = 52.3125 → round to 52px  
-          • 0.5 × 0.5625 = 0.28125 → round to 0.28px (or 0.3px)
-      */
+<!-- Full subscribe button -->
+<a 
+  href="demo.html" 
+  id="fullBtn" 
+  aria-label="Subscribe full button"
+  style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    text-decoration: none;
+    opacity: 0; /* initially hidden */
+    transform: scale(0.8);
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    z-index: 1000;
+    min-width: 140px;
+    height: 52px;
+    background-color: #002726;
+    border-radius: 26px;
+    padding: 0 16px;
+    box-shadow: 0 0 0 1px #265E45, 0 0 0 2px #2C6344;
+    justify-content: flex-start;
+  "
+  onmouseover="this.style.backgroundColor='#003B3A'"
+  onmouseout="this.style.backgroundColor='#002726'"
+>
+  <div 
+    aria-hidden="true"
+    id="iconContainer"
+    style="
+      width: 24px;
+      height: 24px;
+      background-color: #17764E;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 12px;
+      flex-shrink: 0;
+    "
+  >
+    <svg 
+      viewBox="0 0 24 24" 
+      aria-hidden="true" 
+      focusable="false" 
+      style="width: 14px; height: 14px;"
+    >
+      <polygon 
+        points="12,2 14.9,9 22,9.5 16.5,14 18,21 12,17.5 6,21 7.5,14 2,9.5 9.1,9" 
+        style="fill: #31E979; stroke: #31E979; stroke-linejoin: round; stroke-width: 2;"
+      ></polygon>
+    </svg>
+  </div>
+  <span 
+    id="buttonText" 
+    style="
       font-size: 14px;
-      font-weight: 500;          /* IBM Plex Sans 500 */
-      line-height: 52px;         /* Exactly the button’s height → vertical centering */
+      font-weight: 500;
+      line-height: 52px;
       letter-spacing: 0.3px;
-      white-space: nowrap;       /* Prevent wrapping */
-    }
+    "
+  >Subscribe</span>
+</a>
 
-    /* ---------------------------------------
-       6) Hover (Subtle Lift + Color Change)
-       --------------------------------------- */
-    .floating-btn:hover {
-      /* Hover fill color (unchanged): #003B3A (rgb(0, 59, 58)) */
-      background-color: #003B3A;
-      transform: translateY(-2px);
-      transition: background-color 0.12s ease-in, transform 0.12s ease-in;
-    }
-  </style>
+<script>
+  const circleBtn = document.getElementById('circleBtn');
+  const fullBtn = document.getElementById('fullBtn');
 
-  <!--
-    Replace “demo.html” with whatever page you want to redirect to.
-  -->
-  <a href="demo.html" class="floating-btn">
-    <div class="icon">
-      <!-- 
-        A 5-point star drawn in SVG (size: 14×14px).  
-        With stroke-width=2 and stroke-linejoin=round for smooth corners.
-      -->
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <polygon points="
-           12,2 
-           14.9,9 
-           22,9.5 
-           16.5,14 
-           18,21 
-           12,17.5 
-           6,21 
-           7.5,14 
-           2,9.5 
-           9.1,9
-        " />
-      </svg>
-    </div>
-    <span class="text">Upgrade</span>
-  </a>
+  // Helper to toggle visibility styles
+  function showElement(el) {
+    el.style.opacity = '1';
+    el.style.transform = 'scale(1)';
+    el.style.pointerEvents = 'auto';
+  }
+
+  function hideElement(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'scale(0.8)';
+    el.style.pointerEvents = 'none';
+  }
+
+  // Initially show only circle button
+  showElement(circleBtn);
+  hideElement(fullBtn);
+
+  circleBtn.addEventListener('click', () => {
+    // Animate circle fade out
+    hideElement(circleBtn);
+
+    // After animation duration, show full button
+    setTimeout(() => {
+      showElement(fullBtn);
+    }, 400);
+    
+    // Auto toggle back after 5 seconds
+    setTimeout(() => {
+      hideElement(fullBtn);
+      setTimeout(() => {
+        showElement(circleBtn);
+      }, 400);
+    }, 5400);
+  });
+</script>
 
 </body>
 </html>
