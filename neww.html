@@ -654,5 +654,137 @@ if (window.innerWidth <= 480) {
 
 </script>
 
+
+
+
+
+
+
+
+
+
+
+
+  <style>
+
+    /* ----------------------------
+       2) Floating Button (50% of Last Size)
+       ---------------------------- */
+    .floating-btn {
+      position: fixed;
+      bottom: 20px;      /* unchanged */
+      right: 20px;       /* unchanged */
+
+      /* Last size: 152px × 52px → now 50%: 76px × 26px */
+      width: 76px;
+      height: 26px;
+
+      /* Fill color unchanged: #002726 */
+      background-color: #002726;
+
+      /* Pill shape: ½ of 26px = 13px */
+      border-radius: 13px;
+
+      /* Borders remain 1px inner + 1px outer to stay crisp */
+      box-shadow:
+        0 0 0 1px #265E45,  /* inner border (#265E45) */
+        0 0 0 2px #2C6344;  /* outer border (#2C6344) */
+
+      display: flex;
+      align-items: center;
+
+      /* Last padding-left: 16px → now 8px */
+      padding-left: 8px;
+
+      color: #FFFFFF;      /* text is white */
+      text-decoration: none;
+      z-index: 999;
+    }
+
+    /* ----------------------------
+       3) Icon Circle (50% of 24px) = 12px × 12px
+       ---------------------------- */
+    .floating-btn .icon {
+      width: 12px;
+      height: 12px;
+
+      /* Circle color unchanged: #17764E */
+      background-color: #17764E;
+
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      /* Last margin-right: 17px → now ~8.5px → rounded to 9px */
+      margin-right: 9px;
+    }
+
+    /* ----------------------------
+       4) Star (SVG) at 50% of 14×14 = 7×7px
+       ---------------------------- */
+    .floating-btn .icon svg {
+      width: 7px;
+      height: 7px;
+      display: block;
+    }
+    .floating-btn .icon svg polygon {
+      /* Fill/stroke color: #31E979 */
+      fill: #31E979;
+      stroke: #31E979;
+      stroke-linejoin: round;
+
+      /* Last stroke-width: 2px → now 1px */
+      stroke-width: 1;
+    }
+
+    /* ----------------------------
+       5) “Subscribe” Text (50% of Last)
+       ---------------------------- */
+    .floating-btn .text {
+      /* Last font-size: 14px → now 7px 
+         Last line-height: 52px → now 26px
+         Last letter-spacing: 0.3px → now ~0.15px */
+      font-size: 7px;
+      font-weight: 500; 
+      line-height: 26px;    /* exactly the button’s height */
+      letter-spacing: 0.15px;
+      white-space: nowrap;
+    }
+
+    /* ----------------------------
+       6) Hover (unchanged aside from slight lift)
+       ---------------------------- */
+    .floating-btn:hover {
+      background-color: #003B3A;  /* #003B3A = rgb(0,59,58) */
+      transform: translateY(-2px);
+      transition: background-color 0.12s ease-in, transform 0.12s ease-in;
+    }
+  </style>
+  <!--
+    Click → demo.html (or replace with any URL)
+  -->
+  <a href="demo.html" class="floating-btn">
+    <div class="icon">
+      <!-- 24-unit viewBox but displayed at 7×7px with stroke-width 1 -->
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <polygon points="
+           12,2 
+           14.9,9 
+           22,9.5 
+           16.5,14 
+           18,21 
+           12,17.5 
+           6,21 
+           7.5,14 
+           2,9.5 
+           9.1,9
+        " />
+      </svg>
+    </div>
+    <span class="text">Upgrade</span>
+  </a>
+
+
 </body>
 </html>
