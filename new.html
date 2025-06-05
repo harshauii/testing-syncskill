@@ -408,16 +408,21 @@ if (window.innerWidth <= 480) {
     }
 
     /* Dropdown Content */
-    .co-content {
-      max-height: 0;
-      overflow: hidden;
-      padding: 0 20px;
-      transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
-      background: #F9FAFB;
-    }
+.co-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+  background: #F9FAFB;
+}
     .co-content[data-expanded="true"] {
       padding-bottom: 32px !important;
     }
+.co-content.expanded {
+  padding-top: 16px;
+  padding-bottom: 32px;
+}
+
     .co-list {
       list-style: none;
       padding: 0;
@@ -980,42 +985,43 @@ if (window.innerWidth <= 480) {
     </div>
   </div>
 
-  <script>
-    document.querySelectorAll('.co-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const content = header.nextElementSibling;
-        const isExpanded = content.getAttribute('data-expanded') === 'true';
+ <script>
+document.querySelectorAll('.co-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const content = header.nextElementSibling;
+    const isExpanded = content.getAttribute('data-expanded') === 'true';
 
-        // Collapse all other dropdowns
-        document.querySelectorAll('.co-content').forEach(el => {
-          el.style.maxHeight = '0';
-          el.style.paddingTop = '0';
-          el.style.paddingBottom = '0';
-          el.setAttribute('data-expanded', 'false');
-          const siblingHeader = el.previousElementSibling;
-          siblingHeader.setAttribute('aria-expanded', 'false');
-          siblingHeader.querySelector('.co-icon').style.transform = 'rotate(0deg)';
-        });
-
-        // Expand this one if not already open
-        if (!isExpanded) {
-          content.style.maxHeight = content.scrollHeight + 'px';
-          content.style.paddingTop = '20px';
-          content.style.paddingBottom = '32px';
-          content.setAttribute('data-expanded', 'true');
-          header.setAttribute('aria-expanded', 'true');
-          header.querySelector('.co-icon').style.transform = 'rotate(45deg)';
-        }
-      });
-
-      header.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          header.click();
-        }
-      });
+    // Collapse all other dropdowns
+    document.querySelectorAll('.co-content').forEach(el => {
+      el.classList.remove('expanded');
+      el.style.maxHeight = '0';
+      el.setAttribute('data-expanded', 'false');
+      const siblingHeader = el.previousElementSibling;
+      siblingHeader.setAttribute('aria-expanded', 'false');
+      siblingHeader.querySelector('.co-icon').style.transform = 'rotate(0deg)';
     });
-  </script>
+
+    // Expand this one if not already open
+    if (!isExpanded) {
+      content.classList.add('expanded');
+      // Wait for padding to apply
+      requestAnimationFrame(() => {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      });
+      content.setAttribute('data-expanded', 'true');
+      header.setAttribute('aria-expanded', 'true');
+      header.querySelector('.co-icon').style.transform = 'rotate(45deg)';
+    }
+  });
+
+  header.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      header.click();
+    }
+  });
+});
+</script>
 
 
 
