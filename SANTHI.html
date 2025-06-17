@@ -151,20 +151,6 @@
             }
         }
 
-        /* Learn button SVG */
-        .learn-button svg {
-            margin-left: calc(var(--spacing) * 1);
-            transition-property: transform;
-            transition-duration: 0.2s;
-            transition-timing-function: var(--default-transition-timing-function);
-            width: 16px;
-            height: 16px;
-        }
-
-        .learn-button.active svg {
-            transform: rotate(180deg);
-        }
-
         /* Mega menu styles */
         #megaMenu, #archiveMegaMenu {
             position: fixed;
@@ -264,7 +250,7 @@
             color: white;
         }
 
-        .megaNz-menu-item-text {
+        .mega-menu-item-text {
             display: flex;
             flex-direction: column;
         }
@@ -483,8 +469,8 @@
         }
 
         .mobile-menu-auth-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 12px;
         }
 
@@ -982,13 +968,11 @@
         function showLearnMegaMenu() {
             megaMenu.classList.add('active');
             learnChevron.style.transform = 'rotate(180deg)';
-            learningPathsBtn.style.background = '#f8f9fa';
         }
 
         function hideLearnMegaMenu() {
             megaMenu.classList.remove('active');
             learnChevron.style.transform = 'rotate(0deg)';
-            learningPathsBtn.style.background = 'transparent';
         }
 
         learningPathsBtn.addEventListener('click', (e) => {
@@ -1011,13 +995,11 @@
         function showArchiveMegaMenu() {
             archiveMegaMenu.classList.add('active');
             archiveChevron.style.transform = 'rotate(180deg)';
-            archiveBtn.style.background = '#f8f9fa';
         }
 
         function hideArchiveMegaMenu() {
             archiveMegaMenu.classList.remove('active');
             archiveChevron.style.transform = 'rotate(0deg)';
-            archiveBtn.style.background = 'transparent';
         }
 
         archiveBtn.addEventListener('click', (e) => {
