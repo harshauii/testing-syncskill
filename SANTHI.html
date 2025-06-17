@@ -56,12 +56,19 @@
             }
         }
 
+        @media (max-width: 768px) {
+            .header-container {
+                padding-left: 16px;
+                padding-right: 16px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
         /* Navigation */
         .nav {
             padding-top: calc(var(--spacing) * 6);
             padding-bottom: calc(var(--spacing) * 6);
-            padding-left: calc(var(--spacing) * 4);
-            padding-right: calc(var(--spacing) * 4);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -80,6 +87,12 @@
             width: 100px;
             height: 40px;
             color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                margin-left: 0;
+            }
         }
 
         /* Nav links (hidden on mobile, flex on md) */
@@ -106,7 +119,7 @@
             font-size: var(--text-base);
             line-height: var(--text-base--line-height);
             font-weight: var(--font-weight-medium);
-            border: none;
+            border: 1px solid var(--color-dark-teal);
             border-radius: var(--radius-md);
             color: var(--color-dark-teal);
             white-space: nowrap;
@@ -115,6 +128,12 @@
             transition-timing-function: var(--default-transition-timing-function);
             background-color: transparent;
             cursor: pointer;
+        }
+
+        @media (min-width: 769px) {
+            .learn-button {
+                border: none;
+            }
         }
 
         @media (hover: hover) {
@@ -297,6 +316,12 @@
         @media (min-width: 48rem) {
             .menu-button {
                 display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-button {
+                margin-right: 0;
             }
         }
 
@@ -534,6 +559,14 @@
             background-color: var(--color-gray-200);
         }
 
+        @media (max-width: 768px) {
+            .divider {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+        }
+
         /* Media queries for responsiveness */
         @media (max-width: 768px) {
             .desktop-only {
@@ -577,8 +610,9 @@
                                             <li>
                                                 <a href="#" class="mega-menu-item">
                                                     <div class="mega-menu-item-icon career">
-                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        <div class="svg">
+                                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="M13 10V3L4 14h7v7l9-11h-7z"/>
                                                         </svg>
                                                     </div>
                                                     <div class="mega-menu-item-text">
@@ -591,7 +625,7 @@
                                                 <a href="#" class="mega-menu-item">
                                                     <div class="mega-menu-item-icon career">
                                                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="M13 10V3L4 14h7v7l9-11h-7z"/>
                                                         </svg>
                                                     </div>
                                                     <div class="mega-menu-item-text">
@@ -671,7 +705,7 @@
                                                     </div>
                                                     <div class="mega-menu-item-text">
                                                         <div class="mega-menu-item-title">Product Management</div>
-                                                        <div class="mega-menu-item-description">7 Courses · 56 Hours</div>
+                                                        <div class="mega-menu-item-description">6 Courses · 56 Hours</div>
                                                     </div>
                                                 </a>
                                             </li>
@@ -683,7 +717,7 @@
                         <div class="relative">
                             <button class="learn-button" id="archiveBtn">
                                 Archive
-                                <svg viewBox="0 0 24 |\n24" fill="none" stroke="currentColor">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                     <path d="M6 9l6 6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </button>
@@ -962,7 +996,7 @@
                 hideLearnMegaMenu();
             } else {
                 showLearnMegaMenu();
-                hideArchiveMegaMenu(); // Close Archive menu if open
+                hideArchiveMegaMenu();
             }
             isMenuOpen = !isMenuOpen;
         });
@@ -991,7 +1025,7 @@
                 hideArchiveMegaMenu();
             } else {
                 showArchiveMegaMenu();
-                hideLearnMegaMenu(); // Close Learn menu if open
+                hideLearnMegaMenu();
             }
             isArchiveMenuOpen = !isArchiveMenuOpen;
         });
@@ -1063,406 +1097,5 @@
             }
         });
     </script>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-   <body>
- <div class="carousel-container" role="region" aria-label="Razorpay Featured Products Carousel">
-    <div class="carousel">
-      <div class="carousel-item active" role="group" aria-label="Slide 1">
-        <div class="carousel-content">
-          <div class="carousel-text">
-            <h2>Become <span>Top 1%</span> in the AI-First World</h2>
-            <p>Whether it's Product, Growth, Design, Business, Tech, or Data, Syncskill is the place to learn from top experts and join the elite.</p>
-            <button class="syncskill-button">
-          Explore Programs
-          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 12 13" fill="none" class="syncskill-button-icon">
-            <path d="M1 7.11108L6 12L11 7.11108" stroke="#012726" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M1 1L6 5.88889L11 1" stroke="#012726" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </button>
-          </div>
-          <div class="carousel-image">
-            <img src="https://framerusercontent.com/images/kkOygtHRHYPv76o5PniXD7eNI.png?scale-down-to=1024" 
-                 onerror="this.src='https://via.placeholder.com/560x360?text=Image+Failed+to+Load'; this.classList.add('placeholder');" 
-                 alt="Razorpay Payment Gateway Mockup">
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item" role="group" aria-label="Slide 2">
-        <div class="carousel-content">
-          <div class="carousel-text">
-            <h2>Become <span>Top 1%</span> in the AI-First World</h2>
-            <p>Whether it's Product, Growth, Design, Business, Tech, or Data, Syncskill is the place to learn from top experts and join the elite.</p>
-            <button class="syncskill-button">
-          Explore Programs
-          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 12 13" fill="none" class="syncskill-button-icon">
-            <path d="M1 7.11108L6 12L11 7.11108" stroke="#012726" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M1 1L6 5.88889L11 1" stroke="#012726" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </button>
-          </div>
-          <div class="carousel-image">
-            <img src="https://framerusercontent.com/images/kkOygtHRHYPv76o5PniXD7eNI.png?scale-down-to=1024" 
-                 onerror="this.src='https://via.placeholder.com/560x360?text=Image+Failed+to+Load'; this.classList.add('placeholder');" 
-                 alt="Razorpay Payment Links Mockup">
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item" role="group" aria-label="Slide 3">
-        <div class="carousel-content">
-          <div class="carousel-text">
-            <h2>Become <span>Top 1%</span> in the AI-First World</h2>
-            <p>Whether it's Product, Growth, Design, Business, Tech, or Data, Syncskill is the place to learn from top experts and join the elite.</p>
-            <button class="syncskill-button">
-          Explore Programs
-          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 12 13" fill="none" class="syncskill-button-icon">
-            <path d="M1 7.11108L6 12L11 7.11108" stroke="#012726" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M1 1L6 5.88889L11 1" stroke="#012726" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </button>
-          </div>
-          
-          
-         
-          
-          
-          
-          <div class="carousel-image">
-            <img src="https://framerusercontent.com/images/kkOygtHRHYPv76o5PniXD7eNI.png?scale-down-to=1024" 
-                 onerror="this.src='https://via.placeholder.com/560x360?text=Image+Failed+to+Load'; this.classList.add('placeholder');" 
-                 alt="Razorpay Subscriptions Mockup">
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="carousel-dots" role="tablist">
-      <span class="dot active" data-slide="0" role="tab" aria-label="Select slide 1" aria-selected="true" tabindex="0"></span>
-      <span class="dot" data-slide="1" role="tab" aria-label="Select slide 2" aria-selected="false" tabindex="0"></span>
-      <span class="dot" data-slide="2" role="tab" aria-label="Select slide 3" aria-selected="false" tabindex="0"></span>
-    </div>
-  </div>
-
-  <style>
-    
-    .carousel-container {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      background: linear-gradient(180deg, #F5FAFF 0%, #FFFFFF 100%);
-      padding:80px 0px 0px 0px;
-    }
-    .carousel {
-      display: flex;
-      position: relative;
-    }
-    .carousel-item {
-      min-width: 100%;
-      padding: 20px 32px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      position: absolute;
-      width: 100%;
-      transition: opacity 0.5s ease-in-out;
-      box-sizing: border-box;
-    }
-    .carousel-item.active {
-      opacity: 1;
-      position: relative;
-    }
-    .carousel-content {
-      max-width: 1280px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 48px;
-      box-sizing: border-box;
-    }
-    .carousel-text {
-      max-width: 540px;
-      width: 100%;
-    }
-    .carousel-text h2 {
-      font-size: 40px;
-      font-weight: 600;
-      line-height: 48px;
-      color: #111827;
-      margin: 0 0 24px 0;
-    }
-    .carousel-text h2 span {
-      color: #FF6666;
-    }
-    .carousel-text p {
-      font-size: 18px;
-      font-weight: 400;
-      line-height: 28px;
-      color: #4B5563;
-      margin: 0 0 32px 0;
-    }
-    .carousel-text a {
-      display: inline-block;
-      font-size: 16px;
-      font-weight: 600;
-      padding: 12px 24px;
-      background: #0052CC;
-      color: #FFFFFF;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-    .carousel-text a:hover {
-      background: #003087;
-      transform: scale(1.05);
-    }
-    .carousel-image {
-      max-width: 560px;
-      width: 100%;
-      aspect-ratio: 560 / 360;
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      background-color: #f0f0f0;
-    }
-    .carousel-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
-      border-radius: 12px;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-    .carousel-image img.placeholder {
-      background-color: #e5e7eb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #6b7280;
-      font-size: 16px;
-      font-weight: 600;
-      text-align: center;
-    }
-    
-    /* Button styles */
-.syncskill-button {
-  display: inline-flex;
-  align-items: center;
-  background-color: #33C375;
-  color: #012726;
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  padding: 14px 28px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 39, 38, 0.2);
-  transition: all 0.3s ease;
-}
-
-.syncskill-button:hover {
-  background-color: #2CAC66;
-  box-shadow: 0 4px 12px rgba(0, 39, 38, 0.3);
-  transform: translateY(-2px) scale(1.05);
-}
-
-.syncskill-button:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 2px 6px rgba(0, 39, 38, 0.2);
-}
-
-/* Button icon styles */
-.syncskill-button-icon {
-  margin-left: 10px;
-  transition: transform 0.3s ease;
-}
-
-.syncskill-button:hover .syncskill-button-icon {
-  transform: translateY(2px);
-}
-
-
-    .carousel-dots {
-      position: absolute;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 12px;
-    }
-    .dot {
-      width: 8px;
-      height: 8px;
-      background: #D1D5DB;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .dot.active {
-      width: 24px;
-      height: 8px;
-      background: #1A73E8;
-      border-radius: 4px;
-    }
-    /* Mobile Styles */
-    @media (max-width: 768px) {
-      .carousel-item {
-        padding: 16px 16px;
-      }
-      .carousel-content {
-        flex-direction: column;
-        gap: 24px;
-        align-items: flex-start;
-      }
-      .carousel-text {
-        max-width: 100%;
-        text-align: left;
-      }
-      .carousel-text h2 {
-        font-size: 24px;
-        line-height: 32px;
-        margin-bottom: 16px;
-      }
-      .carousel-text p {
-        font-size: 16px;
-        line-height: 24px;
-        margin-bottom: 24px;
-      }
-      .carousel-text a {
-        font-size: 14px;
-        padding: 10px 20px;
-      }
-      .carousel-image {
-        max-width: 100%;
-        width: 100%;
-        aspect-ratio: 560 / 360;
-        order: -1;
-      }
-        .syncskill-button {
-    font-size: 14px;
-    padding: 10px 20px;
-  }
-      .carousel-dots {
-        bottom: 5px;
-        gap: 8px;
-      }
-      .dot {
-        width: 6px;
-        height: 6px;
-      }
-      .dot.active {
-        width: 18px;
-        height: 6px;
-        border-radius: 3px;
-      }
-    }
-  </style>
-
-  <script>
-    const carouselContainer = document.querySelector('.carousel-container');
-    const items = document.querySelectorAll('.carousel-item');
-    const dots = document.querySelectorAll('.dot');
-    let currentIndex = 0;
-    let autoSlideInterval;
-
-    function updateCarousel() {
-      items.forEach((item, index) => {
-        item.classList.toggle('active', index === currentIndex);
-      });
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentIndex);
-        dot.setAttribute('aria-selected', index === currentIndex);
-      });
-    }
-
-    function startAutoSlide() {
-      autoSlideInterval = setInterval(() => {
-        currentIndex = (currentIndex + 1) % items.length;
-        updateCarousel();
-      }, 3000);
-    }
-
-    function stopAutoSlide() {
-      clearInterval(autoSlideInterval);
-    }
-
-    dots.forEach(dot => {
-      dot.addEventListener('click', (e) => {
-        currentIndex = parseInt(e.target.dataset.slide);
-        updateCarousel();
-        stopAutoSlide();
-        startAutoSlide();
-      });
-      dot.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          currentIndex = parseInt(e.target.dataset.slide);
-          updateCarousel();
-          stopAutoSlide();
-          startAutoSlide();
-        }
-      });
-    });
-
-    // Hover pause on desktop
-    carouselContainer.addEventListener('mouseenter', stopAutoSlide);
-    carouselContainer.addEventListener('mouseleave', startAutoSlide);
-
-    // Touch support for mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-    carouselContainer.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-      stopAutoSlide();
-    });
-    carouselContainer.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      if (touchStartX - touchEndX > 50) {
-        currentIndex = (currentIndex + 1) % items.length;
-      } else if (touchEndX - touchStartX > 50) {
-        currentIndex = (currentIndex - 1 + items.length) % items.length;
-      }
-      updateCarousel();
-      startAutoSlide();
-    });
-
-    // Initialize
-    startAutoSlide();
-  </script> 
 </body>
 </html>
