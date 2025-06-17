@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header with Mega Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Root variables from our configuration */
+        :root {
+            --spacing: 0.25rem;
+            --color-gray-200: oklch(92.8% 0.006 264.531);
+            --color-white: #fff;
+            --color-black: #000;
+            --color-dark-teal: #012726;
+            --color-teal-hover: #004D4B;
+            --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            --font-weight-medium: 500;
+            --font-weight-normal: 400;
+            --font-weight-bold: 700;
+            --text-base: 1rem;
+            --text-base--line-height: 1.5;
+            --radius-md: 0.375rem;
+            --default-transition-duration: 0.15s;
+            --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Body font */
+        body {
+            font-family: var(--font-sans);
+        }
+
+        /* Header styles */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            transition-property: all;
+            transition-duration: 0.3s;
+            transition-timing-function: var(--default-transition-timing-function);
+            overflow: visible;
+            background-color: var(--color-white);
+        }
+
+        /* Container */
+        .header-container {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (min-width: 48rem) {
+            .header-container {
+                width: 80%;
+            }
+        }
+
+        /* Navigation */
+        .nav {
+            padding-top: calc(var(--spacing) * 6);
+            padding-bottom: calc(var(--spacing) * 6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Logo and nav links container */
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing) * 6);
+        }
+
+        /* Logo image */
+        .logo {
+            margin-right: calc(var(--spacing) * 6);
+            width: 100px;
+            height: 40px;
+            color: transparent;
+        }
+
+        /* Nav links (hidden on mobile, flex on md) */
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: calc(var(--spacing) * 4);
+        }
+
+        @media (min-width: 48rem) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        /* Learn button (desktop only) */
+        .learn-button {
+            display: flex;
+            align-items: center;
+            padding-left: calc(var(--spacing) * 3);
+            padding-right: calc(var(--spacing) * 3);
+            padding-top: calc(var(--spacing) * 2);
+            padding-bottom: calc(var(--spacing) * 2);
+            font-size: var(--text-base);
+            line-height: var(--text-base--line-height);
+            font-weight: var(--font-weight-medium);
+            border: 1px solid var(--color-dark-teal);
+            border-radius: var(--radius-md);
+            color: var(--color-dark-teal);
+            white-space: nowrap;
+            transition-property: color, background-color;
+            transition-duration: var(--default-transition-duration);
+            transition-timing-function: var(--default-transition-timing-function);
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        @media (hover: hover) {
+            .learn-button:hover {
+                color: var(--color-white);
+                background-color: var(--color-dark-teal);
+            }
+        }
+
+        /* Learn button SVG */
+        .learn-button svg {
+            margin-left: calc(var(--spacing) * 1);
+            transition-property: transform;
+            transition-duration: 0.2s;
+            transition-timing-function: var(--default-transition-timing-function);
+            width: 16px;
+            height: 16px;
+        }
+
+        .learn-button.active svg {
+            transform: rotate(180deg);
+        }
+
+        /* Mega menu styles (from SYNCSKILL) */
+        #megaMenu {
+            position: fixed;
+            top: 72px; /* Account for header height */
+            left: 50%;
+            width: min(800px, 90vw);
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.12);
+            padding: 32px;
+            opacity: 0;
+            transform: translate(-50%, 8px);
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        #megaMenu.active {
+            opacity: 1;
+            transform: translate(-50%, 0);
+            pointer-events: auto;
+        }
+
+        .mega-menu-content {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 32px;
+        }
+
+        .mega-menu-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mega-menu-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .mega-menu-header h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #2d3436;
+            letter-spacing: 0.25px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .mega-menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .mega-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #f1f3f5;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        @media (hover: hover) {
+            .mega-menu-item:hover {
+                background: linear-gradient(95deg, #ffffff 0%, #f8f9fa 100%);
+                transform: translateY(-2px);
+            }
+        }
+
+        .mega-menu-item-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mega-menu-item-icon.career {
+            background: #6366f1;
+        }
+
+        .mega-menu-item-icon.certification {
+            background: #10b981;
+        }
+
+        .mega-menu-item-icon svg {
+            width: 16px;
+            height: 16px;
+            color: white;
+        }
+
+        .mega-menu-item-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mega-menu-item-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .mega-menu-item-description {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 4px;
+        }
+
+        #featured-program {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 12px;
+            padding: 16px;
+            color: white;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #featured-program .label {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            opacity: 0.9;
+            display: block;
+        }
+
+        #featured-program .title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            display: block;
+        }
+
+        #featured-program .description {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 24px;
+            line-height: 1.5;
+            display: block;
+            overflow-wrap: break-word;
+        }
+
+        #featured-program .cta-button {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+        }
+
+        @media (hover: hover) {
+            #featured-program .cta-button:hover {
+                background: rgba(255,255,255,0.25);
+            }
+        }
+
+        /* Nav link */
+        .nav-link {
+            padding-left: calc(var(--spacing) * 4);
+            padding-right: calc(var(--spacing) * 4);
+            padding-top: calc(var(--spacing) * 2);
+            padding-bottom: calc(var(--spacing) * 2);
+            font-size: var(--text-base);
+            line-height: var(--text-base--line-height);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-dark-teal);
+            transition-property: color;
+            transition-duration: var(--default-transition-duration);
+            transition-timing-function: var(--default-transition-timing-function);
+            text-decoration: none;
+        }
+
+        @media (hover: hover) {
+            .nav-link:hover {
+                color: var(--color-teal-hover);
+            }
+        }
+
+        /* Right-side buttons container */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing) * 4);
+        }
+
+        /* Mobile menu button (visible on mobile, hidden on md) */
+        .menu-button {
+            display: flex;
+            padding: calc(var(--spacing) * 1.5);
+            border: 1px solid var(--color-dark-teal);
+            border-radius: var(--radius-md);
+            color: var(--color-dark-teal);
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        @media (min-width: 48rem) {
+            .menu-button {
+                display: none;
+            }
+        }
+
+        /* Mobile menu styles (from SYNCSKILL) */
+        #mobileMenu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 75vw;
+            max-width: 320px;
+            background: #ffffff;
+            padding: 24px 16px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-top-left-radius: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #mobileMenu.active {
+            transform: translateX(0);
+        }
+
+        #menuOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        #menuOverlay.active {
+            display: block;
+        }
+
+        .mobile-menu-close {
+            padding: 8px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            transition: background 0.2s ease, transform 0.2s ease;
+            align-self: flex-end;
+            margin-bottom: 24px;
+        }
+
+        .mobile-menu-close svg {
+            width: 24px;
+            height: 24px;
+            color: #4b5563;
+        }
+
+        .mobile-menu-content {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .mobile-menu-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .mobile-menu-group {
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 8px;
+        }
+
+        .mobile-menu-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3436;
+            margin: 0;
+            padding: 12px 0;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-menu-header span:last-child {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .mobile-menu-list {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        .mobile-menu-list.active {
+            display: flex;
+        }
+
+        .mobile-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #f1f3f5;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        @media (hover: hover) {
+            .mobile-menu-item:hover {
+                background: linear-gradient(95deg, #ffffff 0%, #f8f9fa 100%);
+                transform: translateY(-2px);
+            }
+        }
+
+        .mobile-menu-item-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            margin-right: 12px;
+        }
+
+        .mobile-menu-item-icon.career {
+            background: #6366f1;
+        }
+
+        .mobile-menu-item-icon.certification {
+            background: #10b981;
+        }
+
+        .mobile-menu-item-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu-item-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .mobile-menu-item-description {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 4px;
+        }
+
+        .mobile-menu-auth {
+            flex-shrink: 0;
+            padding-top: 20px;
+        }
+
+        .mobile-menu-auth-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .mobile-menu-auth-button {
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            font-weight: 600;
+        }
+
+        .mobile-menu-auth-button.submit {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .mobile-menu-auth-button.join {
+            border: 1px solid #d1d5db;
+            color: #4b5563;
+        }
+
+        @media (hover: hover) {
+            .mobile-menu-auth-button.submit:hover {
+                background: #6d28d9;
+            }
+            .mobile-menu-auth-button.join:hover {
+                background: #f3f4f6;
+            }
+        }
+
+        /* Auth buttons container (hidden on mobile, flex on md) */
+        .auth-buttons {
+            display: none;
+            align-items: center;
+            gap: calc(var(--spacing) * 4);
+        }
+
+        @media (min-width: 48rem) {
+            .auth-buttons {
+                display: flex;
+            }
+        }
+
+        /* Auth button */
+        .auth-button {
+            padding-left: calc(var(--spacing) * 5);
+            padding-right: calc(var(--spacing) * 5);
+            padding-top: calc(var(--spacing) * 2);
+            padding-bottom: calc(var(--spacing) * 2);
+            font-size: var(--text-base);
+            line-height: var(--text-base--line-height);
+            font-weight: var(--font-weight-medium);
+            border: 1px solid var(--color-dark-teal);
+            border-radius: var(--radius-md);
+            color: var(--color-dark-teal);
+            transition-property: color, background-color;
+            transition-duration: var(--default-transition-duration);
+            transition-timing-function: var(--default-transition-timing-function);
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+        @media (hover: hover) {
+            .auth-button:hover {
+                color: var(--color-white);
+                background-color: var(--color-dark-teal);
+            }
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background-color: var(--color-gray-200);
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            .desktop-only {
+                display: none !important;
+            }
+            #mobileMenuButton {
+                display: block !important;
+            }
+        }
+
+        @media (min-width: 769px) {
+            #mobileMenu {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <nav class="nav">
+                <div class="nav-left">
+                    <a href="/">
+                        <img alt="Growth School" class="logo" src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/gsmainlogo.svg">
+                    </a>
+                    <div class="nav-links">
+                        <div class="relative">
+                            <button class="learn-button" id="learningPathsBtn">
+                                Learn
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M6 9l6 6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <div id="megaMenu" class="mega-menu">
+                                <div class="mega-menu-content">
+                                    <div class="mega-menu-section">
+                                        <div class="mega-menu-header">
+                                            <h3>Career Accelerators</h3>
+                                        </div>
+                                        <ul class="mega-menu-list">
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Data Science Pro</div>
+                                                        <div class="mega-menu-item-description">12 Courses · 98 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">AI & ML Foundation</div>
+                                                        <div class="mega-menu-item-description">8 Courses · 64 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Full Stack Development</div>
+                                                        <div class="mega-menu-item-description">10 Courses · 80 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mega-menu-section">
+                                        <div class="mega-menu-header">
+                                            <h3>Certifications</h3>
+                                        </div>
+                                        <ul class="mega-menu-list">
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon certification"></div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Cloud Architect</div>
+                                                        <div class="mega-menu-item-description">AWS · Azure · GCP</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div id="featured-program">
+                                        <span class="label">FEATURED PROGRAM</span>
+                                        <h3 class="title">GenAI Mastery</h3>
+                                        <p class="description">Master LLMs, Diffusion Models, and Production Deployment</p>
+                                        <a href="#" class="cta-button">Explore Program</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="nav-link" href="https://home.growthschool.io/b2b">Upskill your Team</a>
+                        <a class="nav-link" href="/about-us">About</a>
+                    </div>
+                </div>
+                <div class="nav-right">
+                    <button class="menu-button" id="mobileMenuButton">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path stroke="currentColor" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                    <div class="auth-buttons">
+                        <a class="auth-button" href="https://serv-learner-prod.growthschool.io/auth/login">Submit Paper</a>
+                        <a class="auth-button" href="https://forms.growthschool.io/custom/apply-as-a-mentor-at-growthschool/8125ff18-d4a1-42d1-a6f6-0f3bcd3c840a">Join as Reviewer</a>
+                    </div>
+                </div>
+            </nav>
+            <div id="mobileMenu">
+                <div class="mobile-menu-close" id="mobileMenuClose">
+                    <svg viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </div>
+                <div class="mobile-menu-content">
+                    <div class="mobile-menu-section">
+                        <div class="mobile-menu-group">
+                            <h3 class="mobile-menu-header" onclick="(function(c){c.classList.toggle('active')})(this.nextElementSibling)">
+                                <span>Popular Courses</span>
+                                <span>+</span>
+                            </h3>
+                            <div class="mobile-menu-list">
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon career"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">Data Science Pro</div>
+                                        <div class="mobile-menu-item-description">12 Courses · 98 Hours</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon career"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">AI & ML Foundation</div>
+                                        <div class="mobile-menu-item-description">8 Courses · 64 Hours</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon career"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">Full Stack Development</div>
+                                        <div class="mobile-menu-item-description">10 Courses · 80 Hours</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mobile-menu-group">
+                            <h3 class="mobile-menu-header" onclick="(function(c){c.classList.toggle('active')})(this.nextElementSibling)">
+                                <span>Certifications</span>
+                                <span>+</span>
+                            </h3>
+                            <div class="mobile-menu-list">
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon certification"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">Cloud Architect</div>
+                                        <div class="mobile-menu-item-description">AWS · Azure · GCP</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon certification"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">Cybersecurity Expert</div>
+                                        <div class="mobile-menu-item-description">3 Badges</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon certification"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">Data Analytics</div>
+                                        <div class="mobile-menu-item-description">5 Badges</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mobile-menu-group">
+                            <div id="featured-program">
+                                <span class="label">FEATURED PROGRAM</span>
+                                <h3 class="title">GenAI Mastery</h3>
+                                <p class="description">Master LLMs, Diffusion Models, and Production Deployment</p>
+                                <a href="#" class="cta-button">Explore Program</a>
+                            </div>
+                        </div>
+                        <div class="mobile-menu-group">
+                            <a href="https://home.growthschool.io/b2b" class="mobile-menu-item">
+                                <div class="mobile-menu-item-text">
+                                    <div class="mobile-menu-item-title">Upskill your Team</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="mobile-menu-group">
+                            <a href="/about-us" class="mobile-menu-item">
+                                <div class="mobile-menu-item-text">
+                                    <div class="mobile-menu-item-title">About</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mobile-menu-auth">
+                    <div class="mobile-menu-auth-buttons">
+                        <a href="https://serv-learner-prod.growthschool.io/auth/login" class="mobile-menu-auth-button submit">Submit Paper</a>
+                        <a href="https://forms.growthschool.io/custom/apply-as-a-mentor-at-growthschool/8125ff18-d4a1-42d1-a6f6-0f3bcd3c840a" class="mobile-menu-auth-button join">Join as Reviewer</a>
+                    </div>
+                </div>
+            </div>
+            <div id="menuOverlay"></div>
+            <div class="divider"></div>
+        </div>
+    </header>
+    <script>
+        // Mega Menu
+        const learningPathsBtn = document.getElementById('learningPathsBtn');
+        const megaMenu = document.getElementById('megaMenu');
+        const chevron = learningPathsBtn.querySelector('svg');
+        let isMenuOpen = false;
+
+        function showMegaMenu() {
+            megaMenu.classList.add('active');
+            chevron.style.transform = 'rotate(180deg)';
+            learningPathsBtn.style.background = '#f8f9fa';
+        }
+
+        function hideMegaMenu() {
+            megaMenu.classList.remove('active');
+            chevron.style.transform = 'rotate(0deg)';
+            learningPathsBtn.style.background = 'transparent';
+        }
+
+        learningPathsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (isMenuOpen) {
+                hideMegaMenu();
+            } else {
+                showMegaMenu();
+            }
+            isMenuOpen = !isMenuOpen;
+        });
+
+        document.addEventListener('click', (e) => {
+            if (isMenuOpen && !megaMenu.contains(e.target) && !learningPathsBtn.contains(e.target)) {
+                hideMegaMenu();
+                isMenuOpen = false;
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+            if (isMenuOpen) {
+                hideMegaMenu();
+                isMenuOpen = false;
+            }
+        });
+
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        function toggleMobileMenu() {
+            const isOpen = mobileMenu.classList.contains('active');
+            if (isOpen) {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            } else {
+                mobileMenu.classList.add('active');
+                menuOverlay.classList.add('active');
+            }
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuClose.addEventListener('click', toggleMobileMenu);
+        menuOverlay.addEventListener('click', toggleMobileMenu);
+
+        // Close on ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && window.innerWidth <= 768) {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                if (isMenuOpen) {
+                    hideMegaMenu();
+                    isMenuOpen = false;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
