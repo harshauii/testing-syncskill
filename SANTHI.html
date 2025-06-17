@@ -137,7 +137,7 @@
         }
 
         /* Mega menu styles (from SYNCSKILL) */
-        #megaMenu {
+        #megaMenu, #archiveMegaMenu {
             position: fixed;
             top: 72px;
             left: 50%;
@@ -153,7 +153,7 @@
             z-index: 100;
         }
 
-        #megaMenu.active {
+        #megaMenu.active, #archiveMegaMenu.active {
             opacity: 1;
             transform: translate(-50%, 0);
             pointer-events: auto;
@@ -678,7 +678,126 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="nav-link" href="https://home.growthschool.io/b2b">Upskill your Team</a>
+                        <div class="relative">
+                            <button class="learn-button" id="archiveBtn">
+                                Archive
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M6 9l6 6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <div id="archiveMegaMenu" class="mega-menu">
+                                <div class="mega-menu-content">
+                                    <div class="mega-menu-section">
+                                        <div class="mega-menu-header">
+                                            <h3>Career Accelerators</h3>
+                                        </div>
+                                        <ul class="mega-menu-list">
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Data Science Pro</div>
+                                                        <div class="mega-menu-item-description">12 Courses · 98 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">AI & ML Foundation</div>
+                                                        <div class="mega-menu-item-description">8 Courses · 64 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Full Stack Development</div>
+                                                        <div class="mega-menu-item-description">10 Courses · 80 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mega-menu-section">
+                                        <div class="mega-menu-header">
+                                            <h3>Certifications</h3>
+                                        </div>
+                                        <ul class="mega-menu-list">
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon certification"></div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Cloud Architect</div>
+                                                        <div class="mega-menu-item-description">AWS · Azure · GCP</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mega-menu-section">
+                                        <div class="mega-menu-header">
+                                            <h3>More Courses</h3>
+                                        </div>
+                                        <ul class="mega-menu-list">
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">UX Design</div>
+                                                        <div class="mega-menu-item-description">6 Courses · 48 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">DevOps Essentials</div>
+                                                        <div class="mega-menu-item-description">8 Courses · 64 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Product Management</div>
+                                                        <div class="mega-menu-item-description">7 Courses · 56 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <a class="nav-link" href="/about-us">About</a>
                     </div>
                 </div>
@@ -790,9 +909,9 @@
                             </div>
                         </div>
                         <div class="mobile-menu-group">
-                            <a href="https://home.growthschool.io/b2b" class="mobile-menu-item">
+                            <a href="#" class="mobile-menu-item">
                                 <div class="mobile-menu-item-text">
-                                    <div class="mobile-menu-item-title">Upskill your Team</div>
+                                    <div class="mobile-menu-item-title">Archive</div>
                                 </div>
                             </a>
                         </div>
@@ -817,45 +936,83 @@
         </div>
     </header>
     <script>
-        // Mega Menu
+        // Learn Mega Menu
         const learningPathsBtn = document.getElementById('learningPathsBtn');
         const megaMenu = document.getElementById('megaMenu');
-        const chevron = learningPathsBtn.querySelector('svg');
+        const learnChevron = learningPathsBtn.querySelector('svg');
         let isMenuOpen = false;
 
-        function showMegaMenu() {
+        function showLearnMegaMenu() {
             megaMenu.classList.add('active');
-            chevron.style.transform = 'rotate(180deg)';
+            learnChevron.style.transform = 'rotate(180deg)';
             learningPathsBtn.style.background = '#f8f9fa';
         }
 
-        function hideMegaMenu() {
+        function hideLearnMegaMenu() {
             megaMenu.classList.remove('active');
-            chevron.style.transform = 'rotate(0deg)';
+            learnChevron.style.transform = 'rotate(0deg)';
             learningPathsBtn.style.background = 'transparent';
         }
 
         learningPathsBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             if (isMenuOpen) {
-                hideMegaMenu();
+                hideLearnMegaMenu();
             } else {
-                showMegaMenu();
+                showLearnMegaMenu();
+                hideArchiveMegaMenu(); // Close Archive menu if open
             }
             isMenuOpen = !isMenuOpen;
         });
 
+        // Archive Mega Menu
+        const archiveBtn = document.getElementById('archiveBtn');
+        const archiveMegaMenu = document.getElementById('archiveMegaMenu');
+        const archiveChevron = archiveBtn.querySelector('svg');
+        let isArchiveMenuOpen = false;
+
+        function showArchiveMegaMenu() {
+            archiveMegaMenu.classList.add('active');
+            archiveChevron.style.transform = 'rotate(180deg)';
+            archiveBtn.style.background = '#f8f9fa';
+        }
+
+        function hideArchiveMegaMenu() {
+            archiveMegaMenu.classList.remove('active');
+            archiveChevron.style.transform = 'rotate(0deg)';
+            archiveBtn.style.background = 'transparent';
+        }
+
+        archiveBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (isArchiveMenuOpen) {
+                hideArchiveMegaMenu();
+            } else {
+                showArchiveMegaMenu();
+                hideLearnMegaMenu(); // Close Learn menu if open
+            }
+            isArchiveMenuOpen = !isArchiveMenuOpen;
+        });
+
         document.addEventListener('click', (e) => {
             if (isMenuOpen && !megaMenu.contains(e.target) && !learningPathsBtn.contains(e.target)) {
-                hideMegaMenu();
+                hideLearnMegaMenu();
                 isMenuOpen = false;
+            }
+            if (isArchiveMenuOpen && !archiveMegaMenu.contains(e.target) && !archiveBtn.contains(e.target)) {
+                hideArchiveMegaMenu();
+                isArchiveMenuOpen = false;
             }
         });
 
         window.addEventListener('scroll', () => {
             if (isMenuOpen) {
-                hideMegaMenu();
+                hideLearnMegaMenu();
                 isMenuOpen = false;
+            }
+            if (isArchiveMenuOpen) {
+                hideArchiveMegaMenu();
+                isArchiveMenuOpen = false;
             }
         });
 
@@ -894,8 +1051,12 @@
                 mobileMenu.classList.remove('active');
                 menuOverlay.classList.remove('active');
                 if (isMenuOpen) {
-                    hideMegaMenu();
+                    hideLearnMegaMenu();
                     isMenuOpen = false;
+                }
+                if (isArchiveMenuOpen) {
+                    hideArchiveMegaMenu();
+                    isArchiveMenuOpen = false;
                 }
             }
         });
