@@ -6,7 +6,14 @@
     <title>Header with Mega Menu</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Root variables from our configuration */
+        /* Universal box-sizing */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Root variables */
         :root {
             --spacing: 0.25rem;
             --color-gray-200: oklch(92.8% 0.006 264.531);
@@ -61,7 +68,14 @@
                 padding-left: 16px;
                 padding-right: 16px;
                 width: 100%;
-                box-sizing: border-box;
+            }
+            .nav-left, .nav-right {
+                margin: 0;
+                padding: 0;
+            }
+            .logo, .menu-button {
+                margin: 0;
+                padding: 0;
             }
         }
 
@@ -87,12 +101,6 @@
             width: 100px;
             height: 40px;
             color: transparent;
-        }
-
-        @media (max-width: 768px) {
-            .logo {
-                margin-left: 0;
-            }
         }
 
         /* Nav links (hidden on mobile, flex on md) */
@@ -157,7 +165,7 @@
             transform: rotate(180deg);
         }
 
-        /* Mega menu styles (from SYNCSKILL) */
+        /* Mega menu styles */
         #megaMenu, #archiveMegaMenu {
             position: fixed;
             top: 72px;
@@ -256,7 +264,7 @@
             color: white;
         }
 
-        .mega-menu-item-text {
+        .megaNz-menu-item-text {
             display: flex;
             flex-direction: column;
         }
@@ -302,7 +310,7 @@
             gap: calc(var(--spacing) * 4);
         }
 
-        /* Mobile menu button (visible on mobile, hidden on md) */
+        /* Mobile menu button */
         .menu-button {
             display: flex;
             padding: calc(var(--spacing) * 1.5);
@@ -319,13 +327,7 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .menu-button {
-                margin-right: 0;
-            }
-        }
-
-        /* Mobile menu styles (from SYNCSKILL) */
+        /* Mobile menu styles */
         #mobileMenu {
             position: fixed;
             top: 0;
@@ -514,7 +516,7 @@
             }
         }
 
-        /* Auth buttons container (hidden on mobile, flex on md) */
+        /* Auth buttons container */
         .auth-buttons {
             display: none;
             align-items: center;
@@ -610,9 +612,8 @@
                                             <li>
                                                 <a href="#" class="mega-menu-item">
                                                     <div class="mega-menu-item-icon career">
-                                                        <div class="svg">
-                                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                                                         </svg>
                                                     </div>
                                                     <div class="mega-menu-item-text">
@@ -625,7 +626,7 @@
                                                 <a href="#" class="mega-menu-item">
                                                     <div class="mega-menu-item-icon career">
                                                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                                                         </svg>
                                                     </div>
                                                     <div class="mega-menu-item-text">
@@ -705,7 +706,7 @@
                                                     </div>
                                                     <div class="mega-menu-item-text">
                                                         <div class="mega-menu-item-title">Product Management</div>
-                                                        <div class="mega-menu-item-description">6 Courses · 56 Hours</div>
+                                                        <div class="mega-menu-item-description">7 Courses · 56 Hours</div>
                                                     </div>
                                                 </a>
                                             </li>
