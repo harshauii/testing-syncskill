@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header with Mega Menu</title>
+    <title>SYNCSKILL</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/footer-styles.css">
     <style>
         /* Universal box-sizing */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         /* Root variables */
@@ -32,9 +33,15 @@
             --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Body font */
+        /* Body styles */
         body {
             font-family: var(--font-sans);
+            line-height: 1.6;
+            padding-top: 72px;
+        }
+
+        html, body {
+            overflow-x: hidden;
         }
 
         /* Header styles */
@@ -578,38 +585,6 @@
             }
         }
 
-        /* Hero section styles */
-        .hero-section {
-            padding-top: calc(72px + 2rem); /* Account for fixed navbar height */
-            padding-bottom: 2rem;
-            text-align: center;
-            color: var(--color-dark-teal);
-        }
-
-        .hero-section h1 {
-            font-size: 2rem;
-            font-weight: var(--font-weight-bold);
-            line-height: 1.2;
-            max-width: 90%;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 768px) {
-            .hero-section {
-                padding-top: calc(72px + 2rem);
-                padding-bottom: 1.5rem;
-            }
-            .hero-section h1 {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .hero-section h1 {
-                font-size: 1.25rem;
-            }
-        }
-
         /* Media queries for responsiveness */
         @media (max-width: 768px) {
             .desktop-only {
@@ -623,6 +598,197 @@
         @media (min-width: 769px) {
             #mobileMenu {
                 display: none !important;
+            }
+        }
+
+        /* Featured section styles */
+        .section-container {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            background: linear-gradient(180deg, #F5FAFF 0%, #FFFFFF 100%);
+        }
+
+        .section-content {
+            max-width: 1280px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+            box-sizing: border-box;
+            padding: 40px 0;
+        }
+
+        @media (min-width: 48rem) {
+            .section-container {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-container {
+                width: 100%;
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .section-content {
+                padding: 24px 0;
+            }
+        }
+
+        .section-text {
+            max-width: 540px;
+            width: 100%;
+        }
+
+        .section-text h2 {
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 48px;
+            color: #111827;
+            margin: 0 0 24px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-text h2 span.top-line {
+            color: #111827;
+        }
+
+        .section-text h2 span.top-line span.highlight {
+            color: #FF6666;
+        }
+
+        .section-text h2 span.bottom-line {
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 48px;
+            color: #111827;
+        }
+
+        .section-text p {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 28px;
+            color: #4B5563;
+            margin: 0 0 32px 0;
+        }
+
+        .section-image {
+            max-width: 560px;
+            width: 100%;
+            aspect-ratio: 560 / 360;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            background-color: #f0f0f0;
+        }
+
+        .section-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 12px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .section-image img.placeholder {
+            background-color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .syncskill-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #33C375;
+            color: var(--color-dark-teal);
+            font-family: var(--font-sans);
+            font-size: 18px;
+            font-weight: 600;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 39, 38, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .syncskill-button:hover {
+            background-color: #2CAC66;
+            box-shadow: 0 4px 12px rgba(0, 39, 38, 0.3);
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        .syncskill-button:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 6px rgba(0, 39, 38, 0.2);
+        }
+
+        .syncskill-button-icon {
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .syncskill-button:hover .syncskill-button-icon {
+            transform: translateY(2px);
+        }
+
+        @media (max-width: 768px) {
+            .section-content {
+                flex-direction: column;
+                gap: 24px;
+                align-items: flex-start;
+            }
+
+            .section-text {
+                max-width: 100%;
+                text-align: left;
+                order: 1;
+            }
+
+            .section-text h2 {
+                font-size: 24px;
+                line-height: 32px;
+                margin-bottom: 16px;
+            }
+
+            .section-text h2 span.top-line {
+                font-size: 24px;
+                line-height: 32px;
+            }
+
+            .section-text h2 span.bottom-line {
+                font-size: 24px;
+                line-height: 32px;
+            }
+
+            .section-text p {
+                font-size: 16px;
+                line-height: 24px;
+                margin-bottom: 24px;
+            }
+
+            .section-image {
+                max-width: 100%;
+                width: 100%;
+                aspect-ratio: 560 / 360;
+                order: 2;
+            }
+
+            .syncskill-button {
+                font-size: 14px;
+                padding: 10px 20px;
             }
         }
     </style>
@@ -672,7 +838,7 @@
                                                     </div>
                                                     <div class="mega-menu-item-text">
                                                         <div class="mega-menu-item-title">AI & ML Foundation</div>
-                                                        <div class="mobile-menu-item-description">8 Courses · 64 Hours</div>
+                                                        <div class="mega-menu-item-description">8 Courses · 64 Hours</div>
                                                     </div>
                                                 </a>
                                             </li>
@@ -1019,9 +1185,33 @@
             <div class="divider"></div>
         </div>
     </header>
-    <section class="hero-section">
-        <h1>International Hub for Technology, Novelty and Applied Sciences</h1>
+
+    <section class="section-container" role="region" aria-label="Syncskill Featured Section">
+        <div class="section-content">
+            <div class="section-text">
+                <h2>
+                    <span class="top-line">Become <span class="highlight">Top 1%</span></span>
+                    <span class="bottom-line">International Hub for Technology, Novelty and Applied Sciences</span>
+                </h2>
+                <p>Whether it's Product, Growth, Design, Business, Tech, or Data, Syncskill is the place to learn from top experts and join the elite.</p>
+                <button class="syncskill-button">
+                    Explore Programs
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 12 13" fill="none" class="syncskill-button-icon">
+                        <path d="M1 7.11108L6 12L11 7.11108" stroke="#012726" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M1 1L6 5.88889L11 1" stroke="#012726" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="section-image">
+                <img src="https://framerusercontent.com/images/kkOygtHRHYPv76o5PniXD7eNI.png?scale-down-to=1024" 
+                     onerror="this.src='https://via.placeholder.com/560x360?text=Image+Failed+to+Load'; this.classList.add('placeholder');" 
+                     alt="Syncskill Program Mockup">
+            </div>
+        </div>
     </section>
+
+    <!-- Footer should be included here, styled by /assets/footer-styles.css -->
+
     <script>
         // Learn Mega Menu
         const learningPathsBtn = document.getElementById('learningPathsBtn');
