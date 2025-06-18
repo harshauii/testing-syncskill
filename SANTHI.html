@@ -131,7 +131,7 @@
             border-radius: var(--radius-md);
             color: var(--color-dark-teal);
             white-space: nowrap;
-            transition-property: color, background-color;
+            transition-property: color, background-color, transform;
             transition-duration: var(--default-transition-duration);
             transition-timing-function: var(--default-transition-timing-function);
             background-color: transparent;
@@ -146,6 +146,38 @@
 
         @media (hover: hover) {
             .learn-button:hover {
+                color: var(--color-white);
+                background-color: var(--color-dark-teal);
+            }
+            .learn-button:hover svg {
+                transform: rotate(180deg);
+            }
+        }
+
+        .learn-button svg {
+            margin-left: calc(var(--spacing) * 2);
+            transition: transform var(--default-transition-duration) var(--default-transition-timing-function);
+        }
+
+        /* About link hover effect */
+        .nav-link {
+            padding-left: calc(var(--spacing) * 4);
+            padding-right: calc(var(--spacing) * 4);
+            padding-top: calc(var(--spacing) * 2);
+            padding-bottom: calc(var(--spacing) * 2);
+            font-size: var(--text-base);
+            line-height: var(--text-base--line-height);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-dark-teal);
+            transition-property: color, background-color;
+            transition-duration: var(--default-transition-duration);
+            transition-timing-function: var(--default-transition-timing-function);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+        }
+
+        @media (hover: hover) {
+            .nav-link:hover {
                 color: var(--color-white);
                 background-color: var(--color-dark-teal);
             }
@@ -267,28 +299,6 @@
             margin-top: 4px;
         }
 
-        /* Nav link */
-        .nav-link {
-            padding-left: calc(var(--spacing) * 4);
-            padding-right: calc(var(--spacing) * 4);
-            padding-top: calc(var(--spacing) * 2);
-            padding-bottom: calc(var(--spacing) * 2);
-            font-size: var(--text-base);
-            line-height: var(--text-base--line-height);
-            font-weight: var(--font-weight-medium);
-            color: var(--color-dark-teal);
-            transition-property: color;
-            transition-duration: var(--default-transition-duration);
-            transition-timing-function: var(--default-transition-timing-function);
-            text-decoration: none;
-        }
-
-        @media (hover: hover) {
-            .nav-link:hover {
-                color: var(--color-teal-hover);
-            }
-        }
-
         /* Right-side buttons container */
         .nav-right {
             display: flex;
@@ -397,9 +407,13 @@
             align-items: center;
         }
 
-        .mobile-menu-header span:last-child {
-            font-size: 18px;
-            line-height: 1;
+        .mobile-menu-header svg {
+            margin-left: calc(var(--spacing) * 2);
+            transition: transform var(--default-transition-duration) var(--default-transition-timing-function);
+        }
+
+        .mobile-menu-header.active svg {
+            transform: rotate(180deg);
         }
 
         .mobile-menu-list {
@@ -484,8 +498,8 @@
         }
 
         .mobile-menu-auth-button.submit {
-            background: #7c3aed;
-            color: white;
+            background: var(--color-dark-teal);
+            color: var(--color-white);
         }
 
         .mobile-menu-auth-button.join {
@@ -495,7 +509,7 @@
 
         @media (hover: hover) {
             .mobile-menu-auth-button.submit:hover {
-                background: #6d28d9;
+                background: var(--color-teal-hover);
             }
             .mobile-menu-auth-button.join:hover {
                 background: #f3f4f6;
@@ -534,10 +548,19 @@
             background-color: transparent;
         }
 
+        .auth-button.submit {
+            background-color: var(--color-dark-teal);
+            color: var(--color-white);
+            border: none;
+        }
+
         @media (hover: hover) {
             .auth-button:hover {
                 color: var(--color-white);
-                background-color: var(--color-dark-teal);
+                background-color: var(--color-teal-hover);
+            }
+            .auth-button.submit:hover {
+                background-color: var(--color-teal-hover);
             }
         }
 
@@ -552,6 +575,32 @@
                 width: 100%;
                 margin: 0;
                 padding: 0;
+            }
+        }
+
+        /* Hero section styles */
+        .hero-section {
+            padding-top: calc(72px + 2rem); /* Account for fixed navbar height */
+            padding-bottom: 2rem;
+            text-align: center;
+            color: var(--color-dark-teal);
+        }
+
+        .hero-section h1 {
+            font-size: 2rem;
+            font-weight: var(--font-weight-bold);
+            line-height: 1.2;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding-top: calc(72px + 1rem);
+                padding-bottom: 1rem;
+            }
+            .hero-section h1 {
+                font-size: 1.5rem;
             }
         }
 
@@ -583,9 +632,9 @@
                     <div class="nav-links">
                         <div class="relative">
                             <button class="learn-button" id="learningPathsBtn">
-                                Learn
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path d="M6 9l6 6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <span>Learn</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ml-1 transition-transform duration-200">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </svg>
                             </button>
                             <div id="megaMenu" class="mega-menu">
@@ -703,9 +752,9 @@
                         </div>
                         <div class="relative">
                             <button class="learn-button" id="archiveBtn">
-                                Archive
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path d="M6 9l6 6 6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <span>Archive</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ml-1 transition-transform duration-200">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </svg>
                             </button>
                             <div id="archiveMegaMenu" class="mega-menu">
@@ -731,7 +780,7 @@
                                             <li>
                                                 <a href="#" class="mega-menu-item">
                                                     <div class="mega-menu-item-icon career">
-                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <svg fill="none" viewBox="0 0 屆24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                                                         </svg>
                                                     </div>
@@ -831,7 +880,7 @@
                         </svg>
                     </button>
                     <div class="auth-buttons">
-                        <a class="auth-button" href="https://serv-learner-prod.growthschool.io/auth/login">Submit Paper</a>
+                        <a class="auth-button submit" href="https://serv-learner-prod.growthschool.io/auth/login">Submit Paper</a>
                         <a class="auth-button" href="https://forms.growthschool.io/custom/apply-as-a-mentor-at-growthschool/8125ff18-d4a1-42d1-a6f6-0f3bcd3c840a">Join as Reviewer</a>
                     </div>
                 </div>
@@ -845,9 +894,11 @@
                 <div class="mobile-menu-content">
                     <div class="mobile-menu-section">
                         <div class="mobile-menu-group">
-                            <h3 class="mobile-menu-header" onclick="(function(c){c.classList.toggle('active')})(this.nextElementSibling)">
+                            <h3 class="mobile-menu-header" onclick="(function(c){c.classList.toggle('active'); this.classList.toggle('active');})(this.nextElementSibling)">
                                 <span>Learn</span>
-                                <span>+</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ml-1 transition-transform duration-200">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
                             </h3>
                             <div class="mobile-menu-list">
                                 <a href="#" class="mobile-menu-item">
@@ -874,9 +925,11 @@
                             </div>
                         </div>
                         <div class="mobile-menu-group">
-                            <h3 class="mobile-menu-header" onclick="(function(c){c.classList.toggle('active')})(this.nextElementSibling)">
+                            <h3 class="mobile-menu-header" onclick="(function(c){c.classList.toggle('active'); this.classList.toggle('active');})(this.nextElementSibling)">
                                 <span>Archive</span>
-                                <span>+</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ml-1 transition-transform duration-200">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
                             </h3>
                             <div class="mobile-menu-list">
                                 <a href="#" class="mobile-menu-item">
@@ -903,9 +956,11 @@
                             </div>
                         </div>
                         <div class="mobile-menu-group">
-                            <h3 class="mobile-menu-header" onclick="(function(c){c.classList.toggle('active')})(this.nextElementSibling)">
+                            <h3 class="mobile-menu-header" onclick="(function(c){c.classList.toggle('active'); this.classList.toggle('active');})(this.nextElementSibling)">
                                 <span>More</span>
-                                <span>+</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ml-1 transition-transform duration-200">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
                             </h3>
                             <div class="mobile-menu-list">
                                 <a href="#" class="mobile-menu-item">
@@ -931,21 +986,19 @@
                                 </a>
                             </div>
                         </div>
-                         <a href="https://harshajw.netlify.app">
-                        <div class="mobile-menu-group">
-                            <h3 class="mobile-menu-header" onclick="(function(c){c.classList.toggle('active')})(this.nextElementSibling)">
-                                <span>About</span>
-                                <span>></span>
-                            </h3>
-                        </div>
+                        <a href="https://harshajw.netlify.app" style="text-decoration: none;">
+                            <div class="mobile-menu-group">
+                                <h3 class="mobile-menu-header">
+                                    <span>About</span>
+                                </h3>
+                            </div>
                         </a>
-                        <a href="https://harshajw.netlify.app">
-                        <div class="mobile-menu-group">
-                            <h3 class="mobile-menu-header" onclick="(function(c){c.classList.toggle('active')})(this.nextElementSibling)">
-                                <span>Contact us</span>
-                                <span>></span>
-                            </h3>
-                        </div>
+                        <a href="https://harshajw.netlify.app" style="text-decoration: none;">
+                            <div class="mobile-menu-group">
+                                <h3 class="mobile-menu-header">
+                                    <span>Contact us</span>
+                                </h3>
+                            </div>
                         </a>
                     </div>
                 </div>
@@ -960,6 +1013,9 @@
             <div class="divider"></div>
         </div>
     </header>
+    <section class="hero-section">
+        <h1>International Hub for Technology, Novelty and Applied Sciences</h1>
+    </section>
     <script>
         // Learn Mega Menu
         const learningPathsBtn = document.getElementById('learningPathsBtn');
