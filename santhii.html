@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Example</title>
+    <style>
+        /* Custom CSS replicating Tailwind v4.1.7 classes exactly */
+        :root {
+            --font-ibm-plex-sans: "IBM Plex Sans", sans-serif;
+            --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            --color-gray-300: oklch(87.2% 0.01 258.338);
+            --color-gray-400: oklch(70.7% 0.022 261.325);
+            --color-white: #fff;
+            --spacing: 0.25rem;
+            --container-md: 28rem;
+            --text-xl: 1.25rem;
+            --text-xl--line-height: calc(1.75 / 1.25);
+            --text-sm: 0.875rem;
+            --text-sm--line-height: calc(1.25 / 0.875);
+            --text-lg: 1.125rem;
+            --text-lg--line-height: calc(1.75 / 1.125);
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --radius-lg: 0.5rem;
+            --default-transition-duration: 0.15s;
+            --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border: 0 solid;
+        }
+
+        body {
+            font-family: var(--font-ibm-plex-sans), var(--font-sans);
+            line-height: 1.5;
+            font-weight: var(--font-weight-normal);
+        }
+
+        /* w-full */
+        .w-full {
+            width: 100%;
+        }
+
+        /* bg-[#042626] */
+        .bg-042626 {
+            background-color: #042626;
+        }
+
+        /* text-white */
+        .text-white {
+            color: var(--color-white);
+        }
+
+        /* py-16 */
+        .py-16 {
+            padding-top: calc(var(--spacing) * 16);
+            padding-bottom: calc(var(--spacing) * 16);
+        }
+
+        /* w-[90%] */
+        .w-90 {
+            width: 90%;
+        }
+
+        /* md:w-[80%] */
+        @media (min-width: 48rem) {
+            .md-w-80 {
+                width: 80%;
+            }
+        }
+
+        /* mx-auto */
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* flex */
+        .flex {
+            display: flex;
+        }
+
+        /* flex-col */
+        .flex-col {
+            flex-direction: column;
+        }
+
+        /* md:flex-row */
+        @media (min-width: 48rem) {
+            .md-flex-row {
+                flex-direction: row;
+            }
+        }
+
+        /* gap-10 */
+        .gap-10 {
+            gap: calc(var(--spacing) * 10);
+        }
+
+        /* md:gap-20 */
+        @media (min-width: 48rem) {
+            .md-gap-20 {
+                gap: calc(var(--spacing) * 20);
+            }
+        }
+
+        /* mb-12 */
+        .mb-12 {
+            margin-bottom: calc(var(--spacing) * 12);
+        }
+
+        /* md:w-2/5 */
+        @media (min-width: 48rem) {
+            .md-w-2-5 {
+                width: 40%;
+            }
+        }
+
+        /* mb-8 */
+        .mb-8 {
+            margin-bottom: calc(var(--spacing) * 8);
+        }
+
+        /* h-12 */
+        .h-12 {
+            height: calc(var(--spacing) * 12);
+        }
+
+        /* md:h-18 */
+        @media (min-width: 48rem) {
+            .md-h-18 {
+                height: calc(var(--spacing) * 18);
+            }
+        }
+
+        /* w-auto */
+        .w-auto {
+            width: auto;
+        }
+
+        /* space-x-6 */
+        .space-x-6 > *:not(:last-child) {
+            margin-right: calc(var(--spacing) * 6);
+        }
+
+        /* transition */
+        .transition {
+            transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, translate, scale, rotate, filter;
+            transition-timing-function: var(--default-transition-timing-function);
+            transition-duration: var(--default-transition-duration);
+        }
+
+        /* hover:opacity-80 */
+        @media (hover: hover) {
+            .hover-opacity-80:hover {
+                opacity: 0.8;
+            }
+        }
+
+        /* w-10 */
+        .w-10 {
+            width: calc(var(--spacing) * 10);
+        }
+
+        /* h-10 */
+        .h-10 {
+            height: calc(var(--spacing) * 10);
+        }
+
+        /* md:w-3/5 */
+        @media (min-width: 48rem) {
+            .md-w-3-5 {
+                width: 60%;
+            }
+        }
+
+        /* md:max-w-md */
+        @media (min-width: 48rem) {
+            .md-max-w-md {
+                max-width: var(--container-md);
+            }
+        }
+
+        /* ml-auto */
+        .ml-auto {
+            margin-left: auto;
+        }
+
+        /* text-xl */
+        .text-xl {
+            font-size: var(--text-xl);
+            line-height: var(--text-xl--line-height);
+        }
+
+        /* font-medium */
+        .font-medium {
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* mb-2 */
+        .mb-2 {
+            margin-bottom: calc(var(--spacing) * 2);
+        }
+
+        /* text-gray-300 */
+        .text-gray-300 {
+            color: var(--color-gray-300);
+        }
+
+        /* mb-4 */
+        .mb-4 {
+            margin-bottom: calc(var(--spacing) * 4);
+        }
+
+        /* text-sm */
+        .text-sm {
+            font-size: var(--text-sm);
+            line-height: var(--text-sm--line-height);
+        }
+
+        /* sm:flex-row */
+        @media (min-width: 40rem) {
+            .sm-flex-row {
+                flex-direction: row;
+            }
+        }
+
+        /* gap-3 */
+        .gap-3 {
+            gap: calc(var(--spacing) * 3);
+        }
+
+        /* flex-grow */
+        .flex-grow {
+            flex-grow: 1;
+        }
+
+        /* px-4 */
+        .px-4 {
+            padding-left: calc(var(--spacing) * 4);
+            padding-right: calc(var(--spacing) * 4);
+        }
+
+        /* py-3 */
+        .py-3 {
+            padding-top: calc(var(--spacing) * 3);
+            padding-bottom: calc(var(--spacing) * 3);
+        }
+
+        /* rounded-lg */
+        .rounded-lg {
+            border-radius: var(--radius-lg);
+        }
+
+        /* bg-[#0B3837] */
+        .bg-0B3837 {
+            background-color: #0B3837;
+        }
+
+        /* border */
+        .border {
+            border-style: solid;
+            border-width: 1px;
+        }
+
+        /* border-[#1A4544] */
+        .border-1A4544 {
+            border-color: #1A4544;
+        }
+
+        /* focus:outline-none */
+        .focus-outline-none:focus {
+            outline-style: none;
+        }
+
+        /* focus:ring-1 */
+        .focus-ring-1:focus {
+            box-shadow: 0 0 0 1px currentColor;
+        }
+
+        /* focus:ring-[#33c375] */
+        .focus-ring-33c375:focus {
+            box-shadow: 0 0 0 1px #33c375;
+        }
+
+        /* px-6 */
+        .px-6 {
+            padding-left: calc(var(--spacing) * 6);
+            padding-right: calc(var(--spacing) * 6);
+        }
+
+        /* bg-[#33c375] */
+        .bg-33c375 {
+            background-color: #33c375;
+        }
+
+        /* text-[#042626] */
+        .text-042626 {
+            color: #042626;
+        }
+
+        /* transition-colors */
+        .transition-colors {
+            transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+            transition-timing-function: var(--default-transition-timing-function);
+            transition-duration: var(--default-transition-duration);
+        }
+
+        /* whitespace-nowrap */
+        .whitespace-nowrap {
+            white-space: nowrap;
+        }
+
+        /* hover:bg-[#2ba764] */
+        @media (hover: hover) {
+            .hover-bg-2ba764:hover {
+                background-color: #2ba764;
+            }
+        }
+
+        /* h-px */
+        .h-px {
+            height: 1px;
+        }
+
+        /* bg-[#1A4544] */
+        .bg-1A4544 {
+            background-color: #1A4544;
+        }
+
+        /* my-10 */
+        .my-10 {
+            margin-top: calc(var(--spacing) * 10);
+            margin-bottom: calc(var(--spacing) * 10);
+        }
+
+        /* grid */
+        .grid {
+            display: grid;
+        }
+
+        /* grid-cols-2 */
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        /* md:grid-cols-4 */
+        @media (min-width: 48rem) {
+            .md-grid-cols-4 {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        /* gap-8 */
+        .gap-8 {
+            gap: calc(var(--spacing) * 8);
+        }
+
+        /* mb-14 */
+        .mb-14 {
+            margin-bottom: calc(var(--spacing) * 14);
+        }
+
+        /* text-lg */
+        .text-lg {
+            font-size: var(--text-lg);
+            line-height: var(--text-lg--line-height);
+        }
+
+        /* mb-5 */
+        .mb-5 {
+            margin-bottom: calc(var(--spacing) * 5);
+        }
+
+        /* list-none */
+        .list-none {
+            list-style-type: none;
+        }
+
+        /* space-y-3 */
+        .space-y-3 > *:not(:last-child) {
+            margin-bottom: calc(var(--spacing) * 3);
+        }
+
+        /* hover:text-white */
+        @media (hover: hover) {
+            .hover-text-white:hover {
+                color: var(--color-white);
+            }
+        }
+
+        /* mb-6 */
+        .mb-6 {
+            margin-bottom: calc(var(--spacing) * 6);
+        }
+
+        /* justify-between */
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        /* items-center */
+        .items-center {
+            align-items: center;
+        }
+
+        /* text-gray-400 */
+        .text-gray-400 {
+            color: var(--color-gray-400);
+        }
+
+        /* gap-4 */
+        .gap-4 {
+            gap: calc(var(--spacing) * 4);
+        }
+
+        /* flex-wrap */
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+
+        /* md:gap-6 */
+        @media (min-width: 48rem) {
+            .md-gap-6 {
+                gap: calc(var(--spacing) * 6);
+            }
+        }
+
+        /* Inline styles and other adjustments */
+        img[style*="color:transparent"] {
+            color: transparent;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <footer class="w-full bg-042626 text-white py-16">
+            <div class="w-90 md-w-80 mx-auto">
+                <div class="flex flex-col md-flex-row gap-10 md-gap-20 mb-12">
+                    <div class="md-w-2-5">
+                        <div class="mb-8">
+                            <img alt="GrowthSchool" loading="lazy" width="280" height="50" decoding="async" data-nimg="1" class="h-12 md-h-18 w-auto" style="color:transparent" src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/footgs.svg">
+                        </div>
+                        <div class="space-x-6 mb-8">
+                            <a href="https://www.facebook.com/growthschoolio" class="transition hover-opacity-80" target="_blank" rel="noopener noreferrer">
+                                <img alt="Facebook" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="w-10 h-10" style="color:transparent" src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/Facebook.svg">
+                            </a>
+                            <a href="https://x.com/growthschoolio" class="transition hover-opacity-80" target="_blank" rel="noopener noreferrer">
+                                <img alt="Twitter" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="w-10 h-10" style="color:transparent" src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/Twitter.svg">
+                            </a>
+                            <a href="https://www.linkedin.com/school/growthschoolio/" class="transition hover-opacity-80" target="_blank" rel="noopener noreferrer">
+                                <img alt="LinkedIn" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="w-10 h-10" style="color:transparent" src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/LinkedIn.svg">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md-w-3-5 md-max-w-md ml-auto">
+                        <h3 class="text-xl font-medium mb-2">Best Kept Secrets ✨</h3>
+                        <p class="text-gray-300 mb-4 text-sm">Be the first to find out about the newest programs, workshops, and community activities - plus industry news, articles, and special reports.</p>
+                        <form class="flex flex-col sm-flex-row gap-3">
+                            <input type="email" placeholder="Enter your email" class="flex-grow px-4 py-3 rounded-lg bg-0B3837 border border-1A4544 text-white focus-outline-none focus-ring-1 focus-ring-33c375" required value="">
+                            <button type="submit" class="px-6 py-3 bg-33c375 text-042626 font-medium rounded-lg transition-colors whitespace-nowrap hover-bg-2ba764">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="w-full h-px bg-1A4544 my-10"></div>
+                <div class="grid grid-cols-2 md-grid-cols-4 gap-8 mb-14">
+                    <div>
+                        <h4 class="text-lg font-medium mb-5">Mentorship Programs</h4>
+                        <ul class="space-y-3 list-none">
+                            <li><a class="text-gray-300 hover-text-white transition" href="/digital-marketing-mentorship-program">Digital Marketing</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="/performance-marketing-mentorship-program">Performance Marketing</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="/ui-ux-design-mentorship-program">UI UX Design</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="/product-management-mentorship-program">Product Management</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="/management-consulting-mentorship-program">Management Consulting</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="/product-marketing-mentorship-program">Product Marketing</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-medium mb-5">Workshops</h4>
+                        <ul class="space-y-3 list-none">
+                            <li><a class="text-gray-300 hover-text-white transition" href="/workshops/chatgpt-workshop">ChatGPT</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="/workshops/linkedin-growth">Linkedin Growth</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="/workshops/ai-for-consultants">AI For Consultants</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="/workshops/product-management">Product Management</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="/workshops/marketing-mastermind">Marketing Mastermind</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="/workshops/business-mastermind">Business Mastermind</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-medium mb-5">Company</h4>
+                        <ul class="space-y-3 list-none">
+                            <li><a class="text-gray-300 hover-text-white transition" href="/about-us">About Us</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="/contact-us">Contact Us</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="https://home.growthschool.io/careers">Careers</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="https://growthschool.freshdesk.com/support/home">Help</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-medium mb-5">Engage</h4>
+                        <ul class="space-y-3 list-none">
+                            <li><a class="text-gray-300 hover-text-white transition" href="https://home.growthschool.io/b2b">Upskill Your Team</a></li>
+                            <li><a class="text-gray-300 hover-text-white transition" href="https://forms.growthschool.io/custom/apply-as-a-mentor-at-growthschool/8125ff18-d4a1-42d1-a6f6-0f3bcd3c840a">Apply as Mentor</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="w-full h-px bg-1A4544 mb-6"></div>
+                <div class="flex flex-col md-flex-row justify-between items-center text-sm text-gray-400 gap-4">
+                    <div>© 2025 Sisinty Pvt. Ltd. All rights reserved</div>
+                    <div class="flex flex-wrap gap-4 md-gap-6">
+                        <a class="text-gray-400 hover-text-white transition" href="/privacy-policy">Privacy Policy</a>
+                        <a class="text-gray-400 hover-text-white transition" href="/refund-policy">Refund Policy</a>
+                        <a class="text-gray-400 hover-text-white transition" href="/terms-and-conditions">Terms & Conditions</a>
+                    </div>
+                </div>
+                </div>
+        </footer>
+    </div>
+</body>
+</html>
