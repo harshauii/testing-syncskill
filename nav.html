@@ -1,0 +1,1215 @@
+  <style>
+
+        /* Root variables */
+        :root {
+            --spacing: 0.25rem;
+            --color-gray-200: oklch(92.8% 0.006 264.531);
+            --color-white: #fff;
+            --color-black: #000;
+            --color-dark-teal: #012726;
+            --color-teal-hover: #004D4B;
+            --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            --font-weight-medium: 500;
+            --font-weight-normal: 400;
+            --font-weight-bold: 700;
+            --text-base: 1rem;
+            --text-base--line-height: 1.5;
+            --radius-md: 0.375rem;
+            --default-transition-duration: 0.15s;
+            --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html, body {
+            overflow-x: hidden;
+        }
+
+        /* Header styles */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            transition-property: all;
+            transition-duration: 0.3s;
+            transition-timing-function: var(--default-transition-timing-function);
+            overflow: visible;
+            background-color: var(--color-white);
+        }
+
+        /* Container */
+        .header-container {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (min-width: 48rem) {
+            .header-container {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding-left: 16px;
+                padding-right: 16px;
+                width: 100%;
+            }
+            .nav-left, .nav-right {
+                margin: 0;
+                padding: 0;
+            }
+            .logo, .menu-button {
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        /* Navigation */
+        .nav {
+            padding-top: calc(var(--spacing) * 6);
+            padding-bottom: calc(var(--spacing) * 6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Logo and nav links container */
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing) * 6);
+        }
+@media (max-width: 768px) {
+    .nav {
+        padding-top: calc(var(--spacing) * 3);
+        padding-bottom: calc(var(--spacing) * 3);
+    }
+}
+        
+        /* Logo image */
+        .logo {
+            margin-right: calc(var(--spacing) * 6);
+            width: 100px;
+            height: 40px;
+            color: transparent;
+        }
+
+        /* Nav links (hidden on mobile, flex on md) */
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: calc(var(--spacing) * 4);
+        }
+
+        @media (min-width: 48rem) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        /* Learn button (desktop only) */
+        .learn-button {
+            display: flex;
+            align-items: center;
+            padding-left: calc(var(--spacing) * 3);
+            padding-right: calc(var(--spacing) * 3);
+            padding-top: calc(var(--spacing) * 2);
+            padding-bottom: calc(var(--spacing) * 2);
+            font-size: var(--text-base);
+            line-height: var(--text-base--line-height);
+            font-weight: var(--font-weight-medium);
+            border: 1px solid var(--color-dark-teal);
+            border-radius: var(--radius-md);
+            color: var(--color-dark-teal);
+            white-space: nowrap;
+            transition-property: color, background-color, transform;
+            transition-duration: var(--default-transition-duration);
+            transition-timing-function: var(--default-transition-timing-function);
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        @media (min-width: 769px) {
+            .learn-button {
+                border: none;
+            }
+        }
+
+        @media (hover: hover) {
+            .learn-button:hover {
+                color: var(--color-white);
+                background-color: var(--color-dark-teal);
+            }
+            .learn-button:hover svg {
+                transform: rotate(180deg);
+            }
+        }
+
+        .learn-button svg {
+            margin-left: calc(var(--spacing) * 2);
+            transition: transform var(--default-transition-duration) var(--default-transition-timing-function);
+        }
+
+        /* About link hover effect */
+        .nav-link {
+            padding-left: calc(var(--spacing) * 4);
+            padding-right: calc(var(--spacing) * 4);
+            padding-top: calc(var(--spacing) * 2);
+            padding-bottom: calc(var(--spacing) * 2);
+            font-size: var(--text-base);
+            line-height: var(--text-base--line-height);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-dark-teal);
+            transition-property: color, background-color;
+            transition-duration: var(--default-transition-duration);
+            transition-timing-function: var(--default-transition-timing-function);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+        }
+
+        @media (hover: hover) {
+            .nav-link:hover {
+                color: var(--color-white);
+                background-color: var(--color-dark-teal);
+            }
+        }
+
+        /* Mega menu styles */
+        #megaMenu, #archiveMegaMenu {
+            position: fixed;
+            top: 72px;
+            left: 50%;
+            width: min(800px, 90vw);
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.12);
+            padding: 32px;
+            opacity: 0;
+            transform: translate(-50%, 8px);
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            pointer-events: none;
+            z-index: 100;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        #megaMenu.active, #archiveMegaMenu.active {
+            opacity: 1;
+            transform: translate(-50%, 0);
+            pointer-events: auto;
+        }
+
+        .mega-menu-content {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 32px;
+            max-height: 100%;
+        }
+
+        .mega-menu-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mega-menu-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .mega-menu-header h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #2d3436;
+            letter-spacing: 0.25px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .mega-menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .mega-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #f1f3f5;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        @media (hover: hover) {
+            .mega-menu-item:hover {
+                background: linear-gradient(95deg, #ffffff 0%, #f8f9fa 100%);
+                transform: translateY(-2px);
+            }
+        }
+
+        .mega-menu-item-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mega-menu-item-icon.career {
+            background: #6366f1;
+        }
+
+        .mega-menu-item-icon.certification {
+            background: #10b981;
+        }
+
+        .mega-menu-item-icon svg {
+            width: 16px;
+            height: 16px;
+            color: white;
+        }
+
+        .mega-menu-item-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mega-menu-item-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .mega-menu-item-description {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 4px;
+        }
+
+
+
+#megaMenu::-webkit-scrollbar, #archiveMegaMenu::-webkit-scrollbar {
+    width: 8px;
+}
+#megaMenu::-webkit-scrollbar-track, #archiveMegaMenu::-webkit-scrollbar-track {
+    background: #f1f3f5;
+    border-radius: 4px;
+}
+#megaMenu::-webkit-scrollbar-thumb, #archiveMegaMenu::-webkit-scrollbar-thumb {
+    background: #6c757d;
+    border-radius: 4px;
+}
+#megaMenu::-webkit-scrollbar-thumb:hover, #archiveMegaMenu::-webkit-scrollbar-thumb:hover {
+    background: #495057;
+}
+
+
+
+        /* Right-side buttons container */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing) * 4);
+        }
+
+        /* Mobile menu button */
+        .menu-button {
+            display: flex;
+            padding: calc(var(--spacing) * 1.5);
+            border: 1px solid var(--color-dark-teal);
+            border-radius: var(--radius-md);
+            color: var(--color-dark-teal);
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        @media (min-width: 48rem) {
+            .menu-button {
+                display: none;
+            }
+        }
+
+        /* Mobile menu styles */
+        #mobileMenu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 75vw;
+            max-width: 320px;
+            background: #ffffff;
+            padding: 24px 16px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-top-left-radius: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #mobileMenu.active {
+            transform: translateX(0);
+        }
+
+        #menuOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        #menuOverlay.active {
+            display: block;
+        }
+
+        .mobile-menu-close {
+            padding: 8px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            transition: background 0.2s ease, transform 0.2s ease;
+            align-self: flex-end;
+            margin-bottom: 24px;
+        }
+
+        .mobile-menu-close svg {
+            width: 24px;
+            height: 24px;
+            color: #4b5563;
+        }
+
+        .mobile-menu-content {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .mobile-menu-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .mobile-menu-group {
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 8px;
+        }
+
+        .mobile-menu-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3436;
+            margin: 0;
+            padding: 12px 0;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-menu-header svg {
+            margin-left: calc(var(--spacing) * 2);
+            transition: transform var(--default-transition-duration) var(--default-transition-timing-function);
+        }
+
+        .mobile-menu-header.active svg {
+            transform: rotate(180deg);
+        }
+
+        .mobile-menu-list {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        .mobile-menu-list.active {
+            display: flex;
+        }
+
+        .mobile-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: linear-gradient(95deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #f1f3f5;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        @media (hover: hover) {
+            .mobile-menu-item:hover {
+                background: linear-gradient(95deg, #ffffff 0%, #f8f9fa 100%);
+                transform: translateY(-2px);
+            }
+        }
+
+        .mobile-menu-item-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            margin-right: 12px;
+        }
+
+        .mobile-menu-item-icon.career {
+            background: #6366f1;
+        }
+
+        .mobile-menu-item-icon.certification {
+            background: #10b981;
+        }
+
+        .mobile-menu-item-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu-item-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .mobile-menu-item-description {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 4px;
+        }
+
+        .mobile-menu-auth {
+            flex-shrink: 0;
+            padding-top: 20px;
+        }
+
+        .mobile-menu-auth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mobile-menu-auth-button {
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            font-weight: 600;
+        }
+
+        .mobile-menu-auth-button.submit {
+            background: var(--color-dark-teal);
+            color: var(--color-white);
+        }
+
+        .mobile-menu-auth-button.join {
+            border: 1px solid #d1d5db;
+            color: #4b5563;
+        }
+
+        @media (hover: hover) {
+            .mobile-menu-auth-button.submit:hover {
+                background: var(--color-teal-hover);
+            }
+            .mobile-menu-auth-button.join:hover {
+                background: #f3f4f6;
+            }
+        }
+
+        /* Auth buttons container */
+        .auth-buttons {
+            display: none;
+            align-items: center;
+            gap: calc(var(--spacing) * 4);
+        }
+
+        @media (min-width: 48rem) {
+            .auth-buttons {
+                display: flex;
+            }
+        }
+
+        /* Auth button */
+        .auth-button {
+            padding-left: calc(var(--spacing) * 5);
+            padding-right: calc(var(--spacing) * 5);
+            padding-top: calc(var(--spacing) * 2);
+            padding-bottom: calc(var(--spacing) * 2);
+            font-size: var(--text-base);
+            line-height: var(--text-base--line-height);
+            font-weight: var(--font-weight-medium);
+            border: 1px solid var(--color-dark-teal);
+            border-radius: var(--radius-md);
+            color: var(--color-dark-teal);
+            transition-property: color, background-color;
+            transition-duration: var(--default-transition-duration);
+            transition-timing-function: var(--default-transition-timing-function);
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+        .auth-button.submit {
+            background-color: var(--color-dark-teal);
+            color: var(--color-white);
+            border: none;
+        }
+
+        @media (hover: hover) {
+            .auth-button:hover {
+                color: var(--color-white);
+                background-color: var(--color-teal-hover);
+            }
+            .auth-button.submit:hover {
+                background-color: var(--color-teal-hover);
+            }
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background-color: var(--color-gray-200);
+        }
+
+        @media (max-width: 768px) {
+            .divider {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            .desktop-only {
+                display: none !important;
+            }
+            #mobileMenuButton {
+                display: block !important;
+            }
+        }
+
+        
+        @media (min-width: 769px) {
+            #mobileMenu {
+                display: none !important;
+            }
+        }
+    </style>
+
+    <header class="header">
+        <div class="header-container">
+            <nav class="nav">
+                <div class="nav-left">
+                    <a href="/">
+                        <img alt="SYNCSKILLl" class="logo" src="https://testing-syncskill.netlify.app/alogo.png">
+                    </a>
+                    <div class="nav-links">
+                        <div class="relative">
+                            <button class="learn-button" id="learningPathsBtn">
+                                <span>Learn</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ml-1 transition-transform duration-200">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </button>
+                            <div id="megaMenu" class="mega-menu">
+                                <div class="mega-menu-content">
+                                    <div class="mega-menu-section">
+                                        <div class="mega-menu-header">
+                                            <h3>Author & Submission</h3>
+                                        </div>
+                                        <ul class="mega-menu-list">
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="#ffffff" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 441 512.02"><path d="M324.87 279.77c32.01 0 61.01 13.01 82.03 34.02 21.09 21 34.1 50.05 34.1 82.1 0 32.06-13.01 61.11-34.02 82.11l-1.32 1.22c-20.92 20.29-49.41 32.8-80.79 32.8-32.06 0-61.1-13.01-82.1-34.02-21.01-21-34.02-50.05-34.02-82.11s13.01-61.1 34.02-82.1c21-21.01 50.04-34.02 82.1-34.02zM243.11 38.08v54.18c.99 12.93 5.5 23.09 13.42 29.85 8.2 7.01 20.46 10.94 36.69 11.23l37.92-.04-88.03-95.22zm91.21 120.49-41.3-.04c-22.49-.35-40.21-6.4-52.9-17.24-13.23-11.31-20.68-27.35-22.19-47.23l-.11-1.74V25.29H62.87c-10.34 0-19.75 4.23-26.55 11.03-6.8 6.8-11.03 16.21-11.03 26.55v336.49c0 10.3 4.25 19.71 11.06 26.52 6.8 6.8 16.22 11.05 26.52 11.05h119.41c2.54 8.79 5.87 17.25 9.92 25.29H62.87c-17.28 0-33.02-7.08-44.41-18.46C7.08 432.37 0 416.64 0 399.36V62.87c0-17.26 7.08-32.98 18.45-44.36C29.89 7.08 45.61 0 62.87 0h173.88c4.11 0 7.76 1.96 10.07 5l109.39 118.34c2.24 2.43 3.34 5.49 3.34 8.55l.03 119.72c-8.18-1.97-16.62-3.25-25.26-3.79v-89.25zm-229.76 54.49c-6.98 0-12.64-5.66-12.64-12.64 0-6.99 5.66-12.65 12.64-12.65h150.49c6.98 0 12.65 5.66 12.65 12.65 0 6.98-5.67 12.64-12.65 12.64H104.56zm0 72.3c-6.98 0-12.64-5.66-12.64-12.65 0-6.98 5.66-12.64 12.64-12.64h142.52c3.71 0 7.05 1.6 9.37 4.15a149.03 149.03 0 0 0-30.54 21.14H104.56zm0 72.3c-6.98 0-12.64-5.66-12.64-12.65 0-6.98 5.66-12.64 12.64-12.64h86.2c-3.82 8.05-6.95 16.51-9.29 25.29h-76.91zm264.81 47.03c3.56-.14 6.09-1.33 7.54-3.55 3.98-5.94-1.44-11.81-5.19-15.94l-40.04-40.71c-4.32-4.26-9.32-4.31-13.64 0l-41.01 41.82c-3.51 3.96-7.86 9.36-4.19 14.83 1.49 2.22 4 3.41 7.56 3.55h19.74v30.69c0 5.84 4.81 10.69 10.7 10.69h28.06c5.9 0 10.71-4.81 10.71-10.69v-30.69h19.76z"/></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Submit Paper</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" fill="#ffffff" viewBox="0 0 97.88 122.88" style="enable-background:new 0 0 97.88 122.88" xml:space="preserve"><g><path d="M66.69,0.69C66.23,0.28,65.58,0,64.94,0c-0.14,0-0.28,0-0.41,0.05H5.81c-1.57,0-3.04,0.64-4.1,1.7C0.65,2.81,0,4.24,0,5.85 v111.22c0,1.61,0.65,3.04,1.71,4.1c1.06,1.06,2.49,1.7,4.1,1.7c29.59,0,56.74,0,86.18,0c1.61,0,3.04-0.65,4.1-1.7 c1.06-1.06,1.7-2.49,1.7-4.1V33.86c0.05-0.23,0.09-0.41,0.09-0.64c0-0.78-0.37-1.47-0.87-1.98l-30-30.36 c-0.09-0.09-0.14-0.14-0.23-0.18H66.69L66.69,0.69z M55.24,86.2H40.26v-1.5c0-2.55,0.3-4.62,0.87-6.21 c0.58-1.6,1.42-3.05,2.57-4.37c1.14-1.32,3.71-3.63,7.7-6.95c2.12-1.73,3.18-3.33,3.18-4.77c0-1.45-0.43-2.58-1.29-3.37 c-0.85-0.81-2.15-1.21-3.88-1.21c-1.88,0-3.43,0.62-4.65,1.85c-1.22,1.22-2,3.39-2.35,6.45l-15.24-1.89 c0.52-5.6,2.57-10.12,6.13-13.53c3.56-3.43,9.02-5.13,16.36-5.13c5.72,0,10.34,1.2,13.87,3.59c4.78,3.22,7.17,7.54,7.17,12.93 c0,2.23-0.62,4.38-1.85,6.46c-1.22,2.07-3.75,4.61-7.55,7.6c-2.65,2.1-4.33,3.79-5.01,5.07C55.59,82.5,55.24,84.15,55.24,86.2 L55.24,86.2z M39.75,90.15h16.04v11.65H39.75V90.15L39.75,90.15z M60.67,7.64v20.92c0,2.17,0.88,4.74,2.3,6.17 c1.43,1.43,4.45,2.6,6.62,2.6h20.66v77.35c0,0.14-0.2,0.32-0.33,0.41c-0.09,0.09-0.08,0.18-0.27,0.18c-23.42,0-58.73,0-81.51,0 c-0.14,0-0.32-0.05-0.42-0.18c-0.09-0.09-0.18-0.28-0.18-0.41V8.24c0-0.18,0.05-0.32,0.18-0.42c0.09-0.09,0.23-0.18,0.42-0.18 H60.67L60.67,7.64L60.67,7.64z M67.52,27.97V8.94l21.43,21.7H70.19c-0.74,0-1.38-0.32-1.89-0.78C67.84,29.4,67.52,28.7,67.52,27.97 L67.52,27.97z"/></g></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">How to Publish Paper?</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" fill="#ffffff" viewBox="0 0 116.42 122.88" style="enable-background:new 0 0 116.42 122.88" xml:space="preserve"><style type="text/css"><![CDATA[ .st0{fill-rule:evenodd;clip-rule:evenodd;} ]]></style><g><path class="st0" d="M11.98,100.05l0.29-52.03H6.4v66.21c8.07-2.08,16.17-3.41,24.33-3.46c7.53-0.05,15.07,1,22.61,3.56 c-4.69-3.8-9.92-6.59-15.5-8.41c-7.03-2.29-14.63-3.05-22.42-2.38c-1.76,0.14-3.3-1.17-3.45-2.92 C11.96,100.41,11.96,100.23,11.98,100.05L11.98,100.05L11.98,100.05z M58.21,0c15.66,0,28.55,11.92,30.09,27.17 c4.24-0.01,10.6,0.21,13.53,0.64c1.59,0.23,2.72,1.6,2.72,3.16l0,0v10.66h0.01h8.66c1.76,0,3.19,1.43,3.19,3.19v73.57 c0,1.77-1.43,3.2-3.19,3.2c-0.36,0-0.71-0.06-1.04-0.17c-8.91-2.55-17.75-4.24-26.52-4.3c-8.54-0.06-17.08,1.45-25.66,5.23 c-0.53,0.35-1.16,0.54-1.82,0.54c-0.64,0.01-1.28-0.18-1.82-0.54c-8.57-3.79-17.11-5.29-25.66-5.23c-8.76,0.06-17.6,1.75-26.52,4.3 c-0.32,0.11-0.67,0.17-1.03,0.17C1.43,121.59,0,120.17,0,118.4V44.82c0-1.76,1.43-3.19,3.19-3.19h9.1l0.06-10.67 c0.01-1.54,1.09-2.8,2.54-3.11l0,0c2.76-0.58,9.14-0.92,13.26-0.99C29.84,11.75,42.65,0,58.21,0L58.21,0L58.21,0z M88.28,33.57 c-1.54,14.08-12.74,25.25-26.83,26.76v47.9c5.42-3.62,10.96-6.59,16.65-8.62c6.49-2.31,13.16-3.41,20.07-2.86V45.3l0,0 c-0.02-0.15-0.04-0.32-0.04-0.48c0-0.16,0.01-0.32,0.04-0.48V33.8C96.11,33.6,91.87,33.52,88.28,33.57L88.28,33.57z M55.06,60.34 C40.81,58.86,29.5,47.49,28.11,33.21c-3.48,0.01-7.46,0.16-9.4,0.43l-0.36,63.3c7.4-0.26,14.64,0.67,21.45,2.9 c5.42,1.77,10.55,4.35,15.26,7.77l0,0V60.34L55.06,60.34z M64.55,113.84c7.06-2.22,14.11-3.13,21.15-3.09 c8.16,0.05,16.26,1.39,24.33,3.47v-66.2h-5.47v52.32c0,1.77-1.43,3.19-3.19,3.19c-0.26,0-0.5-0.03-0.74-0.08 c-6.99-1.1-13.77-0.19-20.38,2.17C74.93,107.52,69.7,110.36,64.55,113.84L64.55,113.84L64.55,113.84z M67.06,48.36h-17.7v-2.98 l3.33,0v-18.2h-3.33v-2.37h8.27c2.09,0,4.15-0.25,6.18-0.76v21.33h3.25V48.36L67.06,48.36L67.06,48.36z M59.4,10.38 c1.37,0,2.45,0.4,3.24,1.18c0.78,0.78,1.17,1.86,1.17,3.24c0,1.4-0.67,2.65-2.02,3.74c-1.35,1.09-2.93,1.64-4.71,1.64 c-1.35,0-2.41-0.38-3.23-1.13c-0.82-0.76-1.23-1.75-1.23-2.98c0-1.55,0.67-2.88,2-4.01C55.94,10.94,57.54,10.38,59.4,10.38 L59.4,10.38L59.4,10.38z"/></g></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Author's Guidelines</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 122.72" style="enable-background:new 0 0 122.88 122.72" xml:space="preserve"><style type="text/css">.st0{fill-rule:evenodd;clip-rule:evenodd;}</style><g><path class="st0" d="M89.34,46.85L76.2,49.97c-2.85-7.47-7.61-11.23-14.29-11.23c-5.12,0-9.15,1.97-12.05,5.94 c-2.93,3.94-4.38,9.23-4.38,15.8c0,5.17,0.6,9.56,1.83,13.12c1.23,3.56,3.04,6.21,5.42,8.02c2.38,1.78,5.23,2.68,8.54,2.68 c7.37,0,12.4-4.6,15.09-13.8l12.98,4.41C85.07,88.82,75.6,95.78,60.95,95.78c-5.23,0-10.13-1.29-14.65-3.86 c-4.52-2.55-8.13-6.46-10.87-11.69c-2.71-5.26-4.08-11.5-4.08-18.78c0-6.79,1.26-12.73,3.78-17.85c2.49-5.09,6.11-9.06,10.79-11.91 c4.68-2.82,10.16-4.24,16.48-4.24C75.65,27.43,84.63,33.9,89.34,46.85L89.34,46.85z M61.44,0c8.38,0,16.32,1.56,23.79,4.68 c7.45,3.15,14.02,7.56,19.71,13.25c5.7,5.69,10.1,12.27,13.25,19.71c3.12,7.47,4.68,15.39,4.68,23.79c0,11.01-2.77,21.25-8.3,30.67 c-5.53,9.45-13.01,16.92-22.42,22.4c-9.42,5.48-19.66,8.21-30.72,8.21c-11.23,0-21.55-2.74-30.91-8.19 c-9.39-5.45-16.84-12.9-22.31-22.34C2.74,82.77,0,72.5,0,61.44c0-11.12,2.74-21.41,8.21-30.83c5.48-9.45,12.95-16.92,22.4-22.4 C40.03,2.74,50.32,0,61.44,0L61.44,0z M61.44,12.05c-9.04,0-17.33,2.22-24.83,6.65c-7.5,4.44-13.47,10.43-17.88,17.99 c-4.41,7.58-6.63,15.83-6.63,24.75c0,8.98,2.22,17.22,6.63,24.72c4.41,7.53,10.38,13.47,17.91,17.88 c7.56,4.41,15.8,6.63,24.81,6.63c8.93,0,17.17-2.19,24.78-6.57c7.58-4.38,13.58-10.32,17.99-17.85c4.41-7.5,6.63-15.77,6.63-24.81 c0-8.87-2.22-17.11-6.65-24.7c-4.44-7.58-10.43-13.61-18.02-18.04C78.61,14.27,70.37,12.05,61.44,12.05L61.44,12.05z"/></g></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Copyright Form</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" fill="#ffffff" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 512"><path d="M256 59.55c108.49 0 196.45 87.96 196.45 196.45S364.49 452.45 256 452.45 59.55 364.49 59.55 256 147.51 59.55 256 59.55zM256 0c70.68 0 134.69 28.66 181.01 74.98C483.34 121.31 512 185.31 512 256c0 70.69-28.66 134.69-74.99 181.01C390.69 483.34 326.69 512 256 512s-134.69-28.66-181.02-74.99C28.66 390.69 0 326.68 0 256c0-70.69 28.66-134.69 74.98-181.02C121.31 28.66 185.31 0 256 0zm163.27 92.72C377.49 50.94 319.76 25.09 256 25.09c-63.77 0-121.5 25.85-163.28 67.63C50.94 134.5 25.09 192.23 25.09 256c0 63.76 25.85 121.49 67.63 163.27C134.5 461.06 192.23 486.9 256 486.9c63.77 0 121.5-25.84 163.27-67.63 41.79-41.77 67.63-99.5 67.63-163.27 0-63.77-25.84-121.5-67.63-163.28zM181.09 235.97l12.7-28.61h47.9c-3.02-10.16-14.89-15.87-24.84-15.87h-35.76l12.7-28.61h137.12l-12.7 28.61h-33.12c4.39 3.37 9.1 10.32 9.93 15.87h35.89l-12.7 28.61h-25.97c-8.38 21.34-33.95 35.83-55.75 38.97l72.05 74.18h-56.96l-64.25-70.49v-26.27h28.44c2.73 0 5.42-.44 8.06-1.35 6.93-2.34 14.42-7.81 16.74-15.04h-59.48z"/></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Processing Charges</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Undertaking by Authors</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            
+                                        </ul>
+                                    </div>
+                                    <div class="mega-menu-section">
+                                        <div class="mega-menu-header">
+                                            <h3>Resources & Miscellaneous</h3>
+                                        </div>
+                                        <ul class="mega-menu-list">
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon certification">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="#ffffff" viewBox="0 0 4445 5218" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"><path d="M1339 3691c-74 0-134-60-134-134s60-134 134-134h996c74 0 134 60 134 134s-60 134-134 134h-996zm0-1896c-74 0-134-60-134-134s60-134 134-134h1767c74 0 134 60 134 134s-60 134-134 134H1339zM311 0h3823c86 0 164 35 220 91s91 134 91 220v4595c0 86-35 164-91 220s-134 91-220 91H311c-86 0-164-35-220-91S0 4992 0 4906V311c0-86 35-164 91-220S225 0 311 0zm3823 268H311c-12 0-23 5-31 13s-13 19-13 31v4595c0 12 5 23 13 31s19 13 31 13h3823c12 0 23-5 31-13s13-19 13-31V312c0-12-5-23-13-31s-19-13-31-13zM1339 2743c-74 0-134-60-134-134s60-134 134-134h1767c74 0 134 60 134 134s-60 134-134 134H1339z" fill-rule="nonzero"/></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Sample Paper Format</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon certification">
+                                                      <?xml version="1.0" encoding="utf-8"?><svg version="1.1" fill="#ffffff" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 92.35 122.88" style="enable-background:new 0 0 92.35 122.88" xml:space="preserve"><style type="text/css">.st0{fill-rule:evenodd;clip-rule:evenodd;}</style><g><path class="st0" d="M88.96,113.07L77.41,111l-5.73,10.26c-4.16,5.15-6.8-3.32-7.96-6.27L52.57,93.96 c2.57-0.89,5.67-3.46,8.85-6.35c6.35,0.13,12.27-0.97,16.62-6.51l12.81,24.75l1.11,2.38C92.84,111.32,92.38,113.36,88.96,113.07 L88.96,113.07z M46.18,0.01c2.17-0.09,3.88,0.66,5.61,1.76c2.19,1.39,4.66,4.14,7.71,5.88c4.29,2.45,12.23-0.93,16.29,5.11 c2.37,3.52,2.48,6.28,2.66,9.01c0.19,2.94,0.71,5.65,3.72,9.63c4.99,6.6,6.03,10.99,3.46,15.56c-1.75,3.12-5.44,4.85-6.29,6.83 c-1.82,4.2,0.19,7.37-2.29,12.27c-1.73,3.4-4.39,5.64-7.94,6.78c-2.99,0.96-5.99-0.43-8.39,0.58c-4.21,1.77-7.31,5.88-10.66,6.92 c-1.29,0.4-2.58,0.6-3.87,0.59c-1.29,0.01-2.58-0.19-3.87-0.59c-3.35-1.04-6.45-5.15-10.66-6.92c-2.4-1.01-5.4,0.39-8.39-0.58 c-3.55-1.14-6.21-3.38-7.94-6.78c-2.49-4.9-0.48-8.07-2.29-12.27c-0.85-1.98-4.54-3.71-6.29-6.83C4.16,42.39,5.2,38,10.19,31.41 c3.01-3.98,3.53-6.69,3.72-9.63c0.18-2.73,0.29-5.49,2.66-9.01c4.07-6.04,12.01-2.66,16.29-5.11c3.05-1.74,5.52-4.49,7.71-5.88 C42.29,0.67,44.01-0.09,46.18,0.01L46.18,0.01z M39.13,35.79l5.22,4.97l8.98-9.13c0.89-0.9,1.45-1.62,2.54-0.5l3.56,3.64 c1.17,1.16,1.11,1.83,0.01,2.91L46.38,50.52c-2.32,2.28-1.92,2.42-4.28,0.08l-8.97-8.92c-0.49-0.53-0.44-1.07,0.1-1.6l4.13-4.28 C37.99,35.14,38.49,35.18,39.13,35.79L39.13,35.79z M46.18,16.24c13.38,0,24.23,10.85,24.23,24.23c0,13.38-10.85,24.23-24.23,24.23 c-13.38,0-24.23-10.85-24.23-24.23C21.95,27.08,32.8,16.24,46.18,16.24L46.18,16.24z M3.39,113.07L14.95,111l5.73,10.26 c4.16,5.15,6.8-3.32,7.96-6.27l11.15-21.03c-2.57-0.89-5.67-3.46-8.85-6.35c-6.35,0.13-12.27-0.97-16.62-6.51L1.5,105.85 l-1.11,2.38C-0.49,111.32-0.03,113.36,3.39,113.07L3.39,113.07z"/></g></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Sample Certificate</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon certification">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" fill="#ffffff" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 414 512.01"><path d="M35.95 0h213.36v146.7c0 5.51 4.47 9.98 9.98 9.98H414v319.39c0 9.83-4.04 18.81-10.55 25.34l-.08.08c-6.53 6.49-15.49 10.52-25.31 10.52H35.95c-9.9 0-18.89-4.04-25.4-10.55C4.04 494.95 0 485.96 0 476.07V35.94c0-9.89 4.04-18.88 10.55-25.39C17.06 4.04 26.05 0 35.95 0zm233.33 2.23a13.2 13.2 0 012.49 2.17l136.55 132.31H269.28V2.23zM91.31 419.73c-5.52 0-9.99-4.47-9.99-9.98 0-5.51 4.47-9.99 9.99-9.99h231.38c5.52 0 9.99 4.48 9.99 9.99s-4.47 9.98-9.99 9.98H91.31zm0-76.35c-5.52 0-9.99-4.47-9.99-9.98 0-5.52 4.47-9.99 9.99-9.99h227.78c5.52 0 9.99 4.47 9.99 9.99 0 5.51-4.47 9.98-9.99 9.98H91.31zm0-76.35c-5.52 0-9.99-4.47-9.99-9.99 0-5.51 4.47-9.98 9.99-9.98h184.31c5.51 0 9.99 4.47 9.99 9.98 0 5.52-4.48 9.99-9.99 9.99H91.31zm0-76.36c-5.52 0-9.99-4.47-9.99-9.98 0-5.52 4.47-9.99 9.99-9.99h102.9c5.52 0 9.99 4.47 9.99 9.99 0 5.51-4.47 9.98-9.99 9.98H91.31zm0-76.35c-5.52 0-9.99-4.47-9.99-9.99 0-5.51 4.47-9.98 9.99-9.98h55.41c5.52 0 9.99 4.47 9.99 9.98 0 5.52-4.47 9.99-9.99 9.99H91.31z"/></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Sample Publication Letter</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon certification">
+                                                      <?xml version="1.0" encoding="utf-8"?><svg version="1.1" fill="#ffffff" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 112.5" style="enable-background:new 0 0 122.88 112.5" xml:space="preserve"><style type="text/css">.st0{fill-rule:evenodd;clip-rule:evenodd;}</style><g><path class="st0" d="M12.56,87.39c6.93,0,12.56,5.62,12.56,12.56c0,6.93-5.62,12.56-12.56,12.56C5.62,112.5,0,106.88,0,99.95 C0,93.01,5.62,87.39,12.56,87.39L12.56,87.39z M35.07,88.24h86.38c0.79,0,1.43,0.64,1.43,1.43v19.93c0,0.79-0.64,1.43-1.43,1.43 H35.07c-0.79,0-1.43-0.64-1.43-1.43V89.67C33.64,88.88,34.29,88.24,35.07,88.24L35.07,88.24z M35.07,44.7h86.38 c0.79,0,1.43,0.64,1.43,1.43v19.93c0,0.79-0.64,1.43-1.43,1.43H35.07c-0.79,0-1.43-0.64-1.43-1.43V46.13 C33.64,45.34,34.29,44.7,35.07,44.7L35.07,44.7z M35.07,1.16h86.38c0.79,0,1.43,0.64,1.43,1.43v19.93c0,0.79-0.64,1.43-1.43,1.43 H35.07c-0.79,0-1.43-0.64-1.43-1.43V2.59C33.64,1.8,34.29,1.16,35.07,1.16L35.07,1.16z M12.56,43.69c6.93,0,12.56,5.62,12.56,12.56 c0,6.93-5.62,12.56-12.56,12.56C5.62,68.81,0,63.19,0,56.25C0,49.32,5.62,43.69,12.56,43.69L12.56,43.69z M12.56,0 c6.93,0,12.56,5.62,12.56,12.56c0,6.93-5.62,12.56-12.56,12.56C5.62,25.11,0,19.49,0,12.56C0,5.62,5.62,0,12.56,0L12.56,0z"/></g></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Indexing List</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon certification">
+                                                      <?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 71.04" fill="#ffffff" style="enable-background:new 0 0 122.88 71.04" xml:space="preserve"><style type="text/css">.st0{fill-rule:evenodd;clip-rule:evenodd;}</style><g><path class="st0" d="M91.95,64.68l1.99-7.59l-1.37-1.5c-0.62-0.9-0.75-1.69-0.41-2.37c0.74-1.47,2.28-1.2,3.72-1.2 c1.51,0,3.37-0.29,3.84,1.6c0.16,0.63-0.04,1.29-0.48,1.97l-1.37,1.5l1.19,4.56l7.89-6.86l4.09,0.1c-1.41-2.83-3.2-5.23-5.28-7.49 c3.92,1.52,7.93,3.02,10.9,4.88c1.89,1.18,2.86,2.08,3.63,3.51c1.62,3.05,1.8,5.78,2.04,9.08l0.57,2.86h-22.24l0.02,0.07h-8.51 c-0.19,1.95-1.31,3.08-3.5,3.24H61.68H34.24c-2.2-0.17-3.32-1.3-3.5-3.27l0.76-12.04c0.21-2.78,0.99-4.98,2.26-6.66 c0.84-1.11,1.88-1.93,3.03-2.57c3.65-2.03,12.17-2.63,15.48-5.61l5.07,14.91l2.55-8.85l-1.25-1.37c-0.56-0.82-0.69-1.54-0.37-2.16 c0.68-1.34,2.08-1.09,3.39-1.09c1.37,0,3.06-0.26,3.49,1.46c0.14,0.57-0.04,1.17-0.44,1.79l-1.25,1.37l2.55,8.85l4.59-14.91 c3.31,2.98,11.84,3.58,15.48,5.61c1.15,0.64,2.2,1.46,3.03,2.57c1.27,1.68,2.05,3.87,2.26,6.66L91.95,64.68L91.95,64.68z M15.29,48.25l3.4,9.99l1.71-5.93l-0.84-0.92c-0.38-0.55-0.46-1.03-0.25-1.45c0.45-0.9,1.39-0.73,2.27-0.73 c0.92,0,2.05-0.17,2.34,0.98c0.1,0.38-0.03,0.79-0.29,1.2l-0.84,0.92l1.71,5.93l3.08-9.99c0.45,0.4,1.07,0.74,1.8,1.03 c-0.25,0.53-0.48,1.09-0.68,1.67c-0.52,1.51-0.86,3.19-1,5.06l0.01,0c0,0.04-0.01,0.09-0.01,0.13l-0.74,11.58h-5.35H2.35 C0.87,67.61,0.12,66.85,0,65.53l0.51-7.34c0.14-1.86,0.67-3.33,1.52-4.46c0.56-0.74,1.26-1.29,2.03-1.72 C6.5,50.65,13.07,50.25,15.29,48.25L15.29,48.25z M13.62,34.09c-0.33,0.03-0.58,0.1-0.76,0.22c-0.1,0.07-0.18,0.16-0.23,0.26 c-0.06,0.12-0.08,0.28-0.08,0.45c0.02,0.55,0.31,1.29,0.88,2.14l0.01,0.02l0,0l1.9,3.02c0.76,1.2,1.55,2.43,2.53,3.33 c0.93,0.85,2.06,1.43,3.56,1.43c1.62,0,2.8-0.6,3.77-1.5c1.01-0.95,1.81-2.25,2.6-3.55l2.13-3.51c0.43-0.98,0.56-1.57,0.42-1.85 c-0.09-0.17-0.44-0.22-1.02-0.17c-0.37,0.08-0.76,0.01-1.17-0.2l1.07-3.2c-3.91-0.05-6.58-0.73-9.75-2.75 c-1.04-0.66-1.35-1.42-2.39-1.35c-0.79,0.15-1.45,0.5-1.97,1.07c-0.5,0.54-0.88,1.28-1.13,2.23l0.63,3.83 C14.3,34.21,13.96,34.23,13.62,34.09L13.62,34.09z M30.55,33.14c0.46,0.14,0.8,0.4,1,0.81c0.32,0.65,0.2,1.62-0.41,3l0,0 c-0.01,0.03-0.02,0.05-0.04,0.08l-2.16,3.56c-0.84,1.38-1.69,2.76-2.83,3.83c-1.19,1.12-2.66,1.86-4.67,1.85 c-1.88,0-3.29-0.72-4.45-1.78c-1.11-1.02-1.96-2.32-2.76-3.6l-1.9-3.02c-0.71-1.06-1.07-2.02-1.1-2.82 c-0.01-0.39,0.05-0.74,0.2-1.04c0.15-0.33,0.38-0.6,0.7-0.81c0.15-0.1,0.33-0.19,0.52-0.26c-0.12-1.62-0.16-3.62-0.08-5.3 c0.04-0.41,0.12-0.82,0.23-1.23c0.49-1.73,1.7-3.13,3.21-4.09c0.53-0.34,1.11-0.62,1.73-0.84c3.65-1.32,8.48-0.6,11.07,2.2 c1.05,1.14,1.72,2.65,1.86,4.65L30.55,33.14L30.55,33.14z M49.65,19.77c-0.42,0.05-0.75,0.16-0.99,0.32 c-0.15,0.1-0.27,0.24-0.34,0.39c-0.08,0.18-0.12,0.41-0.12,0.67c0.02,0.83,0.46,1.92,1.32,3.18l0.02,0.02h0l2.83,4.51 c1.13,1.8,2.31,3.63,3.77,4.96c1.39,1.27,3.08,2.13,5.3,2.14c2.42,0.01,4.18-0.89,5.62-2.23c1.51-1.41,2.71-3.36,3.89-5.3 l3.18-5.24c0.64-1.46,0.84-2.34,0.63-2.76c-0.13-0.27-0.69-0.33-1.63-0.24c-0.07,0.01-0.14,0.01-0.21,0c-0.39,0-0.81-0.1-1.27-0.31 l1.43-4.78c-5.84-0.07-9.83-1.09-14.55-4.11c-1.55-0.99-2.02-2.12-3.57-2.01c-1.17,0.23-2.16,0.75-2.94,1.59 c-0.75,0.81-1.32,1.91-1.69,3.32l1.01,5.78C50.74,19.98,50.18,20,49.65,19.77L49.65,19.77z M75.05,18.34 c0.69,0.2,1.19,0.6,1.5,1.21c0.48,0.98,0.3,2.42-0.61,4.48l0,0c-0.02,0.04-0.04,0.08-0.06,0.11l-3.23,5.32 c-1.25,2.06-2.52,4.13-4.23,5.72c-1.78,1.67-3.97,2.78-6.97,2.77c-2.8-0.01-4.91-1.08-6.64-2.66c-1.66-1.52-2.92-3.46-4.12-5.37 l-2.83-4.51c-1.05-1.57-1.6-3.02-1.64-4.21c-0.02-0.58,0.08-1.1,0.3-1.56c0.23-0.49,0.57-0.9,1.04-1.21 c0.23-0.16,0.49-0.29,0.78-0.39c-0.17-2.41-0.23-5.39-0.12-7.9c0.06-0.61,0.18-1.22,0.35-1.83c0.72-2.59,2.54-4.67,4.79-6.1 c0.79-0.5,1.66-0.92,2.58-1.25c5.44-1.97,12.66-0.89,16.52,3.29c1.57,1.7,2.56,3.96,2.77,6.94L75.05,18.34L75.05,18.34z M84.88,42.96l2.5-0.07l2.07-0.05c-2.42-7.45-1.61-14.3,4.22-20.12c0.99,3.2,3.2,5.83,6.97,7.78c1.8,1.34,3.55,2.96,5.23,4.81 c0.3-1.23-0.84-2.73-2.23-4.27c1.28,0.63,2.46,1.52,3.29,3.22c0.97,1.98,0.95,3.64,0.64,5.79c-0.15,1-0.39,1.93-0.74,2.78h3.45 c3.64-7.79,1.33-19.34-6.11-24.24c-2.28-1.5-3.92-1.45-6.6-1.44c-3.07,0-4.63,0.1-7.26,1.83c-3.87,2.56-6.25,6.99-7.25,13.14 C82.87,35.19,82.74,40.49,84.88,42.96L84.88,42.96z"/></g></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Conference</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mega-menu-section">
+                                        <div class="mega-menu-header">
+                                            <h3>Policies</h3>
+                                        </div>
+                                        <ul class="mega-menu-list">
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff" x="0px" y="0px" width="111.811px" height="122.88px" viewBox="0 0 111.811 122.88" enable-background="new 0 0 111.811 122.88" xml:space="preserve"><g><path fill-rule="evenodd" clip-rule="evenodd" d="M55.713,0c20.848,13.215,39.682,19.467,55.846,17.989 c2.823,57.098-18.263,90.818-55.63,104.891C19.844,109.708-1.5,77.439,0.083,17.123C19.058,18.116,37.674,14.014,55.713,0L55.713,0 z M56.163,19.543c14.217,9.011,27.061,13.274,38.083,12.268c1.925,38.936-12.454,61.93-37.935,71.526 c-0.161-0.059-0.319-0.12-0.479-0.18V19.796L56.163,19.543L56.163,19.543z M55.735,7.055 c18.454,11.697,35.126,17.232,49.434,15.923c2.498,50.541-16.166,80.39-49.241,92.846C23.986,104.165,5.091,75.603,6.493,22.211 C23.29,23.091,39.768,19.46,55.735,7.055L55.735,7.055z"/></g></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Publication Policy</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff" x="0px" y="0px" viewBox="0 0 122.88 102.72" style="enable-background:new 0 0 122.88 102.72" xml:space="preserve"><style type="text/css">.st0{fill-rule:evenodd;clip-rule:evenodd;}</style><g><path class="st0" d="M65.61,20.91v72.74h35.63c0.38,0,0.68,0.31,0.68,0.69v7.7c0,0.38-0.31,0.69-0.68,0.69H22.84 c-0.38,0-0.69-0.31-0.69-0.69v-7.7c0-0.38,0.31-0.69,0.69-0.69h35.63l0-72.71c-3.1-1.08-5.56-3.53-6.64-6.63H29.3v3.43 c0,0.38-0.31,0.68-0.68,0.68h-5.78c-0.38,0-0.69-0.31-0.69-0.68v-3.43h-5.73c-0.44,0-0.8-0.31-0.8-0.68V7.84 c0-0.38,0.36-0.69,0.8-0.69h35.43C53.33,2.99,57.31,0,61.99,0c4.68,0,8.66,2.99,10.14,7.16h35.53c0.44,0,0.8,0.31,0.8,0.69v5.78 c0,0.38-0.36,0.68-0.8,0.68h-6.46v3.43c0,0.38-0.31,0.68-0.68,0.68h-5.78c-0.38,0-0.69-0.31-0.69-0.68v-3.43H72.16 C71.09,17.38,68.67,19.81,65.61,20.91L65.61,20.91z M99.66,22.3l22.91,40.48c0.2,0.35,0.29,0.73,0.28,1.1h0.02c0,0.05,0,0.1,0,0.15 c0,9.64-11.35,17.46-25.35,17.46c-13.85,0-25.1-7.65-25.34-17.15c-0.04-0.16-0.06-0.34-0.06-0.51c0-0.44,0.14-0.86,0.37-1.2 l23.43-40.43c0.59-1.02,1.89-1.37,2.91-0.78C99.2,21.65,99.48,21.95,99.66,22.3L99.66,22.3z M99.75,31.11v30.6h17.32L99.75,31.11 L99.75,31.11z M95.67,61.7V31.16L77.96,61.7H95.67L95.67,61.7z M27.54,22.3l22.91,40.48c0.2,0.35,0.29,0.73,0.28,1.1h0.02 c0,0.05,0,0.1,0,0.15c0,9.64-11.35,17.46-25.35,17.46c-13.85,0-25.1-7.65-25.34-17.15C0.02,64.19,0,64.02,0,63.84 c0-0.44,0.14-0.86,0.37-1.2L23.8,22.21c0.59-1.02,1.89-1.37,2.91-0.78C27.08,21.65,27.36,21.95,27.54,22.3L27.54,22.3z M27.63,31.11v30.6h17.32L27.63,31.11L27.63,31.11z M23.54,61.7V31.16L5.84,61.7H23.54L23.54,61.7z M61.99,6.07 c2.59,0,4.69,2.1,4.69,4.69c0,2.59-2.1,4.69-4.69,4.69c-2.59,0-4.69-2.1-4.69-4.69C57.3,8.17,59.4,6.07,61.99,6.07L61.99,6.07z"/></g></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Ethics Policy</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff" x="0px" y="0px" width="122.881px" height="122.88px" viewBox="0 0 122.881 122.88" enable-background="new 0 0 122.881 122.88" xml:space="preserve"><g><path fill-rule="evenodd" clip-rule="evenodd" d="M61.44,0c33.933,0,61.441,27.507,61.441,61.439 c0,33.933-27.508,61.44-61.441,61.44C27.508,122.88,0,95.372,0,61.439C0,27.507,27.508,0,61.44,0L61.44,0z M34.106,67.678 l-0.015-0.014c-0.785-0.718-1.207-1.685-1.256-2.669c-0.049-0.982,0.275-1.985,0.984-2.777c0.01-0.011,0.019-0.021,0.029-0.031 c0.717-0.784,1.684-1.207,2.668-1.256c0.989-0.049,1.998,0.28,2.792,0.998l12.956,11.748l31.089-32.559v0 c0.74-0.776,1.723-1.18,2.719-1.204c0.992-0.025,1.994,0.329,2.771,1.067v0.001c0.777,0.739,1.18,1.724,1.205,2.718 c0.025,0.993-0.33,1.997-1.068,2.773L55.279,81.769c-0.023,0.024-0.048,0.047-0.073,0.067c-0.715,0.715-1.649,1.095-2.598,1.13 c-0.974,0.037-1.963-0.293-2.744-1L34.118,67.688L34.106,67.678L34.106,67.678L34.106,67.678z"/></g></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Peer Review Policy</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff" x="0px" y="0px" viewBox="0 0 122.88 109.93" style="enable-background:new 0 0 122.88 109.93" xml:space="preserve"><g><path d="M115.47,65.19c-2.39,12.7-9.16,23.86-18.67,31.85c-9.57,8.04-21.89,12.88-35.33,12.88c-12.63,0-24.28-4.27-33.57-11.45 C18.4,91.14,11.38,80.77,8.27,68.81l6.86-1.78c2.7,10.41,8.82,19.44,17.09,25.83c8.08,6.24,18.22,9.95,29.24,9.95 c11.73,0,22.47-4.21,30.78-11.19c7.95-6.68,13.7-15.91,15.98-26.44h-7.33l10.99-13.39l10.99,13.39H115.47L115.47,65.19z M61.29,69.07V56.52c-4.42-1.12-7.65-2.81-9.7-5.07c-2.06-2.27-3.1-5.02-3.1-8.26c0-3.28,1.17-6.04,3.5-8.26 c2.33-2.23,5.43-3.51,9.3-3.85v-2.95h4.94v2.95c3.62,0.38,6.49,1.47,8.64,3.26c2.13,1.79,3.5,4.19,4.09,7.19l-8.63,0.98 c-0.53-2.36-1.9-3.96-4.1-4.8v11.71c5.46,1.29,9.18,2.98,11.15,5.04c1.98,2.07,2.97,4.72,2.97,7.96c0,3.62-1.24,6.66-3.73,9.14 c-2.49,2.48-5.95,4.02-10.39,4.63v5.6h-4.94v-5.53c-3.9-0.42-7.06-1.69-9.51-3.83c-2.45-2.14-4-5.17-4.68-9.08l8.83-0.92 c0.36,1.6,1.04,2.97,2.04,4.13C58.97,67.72,60.07,68.55,61.29,69.07L61.29,69.07z M61.29,37.6c-1.33,0.42-2.38,1.11-3.15,2.07 c-0.78,0.96-1.16,2.02-1.16,3.18c0,1.06,0.35,2.04,1.06,2.95c0.71,0.9,1.8,1.64,3.26,2.19V37.6L61.29,37.6z M66.23,69.57 c1.7-0.33,3.1-1.05,4.16-2.15C71.47,66.31,72,65.01,72,63.5c0-1.33-0.45-2.49-1.36-3.45c-0.89-0.97-2.36-1.71-4.42-2.23V69.57 L66.23,69.57z M7.46,44.74C9.83,32.15,16.5,21.08,25.87,13.1C35.47,4.93,47.9,0,61.46,0c11.93,0,22.97,3.8,31.98,10.26 c9.25,6.63,16.35,16.06,20.08,27.06l-3.36,1.14l-3.36,1.14c-0.09-0.28-0.19-0.56-0.29-0.83c-3.31-9.21-9.38-17.11-17.2-22.72 c-7.84-5.62-17.45-8.93-27.84-8.93c-11.84,0-22.67,4.28-31.01,11.38c-7.84,6.67-13.49,15.82-15.76,26.24h7.29L10.99,58.13L0,44.74 H7.46L7.46,44.74z"/></g></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Refund Policy</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" viewBox="0 0 96.17 122.88"><title>terms-and-conditions</title><path d="M62.74,110.31,84.22,87.73H62.74v22.58ZM22.57,45.94V26H16V19.86H35.94V26H29.38v20Zm48.59.21a13.82,13.82,0,0,1-4-.53,6.52,6.52,0,0,1-3-1.93,9.48,9.48,0,0,1-1.93-4,29.06,29.06,0,0,1-.66-6.85,26.2,26.2,0,0,1,.7-6.67,9.71,9.71,0,0,1,2-4,6.71,6.71,0,0,1,3-2,13,13,0,0,1,3.86-.54,27.32,27.32,0,0,1,3.84.23,23,23,0,0,1,2.84.54,12.74,12.74,0,0,1,1.88.63v5.3c-.44-.09-1-.19-1.72-.28s-1.5-.17-2.4-.23-1.88-.09-2.93-.09a7.27,7.27,0,0,0-2,.25,2.35,2.35,0,0,0-1.32,1,5.6,5.6,0,0,0-.72,2.16,25.12,25.12,0,0,0-.23,3.77,28.25,28.25,0,0,0,.18,3.51,6.08,6.08,0,0,0,.63,2.2,2.55,2.55,0,0,0,1.32,1.12,6.28,6.28,0,0,0,2.23.33c1.77,0,3.22,0,4.33-.09s2-.13,2.65-.22V45a12.35,12.35,0,0,1-2,.59,24.09,24.09,0,0,1-2.76.39c-1,.09-2.3.14-3.75.14Zm-25.11.19a10.57,10.57,0,0,1-4.72-1,7.29,7.29,0,0,1-3-2.6,6.46,6.46,0,0,1-1.06-3.6,5.58,5.58,0,0,1,.55-2.54,6.92,6.92,0,0,1,1.53-2,17.25,17.25,0,0,1,2.3-1.82l5.79-3.59a3.23,3.23,0,0,0,1.18-1.14A2.32,2.32,0,0,0,48.89,27a1.57,1.57,0,0,0-.44-1.08,1.81,1.81,0,0,0-1.4-.46,2.25,2.25,0,0,0-1,.21,1.6,1.6,0,0,0-.65.61,1.7,1.7,0,0,0-.24.92,3,3,0,0,0,.43,1.5C47.89,32.94,57.14,42,60.76,45.94H53.88L43.51,35c-.51-.54-1.07-1.2-1.69-2a12.63,12.63,0,0,1-1.58-2.66,7.69,7.69,0,0,1-.67-3.23,7,7,0,0,1,.93-3.55A7.1,7.1,0,0,1,43.12,21a7.92,7.92,0,0,1,3.93-1,7.33,7.33,0,0,1,3.69.89,6.38,6.38,0,0,1,2.4,2.35A6.45,6.45,0,0,1,54,26.5a6.57,6.57,0,0,1-.88,3.32,8.68,8.68,0,0,1-2.51,2.71c-1.51,1.06-5.32,3.42-6.34,4.71a2.15,2.15,0,0,0-.44,1.42,2.2,2.2,0,0,0,.34,1.24,2.12,2.12,0,0,0,1,.78,3.57,3.57,0,0,0,1.45.27,5.63,5.63,0,0,0,2.54-.62,7.73,7.73,0,0,0,2.34-1.73,8.54,8.54,0,0,0,2.35-6h5.43a19.27,19.27,0,0,1-.46,4.27,12.73,12.73,0,0,1-1.48,3.77,9.58,9.58,0,0,1-2.69,2.88l-1,.49-1,.5a10.38,10.38,0,0,1-3.2,1.39,13.9,13.9,0,0,1-3.28.41ZM18.93,90H38.16v5.53H18.93V90Zm0-14H46.22v5.53H18.93V76Zm0-14h58.3v5.53H18.93V61.94ZM96.17,84.85a3.58,3.58,0,0,1-2.61,3.45L61.93,121.56a3.55,3.55,0,0,1-2.76,1.32H6.43A6.42,6.42,0,0,1,0,116.45V6.43A6.42,6.42,0,0,1,6.43,0H89.74a6.44,6.44,0,0,1,6.43,6.43V84.85ZM89,80.55V7.18H7.18V115.73H55.56V84.16a3.61,3.61,0,0,1,3.61-3.61Z"/></svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Terms and Conditions</div>
+                                                        
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <button class="learn-button" id="archiveBtn">
+                                <span>Archive</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ml-1 transition-transform duration-200">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </button>
+                            <div id="archiveMegaMenu" class="mega-menu">
+                                <div class="mega-menu-content">
+                                    <div class="mega-menu-section">
+                                        <div class="mega-menu-header">
+                                            <h3>Career Accelerators</h3>
+                                        </div>
+                                        <ul class="mega-menu-list">
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Data Science Pro</div>
+                                                        <div class="mega-menu-item-description">12 Courses · 98 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">AI & ML Foundation</div>
+                                                        <div class="mega-menu-item-description">8 Courses · 64 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Full Stack Development</div>
+                                                        <div class="mega-menu-item-description">10 Courses · 80 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mega-menu-section">
+                                        <div class="mega-menu-header">
+                                            <h3>Certifications</h3>
+                                        </div>
+                                        <ul class="mega-menu-list">
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon certification"></div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Cloud Architect</div>
+                                                        <div class="mega-menu-item-description">AWS · Azure · GCP</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mega-menu-section">
+                                        <div class="mega-menu-header">
+                                            <h3>More Courses</h3>
+                                        </div>
+                                        <ul class="mega-menu-list">
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">UX Design</div>
+                                                        <div class="mega-menu-item-description">6 Courses · 48 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">DevOps Essentials</div>
+                                                        <div class="mega-menu-item-description">8 Courses · 64 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="mega-menu-item">
+                                                    <div class="mega-menu-item-icon career">
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="mega-menu-item-text">
+                                                        <div class="mega-menu-item-title">Product Management</div>
+                                                        <div class="mega-menu-item-description">7 Courses · 56 Hours</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="nav-link" href="/about-us">About</a>
+                    </div>
+                </div>
+                <div class="nav-right">
+                    <button class="menu-button" id="mobileMenuButton">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path stroke="currentColor" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                    <div class="auth-buttons">
+                        <a class="auth-button submit" href="https://serv-learner-prod.growthschool.io/auth/login">Submit Paper</a>
+                        <a class="auth-button" href="https://forms.growthschool.io/custom/apply-as-a-mentor-at-growthschool/8125ff18-d4a1-42d1-a6f6-0f3bcd3c840a">Join as Reviewer</a>
+                    </div>
+                </div>
+            </nav>
+            <div id="mobileMenu">
+                <div class="mobile-menu-close" id="mobileMenuClose">
+                    <svg viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </div>
+                <div class="mobile-menu-content">
+                    <div class="mobile-menu-section">
+                        <div class="mobile-menu-group">
+                            <h3 class="mobile-menu-header" onclick="(function(c){c.classList.toggle('active'); this.classList.toggle('active');})(this.nextElementSibling)">
+                                <span>Learn</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ml-1 transition-transform duration-200">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </h3>
+                            <div class="mobile-menu-list">
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon career"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">Data Science Pro</div>
+                                        <div class="mobile-menu-item-description">12 Courses · 98 Hours</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon career"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">AI & ML Foundation</div>
+                                        <div class="mobile-menu-item-description">8 Courses · 64 Hours</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon career"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">Full Stack Development</div>
+                                        <div class="mobile-menu-item-description">10 Courses · 80 Hours</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mobile-menu-group">
+                            <h3 class="mobile-menu-header" onclick="(function(c){c.classList.toggle('active'); this.classList.toggle('active');})(this.nextElementSibling)">
+                                <span>Archive</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ml-1 transition-transform duration-200">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </h3>
+                            <div class="mobile-menu-list">
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon certification"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">Cloud Architect</div>
+                                        <div class="mobile-menu-item-description">AWS · Azure · GCP</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon certification"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">Cybersecurity Expert</div>
+                                        <div class="mobile-menu-item-description">3 Badges</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon certification"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">Data Analytics</div>
+                                        <div class="mobile-menu-item-description">5 Badges</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mobile-menu-group">
+                            <h3 class="mobile-menu-header" onclick="(function(c){c.classList.toggle('active'); this.classList.toggle('active');})(this.nextElementSibling)">
+                                <span>More</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="ml-1 transition-transform duration-200">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </h3>
+                            <div class="mobile-menu-list">
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon career"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">UX Design</div>
+                                        <div class="mobile-menu-item-description">6 Courses · 48 Hours</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon career"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">DevOps Essentials</div>
+                                        <div class="mobile-menu-item-description">8 Courses · 64 Hours</div>
+                                    </div>
+                                </a>
+                                <a href="https://harshajw.netlify.app" class="mobile-menu-item">
+                                    <div class="mobile-menu-item-icon career"></div>
+                                    <div class="mobile-menu-item-text">
+                                        <div class="mobile-menu-item-title">Product Management</div>
+                                        <div class="mobile-menu-item-description">7 Courses · 56 Hours</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <a href="https://harshajw.netlify.app" style="text-decoration: none;">
+                            <div class="mobile-menu-group">
+                                <h3 class="mobile-menu-header">
+                                    <span>About</span>
+                                </h3>
+                            </div>
+                        </a>
+                        <a href="https://harshajw.netlify.app" style="text-decoration: none;">
+                            <div class="mobile-menu-group">
+                                <h3 class="mobile-menu-header">
+                                    <span>Contact us</span>
+                                </h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="mobile-menu-auth">
+                    <div class="mobile-menu-auth-buttons">
+                        <a href="https://serv-learner-prod.growthschool.io/auth/login" class="mobile-menu-auth-button submit">Submit Paper</a>
+                        <a href="https://forms.growthschool.io/custom/apply-as-a-mentor-at-growthschool/8125ff18-d4a1-42d1-a6f6-0f3bcd3c840a" class="mobile-menu-auth-button join">Join as Reviewer</a>
+                    </div>
+                </div>
+            </div>
+            <div id="menuOverlay"></div>
+            <div class="divider"></div>
+        </div>
+    </header>
+    <script>
+        // Learn Mega Menu
+        const learningPathsBtn = document.getElementById('learningPathsBtn');
+        const megaMenu = document.getElementById('megaMenu');
+        const learnChevron = learningPathsBtn.querySelector('svg');
+        let isMenuOpen = false;
+
+        function showLearnMegaMenu() {
+            megaMenu.classList.add('active');
+            learnChevron.style.transform = 'rotate(180deg)';
+        }
+
+        function hideLearnMegaMenu() {
+            megaMenu.classList.remove('active');
+            learnChevron.style.transform = 'rotate(0deg)';
+        }
+
+        learningPathsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (isMenuOpen) {
+                hideLearnMegaMenu();
+            } else {
+                showLearnMegaMenu();
+                hideArchiveMegaMenu();
+            }
+            isMenuOpen = !isMenuOpen;
+        });
+
+        // Archive Mega Menu
+        const archiveBtn = document.getElementById('archiveBtn');
+        const archiveMegaMenu = document.getElementById('archiveMegaMenu');
+        const archiveChevron = archiveBtn.querySelector('svg');
+        let isArchiveMenuOpen = false;
+
+        function showArchiveMegaMenu() {
+            archiveMegaMenu.classList.add('active');
+            archiveChevron.style.transform = 'rotate(180deg)';
+        }
+
+        function hideArchiveMegaMenu() {
+            archiveMegaMenu.classList.remove('active');
+            archiveChevron.style.transform = 'rotate(0deg)';
+        }
+
+        archiveBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (isArchiveMenuOpen) {
+                hideArchiveMegaMenu();
+            } else {
+                showArchiveMegaMenu();
+                hideLearnMegaMenu();
+            }
+            isArchiveMenuOpen = !isArchiveMenuOpen;
+        });
+
+        document.addEventListener('click', (e) => {
+            if (isMenuOpen && !megaMenu.contains(e.target) && !learningPathsBtn.contains(e.target)) {
+                hideLearnMegaMenu();
+                isMenuOpen = false;
+            }
+            if (isArchiveMenuOpen && !archiveMegaMenu.contains(e.target) && !archiveBtn.contains(e.target)) {
+                hideArchiveMegaMenu();
+                isArchiveMenuOpen = false;
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+            if (isMenuOpen) {
+                hideLearnMegaMenu();
+                isMenuOpen = false;
+            }
+            if (isArchiveMenuOpen) {
+                hideArchiveMegaMenu();
+                isArchiveMenuOpen = false;
+            }
+        });
+
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        function toggleMobileMenu() {
+            const isOpen = mobileMenu.classList.contains('active');
+            if (isOpen) {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            } else {
+                mobileMenu.classList.add('active');
+                menuOverlay.classList.add('active');
+            }
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuClose.addEventListener('click', toggleMobileMenu);
+        menuOverlay.addEventListener('click', toggleMobileMenu);
+
+        // Close on ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && window.innerWidth <= 768) {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                if (isMenuOpen) {
+                    hideLearnMegaMenu();
+                    isMenuOpen = false;
+                }
+                if (isArchiveMenuOpen) {
+                    hideArchiveMegaMenu();
+                    isArchiveMenuOpen = false;
+                }
+            }
+        });
+    </script>
