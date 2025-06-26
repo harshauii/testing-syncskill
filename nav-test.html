@@ -1,0 +1,20 @@
+<body>
+  <div id="navbar"></div>
+
+  <main>
+    <!-- Your page content -->
+  </main>
+
+  <div id="footer"></div>
+
+  <script>
+    // Reuse footer and navbar
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("navbar").innerHTML = data);
+
+    fetch("footer.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("footer").innerHTML = data);
+  </script>
+</body>
